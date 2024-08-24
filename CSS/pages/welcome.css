@@ -1,0 +1,90 @@
+* {
+    background-color: #131313;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+nav {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    height: 8vh;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #131313;
+    position: fixed;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    z-index: 2;
+}
+
+ul {
+    background-color: transparent;
+    list-style: none;
+    display: flex;
+    padding-right: 475px;
+}
+
+a {
+    background-color: transparent;
+    margin: 0 35px 0 35px;
+    text-decoration: none;
+    color: gray;
+    font-size: 17px;
+}
+
+a:hover {
+    color: white;
+    transition: 0.3s;
+}
+
+li {
+    background-color: transparent;
+}
+
+.logoNav {
+    width: 160px;
+    position: absolute;
+    left: 350px;
+}
+
+.linha1 {
+    position: absolute;
+    width: 650px;
+    top: 100px;
+    right: 40px;
+}
+
+.linha2 {
+    position: absolute;
+    width: 650px;
+    top: 100px;
+    left: 40px;
+    transform: rotate(180deg);
+}
+
+/* .bola {
+    top: 50px;
+    right: -10px;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    background-color: #5DDAB6;
+    box-shadow: 0 0 80px 0 #5DDAB6;
+} */

@@ -1,0 +1,6 @@
+@import url(./partials/colors.css);
+@import url(./partials/texto.css);
+@import url(./partials/layout.css);
+
+/* Importando telas */
+@import url(./pages/welcome.css);
