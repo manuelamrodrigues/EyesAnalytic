@@ -58,25 +58,62 @@ li {
 }
 
 .logoNav {
-    width: 160px;
+    width: 100px;
+    height: 50px;
     position: absolute;
-    left: 350px;
+    left: 200px;
 }
 
 .linha1 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
     right: 40px;
 }
 
 .linha2 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
     left: 40px;
     transform: rotate(180deg);
 }
+
+
+.section-sobre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../imgs/img-sobre3.jpg);
+    background-position: cover;
+    /* background-position:center ; */
+    background-size: cover;
+    /* background-color: aliceblue; */
+}
+
+.sobre-main {
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    background-color: aliceblue;
+    align-items: center;
+    display: flex;
+}
+
+.sobre-card {
+    color: black;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+    display: flex;
+}
+
+
+
 
 /* .bola {
     top: 50px;
