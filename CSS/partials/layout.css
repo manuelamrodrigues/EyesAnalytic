@@ -1,15 +1,38 @@
 @import url(../style.css);
 
 @media (min-width: 1200px) {
-    
+    nav {
+        height: 100px;
+    }
+    .logoNav {
+        width: 500px;
+        margin-right: 90px;
+    }
+}   
+
+@media (max-width: 1199px) {
+    .logoNav {
+        width: 45px;
+        margin-right: 50px;
+    }
+    .linha1 {
+        width: 100px;
+    }
+    .linha2 {
+        width: 100px;
+    }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
-
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-
+@media (max-width: 991px) {
+    .logoNav {
+        margin-right: 0;
+    }
+    .linha1 {
+        display: none;
+    }
+    .linha2 {
+        display: none;
+    }
     li {
         display: none;
     }
@@ -19,8 +42,8 @@
 
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
-    
+@media (max-width: 767px) {
+
 }
 
 @media (max-width: 575px) {

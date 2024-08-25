@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 section {
@@ -22,13 +22,13 @@ nav {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
-    height: 8vh;
+    height: 60px;
     width: 100%;
     box-sizing: border-box;
     background-color: #131313;
     position: fixed;
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     z-index: 2;
 }
@@ -37,7 +37,6 @@ ul {
     background-color: transparent;
     list-style: none;
     display: flex;
-    padding-right: 475px;
 }
 
 a {
@@ -58,24 +57,37 @@ li {
 }
 
 .logoNav {
-    width: 160px;
-    position: absolute;
-    left: 350px;
+    width: 45px;
 }
 
 .linha1 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
-    right: 40px;
+    right: 40px;    
+    z-index: 1;
 }
 
 .linha2 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
     left: 40px;
     transform: rotate(180deg);
+    z-index: 1;
+}
+
+@media (max-width: 1199px) {
+    .logoNav {
+        width: 45px;
+        margin-right: 50px;
+    }
+    .linha1 {
+        width: 380px;
+    }
+    .linha2 {
+        width: 380px;
+    }
 }
 
 /* .bola {
