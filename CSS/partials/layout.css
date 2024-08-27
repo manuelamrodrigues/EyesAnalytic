@@ -1,8 +1,92 @@
 @import url(../style.css);
 
+section {
+    width: 100vw;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+    background-color: #131313;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #131313;
+    backdrop-filter: blur(7px);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}   
+
+ul {
+    background-color: transparent;
+    list-style: none;
+    display: flex;
+}
+
+a {
+    background-color: transparent;
+    margin: 0 35px 0 35px;
+    text-decoration: none;
+    color: gray;
+    font-size: 17px;
+}
+
+a:hover {
+    color: white;
+    transition: 0.3s;
+}
+
+li {
+    background-color: transparent;
+}
+
+button {
+    --hover-shadows: 0 0 15px 0 #0D5E4E;
+    --accent: #044639;
+    margin-left: 100px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 1.1em;
+    background-color: #212121;
+    cursor: pointer;
+    color: white;
+    padding: 1em 2em;
+    font-size: 14px;
+    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
+      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 25px 0 #262626;
+    transition: 0.5s;
+}
+  
+button:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #09B290;
+    transition: 0.8s;
+}
+  
+button:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 7px 3px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}
+
 @media (min-width: 1200px) {
     nav {
-        height: 100px;
+        height: 10vh;
     }
     .logoNav {
         width: 500px;
@@ -11,6 +95,9 @@
 }   
 
 @media (max-width: 1199px) {
+    nav {
+        height: 9vh;
+    }
     .logoNav {
         width: 45px;
         margin-right: 50px;
@@ -24,6 +111,14 @@
 }
 
 @media (max-width: 991px) {
+    button {
+        position: absolute;
+        right: 40px;
+        top: 9px;
+    }
+    nav {
+        height: 8vh;
+    }
     .logoNav {
         margin-right: 0;
     }
@@ -47,5 +142,9 @@
 }
 
 @media (max-width: 575px) {
-
+    button {
+        font-size: 11px;
+        top: 13px;
+        right: 20px;
+    }
 }
