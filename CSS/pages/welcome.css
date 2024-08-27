@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 section {
@@ -22,13 +22,13 @@ nav {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
-    height: 8vh;
+    height: 60px;
     width: 100%;
     box-sizing: border-box;
     background-color: #131313;
     position: fixed;
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     z-index: 2;
 }
@@ -37,7 +37,6 @@ ul {
     background-color: transparent;
     list-style: none;
     display: flex;
-    padding-right: 475px;
 }
 
 a {
@@ -58,33 +57,77 @@ li {
 }
 
 .logoNav {
-    width: 160px;
+    width: 100px;
+    height: 50px;
     position: absolute;
-    left: 350px;
+    left: 200px;
 }
 
 .linha1 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
-    right: 40px;
+    right: 40px;    
+    z-index: 1;
 }
 
 .linha2 {
     position: absolute;
-    width: 650px;
+    width: 500px;
     top: 100px;
     left: 40px;
     transform: rotate(180deg);
+    z-index: 1;
 }
 
-/* .bola {
-    top: 50px;
-    right: -10px;
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-    position: absolute;
-    background-color: #5DDAB6;
-    box-shadow: 0 0 80px 0 #5DDAB6;
-} */
+@media (max-width: 1199px) {
+    .logoNav {
+        width: 45px;
+        margin-right: 50px;
+    }
+    .linha1 {
+        width: 380px;
+    }
+    .linha2 {
+        width: 380px;
+    }
+}
+
+
+.section-sobre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 130vh;
+    background-image: url(../../imgs/img-sobre6.png);
+    background-position: cover;
+    background-size: cover;
+}
+
+.sobre-main {
+    justify-content: center;
+    flex-direction: column;
+    width: 600px;
+    height: 400px;
+    align-items: center;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.76);
+    opacity: 0.9;
+    color: aliceblue;
+    border-radius: 12px;
+    border: black;
+    border: solid#131313 3px;
+    backdrop-filter: blur(10px);
+}
+.sobre-titulo {
+    display: flex;
+    padding-bottom: 30px;
+    padding: 30px;
+    margin-bottom: 50px;
+    background: transparent;
+    /* background-color: aliceblue; */
+}
+.sobre-titulo h1 {
+    background: transparent;
+}
