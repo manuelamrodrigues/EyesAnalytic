@@ -1,12 +1,18 @@
+#sobre{
+    width: 100vw;
+    height: 100vh;
+
+}
+
 .fundo {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-image: url(../../imgs/sobre-imagem.png);
-    background-position: cover;
+    background: url(../../imgs/Frame\ 1.png) no-repeat center center;
     background-size: cover;
+    
 }
 
 .sobre-main {
