@@ -2,6 +2,45 @@
     width: 50px;
 }
 
+.blur {
+    width: 700px;
+    position: absolute;
+    background: none;
+    right: 33%;
+
+
+}
+
+.login {
+    --hover-shadows: 0 0 35px 0 #0D5E4E;
+    --accent: #055545;
+    color: white;
+    padding: 10px 28px 10px 28px;
+    margin-left: 130px;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #212121;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
+      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 20px 0 #4a4e4e;
+    transition: 0.5s;
+}
+
+.login:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #09B290;
+    transition: 0.8s;
+}
+  
+.login:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 20px 8px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}  
+
 .father {
     height: 100%;
     width: 100%;
@@ -11,33 +50,11 @@
     z-index: 2;
 }
 
-ul {
-    background-color: transparent;
-    list-style: none;
-    display: flex;
-}
-
-a {
-    background-color: transparent;
-    margin: 0 35px 0 35px;
-    text-decoration: none;
-    color: gray;
-    font-size: 17px;
-}
-
-a:hover {
-    color: white;
-    transition: 0.3s;
-}
-
-li {
-    background-color: transparent;
-}
-
 .logoNav {
     width: 100px;
     height: 50px;
     left: 200px;
+    background: none;
 }
 
 .linha1 {
@@ -47,6 +64,7 @@ li {
     width: 30%;
     transform: rotate(180deg);
     z-index: 2;
+    background: none;
 }
 
 .linha2 {
@@ -55,50 +73,50 @@ li {
     right: 0;
     width: 30%;
     z-index: 2;
+    background: none;
 }
 
 .text-welcome {
     height: 55%;
     width: 50%;
-    background-color: purple;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
     z-index: 3;
 }
 
-
-.section-sobre {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 130vh;
-    background-image: url(../../imgs/img-sobre6.png);
-    background-position: cover;
-    background-size: cover;
+.text-welcome button {
+    --hover-shadows: 0 0 80px 0 #0D5E4E;
+    --accent: #086e5a;
+    margin: 50px 0 0 0;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 1.1em;
+    background-color: #08836a;
+    cursor: pointer;
+    color: white;
+    padding: 20px 50px 20px 50px;
+    font-size: 25px;
+    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
+      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 40px 0 #455858;
+    transition: 0.5s;
 }
 
-.sobre-main {
-    justify-content: center;
-    flex-direction: column;
-    width: 600px;
-    height: 400px;
-    align-items: center;
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.76);
-    opacity: 0.9;
-    color: aliceblue;
-    border-radius: 12px;
-    border: black;
-    border: solid#131313 3px;
-    backdrop-filter: blur(10px);
+.text-welcome button:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #0ecca6;
+    transition: 0.8s;
 }
-.sobre-titulo {
-    display: flex;
-    padding-bottom: 30px;
-    padding: 30px;
-    margin-bottom: 50px;
-    background: transparent;
-    /* background-color: aliceblue; */
-}
-.sobre-titulo h1 {
-    background: transparent;
-}
+  
+.text-welcome button:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 40px 10px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}   

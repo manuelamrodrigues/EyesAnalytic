@@ -13,6 +13,16 @@ section {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: white;
+}
+
+h1 {
+    background: none;
+    font-size: 50px;
+}
+
+h4 {
+    background: none;
 }
 
 nav {
@@ -21,7 +31,7 @@ nav {
     font-style: normal;
     width: 100%;
     box-sizing: border-box;
-    background-color: #131313;
+    background-color: #1313139a;
     backdrop-filter: blur(7px);
     position: fixed;
     display: flex;
@@ -51,37 +61,6 @@ a:hover {
 
 li {
     background-color: transparent;
-}
-
-button {
-    --hover-shadows: 0 0 15px 0 #0D5E4E;
-    --accent: #044639;
-    margin-left: 100px;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    border: none;
-    border-radius: 1.1em;
-    background-color: #212121;
-    cursor: pointer;
-    color: white;
-    padding: 1em 2em;
-    font-size: 14px;
-    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
-      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-    box-shadow: 0 0 25px 0 #262626;
-    transition: 0.5s;
-}
-  
-button:hover {
-    box-shadow: var(--hover-shadows);
-    background-color: #09B290;
-    transition: 0.8s;
-}
-  
-button:active {
-    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 7px 3px;
-    background-color: var(--accent);
-    transform: scale(0.95);
 }
 
 @media (min-width: 1200px) {
