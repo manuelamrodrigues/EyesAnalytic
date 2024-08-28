@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,28 +9,27 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>EyesAnalytic | Login</title>
 </head>
+
 <body>
-    
+
     <header>
-        <nav>
-            <img class="logoNav" src="../svg/Logo.svg" alt="logo">
+        <nav class="nav-bar">
+            <div class="logo">
+                <img class="logoNav" src="../svg/Logo.svg" alt="logo">
+            </div>
         </nav>
     </header>
 
 
-
-
-
     <div class="login">
-        <div class="logo"> 
+        <div class="loginTexto"> 
             <h1>Login</h1>
         </div>
 
 
         <div class="input_box">
             <span>E-mail</span>
-            <div class="icon">
-                <i class='bx bxs-envelope'></i>
+            <div class="inputCampo">
                 <input type="text" id="input_email" placeholder="E-mail">
             </div>
         </div>
@@ -37,8 +37,7 @@
 
         <div class="input_box">
             <span>Senha</span>
-            <div class="icon">
-                <i class='bx bxs-lock-alt'></i>
+            <div class="inputCampo">
                 <input type="password" id="input_senha" placeholder="Senha">
             </div>
         </div>
@@ -50,9 +49,8 @@
         </div>
 
         <button type="submit" onclick="entrar()">Entrar</button>
-
-
     </div>
-    
+
 </body>
+
 </html>
