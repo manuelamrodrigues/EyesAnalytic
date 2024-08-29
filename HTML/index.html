@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPRINT</title>
+    <title>Eyes Analytic</title>
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="shortcut icon" href="../svg/Logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="../CSS/pages/welcome.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,16 +26,16 @@
                 <li><a href="#beneficios">Benefícios</a></li>
                 <li><a href="#equipe">Sobre nós</a></li>
             </ul>
-            <button onclick="login()" class="login">Login</button>
+            <a href="login.html"><button onclick="login()" class="login">Login</button></a>
         </nav>
     </header>
 
     <section id="welcome">
+        
         <div class="father">
+            <div class="blur"></div>
             <img class="linha1" src="../SVG/Linha3.svg">
             <img class="linha2" src="../SVG/Linha3.svg">
-            
-            <img src="../svg/blur.svg" class="blur">
 
             <div class="text-welcome">
                 <h1>The day is coming!</h1>
@@ -42,7 +43,7 @@
                 <br>
                 <h4>You must be prepared for what's coming now</h4>
 
-                <button onclick="contato()">Entre em contato</button>
+                <button onclick="contato()" class="button-welcome">Entre em contato</button>
             </div>
         </div>
     </section>

@@ -1,5 +1,3 @@
-@import url(../style.css);
-
 section {
     width: 100vw;
     height: 100vh;
@@ -90,7 +88,13 @@ li {
 }
 
 @media (max-width: 991px) {
-    button {
+    h1 {
+        font-size: 40px;
+    }
+    h4 {
+        font-size: 16px;
+    }
+    .login {
         position: absolute;
         right: 40px;
         top: 9px;
@@ -99,7 +103,7 @@ li {
         height: 8vh;
     }
     .logoNav {
-        margin-right: 0;
+        margin: 0;
     }
     .linha1 {
         display: none;
@@ -117,13 +121,32 @@ li {
 }
 
 @media (max-width: 767px) {
-
+    h1 {
+        font-size: 36px;
+    }
+    h4 {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 575px) {
-    button {
-        font-size: 11px;
-        top: 13px;
+    h1 {
+        font-size: 32px;
+    }
+    h4 {
+        font-size: 14px;
+    }
+    .login {
+        position: absolute;
         right: 20px;
+    }
+}
+
+@media (max-width: 335px) {
+    h1 {
+        font-size: 28px;
+    }
+    h4 {
+        font-size: 12px;
     }
 }

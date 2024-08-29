@@ -3,29 +3,33 @@
 }
 
 .blur {
-    width: 700px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
     position: absolute;
-    background: none;
-    right: 33%;
-
-
+    background: #0baf8e66;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: 1;
+    filter: blur(50px);
 }
 
 .login {
-    --hover-shadows: 0 0 35px 0 #0D5E4E;
+    --hover-shadows: 0 0 30px 0 #0D5E4E;
     --accent: #055545;
     color: white;
-    padding: 10px 28px 10px 28px;
+    padding: 9px 26px 9px 26px;
     margin-left: 130px;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 0.5em;
     background: #212121;
     cursor: pointer;
     border: none;
     font-weight: bold;
     transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
-      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-    box-shadow: 0 0 20px 0 #4a4e4e;
+    letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 10px 0 #4a4e4e;
     transition: 0.5s;
 }
 
@@ -39,9 +43,27 @@
     box-shadow: var(--hover-shadows), var(--accent) 0px 0px 20px 8px;
     background-color: var(--accent);
     transform: scale(0.95);
-}  
+}
+
+@media (max-width: 991px) {
+    .logoNav {
+        margin-left: 60px;
+    }
+    .text-welcome button {
+        padding: 15px 40px 15px 40px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .blur {
+        width: 310px;
+        height: 310px;
+    }
+}
 
 .father {
+    position: relative;
     height: 100%;
     width: 100%;
     display: flex;
@@ -87,10 +109,10 @@
     border-radius: 10px;
     text-align: center;
     box-sizing: border-box;
-    z-index: 3;
+    z-index: 2;
 }
 
-.text-welcome button {
+.button-welcome {
     --hover-shadows: 0 0 80px 0 #0D5E4E;
     --accent: #086e5a;
     margin: 50px 0 0 0;
@@ -109,13 +131,48 @@
     transition: 0.5s;
 }
 
-.text-welcome button:hover {
+@media (max-width: 575px) {
+
+    .text-welcome button {
+        margin-top: 35px;
+        padding: 15px 30px 15px 30px;
+        font-size: 16px;
+    }
+    .blur {
+        width: 270px;
+        height: 270px;
+    }
+    .login {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        font-size: 15px;
+        padding: 9px 18px 9px 18px;
+    }
+}
+
+@media (max-width: 335px) {
+    .text-welcome button {
+        margin-top: 30px;
+        padding: 8px 14px 8px 14px;
+        font-size: 14px;
+    }
+    .login {
+        position: absolute;
+        top: 14px;
+        right: 15px;
+        font-size: 12px;
+        padding: 7px 16px 7px 16px;
+    }
+}
+
+.button-welcome:hover {
     box-shadow: var(--hover-shadows);
     background-color: #0ecca6;
     transition: 0.8s;
 }
   
-.text-welcome button:active {
+.button-welcome:active {
     box-shadow: var(--hover-shadows), var(--accent) 0px 0px 40px 10px;
     background-color: var(--accent);
     transform: scale(0.95);
