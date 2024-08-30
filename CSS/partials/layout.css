@@ -4,10 +4,10 @@ section {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
+    background-color: #131313;
 }
 
 * {
-    background-color: #131313;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
