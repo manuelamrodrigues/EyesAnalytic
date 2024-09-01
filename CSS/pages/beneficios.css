@@ -1,0 +1,65 @@
+.left-beneficios {
+    height: 100%;
+    width: 37%;
+}
+
+.text-beneficios {
+    height: 25%;
+    width: 84%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    text-align: start;
+    padding-left: 100px;
+}
+
+.linha3 {
+    position: absolute;
+    width: 850px;
+    transform: rotate(340deg);
+}
+
+.linha4 {
+    position: absolute;
+    width: 950px;
+    right: 0;
+    transform: rotate(340deg);
+}
+
+.right-beneficios-1 {
+    height: 100%;
+    width: 25%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-bottom: 50px;
+    
+}
+.right-beneficios-2 {
+    height: 100%;
+    width: 25%;
+    flex-direction: column;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    padding-bottom: 80px;
+}
+
+.card-beneficios-1 {
+    background-color: #00000088;
+    height: 34%;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    backdrop-filter: blur(6px);
+}
+
+.card-beneficios-2 {
+    background-color: #00000088;
+    height: 39%;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    backdrop-filter: blur(6px);
+}
