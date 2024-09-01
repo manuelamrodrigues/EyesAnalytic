@@ -5,6 +5,7 @@
 /* Importando telas */
 @import url(./pages/welcome.css);
 @import url(./pages/sobre-nos.css);
+@import url(./pages/beneficios.css);
 
 html {
     scroll-behavior: smooth;

@@ -1,6 +1,7 @@
 section {
     width: 100vw;
     height: 100vh;
+    display: flex;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
@@ -15,8 +16,11 @@ section {
 }
 
 h1 {
-    background: none;
     font-size: 50px;
+}
+
+h2 {
+    font-size: 36px;
 }
 
 h4 {
@@ -109,6 +113,12 @@ li {
         display: none;
     }
     .linha2 {
+        display: none;
+    }
+    .linha3 {
+        display: none;
+    }
+    .linha4 {
         display: none;
     }
     li {
