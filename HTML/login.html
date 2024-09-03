@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../CSS/pages/login.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="../svg/Logo.svg" type="image/x-icon">   
+    <link rel="shortcut icon" href="../svg/Logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../CSS/pages/login.css">  
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,8 +27,6 @@
 
 
     <div class="login">
-            <img class="linha1" src="../SVG/Linha3.svg">
-            <img class="linha2" src="../SVG/Linha3.svg">
 
         <div class="loginTexto"> 
             <a href="index.html"><img src="./../SVG/Logo.svg" alt="logo"></a>
@@ -37,19 +34,17 @@
         </div>
 
 
-        <div class="input_box">
-            <span>E-mail</span>
-            <div class="inputCampo">
-                <input type="text" id="input_email" placeholder="E-mail">
-            </div>
+        <div class="input field">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input"
+                autocomplete="off">
+            <label for="name" class="caixa">E-mail</label>
         </div>
 
 
-        <div class="input_box">
-            <span>Senha</span>
-            <div class="inputCampo">
-                <input type="password" id="input_senha" placeholder="Senha">
-            </div>
+        <div class="input field">
+            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input"
+                autocomplete="off">
+            <label for="name" class="caixa">Senha</label>
         </div>
 
 

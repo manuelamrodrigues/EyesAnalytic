@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 body{
@@ -16,38 +19,27 @@ body{
 .login{
     width: 100%;
     max-width: 400px;
-    background-color: #0D5E4E;
+    background-color: #131313;
     opacity: 0.90;
     color: white;
     border-radius: 18px;
-    padding: 25px;
-    box-shadow: 5px 5px 10px rgba(255, 252, 252, 0.2), 10px 10px 20px rgba(192, 190, 190, 0.4);
-    margin: 0 10px;         
+    padding: 35px;
+    box-shadow: 0 0 12px 0 #01362c;
+    margin: 0 12px;
+    transition: 0.5s ease;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;     
 }
 
-.login:hoover{
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
-    0 0 30px rgba(255, 255, 255, 0.5);
+.login:hover{
+    box-shadow: 0 4px 8px #025544;
+    transition: 0.5s ease;
+    transform: translateY(-3px);
 }
 
-.linha1 {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 30%;
-    transform: rotate(180deg);
-    z-index: 2;
-    background: none;
-}
 
-.linha2 {
-    position: absolute;
-    top: 80px;
-    right: 0;
-    width: 30%;
-    z-index: 2;
-    background: none;
-}
 
 .login .loginTexto{
     text-align: center;
@@ -58,132 +50,172 @@ body{
     height: auto;
 }
 
-.input_box span{
-    font-size: 20px;
+.input {
+    position: relative;
+    padding: 20px 0 0;
+    margin: 8px 0 0;;
+    width: 100%;
+    max-width: 330px;
+}
+
+.campo {
+    font-family: inherit;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 17px;
+    color: #fff;
+    padding: 7px 0;
+    margin-bottom: 8px;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.campo::placeholder {
+    color: transparent;
+}
+
+.campo:placeholder-shown ~ .caixa {
+    font-size: 17px;
+    cursor: text;
+    top: 20px;
+    ckground-color: #f0f8ff;
+}
+
+.campo:focus {
+    padding-top: 5px;
+    padding-bottom: 6px;
+    font-weight: 400;
+    border-width: 2px;
+    border-image: white;
+    border-image-slice: 1;
+}
+
+.campo:focus ~ .caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 17px;
+    color: #ffffff;
     font-weight: 500;
 }
 
-.input_box .inputCampo{
-    margin-bottom: 15px;
-    position: relative;
-    color: black;
+.campo:required, .campo:invalid {
+    box-shadow: none;
 }
 
-
-.input_box .inputCampo input{
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    outline: none;
-    border: 2px solid white;
-    font-size: 18px;
-    box-shadow: 1px 1px 2px;
-    background-color: #f0f8ff;
+.caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 12px;
+    color: #868585;
+    pointer-events: none;
 }
 
 .login .esqueceuSenha{
-    margin-bottom: -10px;
+    height: 100%;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: -6px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
 }
 
 .login .esqueceuSenha a{
-    text-decoration: none;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 500;
     color: white;
     
 }
 
-.login button{
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    outline: none;
-    border: none;
-    font-size: 18px;
-    margin: 10px 0;
-    cursor: pointer;
-    background-color: #f0f8ff;
-
-    --hover-shadows: 0 0 80px 0 #0D5E4E;
-    --accent: #086e5a;
-    margin: 50px 0 0 0;
+.login button {
+    --hover-shadows: 0 0 20px 0 #0D5E4E;
+    --accent: #053f33;
+    margin: 40px 0 0 0;
     font-weight: bold;
+    width: 85%;
+    padding: 6px 10px 6px 10px;
     letter-spacing: 0.1em;
     border: none;
     border-radius: 1.1em;
     background-color: #08836a;
     cursor: pointer;
     color: white;
-    padding: 15px, 30px;
-    font-size: 25px;
+    font-size: 24px;
     transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
       letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-    box-shadow: 0 0 40px 0 #455858;
+    box-shadow: 0 0 15px 0 #455858;
     transition: 0.5s;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
+.login button:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #0ba385;
+    transition: 0.8s;
+}
+  
+.login button:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 10px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}   
 
 @media (max-width: 768px) {
-    .input_box span {
-        font-size: 18px;
-    }
 
+    /*Colocar setinha para voltar*/
 
-    .input_box .inputCampo input {
-        font-size: 16px;
-        padding: 8px;
-    }
-
-    .login .esqueceuSenha a {
-        font-size: 16px;
-    }
-
-    .login button {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    .linha1, .linha2 {
-        display: none;
-    } 
 }
 
-@media (max-width: 480px) {
-    .input_box span {
-        font-size: 16px;
-    }
-
-    .input_box .inputCampo input {
-        font-size: 14px;
-        padding: 6px;
-    }
-
-    .login .esqueceuSenha a {
+@media (max-width: 560px) {
+    
+    .login {
+        width: 350px;
+        height: 400px;
         font-size: 14px;
     }
 
+    .campo {
+        font-size: 10px;
+        padding: 8px 0;
+    }
+
+    .login .esqueceuSenha {
+        margin: 0 0 -15px 0;
+    }
+    
     .login button {
-        font-size: 14px;
-        padding: 12px;
+        padding: 4px 8px 4px 8px;
     }
 
-    .linha1, .linha2 {
-       display: none;
+}
+
+@media (max-width: 420px) {
+    
+    .login {
+        width: 250px;
+        height: 370px;
+        font-size: 10px;
+        padding: 30px 20px 30px 20px;
     }
+
+    .campo {
+        font-size: 8px;
+        padding: 6px 0;
+    }
+
+    .login .esqueceuSenha {
+        margin: 0 0 -10px 0;
+    }
+    
+    .login button {
+        padding: 3px 6px 3px 6px;
+    }
+
 }
 
 .logo {
