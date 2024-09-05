@@ -73,7 +73,7 @@
   height: 60%;
   width: 20%;
   box-shadow: 0 0 25px 0 #08a2ad;
-  background-color: #131313e0;
+  background-color: #1313138c;
   backdrop-filter: blur(4px);
   transition: 0.5s ease;
 }
@@ -107,7 +107,7 @@
   width: 20%;
   border-radius: 0 9px 9px 0;
   box-shadow: 0 0 25px 0 #08a2ad;
-  background-color: #131313e0;
+  background-color: #1313138c;
   backdrop-filter: blur(4px);
   transition: 0.5s ease;
 }
