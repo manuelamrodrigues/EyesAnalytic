@@ -172,7 +172,7 @@
   }
 }
 
-@media (min-width: 930px) {
+@media (max-width: 930px) {
   .card-1, .card-2, .card-3 {
       width: 25%;
       height: 50%;
@@ -182,7 +182,7 @@
 @media (max-width: 780px) {
   .card-1, .card-2, .card-3 {
     width: 25%;
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
@@ -196,17 +196,18 @@
 
 @media (max-width: 750px) {
   .card-1, .card-2, .card-3 {
-      width: 27%;
-      height: 50%;
-      font-size: 11px;
+      width: 23%;
+      height: 45%;
+      font-size: 10px;
   }
+
 }
 
-@media (m-width: 730px) {
+@media (max-width: 730px) {
   .card-1, .card-2, .card-3 {
-      width: 28%;
-      height: 50%;
-      font-size: 12px;
+      width: 25%;
+      height: 40%;
+      font-size: 10px;
   }
 }
 
@@ -218,7 +219,7 @@
     }
 }
 
-@media (min-width: 700px) {
+@media (max-width: 700px) {
   .card-1, .card-2, .card-3 {
       width: 25%;
       font-size: 11px;
@@ -227,51 +228,17 @@
 
 @media (max-width: 697px) {
   .card-1, .card-2, .card-3 {
-      width: 29%;
+      width: 25%;
       height: 50%;
       font-size: 10px;
       padding: 5px;
   }
-  .card-father {
-    gap: 7px; /* Diminui o espaço entre os cards */
-    justify-content: space-between; /* Garante que os cards se distribuam melhor no espaço */
 }
 
-.card-1 h1, .card-2 h1, .card-3 h1 {
-    font-size: 12px; /* Reduz o tamanho do título */
-}
-
-.card-1 p, .card-2 p, .card-3 p {
-    font-size: 9px; /* Texto menor e ajustado ao espaço disponível */
-}
-}
-
-@media (min-width: 661px) {
+@media (max-width: 630px) {
   .card-1, .card-2, .card-3 {
       width: 25%;
+      height: 50%;
       font-size: 10px;
-      
-  }
-}
-
-@media (max-width: 600px) {
-  .card-1, .card-2, .card-3 {
-      width: 30%; /* Diminuímos a largura */
-      height: 45%; /* Ajuste da altura para evitar que o conteúdo corte */
-      font-size: 9px; /* Texto menor para caber melhor */
-      padding: 5px; /* Adiciona espaçamento interno para evitar que o texto fique colado nas bordas */
-  }
-
-  .card-father {
-      gap: 10px; /* Diminui o espaço entre os cards */
-      justify-content: space-between; /* Garante que os cards se distribuam melhor no espaço */
-  }
-
-  .card-1 h1, .card-2 h1, .card-3 h1 {
-      font-size: 12px; /* Reduz o tamanho do título */
-  }
-
-  .card-1 p, .card-2 p, .card-3 p {
-      font-size: 8px; /* Texto menor e ajustado ao espaço disponível */
   }
 }
