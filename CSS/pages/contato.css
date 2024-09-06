@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #131313;
+}
+
+.login{
+    width: 100%;
+    max-width: 400px;
+    background-color: #131313;
+    opacity: 0.90;
+    color: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 0 12px 0 #01362c;
+    margin: 0 12px;
+    transition: 0.5s ease;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;     
+}
+
+.login:hover{
+    box-shadow: 0 4px 8px #025544;
+    transition: 0.5s ease;
+    transform: translateY(-3px);
+}
+
+.login .loginTexto{
+    text-align: center;
+}
+
+.login .loginTexto img{
+    width: 50px;
+    height: auto;
+}
+
+.input {
+    position: relative;
+    padding: 20px 0 0;
+    margin: 8px 0 0;
+    width: 100%;
+    max-width: 330px;
+}
+
+.campo {
+    font-family: inherit;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 17px;
+    color: #fff;
+    padding: 7px 0;
+    margin-bottom: 8px;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.campo::placeholder {
+    color: transparent;
+}
+
+.campo:placeholder-shown ~ .caixa {
+    font-size: 17px;
+    cursor: text;
+    top: 20px;
+    ckground-color: #f0f8ff;
+}
+
+.campo:focus {
+    padding-top: 5px;
+    padding-bottom: 6px;
+    font-weight: 400;
+    border-width: 2px;
+    border-image: white;
+    border-image-slice: 1;
+}
+
+.campo:focus ~ .caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 17px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.campo:required, .campo:invalid {
+    box-shadow: none;
+}
+
+.caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 12px;
+    color: #868585;
+    pointer-events: none;
+}
+
+.botao {
+    --hover-shadows: 0 0 20px 0 #0D5E4E;
+    --accent: #053f33;
+    margin: 40px 0 0 0;
+    font-weight: bold;
+    width: 85%;
+    padding: 6px 10px 6px 10px;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 15px;
+    background-color: #08836a;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
+      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 15px 0 #455858;
+    transition: 0.5s;
+}
+
+.botao:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #0ba385;
+    transition: 0.8s;
+}
+  
+.botao:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 10px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}   
+
+@media (max-width: 768px) {
+
+    /*Colocar setinha para voltar*/
+
+}
+
+@media (max-width: 560px) {
+    
+    .login {
+        width: 350px;
+        height: 450px;
+        font-size: 14px;
+    }
+
+    .campo {
+        padding: 8px 0;
+    }
+    
+    .botao {
+        font-size: 20px;
+        padding: 4px 8px 4px 8px;
+        margin: 18px 0 0 0;
+    }
+
+    .input {
+        margin: 0;
+    }
+
+}
+
+@media (max-width: 420px) {
+    
+    .login {
+        width: 250px;
+        height: 390px;
+        font-size: 10px;
+        padding: 30px 20px 30px 20px;
+    }
+
+    .campo {
+        font-size: 8px;
+        padding: 6px 0;
+    }
+    
+    .botao {
+        padding: 3px 6px 3px 6px;
+    }
+
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 730px) {
+    .nav-bar {
+        padding: 1.5rem 4rem;
+    }
+    
+}
