@@ -286,7 +286,10 @@
 
 }
 
-@media (max-width: 441px) {
+/* @media (max-width: 441px) {
+  .card-father {
+    display: block; 
+  }
   .card-1, .card-2, .card-3 {
     width: 53%;
     height: 43%;
@@ -295,6 +298,9 @@
 }
 
 @media (max-width: 416px) {
+  .card-father {
+    display: block; 
+  }
   .card-1, .card-2, .card-3 {
     width: 80%;
         height: 45%;
@@ -303,9 +309,12 @@
 }
 
 @media (max-width: 352px) {
+  .card-father {
+    display: block; 
+  }
   .card-1, .card-2, .card-3 {
     width: 80%;
         height: 45%;
         font-size: 14px;
   }
-}
+} */
