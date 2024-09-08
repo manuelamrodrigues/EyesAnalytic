@@ -15,6 +15,30 @@ section {
     color: white;
 }
 
+html, body {
+    overflow-x: hidden
+        !important;
+}
+
+::-webkit-scrollbar {
+    width: 0.6vw;
+    background: #222222;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: -webkit-linear-gradient(#087b97, #0bcea7);
+    background: linear-gradient(#087b97, #0bcea7);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: -webkit-linear-gradient(#0ea2c7, #11f0c3);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: -webkit-linear-gradient(#065c72, #09977b);
+}
+
 h1 {
     font-size: 50px;
 }
@@ -65,6 +89,15 @@ li {
     background-color: transparent;
 }
 
+p {
+    font-size: 18px;
+}
+
+footer {
+    height: 55vh;
+    background: linear-gradient(0deg, rgba(51,107,97,1) 5%, rgba(30,47,43,1) 45%, rgba(25,33,31,1) 59%, rgba(22,28,26,1) 68%, rgb(22, 22, 22) 79%, rgb(19, 19, 19) 95%);
+}
+
 @media (min-width: 1200px) {
     nav {
         height: 10vh;
@@ -91,15 +124,26 @@ li {
     }
 }
 
+@media (max-width: 1080px) {
+
+    p {
+        font-size: 15px;
+    }
+
+}
+
 @media (max-width: 991px) {
     h1 {
-        font-size: 45px;
+        font-size: 43px;
     }
     h2 {
         font-size: 25px;
     }
     h4 {
         font-size: 15px;
+    }
+    p {
+        font-size: 13px;
     }
     .login {
         position: absolute;
@@ -133,15 +177,27 @@ li {
 
 }
 
+@media (max-width: 900px) {
+    h1 {
+        font-size: 38px;
+    }
+    p {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 767px) {
     h1 {
-        font-size: 40px;
+        font-size: 36px;
     }
     h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
     h4 {
         font-size: 13px;
+    }
+    p {
+        font-size: 11px;
     }
 }
 

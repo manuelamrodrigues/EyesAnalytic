@@ -53,6 +53,8 @@
     margin-bottom: 20px;
     border-radius: 9px;
     backdrop-filter: blur(6px);
+    text-align: center;
+    padding-top: 10px;
 }
 
 .card-beneficios-2 {
@@ -62,4 +64,10 @@
     margin-bottom: 20px;
     border-radius: 9px;
     backdrop-filter: blur(6px);
+    text-align: center;
+    padding-top: 10px;
+}
+
+.svg-icon{
+    width: 40px;
 }
