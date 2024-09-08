@@ -151,11 +151,18 @@
     }
 }
 
+@media (max-width: 530px) {
+    .text-welcome button {
+        font-size: 15px;
+        padding: 10px 5px 10px 5px;
+    }
+}
+
 @media (max-width: 335px) {
     .text-welcome button {
         margin-top: 30px;
-        padding: 8px 14px 8px 14px;
-        font-size: 14px;
+        font-size: 13px;
+        padding: 15px 2px 15px 2px;
     }
     .login {
         position: absolute;

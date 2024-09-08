@@ -93,10 +93,13 @@ li {
 
 @media (max-width: 991px) {
     h1 {
-        font-size: 40px;
+        font-size: 45px;
+    }
+    h2 {
+        font-size: 25px;
     }
     h4 {
-        font-size: 16px;
+        font-size: 15px;
     }
     .login {
         position: absolute;
@@ -132,19 +135,25 @@ li {
 
 @media (max-width: 767px) {
     h1 {
-        font-size: 36px;
+        font-size: 40px;
+    }
+    h2 {
+        font-size: 20px;
     }
     h4 {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
 
 @media (max-width: 575px) {
     h1 {
-        font-size: 32px;
+        font-size: 35px;
+    }
+    h2 {
+        font-size: 18px;
     }
     h4 {
-        font-size: 14px;
+        font-size: 12px;
     }
     .login {
         position: absolute;
@@ -152,11 +161,26 @@ li {
     }
 }
 
-@media (max-width: 335px) {
+@media (max-width: 450px) {
     h1 {
-        font-size: 28px;
+        font-size: 35px;
+    }
+    h2 {
+        font-size: 18px;
     }
     h4 {
-        font-size: 12px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 335px) {
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        font-size: 16px;
+    }
+    h4 {
+        font-size: 10px;
     }
 }

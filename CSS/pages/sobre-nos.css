@@ -153,50 +153,58 @@
 
 @media (max-width: 1245px) {
   .card-1, .card-2, .card-3 {
-    width: 25%;
+    width: 26%;
     font-size: 13px;
   }
 }
 
 @media (max-width: 1030px) {
   .card-1, .card-2, .card-3 {
-    width: 25%;
+    width: 27%;
     font-size: 13px;
   }
 }
 
 @media (max-width: 960px) {
   .card-1, .card-2, .card-3 {
-    width: 25%;
+    width: 29%;
     font-size: 12px;
+  }
+
+  .card-father {
+    gap: 18px;
   }
 }
 
 @media (max-width: 930px) {
   .card-1, .card-2, .card-3 {
-      width: 25%;
+      width: 29%;
       height: 50%;
   }
 }
 
 @media (max-width: 780px) {
   .card-1, .card-2, .card-3 {
-    width: 25%;
+    width: 30%;
     font-size: 12px;
   }
 }
 
 @media (max-width: 771px) {
   .card-1, .card-2, .card-3 {
-      width: 25%;
+      width: 30%;
       height: 50%;
       font-size: 11px;
+  }
+
+  .card-father {
+    gap: 12px;
   }
 }
 
 @media (max-width: 750px) {
   .card-1, .card-2, .card-3 {
-      width: 23%;
+      width: 28%;
       height: 45%;
       font-size: 10px;
   }
@@ -205,7 +213,7 @@
 
 @media (max-width: 730px) {
   .card-1, .card-2, .card-3 {
-      width: 25%;
+      width: 27%;
       height: 40%;
       font-size: 10px;
   }
@@ -213,8 +221,8 @@
 
 @media (max-width: 710px) {
     .card-1, .card-2, .card-3 {
-        width: 25%;
-        height: 55%;
+        width: 28%;
+        height: 43%;
         font-size: 11px;
     }
 }
@@ -228,8 +236,8 @@
 
 @media (max-width: 697px) {
   .card-1, .card-2, .card-3 {
-      width: 25%;
-      height: 50%;
+      width: 30%;
+      height: 43%;
       font-size: 10px;
       padding: 5px;
   }
@@ -237,51 +245,54 @@
 
 @media (max-width: 630px) {
   .card-1, .card-2, .card-3 {
-      width: 25%;
-      height: 50%;
+      width: 29%;
+      height: 43%;
       font-size: 10px;
   }
 }
 
 @media (max-width: 565px) {
-  .card-1, .card-2, .card-3 {
-      width: 25%;
-      height: 45%;
+  .card-1, .card-2 {
+      width: 38%;
+      height: 40%;
       font-size: 9px;
+      border-radius: 9px;
+  }
+  
+  .card-3 {
+    width: 38%;
+    height: 40%;
+    font-size: 9px;
+    border-radius: 9px;
+    margin-top: -130px;
   }
 }
 
 @media (max-width: 545px) {
   .card-1, .card-2, .card-3 {
-      width: 40%;
+      width: 42%;
       height: 42%;
       font-size: 10px;
       font-weight: 30px;
-  }
-
-  .card-father {
-    gap: 27px;
   }
 }
 
 @media (max-width: 471px) {
   .card-1, .card-2, .card-3 {
-      width: 38%;
-      height: 44%;
+      width: 44%;
+      height: 40%;
       font-size: 11px;
+      padding-top: 60px;
       
   }
 }
 @media (max-width: 450px) {
-  .card-father {
-    display: block; 
-  }
-
   .card-1, .card-2, .card-3 {
     font-size: 10px;
     height: 30%;
-    width: 100%; 
-    margin-bottom: 10px; 
+    width: 80%;
+    padding: 25px 0 0 0;
+    margin: 0 0 4px 0; 
   }
 
 }
