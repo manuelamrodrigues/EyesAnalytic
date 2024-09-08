@@ -49,25 +49,297 @@
 .card-beneficios-1 {
     background-color: #00000088;
     height: 34%;
-    width: 80%;
+    width: 87%;
     margin-bottom: 20px;
     border-radius: 9px;
     backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding-top: 10px;
+    flex-direction: column;
+    padding: 10px;
 }
 
 .card-beneficios-2 {
     background-color: #00000088;
     height: 39%;
-    width: 80%;
+    width: 87%;
     margin-bottom: 20px;
     border-radius: 9px;
     backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding-top: 10px;
+    flex-direction: column;
+    padding: 8px;
 }
 
 .svg-icon{
     width: 40px;
+}
+
+@media (min-width: 1200px) {
+
+    .card-beneficios-1 h3 {
+        font-size: 23px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .card-beneficios-1 {
+        height: 30%;
+        width: 97%;
+    }
+
+    .card-beneficios-2 {
+        height: 34%;
+        width: 97%;
+        margin-left: 20px;
+    }
+
+    .left-beneficios {
+        width: 43.5%;
+    }
+
+    .card-beneficios-1 h3 {
+        font-size: 20px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 20px;
+    }
+    
+}
+
+@media (max-width: 991px) {
+
+    .left-beneficios h2 {
+        font-size: 30px;
+    }
+
+    .left-beneficios {
+        width: 48%;
+    }
+
+    .card-beneficios-1 {
+        width: 100%;
+    }
+
+    .card-beneficios-2 {
+        width: 100%;
+    }
+
+    .right-beneficios-1 {
+        width: 33%;
+        margin-left: -180px;
+    }
+
+    .right-beneficios-2 {
+        width: 33%;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+    
+    .card-beneficios-2 {
+        width: 100%;
+    }
+    
+    .right-beneficios-1 {
+        width: 35%;
+        margin-left: -190px;
+    }
+    
+    .right-beneficios-2 {
+        width: 35%;
+    }
+
+    .card-beneficios-1 h3 {
+        font-size: 18px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 18px;
+    }
+    
+}
+
+@media (max-width: 650px) {
+
+    .left-beneficios h2{
+        font-size: 27px;
+    }
+
+    .left-beneficios {
+        width: 46%;
+    }
+
+    .text-beneficios {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 50px;
+    }
+
+    .right-beneficios-1 {
+        width: 35%;
+        margin-left: -150px;
+    }
+
+    .right-beneficios-2 {
+        width: 35%;
+    }
+    
+    .card-beneficios-1 h3 {
+        font-size: 17px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 17px;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .left-beneficios {
+        width: 60%;
+    }
+
+    .right-beneficios-1 {
+        height: 92%;
+        width: 40%;
+        margin-left: -280px;
+    }
+
+    .right-beneficios-2 {
+        height: 92%;
+        width: 40%;
+    }
+
+}
+
+@media (max-width: 510px) {
+    .right-beneficios-1 {
+        margin-top: 50px;
+        height: 90%;
+        width: 40%;
+        margin-left: -250px;
+    }
+
+    .right-beneficios-2 {
+        margin-top: 50px;
+        height: 90%;
+        width: 40%;
+    }
+
+    .card-beneficios-1 h3 {
+        font-size: 15px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 15px;
+    }
+
+    .text-beneficios {
+        padding-left: 25px;
+    }
+
+    .left-beneficios {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 440px) {
+    
+    .right-beneficios-1 {
+        margin-top: 20px;
+        height: 87%;
+        margin-left: -220px;
+    }
+
+    .right-beneficios-2 {
+        margin-top: 20px;
+        height: 87%;
+    }
+
+    .card-beneficios-1 h3 {
+        font-size: 16px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 16px;
+    }
+
+    .card-beneficios-1 h3 {
+        font-size: 14px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 14px;
+    }
+
+    .left-beneficios {
+        margin-top: 25px;
+    }
+
+    .text-beneficios {
+        padding-left: 15px;
+    }
+
+}
+
+@media (max-width: 395px) {
+    
+    .right-beneficios-1 {
+        height: 85%;
+        width: 44%;
+        margin-left: -215px;
+    }
+
+    .right-beneficios-2 {
+        height: 85%;
+        width: 44%;
+    }
+
+    .left-beneficios {
+        margin-top: 15px;
+    }
+
+    .text-beneficios {
+        padding-left: 15px;
+    }
+
+}
+
+@media (max-width: 365px) {
+    
+    .right-beneficios-1 {
+        margin-top: 40px;
+        height: 82%;
+        width: 44%;
+        margin-left: -190px;
+    }
+
+    .right-beneficios-2 {
+        margin-top: 40px;
+        height: 82%;
+        width: 44%;
+    }
+
+    .left-beneficios {
+        margin-top: 30px;
+    }
+
+
 }
