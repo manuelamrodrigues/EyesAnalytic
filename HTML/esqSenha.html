@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../svg/Logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../CSS/pages/login.css">  
+    <link rel="stylesheet" href="../CSS/pages/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <title>EyesAnalytic | Login</title>
+    <title>EyesAnalytic | Recuperação</title>
 </head>
 
 <body>
@@ -26,36 +26,45 @@
     </header> -->
 
 
-    <div class="login">
+    <div class="login" id="recuperar">
 
-        <div class="loginTexto"> 
+        <div class="loginTexto">
             <a href="index.html"><img src="./../SVG/Logo.svg" alt="logo"></a>
-            <h1>Login</h1>
+            <h1>Recupere sua senha</h1>
         </div>
 
+        <br>
+
+        <p>Digite seu e-mail para enviarmos o processo para a recuperação de senha</p>
 
         <div class="input field">
-            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input"
-                autocomplete="off">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
             <label for="name" class="caixa">E-mail</label>
         </div>
 
+        <button type="submit" onclick="enviar()">Enviar</button>
+    </div>
 
-        <div class="input field">
-            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input"
-                autocomplete="off">
-            <label for="name" class="caixa">Senha</label>
-        </div>
+    <div class="login" style="display: none;" id="email">
 
+        
+            <h2>E-mail enviado  <img src="../SVG/ok.svg" class="ok"></h2>
 
+            <br>
 
-        <div class="esqueceuSenha">
-            <a href="./esqSenha.html">Esqueceu a senha?</a>
-        </div>
+            <p>Verifique sua caixa de entrada</p>
+        </center>
 
-        <button type="submit" onclick="entrar()">Entrar</button>
     </div>
 
 </body>
 
 </html>
+<script>
+
+    function enviar() {
+        email.style.display = "block"
+        recuperar.style.display = "none"
+    }
+
+</script>

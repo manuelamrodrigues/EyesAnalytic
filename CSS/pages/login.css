@@ -163,7 +163,12 @@ body{
     box-shadow: var(--hover-shadows), var(--accent) 0px 0px 10px;
     background-color: var(--accent);
     transform: scale(0.95);
-}   
+}  
+
+.ok {
+    width: 12%;
+    margin-bottom: -12px;
+}
 
 @media (max-width: 768px) {
 
@@ -191,6 +196,9 @@ body{
     .login button {
         padding: 4px 8px 4px 8px;
     }
+    .ok {
+        margin-bottom: -10px;
+    }
 
 }
 
@@ -215,7 +223,9 @@ body{
     .login button {
         padding: 3px 6px 3px 6px;
     }
-
+    .ok {
+        margin-bottom: -8px;
+    }
 }
 
 .logo {
