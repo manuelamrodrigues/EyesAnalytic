@@ -30,18 +30,19 @@
 }
 
 .card-1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    flex-direction: column;
-    height: 60%;
-    width: 20%;
-    border-radius: 9px 0 0 9px;
-    box-shadow: 0 0 25px 0 #08a2ad;
-    background-color: #1313138c;
-    backdrop-filter: blur(4px);
-    transition: 0.5s ease;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 60%;
+  width: 20%;
+  border-radius: 9px 0 0 9px;
+  box-shadow: 0 0 25px 0 #08a2ad;
+  background-color: #1313138c;
+  backdrop-filter: blur(4px);
+  transition: 0.5s ease;
 }
 
 .card-1 h1 {
@@ -66,11 +67,13 @@
 .card-2 {
   display: flex;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  justify-content: space-evenly;
   box-sizing: border-box;
   flex-direction: column;
   height: 60%;
   width: 20%;
+  padding: 5px;
   box-shadow: 0 0 25px 0 #08a2ad;
   background-color: #1313138c;
   backdrop-filter: blur(4px);
@@ -99,11 +102,13 @@
 .card-3 {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  text-align: center;
   box-sizing: border-box;
   flex-direction: column;
   height: 60%;
   width: 20%;
+  padding: 5px;
   border-radius: 0 9px 9px 0;
   box-shadow: 0 0 25px 0 #08a2ad;
   background-color: #1313138c;
