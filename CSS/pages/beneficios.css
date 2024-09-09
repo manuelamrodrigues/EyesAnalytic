@@ -1,3 +1,8 @@
+#beneficios{
+    position: relative;
+    overflow: hidden;
+}
+
 .left-beneficios {
     height: 100%;
     width: 37%;
@@ -15,15 +20,16 @@
 
 .linha3 {
     position: absolute;
-    width: 850px;
-    transform: rotate(340deg);
+    width: 51%;
+    transform: rotate(80deg);
+    left: -110px;
 }
 
 .linha4 {
     position: absolute;
-    width: 950px;
-    right: 0;
-    transform: rotate(340deg);
+    width: 51%;
+    right: -90px;
+    transform: rotate(330deg);
 }
 
 .right-beneficios-1 {
@@ -47,7 +53,7 @@
 }
 
 .card-beneficios-1 {
-    background-color: #00000088;
+    background-color: #00000048;
     height: 34%;
     width: 87%;
     margin-bottom: 20px;
@@ -62,7 +68,7 @@
 }
 
 .card-beneficios-2 {
-    background-color: #00000088;
+    background-color: #00000048;
     height: 39%;
     width: 87%;
     margin-bottom: 20px;
@@ -80,18 +86,26 @@
     width: 40px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
 
     .card-beneficios-1 h3 {
-        font-size: 23px;
+        font-size: 22px;
     }
 
     .card-beneficios-2 h3 {
-        font-size: 23px;
+        font-size: 22px;
+    }
+
+    .card-beneficios-1 p {
+        font-size: 15px;
+    }
+
+    .card-beneficios-2 p {
+        font-size: 15px;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
 
     .card-beneficios-1 {
         height: 30%;
@@ -114,6 +128,14 @@
 
     .card-beneficios-2 h3 {
         font-size: 20px;
+    }
+
+    .card-beneficios-1 p {
+        font-size: 14px;
+    }
+
+    .card-beneficios-2 p {
+        font-size: 14px;
     }
     
 }
@@ -227,6 +249,22 @@
         width: 40%;
     }
 
+    .card-beneficios-1 h3 {
+        font-size: 16px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 16px;
+    }
+
+    .card-beneficios-1 p {
+        font-size: 12px;
+    }
+
+    .card-beneficios-2 p {
+        font-size: 12px;
+    }
+
 }
 
 @media (max-width: 510px) {
@@ -244,11 +282,19 @@
     }
 
     .card-beneficios-1 h3 {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .card-beneficios-2 h3 {
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+    .card-beneficios-1 p {
+        font-size: 11px;
+    }
+
+    .card-beneficios-2 p {
+        font-size: 11px;
     }
 
     .text-beneficios {
@@ -341,5 +387,20 @@
         margin-top: 30px;
     }
 
+    .card-beneficios-1 h3 {
+        font-size: 12px;
+    }
+
+    .card-beneficios-2 h3 {
+        font-size: 12px;
+    }
+
+    .card-beneficios-1 p {
+        font-size: 9px;
+    }
+
+    .card-beneficios-2 p {
+        font-size: 9px;
+    }
 
 }

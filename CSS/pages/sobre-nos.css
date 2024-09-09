@@ -8,6 +8,24 @@
     height: 100%;
 }
 
+.equipe-right {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    justify-content: start;
+}
+
+.equipe-left {
+    height: 100%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 0 70px 0 70px;
+}
+
 @media (max-width: 767px) {
     .father-equipe {
         flex-direction: column;
@@ -25,6 +43,8 @@
         align-items: center;
         text-align: center;
         flex-direction: column;
+        width: 80%;
+        padding: 20px;
     }
     .svg-network {
         width: 100%;
@@ -52,27 +72,8 @@
 @media (max-width: 450px) {
     .equipe-left h1 {
         font-size: 24px;
-        height: 30%;
     }
     p {
         font-size: 10px;
     }
-}
-
-.equipe-right {
-    height: 100%;
-    width: 45%;
-    display: flex;
-    justify-content: start;
-}
-
-.equipe-left {
-    height: 100%;
-    width: 55%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    padding: 0 70px 0 70px;
 }
