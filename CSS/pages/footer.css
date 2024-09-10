@@ -1,0 +1,121 @@
+footer {
+    height: 45vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: linear-gradient(0deg, rgba(51,107,97,1) 5%, rgba(30,47,43,1) 45%,
+                rgba(25,33,31,1) 59%, rgba(22,28,26,1) 68%, rgb(22, 22, 22) 79%, rgb(19, 19, 19) 95%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* .copyright {
+    height: 15%;
+    background-color: rgb(148, 148, 148);
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-left: 50px;
+    gap: 1.5rem;
+}
+
+.footer-cadastro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 80px;
+        gap: 1.5rem;
+}
+
+.footer-cadastro, input {
+    border-radius: 4px;
+}
+
+.footer-btn i{
+    cursor: pointer;
+    border: none;
+    color: black;
+    height: 100%;
+    font-size: 1.100rem;
+    padding: 0px 1.00rem;
+    border: none;
+    border-radius: 0px 4px 4px 0px;
+}
+
+@media screen and (max-width: 1440px) {
+    .main {
+        padding: 0 20px; 
+    }
+
+    .footer-cadastro {
+        padding-right: 50px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .main {
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        padding-left: 20px; 
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .main {
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        padding-left: 20px; 
+    }
+
+}
+
+@media screen and (max-width: 426px) {
+    .main {
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        padding-left: 20px; 
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .main {
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        padding-left: 20px; 
+    }
+}
+

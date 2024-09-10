@@ -93,11 +93,6 @@ p {
     font-size: 18px;
 }
 
-footer {
-    height: 55vh;
-    background: linear-gradient(0deg, rgba(51,107,97,1) 5%, rgba(30,47,43,1) 45%, rgba(25,33,31,1) 59%, rgba(22,28,26,1) 68%, rgb(22, 22, 22) 79%, rgb(19, 19, 19) 95%);
-}
-
 @media (min-width: 1200px) {
     nav {
         height: 10vh;
