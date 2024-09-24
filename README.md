@@ -6,7 +6,7 @@ São Paulo Tech School
 
  
 
-Dominique Dornan 
+Dominique Dornan
 <br>
 Eduardo Facini 
 <br>
@@ -18,7 +18,19 @@ Marcelo Henrique
 <br>
 Pedro Vinícius 
 <br><br><br>
- 
+ ==============================================================================================================
+Gabriel Cordeiro
+<br>
+João Otavio
+<br>
+Kevelly Mendes
+<br>
+Livia Negrini
+<br>
+Luiz Gustavo Dantas  
+<br>
+Marcelo Freschi 
+<br><br><br>
 
  
 
@@ -152,6 +164,7 @@ Em 02/12/2019, os serviços da Google foram afetados devido a uma falha na rede 
 
 <b>Justificativa</b>
 <br>
+
 Agregar valor ao negócio mitigando falhas. 
 <br><br>
  
