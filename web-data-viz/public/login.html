@@ -44,6 +44,8 @@
             <a href="./esqSenha.html">Esqueceu a senha?</a>
         </div>
 
+        <div id="error-message" style="color: red; display: none;"></div>
+
         <button type="submit" onclick="entrar()">Entrar</button>
     </div>
 
@@ -54,73 +56,63 @@
 <script>
 
 
-    function entrar() {
-        aguardar();
+    
+        function entrar() {
+            
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
+            var emailVar = email_input.value;
+            var senhaVar = senha_input.value;
+            var errorMessage = document.getElementById("error-message");
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+            if (emailVar === "" || senhaVar === "") {
+                errorMessage.style.display = "block";
+                errorMessage.innerText = "Por favor, preencha todos os campos.";
+                return;
+                console.log("Seu erro bateu na Validação do If")
 
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
-                    setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
             }
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar
+                })
+            })
+            .then(function (resposta) {
+                if (!resposta.ok) {
+                    throw new Error("Houve um erro ao tentar realizar o login!");
+                }
+                return resposta.json();
+            })
+            .then(function (json) {
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nome;
+                sessionStorage.ID_USUARIO = json.id;
+                console.log("SUAS CREDENCAIS FORAM ACEITAS")
+                setTimeout(function () {
+                    window.location.href = "index.html";
+                }, 1000); // Apenas para exibir o loading
+            })
+            .catch(function (erro) {
+                console.error(erro);
+                errorMessage.style.display = "block";
+                errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
+            });
+        }
+    
 
-        return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
-
-</script>
+        function mostrarsenha() {
+            var senhaInput = document.getElementById("senha_input");
+            if (senhaInput.type === "password") {
+                senhaInput.type = "text";
+            } else {
+                senhaInput.type = "password";
+            }
+        }
+    </script>
