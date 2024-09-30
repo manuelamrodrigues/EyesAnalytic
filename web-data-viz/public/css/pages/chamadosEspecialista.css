@@ -284,7 +284,7 @@
   
   /* Responsividade */
   /* Ajustes para resoluções menores, como tablets*/
-  @media (min-width: 850px) and (max-width: 1080px) {
+  @media (max-width: 1080px) {
     .tituloChamado {
       padding-left: 30px;
     }
