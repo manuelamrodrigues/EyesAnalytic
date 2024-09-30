@@ -6,6 +6,7 @@
 @import url(./pages/beneficios.css);
 @import url(./pages/sobre-nos.css);
 @import url(./pages/footer.css);
+@import url(./pages/aside-menu.css);
 
 html {
     scroll-behavior: smooth;
