@@ -15,7 +15,7 @@ function autenticar(req, res) {
 
      else {
 
-        usuarioModel.autenticar( email, senha )
+        usuarioModel.autenticar(email, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -26,7 +26,9 @@ function autenticar(req, res) {
                         res.json({
                             id: resultadoAutenticar[0].id,
                             nome: resultadoAutenticar[0].nome,
-                            email: resultadoAutenticar[0].email
+                            email: resultadoAutenticar[0].email,
+                            empresaId:resultadoAutenticar[0].fkEmpresa,
+                            tipoFunc: resultadoAutenticar[0].fkTipoUser
                         });
                             
                             
@@ -53,6 +55,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var empresaId = req.body.empresaServer;
+    var tipoUser = req.body.tipoUserServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -63,10 +66,14 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (empresaId == undefined) {
         res.status(400).send("Sua empresa está undefined!");
-    } else {
+    } 
+    else if(tipoUser == undefined){
+        res.status(400).send("Seu tipo está undefined!")
+    }
+        else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, empresaId)
+        usuarioModel.cadastrar(nome, email, senha, empresaId, tipoUser)
             .then(
                 function (resultado) {
                     res.json(resultado);
