@@ -284,25 +284,35 @@ html {
 
 /* Responsividade */
 /* Ajustes para resoluções menores, como tablets*/
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .tituloChamado {
     padding-left: 30px;
   }
 
+  .chamado{
+    margin-bottom: 0vh;
+  }
+
+  .chamados{
+    height: 72%;
+  }
+
   .informacoesChamado {
-    width: 70%;
+    width: 78%;
   }
 
   .cabecalhoChamado {
-    font-size: 12px;
+    font-size: 13px;
+    width: 92%;
+    height: 7vh;
   }
 
   .separacaoInformacoes{
-    width: 160px;
+    width:173px;
   }
 
   .separacaoInformacoes2{
-    width: 110px;
+    width: 120px;
   }
 
   .separacaoInformacoes3{
@@ -315,36 +325,90 @@ html {
 
   .dadosChamado{
     width: 14vw;
+    padding-right: 10px;
+    height: 74%;
   }
 
   .dadosChamado button{
-    font-size: 11px;
+    font-size: 10px;
     width: 14vw;
     border-radius: 5px;
+    height: 2.5vh;
+  }
+
+  .fundoChamado{
+    width: 92%;
+    height: 55%;
   }
 
   .fundoChamado p{
     font-size: 13px;
     font-weight: bold;
   }
+
+  .textoChamado{
+    width: 64vw;
+    height: 67%;
+  }
+
+  main{
+    margin-left: 13vw;
+  }
+
+  .informacoesChamado img{
+    display: none;
+  }
 }
 
-/* iphone 12 pro */
-@media (min-width: 390px) and (max-width: 844px){
+/* smartphone */
+@media (max-width: 350px) {
+
+  header{
+    display: none;
+  }
+
+  .chamados{
+    height: 71%;
+  }
+
   .chamado {
     width: 80vw;
   }
 
   main {
-    margin-left: 19vw;
+    margin-left: 5vw;
   }
 
   .tituloChamado {
-    padding-left: 12px;
+    padding-left: 20px;
   }
 
   .cabecalhoChamado {
     width: 100%;
-    height: 20vh;
+    height: 10vh;
+    flex-direction: column;
+  }
+
+  .sobreChamado{
+    justify-content: space-evenly;
+  }
+
+  .informacoesChamado{
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 7px;
+  }
+
+  .fundoChamado {
+    width: 100%;
+  }
+
+  .dadosChamado{
+    flex-direction: row;
+    width: 75vw;
+  }
+
+  .dadosChamado button{
+    width: 47vw;
   }
 }
