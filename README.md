@@ -7,6 +7,15 @@ O **EyesAnalytic** é um sistema projetado para monitorar o hardware de servidor
 ## Funcionalidades Principais
 
 - **Monitoramento de Hardware**: Acompanhe o desempenho e a saúde de servidores em tempo real, com alertas automáticos para falhas de hardware ou degradação de desempenho.
-- **Análise de Firewall**: Avalie o status e a eficácia dos firewalls em tempo real, garantindo que as políticas de segurança estejam sendo aplicadas corretamente.
 - **Alertas e Notificações**: Receba notificações instantâneas sobre problemas críticos que possam afetar a segurança e a operação dos servidores.
 - **Interface Intuitiva**: Acesse uma interface amigável que facilita a visualização e o gerenciamento das informações de monitoramento.
+
+## Integrantes
+
+- **Gabriel Cordeiro**
+- **João Otávio**
+- **Kevelly Mendes**
+- **Luiz Gustavo**
+- **Marcelo Freschi**
+- **Livia Negrini**
+
