@@ -12,7 +12,7 @@
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
-        <ul>
+        <ul id="navLinks">
             <li>
                 <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
                 <span>Alerta</span>
@@ -34,12 +34,35 @@
                 <span>Saír</span>
             </li>
         </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
     </aside>
     <div id="fade" class="hide"></div>
     <main>
 
         <section class="funcionarios">
-            <article class="lista">
+            <article class="lista1">
                 <div class="top">
                     <h2>Funcionários</h2>
                     <button class="cadastroTecnico1" id="btnCadastrar">Cadastrar Técnico</button>
@@ -65,7 +88,7 @@
                 </div>
                 <div class="frameFuncionarios1">
                     <div class="userImg">
-                        <img src="../assets/svg/user.svg" alt="">
+                        <img src="../assets/svg/user.svg" alt="" >
                     </div>
                     <p>Fernando Silva</p>
                     <p>Email: fernando.silva@email.com</p>
@@ -122,7 +145,7 @@
                 <h2>Chamados Recentes</h2>
                 <div class="frameAlertas">
                     <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
@@ -135,7 +158,7 @@
                 </div>
                 <div class="frameAlertas">
                     <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
@@ -148,7 +171,7 @@
                 </div>
                 <div class="frameAlertas">
                     <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
@@ -183,5 +206,17 @@ window.onclick = function(event) {
         document.getElementById('modal').style.display = 'none';
     }
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuHamburguer = document.getElementById('menu-hamburguer');
+    const navLinks = document.getElementById('navLinks');
+    
+    // Alterna a classe "active" no menu de navegação
+    menuHamburguer.addEventListener('click', () => {
+    console.log("EU ESTOU OBSERVANDO..")
+    navLinks.classList.toggle('active');
+    menuHamburguer.classList.toggle('open');
+});
+})
 
 </script>
