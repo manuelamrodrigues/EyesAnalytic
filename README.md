@@ -16,6 +16,7 @@ O **EyesAnalytic** é um sistema projetado para monitorar o hardware de servidor
 - **João Otávio**
 - **Kevelly Mendes**
 - **Luiz Gustavo**
-- **Marcelo Freschi**
 - **Livia Negrini**
+- **Marcelo Freschi**
+
 
