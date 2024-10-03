@@ -23,6 +23,7 @@ html {
 }
 
 #aside-menu:hover {
+    position: fixed;
     width: 20%;
     transition: 200ms linear;
 }
@@ -66,15 +67,6 @@ html {
     margin-left: 15px;
 }
 
-.fade {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 5;
-}
 
 .hide {
     opacity: 0;

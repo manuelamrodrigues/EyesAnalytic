@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html,
+body {
+    margin: 0;
+    /* display: flex; */
+}
+
+.header-dash {
+    width: 100%;
+    height: 60px;
+    background-color: #131313;
+}
+
+.main-dash {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    z-index: -5;
+}
+
+.content-main {
+    width: auto;
+    display: flex;
+}
+
+.grafico-section {
+    height: 91vh;
+    padding-left: 10%;
+    background-color: #EDEEF9;
+}
+
+.dados-section {
+    height: 91vh;
+    background-color: #EDEEF9;
+    display: block;
+}
+.dados-section h3{
+    color: black;
+    font-size: 20px;
+    font-family: "Kanit", sans-serif;
+    font-weight: normal;
+}
+/* .dados-section h3{
+    color: black;
+    font-family: "Kanit", sans-serif;
+    font-weight: normal;
+    padding-left:19%;
+} */
+
+.card {
+    font-family: "Kanit", sans-serif;
+    height: 55px; 
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color: #FFFF;
+    margin: 5px 0 5px 25px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.card:hover{
+    background-color: #131313;
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(13, 94, 78, 1);
+    cursor: pointer;
+}
+.card:hover h3, .card:hover span{
+    color: white;
+}
+
+.card h3,
+.card span {
+    color: black;
+    font-size: 20px;
+}
+
+.card h3{
+    padding: 0;
+    font-size: 25px;
+    font-weight: normal;
+    
+}
+
+
+.card-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    height: calc(40vh - 25px); 
+    margin: 5px 0 25px;
+    overflow-y: auto; 
+    scrollbar-width: none;
+    padding: auto;
+}
+
