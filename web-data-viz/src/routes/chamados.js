@@ -15,15 +15,15 @@ router.get("/listar", function (req, res) {
 //     avisoController.pesquisarDescricao(req, res);
 // });
 
-router.post("/cadastrar/:idChamado", function (req, res) {
+router.post("/cadastrar", function (req, res) {
     chamadoController.cadastrar(req, res);
 });
 
-router.put("/editar/:idChamado", function (req, res) {
+router.put("/editar", function (req, res) {
     chamadoController.editar(req, res);
 });
 
-router.delete("/deletar/:idChamado", function (req, res) {
+router.delete("/deletar", function (req, res) {
     chamadoController.deletar(req, res);
 });
 

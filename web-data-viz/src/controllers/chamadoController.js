@@ -63,25 +63,25 @@ function listar(req, res) {
 function cadastrar(req, res) {
     var assunto = req.body.assunto;
     var descricao = req.body.descricao;
-    var dtHora = req.params.dtHora;
+    // var dtHora = req.params.dtHora;
     var fkDiretor = req.body.fkDiretor;
-    var fkEspecialista = req.params.fkEspecialista;
-    var fkUrgencia = req.params.fkUrgencia;
+    var fkEspecialista = req.body.fkEspecialista;
+    var fkUrgencia = req.body.fkUrgencia;
 
     if (assunto == undefined) {
         res.status(400).send("O assunto está indefinido!");
     } else if (descricao == undefined) {
         res.status(400).send("A descrição está indefinido!");
-    } else if (dtHora == undefined) {
+    }/* else if (dtHora == undefined) {
         res.status(403).send("O a data e a hora estão indefinidos!");
-    } else if (fkDiretor == undefined) {
+    }*/ else if (fkDiretor == undefined) {
         res.status(403).send("A fkDiretor está indefinida!");
     } else if (fkEspecialista == undefined) {
         res.status(403).send("A fkEspecialista está indefinida!");
     } else if (fkUrgencia == undefined) {
         res.status(403).send("A fkUrgencia está indefinida!");
     } else {
-        avisoModel.publicar(assunto, descricao, dtHora, fkDiretor, fkEspecialista, fkUrgencia)
+        chamadoModel.cadastrar(assunto, descricao, fkDiretor, fkEspecialista, fkUrgencia)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -99,9 +99,9 @@ function cadastrar(req, res) {
 
 function editar(req, res) {
     var novaDescricao = req.body.descricao;
-    var idChamado = req.params.idChamado;
+    var idChamado = req.body.idChamado;
 
-    avisoModel.editar(novaDescricao, idChamado)
+    chamadoModel.editar(idChamado, novaDescricao)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -118,9 +118,9 @@ function editar(req, res) {
 }
 
 function deletar(req, res) {
-    var idChamado = req.params.idChamado;
+    var idChamado = req.body.idChamado;
 
-    avisoModel.deletar(idChamado)
+    chamadoModel.deletar(idChamado)
         .then(
             function (resultado) {
                 res.json(resultado);
