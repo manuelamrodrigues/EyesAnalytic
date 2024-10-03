@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EyesAnalytic</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul>
+            <li>
+                <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                <span>Alerta</span>
+            </li>
+            <li>
+                <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                <span>Dashboard</span>
+            </li>
+            <li>
+                <img src="../assets/svg/speed-svgrepo-com.svg" alt="Rede">
+                <span>Rede</span>
+            </li>
+            <li>
+                <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                <span>Funcionários</span>
+            </li>
+            <li>
+                <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                <span>Saír</span>
+            </li>
+        </ul>
+    </aside>
+    <div id="fade" class="hide"></div>
+    <main>
+
+        <section class="chamados">
+            <article class="alertas">
+                <br>
+                <h2 class="tAlertas">Servidores</h2>
+                    <button class="openModal" data-title="Título do Modal 1"
+                        data-content="Este é o conteúdo do Modal 1.">
+                        <div class="frameAlertas">
+                            <p>CPU 95%</p>
+                            <p>RAM 60%</p>
+                            <div class="hrDt">
+                                <p>15:40</p>
+                                <p>20/09/2024</p>
+                            </div>
+                        </div>
+                    </button>
+
+                <button class="openModal" data-title="Título do Modal 2" data-content="Joga de lado ai Marcelo">
+                    <div class="frameAlertas">
+                        <p>Servidor 2</p>
+                        <p>Pacotes</p>
+                        <div class="hrDt">
+                            <p>16:00</p>
+                            <p>20/09/2024</p>
+                        </div>
+                    </div>
+                </button>   
+
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2 id="modalTitle">Título do Modal</h2>
+                        <p id="modalContent">Este é o conteúdo do modal.</p>
+                    </div>
+                </div>
+
+                </div>
+
+            </article>
+        </section>
+
+    </main>
+</body>
+
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("myModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalContent = document.getElementById("modalContent");
+        const btns = document.querySelectorAll(".openModal");
+        const spans = document.getElementsByClassName("close")[0];
+
+        // Abre o modal e define o conteúdo baseado no botão clicado
+        btns.forEach(btn => {
+            btn.onclick = function () {
+                const title = this.getAttribute("data-title");
+                const content = this.getAttribute("data-content");
+                modalTitle.textContent = title;
+                modalContent.textContent = content;
+                modal.style.display = "block";
+            };
+        });
+
+        // Fecha o modal quando o usuário clica no <span> (x)
+        spans.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // Fecha o modal quando o usuário clica fora dele
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    });
+
+
+</script>

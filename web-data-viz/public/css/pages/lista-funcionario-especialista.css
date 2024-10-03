@@ -194,6 +194,7 @@ main{
     width: 24px; /* Largura da imagem */
     height: 24px; /* Altura da imagem */
     margin-right: -10%; /* Espaçamento negativo à direita */
+    margin-left: 12px;
 }
 
 /* Ajuste da imagem dentro da div */
@@ -205,8 +206,17 @@ main{
 
 /* Cor do status de ativo */
 .status-ativo {
-    color: #28a745; /* Cor verde */
+    color: red;
 }
+/* Cor Status em andamento */
+.status-andamento {
+    color: rgb(209, 209, 2);
+}
+/* Cor Status finalizado */
+.status-resolvido {
+    color: rgb(0, 216, 0);
+}
+
 
 
 /* Efeitos Hover */
@@ -344,13 +354,14 @@ main{
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
-    padding: 8px;
+    padding: 5px;
     margin: 0;
-    margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
 }
+
 
 /* Cor do status de alerta */
 .status-alerta {
@@ -364,6 +375,7 @@ main{
     justify-content: space-around;
     gap: 5%;
     margin-bottom: 2%;
+    margin-right: 12px;
 }
 
 /* Texto de data e hora */
