@@ -60,10 +60,11 @@ body {
     background-color: #FFFF;
     margin: 5px 0 5px 25px;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    transition:0.3s linear;
 }
 
 .card:hover{
+    transition:0.3s linear;
     background-color: #131313;
     transform: translateY(-5px);
     box-shadow: 0px 6px 15px rgba(13, 94, 78, 1);
@@ -98,5 +99,21 @@ body {
     overflow-y: auto; 
     scrollbar-width: none;
     padding: auto;
+}
+
+canvas{
+    height: 45vh !important;
+    width: 85vh !important;
+}
+.grafico-section{
+    display: block;
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+.grafico-section h3{
+    color: black;
+    font-size: 20px;
+    font-family: "Kanit", sans-serif;
+    font-weight: normal;
 }
 

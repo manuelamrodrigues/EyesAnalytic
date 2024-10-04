@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - EyesAnalytics</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/aside-menu.js"></script>
 </head>
 
 <body>
@@ -65,6 +66,12 @@
         </header>
         <div class="content-main">
             <section class="grafico-section">
+                <h3>CPU</h3>
+                <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                <h3>RAM</h3>
+                <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                <h3>Rede</h3>
+                <canvas id="RedeChart" style="position: relative; height:15vh; width:10vw"></canvas>
             </section>
             <section class="dados-section">
                 <h3>Servidores</h3>
@@ -103,7 +110,7 @@
                         <span>Uso: 95%</span>
                     </div>
                     <div class="card">
-                        <h3 style="color: rgba(229, 1, 1, 0.6);">Alerta de CPU</h3>
+                        <h3 style="color: rgba(229, 1, 1, 0.6)""";">Alerta de CPU</h3>
                         <span>Servidor 3</span>
                         <span>Uso: 95%</span>
                     </div>
@@ -127,3 +134,36 @@
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script>
+    const ctx1 = document.getElementById('CpuChart').getContext('2d');
+    const ctx2 = document.getElementById('RamChart').getContext('2d');
+    const ctx3 = document.getElementById('RedeChart').getContext('2d');
+    const data = {
+        labels: ["23:06:20", "23:06:25", "23:06:30",
+            "23:06:35", "23:06:40", "23:06:45",
+            "23:06:50", "23:06:55", "23:07:00",
+            "23:07:05", "23:07:10"],
+        datasets: [{
+            label: 'Valor CPU (%)',
+            data: [0, 0, 0, 0, 1.5, 2.5, 35, 50, 100, 25, 0.2],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1,
+            fill: false
+        }]
+    }
+    const config = {
+        responsive: false,
+        maintainAspectRatio: false,
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+
+        }
+    };
+    const cpuChart = new Chart(ctx1, config)
+    const ramChart = new Chart(ctx2, config)
+    const redeChart = new Chart(ctx3, config)
+</script>
