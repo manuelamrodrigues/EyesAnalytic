@@ -63,7 +63,7 @@ function listar(req, res) {
 function cadastrar(req, res) {
     var assunto = req.body.assunto;
     var descricao = req.body.descricao;
-    var status = req.body.status;
+    var status = req.body.status; //No cadastro ele vai vir com o status "Não atendido"
     // var dtHora = req.params.dtHora;
     var fkDiretor = req.body.fkDiretor;
     var fkEspecialista = req.body.fkEspecialista;
