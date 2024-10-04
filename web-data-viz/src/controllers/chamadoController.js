@@ -63,6 +63,7 @@ function listar(req, res) {
 function cadastrar(req, res) {
     var assunto = req.body.assunto;
     var descricao = req.body.descricao;
+    var status = req.body.status;
     // var dtHora = req.params.dtHora;
     var fkDiretor = req.body.fkDiretor;
     var fkEspecialista = req.body.fkEspecialista;
@@ -72,6 +73,8 @@ function cadastrar(req, res) {
         res.status(400).send("O assunto está indefinido!");
     } else if (descricao == undefined) {
         res.status(400).send("A descrição está indefinido!");
+    } else if (status == undefined) {
+        res.status(400).send("O status está indefinido!");
     }/* else if (dtHora == undefined) {
         res.status(403).send("O a data e a hora estão indefinidos!");
     }*/ else if (fkDiretor == undefined) {
@@ -81,7 +84,7 @@ function cadastrar(req, res) {
     } else if (fkUrgencia == undefined) {
         res.status(403).send("A fkUrgencia está indefinida!");
     } else {
-        chamadoModel.cadastrar(assunto, descricao, fkDiretor, fkEspecialista, fkUrgencia)
+        chamadoModel.cadastrar(assunto, descricao, status, fkDiretor, fkEspecialista, fkUrgencia)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -97,11 +100,14 @@ function cadastrar(req, res) {
     }
 }
 
-function editar(req, res) {
+function atualizar(req, res) {
+    
+    var novoAssunto = req.body.assunto;
     var novaDescricao = req.body.descricao;
+    var novoStatus = req.body.status;
     var idChamado = req.body.idChamado;
 
-    chamadoModel.editar(idChamado, novaDescricao)
+    chamadoModel.atualizar(idChamado, novoAssunto, novaDescricao, novoStatus)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -147,6 +153,6 @@ function deletar(req, res) {
 module.exports = {
     listar,
     cadastrar,
-    editar,
+    atualizar,
     deletar
 }

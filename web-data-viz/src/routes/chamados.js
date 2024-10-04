@@ -19,8 +19,8 @@ router.post("/cadastrar", function (req, res) {
     chamadoController.cadastrar(req, res);
 });
 
-router.put("/editar", function (req, res) {
-    chamadoController.editar(req, res);
+router.put("/atualizar", function (req, res) {
+    chamadoController.atualizar(req, res);
 });
 
 router.delete("/deletar", function (req, res) {
