@@ -9,6 +9,8 @@
 @import url(./pages/aside-menu.css);
 @import url(./pages/lista-funcionario-diretor.css);
 @import url(./pages/lista-funcionario-especialista.css);
+@import url(./pages/responsividade.css);
+@import url(./pages/espServidores.css);
 
 html {
     scroll-behavior: smooth;

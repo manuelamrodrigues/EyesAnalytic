@@ -1,0 +1,385 @@
+/* Reset básico para remover margens e preenchimentos padrão */
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: white; /* Fundo branco para toda a página */
+}
+
+/* Define o comportamento de layout da tag HTML */
+html{
+    display: flex;
+    flex-direction: row; /* Layout em linha, começando na horizontal */
+}
+
+/* Menu lateral fixo */
+/* ==================================================================================================================== */
+#aside-menu{
+    position: fixed; /* Fixa o menu à esquerda */
+    height: 100%; /* O menu ocupa 100% da altura da tela */
+    width: 70px; /* Largura padrão do menu */
+    background-color: #131313; /* Cor de fundo preta */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    z-index: 6; /* Para garantir que fique acima de outros elementos */
+    transition: 200ms linear; /* Transição suave ao expandir/recolher */
+    overflow: hidden; /* Esconde o conteúdo ao reduzir o tamanho */
+}
+
+/* Efeito de hover para expandir o menu */
+#aside-menu:hover{
+    width: 35%; /* Expande para 35% da largura ao passar o mouse */
+    transition: 200ms linear; /* Transição suave */
+}
+
+/* Logo dentro do menu lateral */
+.asideLogo{
+    width: 50px; /* Tamanho da logo */
+    margin: 30px 0 15px 5.5px; /* Margem em torno da logo */
+}
+
+/* Lista de navegação do menu */
+#aside-menu ul{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: end; /* Alinha itens à direita */
+}
+
+/* Itens da lista de navegação */
+#aside-menu ul li{
+    font-size: 25px; /* Tamanho da fonte dos itens do menu */
+    display: flex;
+    align-items: center;
+    justify-content: start; /* Alinha conteúdo à esquerda */
+    height: 90px; /* Altura de cada item */
+    width: 100%; /* Cada item ocupa toda a largura */
+    margin-top: 10px; /* Espaçamento entre os itens */
+    font-family: "Poppins", sans-serif; /* Fonte dos itens */
+    transition: 200ms linear; /* Transição suave */
+}
+
+/* Efeito de hover para os itens do menu */
+#aside-menu ul li:hover{
+    background-color: #0baf8e66; /* Cor de fundo ao passar o mouse */
+    transition: 200ms linear; /* Transição suave */
+}
+
+/* Espaçamento dos ícones e textos nos itens do menu */
+#aside-menu ul li span{
+    margin-left: 50px;
+    height: 25px;
+}
+
+/* Imagens dos ícones nos itens do menu */
+#aside-menu ul li img{
+    width: 30px; /* Tamanho dos ícones */
+    margin-left: 15px; /* Espaçamento à esquerda do ícone */
+}
+
+/* Efeito de escurecimento do fundo */
+.fade{
+    position: fixed; /* Fixa no topo da tela */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cobre 100% da tela */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Cor de fundo semi-transparente */
+    z-index: 5; /* Fica abaixo do menu lateral */
+}
+
+/* Esconde o conteúdo */
+.hide{
+    opacity: 0; /* Deixa o elemento invisível */
+}
+
+/* Estilos gerais para a área principal da página */
+/* ==================================================================================================================== */
+main{
+    display: flex;
+    background-color: #EDEEF9; /* Fundo claro */
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Seção de funcionários */
+/* ==================================================================================================================== */
+.funcionarios{
+    display: flex;
+    justify-content: start; /* Alinha à esquerda */
+    align-items: flex-start;
+    flex-direction: row; /* Disposição horizontal dos elementos */
+    gap: 1%; /* Espaçamento entre elementos */
+    margin-left: 7.5%;
+    background-color: #ffffff00; /* Fundo transparente */
+    height: auto;
+}
+
+/* Lista de funcionários */
+/* ================================================================== */
+
+/* Bloco Topo */
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1%;
+    width: 100%;
+}
+
+.top h2{
+    margin: 0;
+    font-size: 1.7rem;
+    color: #000000; /* Cor preta para o texto */
+}
+
+/* Botão de cadastro técnico */
+.cadastroTecnico1 {
+    background: #0BA385; /* Fundo verde */
+    width: 30%; /* Largura padrão */
+    padding: 10px; /* Padding padrão */
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 0 10px #000000;
+    font-size: 24px;
+    transition: all 0.3s ease; /* Transição suave para todas as propriedades */
+}
+
+/* Hover do botão de cadastro técnico */
+.cadastroTecnico1:hover {
+    background: #076350; /* Fundo verde escuro */
+    width: 30.1%; /* Aumenta ligeiramente a largura */
+    padding: 11px; /* Aumenta um pouco o padding */
+    border-radius: 8px;
+    box-shadow: 0 0 15px #000000; /* Aumenta a sombra */
+    transition: all 0.3s ease; /* Aplica a transição suave */
+}
+
+
+
+/* Texto da lista de funcionários */
+.lista p{
+    font-size: 1.2rem;
+    color: #131313;
+}
+
+
+.lista{
+
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 10px;
+    width: 90%;
+    height: 100%;
+}
+
+
+
+/* Card de funcionários */
+.frameFuncionarios1 {
+    display: flex;
+    background-color:#ffffff ; /* Fundo preto */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    flex-direction: row; /* Disposição horizontal */
+    justify-content: space-between; /* Espaçamento entre elementos */
+    width: 99%;
+    color: #131313; /* Texto branco */
+}
+/* Imagem do usuário no card */
+.userImg {
+    width: 24px; /* Largura da imagem */
+    height: 24px; /* Altura da imagem */
+    margin-right: -10%; /* Espaçamento negativo à direita */
+    margin-left: 12px;
+}
+
+/* Ajuste da imagem dentro da div */
+.userImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta a imagem sem distorção */
+}
+
+/* Cor do status de ativo */
+.status-ativo {
+    color: red;
+}
+/* Cor Status em andamento */
+.status-andamento {
+    color: rgb(209, 209, 2);
+}
+/* Cor Status finalizado */
+.status-resolvido {
+    color: rgb(0, 216, 0);
+}
+
+
+
+/* Efeitos Hover */
+.frameFuncionarios1:hover {
+    background-color: #131313; /* Fundo branco */
+    border-radius: 8px;
+    padding: 16.5px;
+    margin-bottom: 10px;
+    flex-direction: row; /* Disposição horizontal */
+    justify-content: space-between; /* Espaçamento entre elementos */
+    box-shadow: 0 0 10px #0d5e4e8f;
+    transition-delay: 2ms;
+    color: #EDEEF9; /* Texto preto no hover */
+}
+/* Ajusta a fonte para preto ao passar o mouse */
+.frameFuncionarios1:hover p,
+.frameFuncionarios1:hover h2 {
+    color: #EDEEF9; /* Garante que o texto de parágrafos e títulos fique preto no hover */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    height: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+    width: 15%; /* Largura da imagem */
+    height: 5%; /* Altura da imagem */
+}
+
+.icons img {
+
+    width: 30%;
+    height: 30%;
+    object-fit: contain; /* Ajusta a imagem sem distorção */
+}
+
+
+.modal-body p {
+    margin: 10px 0;
+    color: #000;
+}
+
+.modal-body strong{
+    color: #000;
+}
+
+.status {
+    color: green;
+}
+
+/* Fechar o modal */
+.close {
+    color: black;
+    font-size: 28px;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Seção de chamados */
+/* ==================================================================================================================== */
+.chamados{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 1%;
+    margin-left: 7.5%;
+    background-color: #ffffff00;
+    height: auto;
+}
+
+/* Alerta de chamados */
+.alertas{
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 10px;
+    width: 89%;
+    height: 100%;
+}
+
+/* Texto dentro da seção de alertas */
+.alertas p{
+    font-size: 1.2rem;
+    color: #000;
+}
+
+/* Título da seção de alertas */
+.alertas h2{
+    font-size: 1.3rem;
+    color: #000000;
+    margin-bottom: 3%;
+}
+
+/* Cartão de alerta */
+.frameAlertas{
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+/* Cor do status de alerta */
+.status-alerta {
+    color: #d30808; /* Cor vermelha para alertas */
+}
+
+/* Seção de data e hora */
+.hrDt{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    gap: 5%;
+    margin-bottom: 2%;
+    margin-right: 12px;
+}
+
+/* Texto de data e hora */
+.hrDt p{
+    font-size: 1.1rem;
+    color: #000;
+}

@@ -1,0 +1,66 @@
+/* Responsividade para Tablet */
+@media (min-width: 745px) and (max-width: 1024px) {
+    #aside-menu {
+        width: 200px; /* Ajusta a largura do menu em tablets */
+    }
+
+    main {
+        padding: 15px; /* Reduz o padding do main */
+    }
+
+    .frameAlertas {
+        display: flex;
+        flex-direction: row; /* Coloca os itens em linha */
+        justify-content: space-between; /* Espaça os itens */
+    }
+
+    .userImg img {
+        width: 50px; /* Ajusta o tamanho da imagem do usuário */
+    }
+}
+
+/* Responsividade para Mobile */
+@media (min-width: 350px) and (max-width: 970px) {
+    #aside-menu {
+        width: 60px; /* Reduzir a largura do menu em telas menores */
+        overflow: hidden; /* Oculta o texto em telas pequenas */
+    }
+
+    #aside-menu span {
+        display: none; /* Esconde o texto do menu */
+    }
+
+    #aside-menu li {
+        justify-content: center; /* Centraliza os ícones */
+    }
+
+    main {
+        padding: 10px; /* Reduz o padding do main */
+    }
+
+    .frameAlertas {
+        flex-direction: column; /* Coloca os itens em coluna */
+        align-items: flex-start; /* Alinha os itens à esquerda */
+        margin-bottom: 20px;
+        margin-left: 18px;
+    }
+    .tAlertas {
+        margin-left: 22px;
+    }
+
+    .userImg img {
+        width: 40px; /* Ajusta o tamanho da imagem do usuário */
+    }
+
+    .hrDt {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* Espaça as datas */
+        width: 100%;
+    }
+
+    /* Oculta o ícone de alertas ao vivo em mobile */
+    .ocultar-em-mobile {
+        display: none;
+    }
+}
