@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Kanit", sans-serif;
+    background-color: #EDEEF9;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.lado {
+    width: 70px;
+    height: 100%;
+    position: fixed;
+    background-color: black;
+}
+
+.chamado {
+    width: 85%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 110px;
+
+}
+
+.titulo {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.titulo h1 {
+    font-size: larger;
+    /* height: 80px; */
+    padding-top: 10px;
+    justify-self: center;
+}
+
+
+/* CSS SELECTS  */
+.selects {
+    width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: row;
+}
+
+select {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    padding-left: 10px;
+
+    /* Customiza a seta do select */
+    background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 15px;
+
+    /* Remove estilo padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.slt1 {
+    width: 40%;
+    gap: 1;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.slt2 {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.selects h1 {
+    font-size: large;
+    font-weight: 400;
+}
+
+.opcao {
+    width: 150px;
+    height: 30px;
+    font-size: medium;
+}
+
+/* CSS ASSUNTO */
+.abrindo {
+    width: 100%;
+
+    gap: 25px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+
+.assunto textarea {
+    width: 100%;
+    height: 50px;
+
+    padding: 10px 20px;
+
+    font-family: "Kanit", sans-serif;
+    background-color: #fff;
+    font-weight: 300;
+    color: #000000;
+    font-size: medium;
+    border: none;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.descricao textarea {
+    width: 100%;
+    height: 300px;
+
+    padding: 10px 20px;
+
+    font-family: "Kanit", sans-serif;
+    background-color: #fff;
+    font-weight: 300;
+    color: #000000;
+    font-size: medium;
+    border: none;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* BOTAO */
+.botao {
+    width: 100%;
+margin-top: 10px;
+margin-bottom: 50px;
+    display: flex;
+    justify-content: end;
+}
+
+.botao button {
+    width: 150px;
+    height: 40px;
+
+    background-color: #19CEAA;
+    border: none;
+    border-radius: 7px;
+
+    font-weight: 700;
+    font-size: medium;
+    color: #fff;
+}
+
+.botao button:hover {
+    width: 150px;
+    height: 40px;
+
+    background-color: #15947a;
+    border: none;
+    border-radius: 7px;
+
+    font-weight: 700;
+    font-size: medium;
+    color: #fff;
+}
+
+/* padrao tablet */
+@media (max-width: 745px){
+.chamado {
+        width: 85%;
+        height: auto;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: center; */
+        margin-left: 100px;
+    
+    }
+
+    .selects {
+        width: 90%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    select {
+        border: none;
+        border-radius: 5px;
+        display: flex;
+        padding-left: 10px;
+    
+        /* Customiza a seta do select */
+        background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px top 50%;
+        background-size: 15px;
+    
+        /* Remove estilo padrão */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+    
+    .slt1 {
+        width: 50%;
+        gap: 1;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .slt2 {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .selects h1 {
+        font-size: large;
+        font-weight: 400;
+    }
+    
+    .opcao {
+        width: 150px;
+        height: 30px;
+        font-size: medium;
+    }
+
+    .assunto textarea {
+        width: 80%;
+        height: 30px;
+    
+        padding: 10px 20px;
+    
+        font-family: "Kanit", sans-serif;
+        background-color: #fff;
+        font-weight: 300;
+        color: #000000;
+        font-size: medium;
+        border: none;
+    
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .descricao textarea {
+        width: 80%;
+        height: 200px;
+    
+        padding: 10px 20px;
+    
+        font-family: "Kanit", sans-serif;
+        background-color: #fff;
+        font-weight: 300;
+        color: #000000;
+        font-size: medium;
+        border: none;
+    
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .botao {
+        width: 80%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+        display: flex;
+        justify-content: end;
+    }
+
+}
+
+
+/* padrao celular */
+@media (max-width: 350px) {
+    .chamado {
+        width: 85%;
+        height: auto;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 100px;
+    
+    }
+
+    .selects {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        flex-direction: column;
+    }
+
+    select {
+        border: none;
+        border-radius: 5px;
+        display: flex;
+        padding-left: 10px;
+    
+        /* Customiza a seta do select */
+        background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px top 50%;
+        background-size: 15px; 
+    
+        /* Remove estilo padrão */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    } 
+    
+     .slt1 {
+        width: 50%;
+        gap: 1;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .slt2 {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .selects h1 {
+        font-size: large;
+        font-weight: 400;
+    }
+    
+    .opcao {
+        width: 150px;
+        height: 30px;
+        font-size: medium;
+    }
+
+    .assunto textarea {
+        width: 70%;
+        height: 30px;
+    
+        padding: 10px 20px;
+    
+        font-family: "Kanit", sans-serif;
+        background-color: #fff;
+        font-weight: 300;
+        color: #000000;
+        font-size: medium;
+        border: none;
+    
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .descricao textarea {
+        width: 70%;
+        height: 200px;
+    
+        padding: 10px 20px;
+    
+        font-family: "Kanit", sans-serif;
+        background-color: #fff;
+        font-weight: 300;
+        color: #000000;
+        font-size: medium;
+        border: none;
+    
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .botao {
+        width: 70%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+        display: flex;
+        justify-content: end;
+    } 
+  }
+
+
+/* scrol da tela  */
+::-webkit-scrollbar {
+    width: 0.6vw;
+    background: #222222;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: -webkit-linear-gradient(#087b97, #0bcea7);
+    background: linear-gradient(#087b97, #0bcea7);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: -webkit-linear-gradient(#0ea2c7, #11f0c3);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: -webkit-linear-gradient(#065c72, #09977b);
+}
