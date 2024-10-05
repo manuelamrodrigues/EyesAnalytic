@@ -1,21 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-html,
-body {
-    margin: 0px;
-    padding: 0px;
-    font-family: "Kanit", sans-serif;
-    background-color: #EDEEF9;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  
+  html,
+  body {
+      overflow-x: hidden
+      !important;
+      font-family: "Kanit", sans-serif;
+      background-color: #EDEEF9;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+  }
+  
+  * {
+      margin: 0;
+      padding: 0;
+      /* box-sizing: border-box; */
+  }
 
-.lado {
-    width: 70px;
-    height: 100%;
-    position: fixed;
-    background-color: black;
-}
 
 .chamado {
     width: 85%;
@@ -35,7 +36,7 @@ body {
 }
 
 .titulo h1 {
-    font-size: larger;
+    font-size: xx-large;
     /* height: 80px; */
     padding-top: 10px;
     justify-self: center;

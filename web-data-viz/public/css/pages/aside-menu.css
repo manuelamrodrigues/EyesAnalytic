@@ -10,10 +10,10 @@ body {
     box-sizing: border-box;
 }
 
-html {
+/* html {
     display: flex;
     flex-direction: row;
-}
+} */
 
 #aside-menu {
     position: fixed;
