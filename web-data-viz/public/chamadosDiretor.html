@@ -4,165 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chamados</title>
-    <link rel="stylesheet" href="css/pages/chamado.css">
-    <link rel="stylesheet" href="css/pages/aside-menu.css">
+    <title>Chamado | Eyes Analytic </title>
+    <link rel="stylesheet" href="./css/pages/chamado.css">
+    <link rel="stylesheet" href="./css/pages/aside-menu.css">
+    <script src="../js/aside-menu.js"></script>
+
 </head>
 
 <body>
+    <aside id="aside-menu">
+        <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
-    <header>
-        <aside id="aside-menu">
-            <img src="assets/svg/Logo.svg" alt="Logo" class="asideLogo">
-    
-            <ul>
-                <li>
-                    <img src="assets/svg/alert-svgrepo-com.svg" alt="Alerta">
-                    <span>Alerta</span>
-                </li>
-                <li>
-                    <img src="assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
-                    <span>Dashboard</span>
-                </li>
-                <li>
-                    <img src="assets/svg/speed-svgrepo-com.svg" alt="Rede">
-                    <span>Rede</span>
-                </li>
-                <li>
-                    <img src="assets/svg/user-svgrepo-com.svg" alt="Usuário">
-                    <span>Funcionários</span>
-                </li>
-                <li>
-                    <img src="assets/svg/exit-svgrepo-com.svg" alt="Saída">
-                    <span>Saír</span>
-                </li>
-            </ul>
-        </aside> 
-        <div id="fade" class="hide"></div>
-    </header>
-   
+        <ul id="navLinks">
+            <li>
+                <img src="./assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                <span>Alerta</span>
+            </li>
+            <li>
+                <img src="./assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                <span>Dashboard</span>
+            </li>
+            <li>
+                <img src="./assets/svg/speed-svgrepo-com.svg" alt="Rede">
+                <span>Rede</span>
+            </li>
+            <li>
+                <img src="./assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                <span>Funcionários</span>
+            </li>
+            <li>
+                <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                <span>Saír</span>
+            </li>
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+    </aside>
+    <div id="fade" class="hide"></div>
 
     <main>
         <section class="title">
             <h1>Meus Chamados</h1>
         </section>
-    
+
         <section class="chamados">
             <section class="chamado">
                 <article class="cabecalhoChamado">
                     <div class="informacoesChamado">
-    
+
                         <img src="assets/imgs/alerta.png" alt="">
-    
+
                         <div class="separacaoInformacoes">
                             <p>Responsável: </p>
                             <p class="negrito">Fernando Silva</p>
                         </div>
-    
+
                         <div class="separacaoInformacoes2">
                             <p>Status: </p>
                             <p>Não atendido</p>
                         </div>
-    
+
                         <div class="separacaoInformacoes3">
                             <p>Urgência: </p>
                             <p>Leve</p>
                         </div>
-    
+
                     </div>
                     <div class="dadosChamado">
                         <div class="sobreChamado">
                             <p>15:30</p>
                             <p>22/09/2024</p>
                         </div>
-    
+
                         <button>Cancelar Chamado</button>
                     </div>
-    
-                </article>
-    
-                <article class="fundoChamado">
-                    <p  class="tituloChamado">Alto uso de CPU</p>
-                    <div class="textoChamado">
-                        <p>Descrição: O uso da CPU está muito elevado, vá investigar! </p>
-                    </div>
-                </article>
-            </section>
 
-            <section class="chamado">
-                <article class="cabecalhoChamado">
-                    <div class="informacoesChamado">
-    
-                        <img src="assets/imgs/alerta.png" alt="">
-    
-                        <div class="separacaoInformacoes">
-                            <p>Responsável: </p>
-                            <p class="negrito">Fernando Silva</p>
-                        </div>
-    
-                        <div class="separacaoInformacoes2">
-                            <p>Status: </p>
-                            <p>Atendido</p>
-                        </div>
-    
-                        <div class="separacaoInformacoes3">
-                            <p>Urgência: </p>
-                            <p>Leve</p>
-                        </div>
-    
-                    </div>
-                    <div class="dadosChamado">
-                        <div class="sobreChamado">
-                            <p>15:30</p>
-                            <p>22/09/2024</p>
-                        </div>
-    
-                        <!-- <button>Cancelar Chamado</button> -->
-                    </div>
-    
                 </article>
-    
-                <article class="fundoChamado">
-                    <p  class="tituloChamado">Alto uso de CPU</p>
-                    <div class="textoChamado">
-                        <p>Descrição: O uso da CPU está muito elevado, vá investigar! </p>
-                    </div>
-                </article>
-            </section>
-            
-            <section class="chamado">
-                <article class="cabecalhoChamado">
-                    <div class="informacoesChamado">
-    
-                        <img src="assets/imgs/alerta.png" alt="">
-    
-                        <div class="separacaoInformacoes">
-                            <p>Responsável: </p>
-                            <p class="negrito">Fernando Silva</p>
-                        </div>
-    
-                        <div class="separacaoInformacoes2">
-                            <p>Status: </p>
-                            <p>Atendido</p>
-                        </div>
-    
-                        <div class="separacaoInformacoes3">
-                            <p>Urgência: </p>
-                            <p>Leve</p>
-                        </div>
-    
-                    </div>
-                    <div class="dadosChamado">
-                        <div class="sobreChamado">
-                            <p>15:30</p>
-                            <p>22/09/2024</p>
-                        </div>
-    
-                        <!-- <button>Cancelar Chamado</button> -->
-                    </div>
-    
-                </article>
-    
+
                 <article class="fundoChamado">
                     <p class="tituloChamado">Alto uso de CPU</p>
                     <div class="textoChamado">
@@ -170,10 +109,92 @@
                     </div>
                 </article>
             </section>
-            
+
+            <section class="chamado">
+                <article class="cabecalhoChamado">
+                    <div class="informacoesChamado">
+
+                        <img src="assets/imgs/alerta.png" alt="">
+
+                        <div class="separacaoInformacoes">
+                            <p>Responsável: </p>
+                            <p class="negrito">Fernando Silva</p>
+                        </div>
+
+                        <div class="separacaoInformacoes2">
+                            <p>Status: </p>
+                            <p>Atendido</p>
+                        </div>
+
+                        <div class="separacaoInformacoes3">
+                            <p>Urgência: </p>
+                            <p>Leve</p>
+                        </div>
+
+                    </div>
+                    <div class="dadosChamado">
+                        <div class="sobreChamado">
+                            <p>15:30</p>
+                            <p>22/09/2024</p>
+                        </div>
+
+                        <!-- <button>Cancelar Chamado</button> -->
+                    </div>
+
+                </article>
+
+                <article class="fundoChamado">
+                    <p class="tituloChamado">Alto uso de CPU</p>
+                    <div class="textoChamado">
+                        <p>Descrição: O uso da CPU está muito elevado, vá investigar! </p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="chamado">
+                <article class="cabecalhoChamado">
+                    <div class="informacoesChamado">
+
+                        <img src="assets/imgs/alerta.png" alt="">
+
+                        <div class="separacaoInformacoes">
+                            <p>Responsável: </p>
+                            <p class="negrito">Fernando Silva</p>
+                        </div>
+
+                        <div class="separacaoInformacoes2">
+                            <p>Status: </p>
+                            <p>Atendido</p>
+                        </div>
+
+                        <div class="separacaoInformacoes3">
+                            <p>Urgência: </p>
+                            <p>Leve</p>
+                        </div>
+
+                    </div>
+                    <div class="dadosChamado">
+                        <div class="sobreChamado">
+                            <p>15:30</p>
+                            <p>22/09/2024</p>
+                        </div>
+
+                        <!-- <button>Cancelar Chamado</button> -->
+                    </div>
+
+                </article>
+
+                <article class="fundoChamado">
+                    <p class="tituloChamado">Alto uso de CPU</p>
+                    <div class="textoChamado">
+                        <p>Descrição: O uso da CPU está muito elevado, vá investigar! </p>
+                    </div>
+                </article>
+            </section>
+
         </section>
     </main>
-  
+
 
 
 </body>
