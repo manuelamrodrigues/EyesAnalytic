@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - EyesAnalytic</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Funcinários - Eyes Analytic</title>
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <link rel="stylesheet" href="../css/pages/lista-funcionario-diretor.css">
+    <link rel="stylesheet" href="../css/pages/aside-menu.css">
 </head>
 
 <body>
@@ -59,6 +61,7 @@
         </div>
     </aside>
     <div id="fade" class="hide"></div>
+
     <main>
 
         <section class="funcionarios">
@@ -112,11 +115,11 @@
                     <p>Email: fernando.silva@email.com</p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
                 </div>
-                
+
             </article>
 
             <article class="cadastro">
-                <button class="cadastroTecnico">Cadastrar Técnico</button>
+                <button class="cadastroTecnico " id="btnCadastrar">Cadastrar Técnico</button>
                 <div class="card">
                     <h1>Fernando Silva</h1>
                     <hr>
@@ -126,11 +129,30 @@
                         <p>Status: <span class="status-ativo">Ativo</span></p>
                     </div>
                     <div class="buttons">
-                        <button class="btn1">Desativar</button>
-                        <button class="btn2">Alterar</button>
+                        <button class="btn1" id="btnCadastrar">Desativar</button>
+                        <button class="btn2" id="btnCadastrar">Alterar</button>
                     </div>
                 </div>
             </article>
+
+            <!-- Modal -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Fernando Silva</h2>
+                        <div class="icons">
+                            <img src="../assets/svg/ferramenta-lapis 2.svg" alt="" class="edit">
+                            <img src="../assets/svg/lixeira-de-reciclagem1.svg" alt="" class="delete">
+                            <img src="../assets/svg/x 1.svg" alt="" class="close">
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Email:</strong> fernando.silva@email.com</p>
+                        <p><strong>Senha:</strong> ************</p>
+                        <p><strong>Status:</strong> <span class="status">Ativo</span></p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="chamados">
@@ -142,12 +164,12 @@
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável:  Fernando Silva</p>
+                    <p>Responsável: Fernando Silva</p>
                     <div class="hrDt">
                         <p>12:13</p>
                         <p>20/09/2024</p>
                     </div>
-                    
+
                 </div>
                 <div class="frameAlertas">
                     <div class="userImg">
@@ -155,12 +177,12 @@
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável:  Fernando Silva</p>
+                    <p>Responsável: Fernando Silva</p>
                     <div class="hrDt">
                         <p>12:13</p>
                         <p>20/09/2024</p>
                     </div>
-                    
+
                 </div>
                 <div class="frameAlertas">
                     <div class="userImg">
@@ -168,12 +190,12 @@
                     </div>
                     <p><span class="status-alerta">Alerta CPU</span></p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável:  Fernando Silva</p>
+                    <p>Responsável: Fernando Silva</p>
                     <div class="hrDt">
                         <p>12:13</p>
                         <p>20/09/2024</p>
                     </div>
-                    
+
                 </div>
 
             </article>
@@ -184,14 +206,36 @@
 </html>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-    const menuHamburguer = document.getElementById('menu-hamburguer');
-    const navLinks = document.getElementById('navLinks');
-    
-    // Alterna a classe "active" no menu de navegação
-    menuHamburguer.addEventListener('click', () => {
-    console.log("EU ESTOU OBSERVANDO..")
-    navLinks.classList.toggle('active');
-    menuHamburguer.classList.toggle('open');
-});
-})
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const navLinks = document.getElementById('navLinks');
+
+        // Alterna a classe "active" no menu de navegação
+        menuHamburguer.addEventListener('click', () => {
+            console.log("EU ESTOU OBSERVANDO..")
+            navLinks.classList.toggle('active');
+            menuHamburguer.classList.toggle('open');
+        });
+    })
+
+
+
+
+    // Abrir o modal
+    document.getElementById('btnCadastrar').onclick = function () {
+        document.getElementById('modal').style.display = 'block';
+    };
+
+    // Fechar o modal
+    document.querySelector('.close').onclick = function () {
+        document.getElementById('modal').style.display = 'none';
+    };
+
+    // Fechar ao clicar fora do modal
+    window.onclick = function (event) {
+        if (event.target == document.getElementById('modal')) {
+            document.getElementById('modal').style.display = 'none';
+        }
+    };
+
+</script>
 </script>
