@@ -149,7 +149,7 @@ html {
   display: flex;
   justify-content: center;
   /* width: 100vw;
-      height: 100vh; */
+    height: 100vh; */
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
@@ -284,136 +284,67 @@ html {
 
 /* Responsividade */
 /* Ajustes para resoluções menores, como tablets*/
-@media (max-width: 750px) {
+@media (max-width: 1080px) {
   .tituloChamado {
-    padding-left: 54px;
-  }
-
-  /* .title p{
-    font-family: "Kanit", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 15px;
-  } */
-
-  .chamado {
-    width: 88vw;
-    margin-bottom: 0;
-  }
-
-  .chamados {
-    height: 72%;
+    padding-left: 30px;
   }
 
   .informacoesChamado {
-    width: 53%;
+    width: 70%;
   }
 
   .cabecalhoChamado {
-    font-size: 13px;
-    width: 92%;
-    height: 7vh;
+      height: 8vh;
   }
 
-  .separacaoInformacoes2 {
-    width: 125px;
+  .separacaoInformacoes{
+    width: 160px;
   }
 
-  .separacaoInformacoes3 {
-    width: 89px;
+  .separacaoInformacoes2{
+    width: 110px;
   }
 
-  .sobreChamado {
+  .separacaoInformacoes3{
+    width: 80px;
+  }
+
+  .sobreChamado{
     font-size: 9px;
   }
 
-  .dadosChamado {
+  .dadosChamado{
     width: 14vw;
-    padding-right: 17px;
-    height: 74%;
   }
 
-  .dadosChamado button {
-    font-size: 10px;
+  .dadosChamado button{
+    font-size: 11px;
     width: 14vw;
     border-radius: 5px;
-    height: 2.5vh;
   }
 
-  .fundoChamado {
-    width: 92%;
-    height: 55%;
-  }
-
-  .fundoChamado p {
+  .fundoChamado p{
     font-size: 13px;
     font-weight: bold;
   }
-
-  .textoChamado {
-    width: 64vw;
-    height: 67%;
-  }
-
-  main {
-    margin-left: 14vw;
-  }
-
-  .informacoesChamado img {
-    display: none;
-  }
 }
 
-/* smartphone */
-@media (max-width: 350px) {
-
-  header {
-    display: none;
-  }
-
-  .chamados {
-    height: 71%;
-  }
-
+/* iphone 12 pro */
+@media (min-width: 390px) and (max-width: 844px){
   .chamado {
     width: 80vw;
   }
 
   main {
-    margin-left: 9vw;
+    margin-left: 15vw;
   }
 
   .tituloChamado {
-    padding-left: 20px;
+    padding-left: 12px;
   }
 
   .cabecalhoChamado {
     width: 100%;
-    height: 10vh;
-    flex-direction: column;
-  }
-
-  .sobreChamado {
-    justify-content: space-evenly;
-  }
-
-  .informacoesChamado {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-top: 11px;
-    width: 75%;
-  }
-
-  .fundoChamado {
-    width: 100%;
-  }
-
-  .dadosChamado {
-    flex-direction: row;
-    width: 75vw;
-  }
-
-  .dadosChamado button {
-    width: 47vw;
+    height: 20vh;
   }
 }
