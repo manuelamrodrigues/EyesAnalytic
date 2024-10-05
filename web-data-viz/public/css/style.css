@@ -1,16 +1,16 @@
-@import url(./partials/layout.css);
+/* @import url(./partials/layout.css); */
 
 /* Importando telas */
-@import url(./pages/welcome.css);
-@import url(./pages/sobre-projeto.css);
-@import url(./pages/beneficios.css);
-@import url(./pages/sobre-nos.css);
-@import url(./pages/footer.css);
-@import url(./pages/aside-menu.css);
+/* @import url(./pages/welcome.css); */
+/* @import url(./pages/sobre-projeto.css); */
+/* @import url(./pages/beneficios.css); */
+/* @import url(./pages/sobre-nos.css); */
+/* @import url(./pages/footer.css); */
+/* @import url(./pages/aside-menu.css); */
 @import url(./pages/lista-funcionario-diretor.css);
-@import url(./pages/lista-funcionario-especialista.css);
+/* @import url(./pages/lista-funcionario-especialista.css); */
 @import url(./pages/responsividade.css);
-@import url(./pages/espServidores.css);
+/* @import url(./pages/espServidores.css); */
 
 html {
     scroll-behavior: smooth;
