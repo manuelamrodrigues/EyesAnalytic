@@ -1,0 +1,414 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  background-color: #EDEEF9;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Fonte */
+.kanit-thin {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+
+/* Main */
+main {
+  margin-left: 12vw;
+  height: 150vh;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+h1 {
+  margin-top: 6vh;
+  font-family: "Kanit", sans-serif;
+  font-style: normal;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Chamados */
+.chamados {
+  display: flex;
+  justify-content: center;
+  /* width: 100vw;
+    height: 100vh; */
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.chamado {
+  width: 80vw;
+  height: 35vh;
+  margin-bottom: 10vh;
+}
+
+/* Cabeçalho chamado */
+.cabecalhoChamado {
+  width: 100%;
+  height: 10vh;
+  background-color: #131313;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.9em;
+
+}
+
+.tituloChamado {
+  padding-left: 58px;
+}
+
+.informacoesChamado {
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.informacoesChamado img {
+  width: 2vw;
+  height: 4vh;
+}
+
+.separacaoInformacoes {
+  display: flex;
+  width: 205px;
+  /* width: 32%; */
+  justify-content: space-between;
+}
+
+.separacaoInformacoes2 {
+  display: flex;
+  width: 140px;
+  justify-content: space-between;
+}
+
+.separacaoInformacoes3 {
+  display: flex;
+  width: 103px;
+  justify-content: space-between;
+}
+
+.negrito {
+  font-weight: bold;
+}
+
+.dadosChamado {
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+  /* align-items: center; */
+  justify-content: space-around;
+  width: 12vw;
+  height: 90%;
+  align-items: center;
+}
+
+.dadosChamado button {
+  background-color: #CE1919;
+  /* width: 100%; */
+  width: 12.2vw;
+  height: 5vh;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  /* border: none; */
+  border-color: #CE1919;
+}
+
+.sobreChamado {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.fundoChamado {
+  width: 100%;
+  height: 100%;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  justify-content: center;
+}
+
+
+/* Texto chamado */
+.fundoChamado p {
+  align-self: flex-start;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 15px;
+  justify-content: center;
+}
+
+.textoChamado {
+  /* width: 1100px; */
+  width: 70vw;
+  height: 70%;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+
+/* Responsividade */
+/* Ajustes para resoluções menores, como tablets*/
+@media (max-width: 750px) {
+  .tituloChamado {
+    padding-left: 30px;
+  }
+
+  .chamado{
+    margin-bottom: 0vh;
+  }
+
+  .chamados{
+    height: 72%;
+  }
+
+  .informacoesChamado {
+    width: 78%;
+  }
+
+  .cabecalhoChamado {
+    font-size: 13px;
+    width: 92%;
+    height: 7vh;
+  }
+
+  .separacaoInformacoes{
+    width:173px;
+  }
+
+  .separacaoInformacoes2{
+    width: 120px;
+  }
+
+  .separacaoInformacoes3{
+    width: 80px;
+  }
+
+  .sobreChamado{
+    font-size: 9px;
+  }
+
+  .dadosChamado{
+    width: 14vw;
+    padding-right: 10px;
+    height: 74%;
+  }
+
+  .dadosChamado button{
+    font-size: 10px;
+    width: 14vw;
+    border-radius: 5px;
+    height: 2.5vh;
+  }
+
+  .fundoChamado{
+    width: 92%;
+    height: 55%;
+  }
+
+  .fundoChamado p{
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .textoChamado{
+    width: 64vw;
+    height: 67%;
+  }
+
+  main{
+    margin-left: 13vw;
+  }
+
+  .informacoesChamado img{
+    display: none;
+  }
+}
+
+/* smartphone */
+@media (max-width: 350px) {
+
+  header{
+    display: none;
+  }
+
+  .chamados{
+    height: 71%;
+  }
+
+  .chamado {
+    width: 80vw;
+  }
+
+  main {
+    margin-left: 5vw;
+  }
+
+  .tituloChamado {
+    padding-left: 20px;
+  }
+
+  .cabecalhoChamado {
+    width: 100%;
+    height: 10vh;
+    flex-direction: column;
+  }
+
+  .sobreChamado{
+    justify-content: space-evenly;
+  }
+
+  .informacoesChamado{
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 7px;
+  }
+
+  .fundoChamado {
+    width: 100%;
+  }
+
+  .dadosChamado{
+    flex-direction: row;
+    width: 75vw;
+  }
+
+  .dadosChamado button{
+    width: 47vw;
+  }
+}
