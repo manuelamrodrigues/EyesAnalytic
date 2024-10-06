@@ -8,6 +8,15 @@ html {
     display: flex;
     flex-direction: row;
 }
+body{
+    width: 100%;
+}
+aside{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+}
 
 #aside-menu {
     position: fixed;
@@ -38,6 +47,7 @@ html {
     flex-direction: column;
     width: 100%;
     align-items: end;
+    padding: 0;
 }
 
 #navLinks li {
