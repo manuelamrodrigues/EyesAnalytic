@@ -121,7 +121,7 @@
             </article>
 
             <article class="cadastro">
-                <button class="cadastroTecnico " id="btnCadastrar">Cadastrar Técnico</button>
+                <button class="cadastroTecnico ">Cadastrar Técnico</button>
                 <div class="card">
                     <h1>Fernando Silva</h1>
                     <hr>
@@ -131,30 +131,51 @@
                         <p>Status: <span class="status-ativo">Ativo</span></p>
                     </div>
                     <div class="buttons">
-                        <button class="btn1" id="btnCadastrar">Desativar</button>
-                        <button class="btn2" id="btnCadastrar">Alterar</button>
+                        <button class="btn1" id="btnDesativar">Desativar</button>
+                        <button class="btn2" id="btnAlterar">Alterar</button>
                     </div>
                 </div>
             </article>
 
-            <!-- Modal -->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2>Fernando Silva</h2>
-                        <div class="icons">
-                            <img src="./assets/svg/ferramenta-lapis 2.svg" alt="" class="edit">
-                            <img src="./assets/svg/lixeira-de-reciclagem1.svg" alt="" class="delete">
-                            <img src="./assets/svg/x 1.svg" alt="" class="close">
-                        </div>
+
+            <!-- Modal 1 (Desativar) -->
+            <div id="modal1" class="modal">
+                <div class="modal-content1">
+                    <div class="modal-header1">
+                        <h2>Desativar</h2>
+                        <span class="close">&times;</span>
                     </div>
-                    <div class="modal-body">
-                        <p><strong>Email:</strong> fernando.silva@email.com</p>
-                        <p><strong>Senha:</strong> ************</p>
-                        <p><strong>Status:</strong> <span class="status">Ativo</span></p>
+                    <div class="modal-body1">
+                        <p><strong>Tem certeza que deseja desativar o perfil?</strong></p>
+                    </div>
+                    <div class="modal-footer1">
+                        <button class="Mf1-Btn1">Cancelar</button>
+                        <button class="Mf1-Btn2">Sim</button>
+
                     </div>
                 </div>
             </div>
+
+
+            <!-- Modal 2 (Alterar) -->
+            <div id="modal2" class="modal">
+                <div class="modal-content2">
+                    <div class="modal-header2">
+                        <h2>Fernando Silva</h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body2">
+                        <label for="">Email:</label>
+                        <input type="text" name="emailModal" id="UserEmail" value="fernando.silva@email.com">
+                        <label>Senha: </label>
+                        <input type="password" name="senhaModal" id="UserSenha" value="*************">
+                    </div>
+                    <div class="modal-footer2">
+                        <button class="salvar-btn">Salvar</button>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section class="chamados">
@@ -213,31 +234,50 @@
 
         // Alterna a classe "active" no menu de navegação
         menuHamburguer.addEventListener('click', () => {
-            console.log("EU ESTOU OBSERVANDO..")
             navLinks.classList.toggle('active');
             menuHamburguer.classList.toggle('open');
         });
-    })
 
-
-
-
-    // Abrir o modal
-    document.getElementById('btnCadastrar').onclick = function () {
-        document.getElementById('modal').style.display = 'block';
-    };
-
-    // Fechar o modal
-    document.querySelector('.close').onclick = function () {
-        document.getElementById('modal').style.display = 'none';
-    };
-
-    // Fechar ao clicar fora do modal
-    window.onclick = function (event) {
-        if (event.target == document.getElementById('modal')) {
-            document.getElementById('modal').style.display = 'none';
+        // Função para abrir o modal específico
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
         }
-    };
 
-</script>
+        // Função para fechar o modal específico
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Abrir o modal de Desativar
+        document.getElementById('btnDesativar').onclick = function () {
+            openModal('modal1');
+        };
+
+        // Abrir o modal de Alterar
+        document.getElementById('btnAlterar').onclick = function () {
+            openModal('modal2');
+        };
+
+        // Fechar modais
+        const closeButtons = document.querySelectorAll('.close');
+        closeButtons.forEach(button => {
+            button.onclick = function () {
+                const modal = this.closest('.modal');
+                modal.style.display = 'none';
+            };
+        });
+
+        // Fechar ao clicar fora do modal
+        window.onclick = function (event) {
+            const modal1 = document.getElementById('modal1');
+            const modal2 = document.getElementById('modal2');
+            if (event.target === modal1) {
+                closeModal('modal1');
+            } else if (event.target === modal2) {
+                closeModal('modal2');
+            }
+        };
+    });
+
+
 </script>
