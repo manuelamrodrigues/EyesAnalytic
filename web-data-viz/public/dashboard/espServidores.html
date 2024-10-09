@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - EyesAnalytic</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleblack.css">
 </head>
 
 <body>
@@ -37,72 +37,176 @@
     </aside>
     <div id="fade" class="hide"></div>
     <main>
-
-        <section class="chamados">
-            <article class="alertas">
+        <section class="secao-chamados">
+            <article class="secao-alertas">
                 <br>
-                <h2 class="tAlertas">Servidores</h2>
-                    <button class="openModal" data-title="Título do Modal 1"
-                        data-content="Este é o conteúdo do Modal 1.">
-                        <div class="frameAlertas">
-                            <p>CPU 95%</p>
-                            <p>RAM 60%</p>
-                            <div class="hrDt">
-                                <p>15:40</p>
-                                <p>20/09/2024</p>
-                            </div>
+                <h2 class="titulo-alertas">Servidores</h2>
+                <br>
+                <div class="modalTrigger" data-title="Servidor 1" data-subtitle="ID: 1" data-modal-cpu="CPU:
+Fabricante: Intel
+Modelo: Xeon E5 2650
+Velocidade: 2.4Ghz
+Núcleos: 14
+Threads: 28" data-modal-ram="RAM:
+Fabricante: Kingston
+Modelo: KF432C16BB
+Velocidade: 3200Mhz
+Capacidade: 16 Gib" data-modal-disco1="Disco 1:
+Fabricante: Western Digital
+Modelo: WD10EURX
+Velocidade: 5400 RPM
+Capacidade: 1TB" data-modal-disco2="Disco 2:
+Fabricante: Western Digital
+Modelo: WD10EURX
+Velocidade: 5400 RPM
+Capacidade: 1TB" data-modal-disco3="Disco 3:
+Fabricante: Seagate
+Modelo: ST1000DM010
+Velocidade: 7200 RPM
+Capacidade: 1TB" data-modal-disco4="Disco 4:
+Fabricante: Samsung
+Modelo: HD103SJ
+Velocidade: 7200 RPM
+Capacidade: 1TB">
+                    <div class="cardServidores">
+                        <p class="fixarServidor">Servidor 1</p>
+                        <p class="fixarCPU">CPU: 95%</p>
+                        <p class="fixarRAM">RAM: 70%</p>
+                        <p class="fixarDisco">Disco: 75%</p>
+                        <div class="imgsCrud">
+                            <img src="../assets/svg/lixeiraservidores.svg">
                         </div>
-                    </button>
-
-                <button class="openModal" data-title="Título do Modal 2" data-content="Joga de lado ai Marcelo">
-                    <div class="frameAlertas">
-                        <p>Servidor 2</p>
-                        <p>Pacotes</p>
-                        <div class="hrDt">
-                            <p>16:00</p>
-                            <p>20/09/2024</p>
+                        <div class="imgsCrudLapis">
+                            <img src="../assets/svg/lapisservidores.svg">
                         </div>
                     </div>
-                </button>   
+                </div>
+
+
+                <div class="modalTrigger" data-title="Servidor 2" data-subtitle="ID: 2" data-modal-cpu="
+Fabricante: Intel
+Modelo: Xeon E5 2650
+Velocidade: 2.4Ghz
+Núcleos: 14
+Threads: 28" data-modal-ram="
+Fabricante: Kingston
+Modelo: KF432C16BB
+Velocidade: 3200Mhz
+Capacidade: 16 Gib" data-modal-disco1="
+Fabricante: Western Digital
+Modelo: WD10EURX
+Velocidade: 5400 RPM
+Capacidade: 1TB" data-modal-disco2="
+Fabricante: Western Digital
+Modelo: WD10EURX
+Velocidade: 5400 RPM
+Capacidade: 1TB" data-modal-disco3="
+Fabricante: Seagate
+Modelo: ST1000DM010
+Velocidade: 7200 RPM
+Capacidade: 1TB" data-modal-disco4="
+Fabricante: Samsung
+Modelo: HD103SJ
+Velocidade: 7200 RPM
+Capacidade: 1TB">
+                    <div class="cardServidores">
+                        <p class="fixarServidor">Servidor 2</p>
+                        <p class="fixarCPU">CPU: 75%</p>
+                        <p class="fixarRAM">RAM: 40%</p>
+                        <p class="fixarDisco">Disco: 30%</p>
+                        <div class="imgsCrud">
+                            <img src="../assets/svg/lixeiraservidores.svg">
+                        </div>
+                        <div class="imgsCrudLapis">
+                            <img src="../assets/svg/lapisservidores.svg">
+                        </div>
+                    </div>
+                </div>
 
                 <div id="myModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <h2 id="modalTitle">Título do Modal</h2>
-                        <p id="modalContent">Este é o conteúdo do modal.</p>
+                        <h3 id="modalSubtitle">Subtítulo do Modal</h3>
+                        <div class="modal-body">
+                            <div class="modal-row">
+                                <div>
+                                    <h3>CPU</h3>
+                                    <p id="modalCPU">Informação de CPU</p>
+                                </div>
+                                <div>
+                                    <h3>RAM</h3>
+                                    <p id="modalRAM">Informação de RAM</p>
+                                </div>
+                                <div>
+                                    <h3>Disco 1</h3>
+                                    <p id="modalDisco1">Informação de Disco 1</p>
+                                </div>
+                                
+                                <div>
+                                    <h3>Disco 2</h3>
+                                    <p id="modalDisco2">Informação de Disco 2</p>
+                                </div>
+                                <div>
+                                    <h3>Disco 3</h3>
+                                    <p id="modalDisco3">Informação de Disco 3</p>
+                                </div>
+                                <div>
+                                    <h3>Disco 4</h3>
+                                    <p id="modalDisco4">Informação de Disco 4</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                </div>
-
             </article>
         </section>
-
     </main>
 </body>
 
 </html>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const modal = document.getElementById("myModal");
         const modalTitle = document.getElementById("modalTitle");
-        const modalContent = document.getElementById("modalContent");
-        const btns = document.querySelectorAll(".openModal");
-        const spans = document.getElementsByClassName("close")[0];
+        const modalSubtitle = document.getElementById("modalSubtitle");
+        const modalCPU = document.getElementById("modalCPU");
+        const modalRAM = document.getElementById("modalRAM");
+        const modalDisco1 = document.getElementById("modalDisco1");
+        const modalDisco2 = document.getElementById("modalDisco2");
+        const modalDisco3 = document.getElementById("modalDisco3");
+        const modalDisco4 = document.getElementById("modalDisco4");
+        const triggers = document.querySelectorAll(".modalTrigger");
+        const closeSpan = document.getElementsByClassName("close")[0];
 
-        // Abre o modal e define o conteúdo baseado no botão clicado
-        btns.forEach(btn => {
-            btn.onclick = function () {
+        // Abre o modal e define o conteúdo baseado na div clicada
+        triggers.forEach(trigger => {
+            trigger.onclick = function () {
                 const title = this.getAttribute("data-title");
-                const content = this.getAttribute("data-content");
+                const subtitle = this.getAttribute("data-subtitle");
+                const cpu = this.getAttribute("data-modal-cpu");
+                const ram = this.getAttribute("data-modal-ram");
+                const disco1 = this.getAttribute("data-modal-disco1");
+                const disco2 = this.getAttribute("data-modal-disco2");
+                const disco3 = this.getAttribute("data-modal-disco3");
+                const disco4 = this.getAttribute("data-modal-disco4"); // Captura Disco 4
+
                 modalTitle.textContent = title;
-                modalContent.textContent = content;
+                modalSubtitle.textContent = subtitle;
+                modalCPU.textContent = cpu;
+                modalRAM.textContent = ram;
+                modalDisco1.textContent = disco1; // Exibe Disco 1
+                modalDisco2.textContent = disco2; // Exibe Disco 2
+                modalDisco3.textContent = disco3; // Exibe Disco 3
+                modalDisco4.textContent = disco4; // Exibe Disco 4
+
                 modal.style.display = "block";
             };
         });
 
         // Fecha o modal quando o usuário clica no <span> (x)
-        spans.onclick = function () {
+        closeSpan.onclick = function () {
             modal.style.display = "none";
         };
 

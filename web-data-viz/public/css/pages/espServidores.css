@@ -10,18 +10,47 @@ body {
     left: 0;
     top: 0;
     width: 100%; /* Largura total */
-    height: 100%; /* Altura total */
+    height: 700px; /* Altura total */
     overflow: auto; /* Adiciona rolagem se necessário */
-    /* background-color: rgba(0, 0, 0, 0.4); Fundo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo semi-transparente */
+    color: black;
 }
 
 .modal-content {
-    /* background-color: #fefefe; */
-    margin: 15% auto; /* Centraliza verticalmente */
-    padding: 20px;
-    /* border: 1px solid #888; */
-    width: 80%; /* Largura do conteúdo */
+        background-color: #fefefe; /* Fundo do conteúdo do modal */
+        color: black;
+        margin: 5% auto; /* Centraliza verticalmente */
+        padding: 20px;
+        border-radius: 8px; /* Bordas arredondadas */
+        width: 70%; /* Largura do conteúdo */
+        max-width: 900px; /* Largura máxima do modal */
+        max-height: 1000px; /* Altura máxima do modal */
+        overflow-x: auto;
+        overflow-y: auto; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra do modal */    
 }
+/* Estilização Modal */
+.modal-body {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha */
+    justify-content: space-between; /* Espaçamento entre os itens */
+    width: 100%; /* Largura total */
+
+}
+
+.modal-row {
+    display: flex; /* Usa flexbox para alinhar os cards em linha */
+    justify-content: space-between; /* Espaço entre os cartões */
+    margin-bottom: 20px; /* Espaçamento entre as linhas */
+    width: calc(33.33% - 10px);
+}
+
+.modal-row div {
+    flex: 1; /* Faz com que cada coluna tenha a mesma largura */
+    min-width: 150px; /* Largura mínima para garantir que não fiquem muito estreitas */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
 
 .close {
     color: #aaa;
@@ -30,7 +59,6 @@ body {
     font-weight: bold;
 }
 
-
 .close:hover,
 .close:focus {
     color: black;
@@ -38,14 +66,79 @@ body {
     cursor: pointer;
 }
 
-
-
-.openModal{
+/* Estilos para as divs que abrem o modal */
+.modalTrigger {
     border: none;
-    
-
     width: 100%;
     margin-bottom: 10px;
-
+    cursor: pointer; /* Apontador ao passar o mouse */
 }
 
+.cardServidores {
+    background-color: #fff; /* Fundo dos cartões */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 15px; /* Padding interno */
+    margin-bottom: 10px; /* Espaçamento entre os cartões */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra dos cartões */
+    transition: transform 0.2s; /* Transição suave ao passar o mouse */
+    height: 60px;
+    font-size: 20px;
+    display: flex;
+}
+
+.cardServidores:hover {
+    transform: scale(1.02); /* Efeito de zoom ao passar o mouse */
+
+}
+.cardServidores{
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 0;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+/* Alinhamento dos itens */
+.fixarCPU{
+    margin-left: 40px;
+}
+.fixarRAM{
+    margin-left: 10px;
+}
+.fixarDisco{
+    margin-left: 10px;
+}
+.fixarServidor{
+    margin-left: 10px;
+    font-weight: bold;
+}
+.imgsCrud img{
+    /* flex-direction:row; */
+    /* display: flex; */
+    justify-content:end;
+    /* gap: 5%; */
+    padding-top: 3px;
+    /* margin-bottom: 20%; */
+    margin-right: 8px;
+    width: 30px;
+    height: 30px;
+    margin-left: 680px;
+    transition: filter 0.3s;
+    filter: brightness(0);
+}
+.imgsCrudLapis img{
+    /* flex-direction:row; */
+    /* display: flex; */
+    justify-content:end;
+    /* gap: 5%; */
+    padding-top: 3px;
+    /* margin-bottom: 20%; */
+    /* margin-right: 18px; */
+    width: 30px;
+    height: 30px;
+    /* margin-left: 110px; */
+    transition: filter 0.3s;
+    filter: brightness(0);
+}

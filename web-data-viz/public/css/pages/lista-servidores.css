@@ -314,11 +314,11 @@ main{
 
 /* Seção de chamados */
 /* ==================================================================================================================== */
-.chamados{
+.secao-chamados{
     display: flex;
-    /* justify-content: start; */
-    /* align-items: flex-start; */
-    /* flex-direction: row; */
+    justify-content: start;
+    align-items: flex-start;
+    flex-direction: row;
     gap: 1%;
     margin-left: 7.5%;
     background-color: #ffffff00;
@@ -326,9 +326,9 @@ main{
 }
 
 /* Alerta de chamados */
-.alertas{
-    /* justify-content: flex-start; */
-    /* display: flex; */
+.secao-alertas{
+    justify-content: flex-start;
+    display: flex;
     flex-direction: column;
     margin: 0;
     border-radius: 10px;
@@ -337,32 +337,20 @@ main{
 }
 
 /* Texto dentro da seção de alertas */
-.alertas p{
+.secao-alertas p{
     font-size: 1.2rem;
     color: #000;
 }
 
 /* Título da seção de alertas */
-.alertas h2{
+.titulo-alertas h2{
     font-size: 1.3rem;
     color: #000000;
     margin-bottom: 3%;
 }
 
 /* Cartão de alerta */
-.frameAlertas {
-    background-color: #fff; /* Fundo dos cartões */
-    border-radius: 8px; /* Bordas arredondadas */
-    padding: 15px; /* Padding interno */
-    margin-bottom: 10px; /* Espaçamento entre os cartões */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra dos cartões */
-    transition: transform 0.2s; /* Transição suave ao passar o mouse */
-    height: 60px;
-    font-size: 20px;
-    display: flex;
-}
-
-.frameAlertas{
+.cardAlertas{
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
@@ -374,37 +362,10 @@ main{
 
 }
 
+/* Seção de icones */
 
-/* Cor do status de alerta */
-.status-alerta {
-    color: #d30808; /* Cor vermelha para alertas */
-    /* margin-left: 25px; */
-    display: block;
-    /* align-items: flex-start; */
-    margin-left: auto;
-}
-
-/* Seção de data e hora */
-.hrDt{
-    flex-direction: row;
-    display: flex;
-    /* justify-content: space-around; */
-    gap: 5%;
-    margin-bottom: 2%;
-    margin-right: 12px;
-}
-
-/* Texto de data e hora */
-.hrDt p{
-    font-size: 1.1rem;
-    color: #000;
-}
-
-/* fixar os textos */
-.fixarAlertaServidor{
-    display:block;
-    margin-left: 0%;
-}
-.fixarAlertaComponentes{
-    margin-left: 100px;
-}
+/* fixar os componentes */
+/* .fixarServidor{}
+.fixarCPU{}
+.fixarRAM{}
+.fixarDisco{} */
