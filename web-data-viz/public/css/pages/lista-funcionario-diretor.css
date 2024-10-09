@@ -201,7 +201,7 @@ main{
 .cadastroTecnico{
     margin-top: 11%;
     background: #0BA385; /* Fundo verde */
-    width: 90%;
+    width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: none;
@@ -280,7 +280,7 @@ hr{
 .cadastroTecnico:hover{
     margin-top: 11%;
     background: #08836a; /* Fundo verde */
-    width: 90%;
+    width: 100%;
     padding: 12.8px;
     border-radius: 8px;
     border: none;
@@ -408,7 +408,7 @@ hr{
 
     .cadastroTecnico{
         padding: 5px;
-        width: 30%;
+        width: 40%;
         margin-right: 4.5%;
     }
 
@@ -596,7 +596,7 @@ hr{
     .cadastroTecnico {
         margin-top: 2%;
         padding: 7px;
-        width: 88%;
+        width: 100%;
     }
 
     .frameFuncionarios {
