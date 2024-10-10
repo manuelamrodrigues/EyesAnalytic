@@ -1,14 +1,24 @@
-html, body{
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
-html{
+html {
     display: flex;
     flex-direction: row;
 }
+body{
+    width: 100%;
+}
+aside{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+}
 
-#aside-menu{
+#aside-menu {
     position: fixed;
     height: 100%;
     width: 70px;
@@ -21,23 +31,26 @@ html{
     overflow: hidden;
 }
 
-#aside-menu:hover{
-    width: 35%;
+#aside-menu:hover {
+    position: fixed;
+    width: 20%;
     transition: 200ms linear;
 }
 
-.asideLogo{
+.asideLogo {
     width: 50px;
     margin: 30px 0 15px 5.5px;
 }
 
-#aside-menu ul{
+#navLinks {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: end;
+    padding: 0;
 }
-#aside-menu ul li{
+
+#navLinks li {
     font-size: 25px;
     display: flex;
     align-items: center;
@@ -49,31 +62,235 @@ html{
     transition: 200ms linear;
 }
 
-#aside-menu ul li:hover{
+#navLinks li:hover {
     background-color: #0baf8e66;
     transition: 200ms linear;
 }
 
-#aside-menu ul li span{
-    margin-left: 50px ;
+#navLinks li span {
+    margin-left: 50px;
     height: 25px;
 }
 
-#aside-menu ul li img{
+#navLinks li img {
     width: 30px;
     margin-left: 15px;
 }
 
-.fade{
+
+.hide {
+    opacity: 0;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+@media (min-width: 745px) and (max-width: 1024px) {
+
+    html,
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #menu-hamburguer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #aside-menu {
+        position: fixed;
+        width: 100%;
+        height: 75px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        overflow: visible;
+        z-index: 5;
+    }
+
+    #aside-menu:hover {
+        width: 100%;
+        height: 75px;
+        transition: 200ms linear;
+    }
+
+    .asideLogo {
+        width: 50px;
+        margin: 0;
+        margin-left: 30px;
+    }
+
+    #navLinks {
+        opacity: 0;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        background-color: #131313;
+        z-index: -5;
+        transition: 0.3s linear;
+    }
+
+    #navLinks.active {
+        transition: 0.3s ease;
+        opacity: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 100%;
+        background-color: rgba(19, 19, 19, 0.7);
+        z-index: -5;
+    }
+
+    #navLinks li {
+        align-items: start;
+        height: 100%;
+        padding: 40px;
+        border-top: 2px solid rgba(0,0,0,0.4);
+        margin:0 ;
+    }
+
+    /* Estilos para o container do menu */
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 30px;
+    }
+
+
+    .hamburger-line rect {
+        fill: white;
+
+    }
+
+    .menu svg {
+        width: 100%;
+        height: 10%;
+        transition: transform 300ms ease;
+    }
+
+
+    .menu.open svg:nth-child(1) {
+        transform: rotate(45deg) translate(-1px, 0px);
+    }
+
+    .menu.open svg:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu.open svg:nth-child(3) {
+        transform: rotate(-45deg) translate(0px, -1px);
+    }
+
+}
+@media (min-width: 350px) and (max-width: 970px){
+    html,
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#menu-hamburguer {
+    display: flex;
+    flex-direction: column;
+}
+
+#aside-menu {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    height: 75px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: visible;
     z-index: 5;
 }
 
-.hide{
+#aside-menu:hover {
+    width: 100%;
+    height: 75px;
+    transition: 200ms linear;
+}
+
+.asideLogo {
+    width: 50px;
+    margin: 0;
+    margin-left: 30px;
+}
+
+#navLinks {
     opacity: 0;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background-color: #131313;
+    z-index: -5;
+    transition: 0.3s linear;
+}
+
+#navLinks.active {
+    transition: 0.3s ease;
+    opacity: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 75px;
+    right: 0;
+    width: 100%;
+    background-color: rgba(19, 19, 19, 0.7);
+    z-index: -5;
+}
+
+#navLinks li {
+    align-items: start;
+    height: 100%;
+    padding: 40px;
+    border-top: 2px solid rgba(0,0,0,0.4);
+    margin:0 ;
+}
+
+/* Estilos para o container do menu */
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+
+
+.hamburger-line rect {
+    fill: white;
+
+}
+
+.menu svg {
+    width: 100%;
+    height: 10%;
+    transition: transform 300ms ease;
+}
+
+
+.menu.open svg:nth-child(1) {
+    transform: rotate(45deg) translate(-1px, 0px);
+}
+
+.menu.open svg:nth-child(2) {
+    opacity: 0;
+}
+
+.menu.open svg:nth-child(3) {
+    transform: rotate(-45deg) translate(0px, -1px);
+}
+
 }

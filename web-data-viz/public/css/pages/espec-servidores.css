@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  
+html,
+body {
+    overflow-x: hidden
+    !important;
+    font-family: "Kanit", sans-serif;
+    background-color: #EDEEF9;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+.chamados{
+    width: 90%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 110px;
+}
+
+.chamados h2 {
+    font-size: xx-large;
+    padding: 14px;
+    font-weight: 300;
+}
+
+.frameAlertas {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.opcoes{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 100px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    gap: 5px;
+    font-size: medium;
+}
+
+.frameAlertas h3{
+    font-weight: 400;
+    font-size: larger;
+}
+
+.opcao h4{
+    font-weight: 400;
+    font-size: medium;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal {
+    display: none; /* Oculta o modal por padrão */
+    position: fixed; /* Fixa no viewport */
+    z-index: 1; /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Adiciona rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.4); 
+    /* Fundo semi-transparente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    /* margin: 100px 50px 50px 170px; */
+    margin: 5% 10% 5% 20%;
+    /* padding: 20px; */
+    /* border: 1px solid #888; */
+    width: 60%; /* Largura do conteúdo */
+    height: 70%;
+    border-radius: 7px;
+    border: none;
+}
+.modal-content h2 {
+    font-size: x-large;
+    font-weight: 400;
+    padding: 15px 0px 10px 50px;
+}
+
+.modal-content .linha{
+    display: flex;
+    flex-direction: row;
+    padding: 0px 0px 10px 50px;
+    gap: 50px;
+}
+
+
+.linha h3 {
+    font-weight: 400;
+}
+
+.recurso {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 10px 0px 10px 50px;
+
+}
+
+.recurso .rec{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.recurso h4 {
+font-size: large;
+font-weight: 500;
+
+}
+
+.recurso h5{
+    font-size: medium;
+    font-weight: 400;
+}
+
+.recurso p {
+    font-size: medium;
+    font-weight: 300;
+}
+
+.superior{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.inferior{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.close {
+    color: #aaa;
+    float: right;
+    margin: -30px 10px 10px 10px;
+    font-size: 70px;
+    /* font-weight: bold; */
+}
+
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.openModal{
+    background-color: #fff;
+    border-radius: 7px;
+    border: none;
+    width: 100%;
+    padding: 10px;
+
+}
+
