@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EyesAnalytic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./estiloDash.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onabort=" iniciarAtualizacao()">
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+            <li>
+                <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                <span>Alerta</span>
+            </li>
+            <li>
+                <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                <span>Dashboard</span>
+            </li>
+            <li>
+                <img src="../assets/svg/speed-svgrepo-com.svg" alt="Rede">
+                <span>Rede</span>
+            </li>
+            <li>
+                <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                <span>Funcionários</span>
+            </li>
+            <li>
+                <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                <span>Saír</span>
+            </li>
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+    </aside>
+    <div id="fade" class="hide"></div>
+
+    <main>
+        <header class="barraSuperior">
+            <div class="numPerct">
+                <p class="titlePcrt">Quantidade Maquina</p>
+                <p class="nmrPcrt">20</p>
+            </div>
+            <div class="numPerct">
+                <p class="titlePcrt">Maquinas Conectadas</p>
+                <p class="nmrPcrt">20</p>
+            </div>
+            <div class="numPerct">
+                <p class="titlePcrt">Alertas Recentes</p>
+                <p class="nmrPcrt">5</p>
+            </div>
+            <div class="numPerct">
+                <p class="titlePcrt">Mbps de Upload</p>
+                <p class="nmrPcrt">9.5</p>
+            </div>
+            <div class="numPerct">
+                <p class="titlePcrt">Mbps de Download</p>
+                <p class="nmrPcrt">9.5</p>
+            </div>
+        </header>
+
+        <section class="dash">
+            <article class="topoGrafico">
+                <h3>Usos médio dos Componentes</h3>
+                <div class="botoesGrafico">
+                    <div class="periodo" id="periodo">Semanal</div>
+                        <ul id="dropdown" class="dropdown hide">
+                            <li class="option">Mensal</li>
+                            <li class="option">Bimestral</li>
+                            <li class="option">Semestral</li>
+                        </ul>
+
+
+                    <div class="componentes">Componentes</div>
+                </div>
+            </article>
+            <div class="grafico">
+                <canvas id="myChartCanvas" class="canvas"></canvas>
+                
+                
+            </div>
+            
+        </section>
+
+        <section class="chamados"></section>
+            <article class="alertas">
+                <h2>Chamados Recentes</h2>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+
+            </article>
+        </section>
+
+ 
+
+        
+    </main>
+</body>
+
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const navLinks = document.getElementById('navLinks');
+
+        // Alterna a classe "active" no menu de navegação
+        menuHamburguer.addEventListener('click', () => {
+            console.log("EU ESTOU OBSERVANDO..")
+            navLinks.classList.toggle('active');
+            menuHamburguer.classList.toggle('open');
+        });
+
+        // Iniciar a plotagem do gráfico quando a página carregar
+        iniciarAtualizacao();
+    });
+
+    // Função para iniciar a atualização do gráfico e definir o intervalo de 2 minutos
+    function iniciarAtualizacao() {
+        obterDadosGrafico().then(() => {
+            setInterval(obterDadosGrafico, 120000); // Atualiza a cada 2 minutos
+        });
+    }
+
+    // Função para obter dados do gráfico
+    async function obterDadosGrafico() {
+        try {
+            let response = await fetch("/captura/capturar", { method: "GET" });
+            if (response.ok) {
+                let json = await response.json();
+                plotarGrafico(json);
+            } else {
+                let texto = await response.text();
+                console.error("Houve um erro ao tentar realizar o obterDadosGrafico!", texto);
+            }
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+    // Defina quantos valores você deseja gerar
+    const quantidadeValores = 10;
+    const valores = [];
+    const labels = [];
+
+    // Gera valores aleatórios para o gráfico
+    for (let i = 0; i < quantidadeValores; i++) {
+        const valorAleatorio = Math.random() * 100; // Gera um valor aleatório entre 0 e 100
+        valores.push(valorAleatorio.toFixed(2)); // Adiciona o valor no array
+        labels.push(`Label ${i + 1}`); // Cria um label (pode ser a data ou algo mais específico)
+    }
+
+    // Pega o contexto do canvas onde o gráfico será renderizado
+    const ctx = document.getElementById('myChartCanvas').getContext('2d');
+
+    // Configuração do gráfico
+    const config = {
+        type: 'line', // Define o tipo de gráfico (linha)
+        data: {
+            labels: labels, // Usa os labels gerados
+            datasets: [{
+                label: 'Umidade', // Título do gráfico
+                data: valores, // Dados gerados aleatoriamente
+                borderWidth: 4,
+                borderColor: '#13b3e4',
+                backgroundColor: '#ffff',
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true // Faz o gráfico começar em 0 no eixo Y
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // Renderiza o gráfico usando Chart.js
+    new Chart(ctx, config);
+});
+
+// Abrir e fechar o dropdown ao clicar na div "periodo"
+document.getElementById("periodo").addEventListener("click", function (event) {
+    var dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
+    event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
+});
+
+// Fechar o dropdown ao clicar fora da div "periodo" ou do menu
+document.addEventListener("click", function () {
+    var dropdown = document.getElementById("dropdown");
+    dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
+});
+
+// Detectar quando o usuário seleciona uma opção do dropdown
+document.querySelectorAll(".option").forEach(function (item) {
+    item.addEventListener("click", function () {
+        var selectedText = this.textContent;
+
+        // Atualiza o texto dentro da div "periodo"
+        var periodoDiv = document.getElementById("periodo");
+        var currentText = periodoDiv.textContent;
+
+        // Atualiza a lista de opções
+        this.textContent = currentText; // A opção selecionada vira a anterior
+        periodoDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
+
+        // Fecha o dropdown após a seleção
+        document.getElementById("dropdown").classList.add("hide");
+    });
+});
+
+
+
+
+    //     // Criar o gráfico
+    //     new Chart(ctx, config);
+
+    // // Função para plotar o gráfico usando os dados obtidos
+    // function plotarGrafico(response) {
+    //     var labels = [];
+       
+    // }
+</script>
