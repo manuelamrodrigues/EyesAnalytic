@@ -1,0 +1,481 @@
+/* Reset básico para remover margens e preenchimentos padrão */
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #EDEEF9; /* Fundo branco para toda a página */
+    height: 100%; /* Ocupa 100% da altura da janela */
+    width: 100%; /* Ocupa 100% da largura da janela */
+    display: flex;
+    flex-direction: column; /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
+    font-family: "Kanit", sans-serif; /* Fonte geral da página */
+}
+
+/* Importa a fonte "Kanit" */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
+
+
+/* Estilos gerais para a área principal da página */
+/* ==================================================================================================================== */
+main{
+    display: flex;
+    align-items: center;
+    background-color: #00000000; /* Fundo claro */
+    flex-direction: column;
+    /* width: 100vw; */
+    /* height: 100%; */
+    /* max-height: 900px; */
+}
+/* Barra Superior */
+
+/*==================================================================================================================*/
+.barraSuperior{
+    background-color: #131315;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 15%;
+    left: 0.3%;
+    top: 0;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.numPerct{
+    /* gap: -2%; */
+    margin-left: 7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    width: auto;
+    height: auto;
+    /* border: #EDEEF9 3px solid; */
+    /* font-size: 20px; */
+}
+
+.titlePcrt{
+    margin-bottom: -4%;
+    font-family: "kanit";
+    font-size: 20px;
+    color: #EDEEF9;
+}
+
+.nmrPcrt{
+    font-family: "kanit";
+    font-size: 25px;
+    color: #EDEEF9;
+}
+
+
+
+/* Seção de graficos */
+
+/*==================================================================================================================*/
+.dash {
+    background-color: #00000000;
+    margin: 10% 0 0 47%;
+    height: 100%; /* Ajusta a altura ao conteúdo */
+    width: 100%; /* Define uma largura mais apropriada */
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* box-sizing: border-box; Inclui padding e border no cálculo da largura */
+}
+
+.dash h3{
+    /* margin: 10% 0  0 0; */
+    /* border: #0BA385 3px solid; */
+    font-size: 24px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    /* position: absolute; */
+}
+
+.topoGrafico{
+    margin: 10px 0 0  -40%;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: row;
+    /* border: #0BA385 1px solid; */
+    width: 90%;
+    height: 10%;
+}
+
+
+
+
+.grafico {
+
+    margin: 10px 0 0  -40%;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0;
+    border-radius: 10px;
+    /* box-shadow: 2px 0px 1px 3px rgba(63, 0, 0, 0.788); */
+    flex-direction: row;
+}
+
+
+.canvas {
+    display: flex;
+    align-items: start;
+    background-color: #ffffff;    
+    height: 50%;
+
+    padding: 0;
+}
+
+.botoesGrafico{
+    
+    width: 40%;
+    height: auto;
+    /* border: #08d334 2px solid; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20%;
+}
+
+/* Estilizando a div "periodo" */
+.periodo {
+    margin-right: -3%;
+    background: #0BA385;
+    width: 85%;
+    padding: 14px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 0 10px #00000048;
+    cursor: pointer; /* Adiciona o cursor para indicar que é clicável */
+}
+
+/* Dropdown escondido */
+.hide {
+    display: none;
+}
+
+/* Estilo para o dropdown */
+.dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 169px 0 0  -21%;
+    /* background-color: #ffffff; */
+    box-shadow: 0 0 10px #00000048;
+    border-radius: 10px;
+    width: 15.3%;
+    position: absolute; /* Fixa a posição */
+}
+
+.dropdown li {
+    padding: 10px;
+    text-align: center;
+    background-color: #0BA385;
+    color: #ffffff;
+    border-bottom: 1px solid #0baf8e;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.dropdown li:hover {
+    background-color: #0baf8e;
+}
+
+.componentes{
+    /* margin-right: -3%; */
+    background: #0BA385;
+    width: 85%;
+    padding: 14px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 0 10px #00000048;
+    
+}
+
+
+
+
+/* Seção de chamados */
+/* ==================================================================================================================== */
+.chamados3{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 1%;
+    margin-left: 10%;
+    background-color: #8d3f3fec;
+    height: auto;
+    /* width: 100vw; */
+    
+}
+
+/* Alerta de chamados */
+.alertas{
+    background-color: #EDEEF9;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 10px;
+    width: 98%;
+    height: 100%;
+    
+}
+
+/* Texto dentro da seção de alertas */
+.alertas p{
+    font-size: 1.2rem;
+    color: #000;
+}
+
+/* Título da seção de alertas */
+.alertas h2{
+    margin-left: 7%;
+    font-size: 1.3rem;
+    color: #000000;
+    margin-bottom: 3%;
+}
+
+/* Cartão de alerta */
+.frameAlertas{
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    align-items: center;
+    padding: -1px;
+    /* margin: 0; */
+    margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    margin-left: 7.5%;
+    box-shadow: 0 0 10px #00000021;
+
+}
+
+/* Cor do status de alerta */
+.status-alerta {
+    color: #d30808; /* Cor vermelha para alertas */
+}
+
+/* Seção de data e hora */
+.hrDt{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    gap: 5%;
+    margin-bottom: 2%;
+}
+
+/* Texto de data e hora */
+.hrDt p{
+    font-size: 1.1rem;
+    color: #000;
+}
+
+
+/* Responsividade para Tablets (largura entre 768px e 1024px) */
+/* ============================================================================== */
+@media (min-width: 745px) and (max-width: 1024px) {
+    #aside-menu {
+        width: 60px;
+    }
+    
+    #aside-menu:hover {
+        width: 40%;
+    }
+
+
+    .frameAlertas{
+        margin-left: 1%;
+        flex-direction: column;
+        padding: 10px;
+        width: 95%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .hrDt{
+        
+        flex-direction: column;
+    }
+
+
+}
+
+
+/* Responsividade para iPhone XR e iPhone 14 (largura de 828px e 1170px) */
+/* ============================================================================== */
+@media (min-width: 310px) and (max-width: 915px) {
+    html,
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #menu-hamburguer {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #aside-menu {
+        position: fixed;
+        width: 100%;
+        height: 75px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        overflow: visible;
+        z-index: 5;
+    }
+    
+    #aside-menu:hover {
+        width: 100%;
+        height: 75px;
+        transition: 200ms linear;
+    }
+    
+    .asideLogo {
+        width: 50px;
+        margin: 0;
+        margin-left: 30px;
+        margin-bottom: 5%;
+    }
+    
+    #navLinks {
+        opacity: 0;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        background-color: #131313;
+        z-index: -5;
+        transition: 0.3s linear;
+    }
+    
+    #navLinks.active {
+        transition: 0.3s ease;
+        opacity: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 100%;
+        background-color: rgba(19, 19, 19, 0.7);
+        z-index: -5;
+    }
+    
+    #navLinks li {
+        align-items: start;
+        height: 100%;
+        padding: 40px;
+        border-top: 2px solid rgba(0,0,0,0.4);
+        margin:0 ;
+    }
+    
+    /* Estilos para o container do menu */
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 15px;
+    }
+    
+    
+    .hamburger-line rect {
+        fill: white;
+    
+    }
+    
+    .menu svg {
+        width: 100%;
+        height: 10%;
+        transition: transform 300ms ease;
+    }
+    
+    
+    .menu.open svg:nth-child(1) {
+        transform: rotate(45deg) translate(-1px, 0px);
+    }
+    
+    .menu.open svg:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu.open svg:nth-child(3) {
+        transform: rotate(-45deg) translate(0px, -1px);
+    }
+
+    .top {
+        margin-top: 45%;
+        gap: 5%;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-around ;
+        align-items: center;
+        padding: 1%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cadastroTecnico1 {
+        margin-top: 2%;
+        padding: 7px;
+        width: 88%;
+    }
+
+    .frameFuncionarios1 {
+        align-items: start;
+        flex-direction: column; /* Disposição horizontal */
+        justify-content: space-between; /*Espaçamento entre elementos */
+        padding: 15px;
+        width: 95%;
+    }
+
+    .frameFuncionarios1:hover {
+        background-color: #131313; /* Fundo branco */
+        border-radius: 8px;
+        padding: 10.5px;
+        margin-bottom: 10px;
+        flex-direction: column; /* Disposição horizontal */
+
+        box-shadow: 0 0 10px #0d5e4e8f;
+        transition-delay: 2ms;
+        color: #EDEEF9; /* Texto preto no hover */
+    }
+
+    .frameAlertas{
+        margin-left: 1%;
+        flex-direction: column;
+        padding: 10px;
+        width: 95%;
+        align-items: start;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .hrDt{
+        
+        flex-direction: column;
+    }
+
+    .iconAlerta{
+        display: none;
+    }
+
+}
+
+
+
