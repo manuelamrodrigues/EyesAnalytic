@@ -2,8 +2,9 @@ footer {
     height: 45vh;
     box-sizing: border-box;
     overflow: hidden;
-    background: linear-gradient(0deg, rgba(51,107,97,1) 5%, rgba(30,47,43,1) 45%,
-                rgba(25,33,31,1) 59%, rgba(22,28,26,1) 68%, rgb(22, 22, 22) 79%, rgb(19, 19, 19) 95%);
+    background: linear-gradient(0deg, rgba(51,107,97,1) 30%, rgba(30,47,43,1) 60%,
+    rgba(25,33,31,1) 75%, rgba(22,28,26,1) 85%, rgb(22, 22, 22) 95%, rgb(19, 19, 19) 100%);
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,16 +13,74 @@ footer {
     font-style: normal;
 }
 
+.icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.ball i{
+    color: #ffffff;
+    font-size: 24px;
+    margin-left: -70px;
+    padding: 0px 0px 1px 00px;
+}
+
+.ball {    
+    background-color: #17171795;
+    border-radius: 50%; /* Faz com que a div seja um círculo */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; /* Espaço entre os círculos */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    transition: transform 1s;
+    transform: translateY(0) scale(1.0);
+}
+
+.ball:hover,
+.ball:focus {    
+    background-color: #17171795;
+    border-radius: 50%; /* Faz com que a div seja um círculo */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; /* Espaço entre os círculos */
+    transform: translateY(5px) scale(1.1);
+
+}
+
+
+.direitos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
 .main {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 15%;
+    gap: 40px;
 }
 
+
+.nav2 a{
+    color: #ffffff;
+}
+
+.nav2 a:hover{
+    color: #b0afaf;
+}
 /* .copyright {
     height: 15%;
     background-color: rgb(148, 148, 148);
@@ -44,7 +103,7 @@ footer {
     flex-direction: column;
 }
 
-.footer-cadastro {
+/* .footer-cadastro {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -70,7 +129,7 @@ footer {
     padding: 0px 1.00rem;
     border: none;
     border-radius: 0px 4px 4px 0px;
-}
+} */
 
 @media screen and (max-width: 1440px) {
     .main {
