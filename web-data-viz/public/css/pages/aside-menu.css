@@ -294,3 +294,24 @@ body {
 }
 
 }
+
+
+/* scrol da tela  */
+::-webkit-scrollbar {
+    width: 0.6vw;
+    background: #222222;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: -webkit-linear-gradient(#087b97, #0bcea7);
+    background: linear-gradient(#087b97, #0bcea7);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: -webkit-linear-gradient(#0ea2c7, #11f0c3);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: -webkit-linear-gradient(#065c72, #09977b);
+}

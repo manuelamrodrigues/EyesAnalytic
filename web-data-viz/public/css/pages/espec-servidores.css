@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html,
+body {
+    overflow-x: hidden !important;
+    font-family: "Kanit", sans-serif;
+    background-color: #EDEEF9;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+.chamados {
+    width: 90%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 110px;
+}
+
+.chamados h2 {
+    font-size: xx-large;
+    padding: 14px;
+    font-weight: 300;
+}
+
+.frameAlertas {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.opcoes {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 100px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    gap: 5px;
+    font-size: medium;
+}
+
+.frameAlertas h3 {
+    font-weight: 400;
+    font-size: larger;
+}
+
+.opcao h4 {
+    font-weight: 400;
+    font-size: medium;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+/* MODAL READ  */
+.modal {
+    display: none;
+    /* Oculta o modal por padrão */
+    position: fixed;
+    /* Fixa no viewport */
+    z-index: 1;
+    /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Largura total */
+    height: 100%;
+    /* Altura total */
+    overflow: auto;
+    /* Adiciona rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fundo semi-transparente */
+}
+
+.modal-content {
+    background-color: #EDEEF9;
+    /* margin: 100px 50px 50px 170px; */
+    margin: 5% 10% 5% 20%;
+    /* padding: 20px; */
+    /* border: 1px solid #888; */
+    width: 60%;
+    /* Largura do conteúdo */
+    height: 70%;
+    border-radius: 7px;
+    border: none;
+}
+
+.modal-content h2 {
+    font-size: x-large;
+    font-weight: 400;
+    padding: 15px 0px 10px 50px;
+}
+
+.modal-content .linha {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px 10px 50px;
+    gap: 50px;
+}
+
+
+.linha h3 {
+    font-weight: 400;
+}
+
+.recurso {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 10px 0px 10px 50px;
+
+}
+
+.recurso .rec {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.recurso h4 {
+    font-size: large;
+    font-weight: 500;
+
+}
+
+.recurso h5 {
+    font-size: medium;
+    font-weight: 400;
+}
+
+.recurso p {
+    font-size: medium;
+    font-weight: 300;
+}
+
+.superior {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.inferior {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+/* MODAL EDIT */
+.modal-edit {
+    display: none;
+    /* Oculta o modal por padrão */
+    position: fixed;
+    /* Fixa no viewport */
+    z-index: 1;
+    /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Largura total */
+    height: 100%;
+    /* Altura total */
+    overflow: auto;
+    /* Adiciona rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fundo semi-transparente */
+}
+
+.modal-content-edit {
+    background-color: #EDEEF9;
+    margin: 10% 10% 5% 35%;
+    /* padding: 20px; */
+    width: 30%;
+    height: 40%;
+    border-radius: 7px;
+    border: none;
+}
+
+.modal-content-edit h2 {
+    font-size: x-large;
+    font-weight: 400;
+    padding: 15px 0px 10px 50px;
+}
+
+.modal-content-edit .linha {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px 10px 50px;
+    gap: 50px;
+}
+
+.modal-content-edit .informacao {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal-content-edit .info {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    padding-top:10px;
+
+}
+
+.info h3 {
+    font-size: larger;
+    font-weight: 400;
+}
+
+.info p {
+    font-size: large;
+    font-weight: 300;
+}
+
+.info select {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    padding: 10px;
+    width: 100%;
+
+    /* Customiza a seta do select */
+    background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 15px;
+
+    /* Remove estilo padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.edit-salvar {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 25%;
+    height: 15%;
+    padding: 20px 0px 50px 35%;
+}
+
+.edit-salvar button {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-weight: 600;
+    font-size: medium;
+    background-color: #0BA385;
+    border: none;
+    border-radius: 5px;
+}
+
+/* MODAL DE EXCLUIR */
+.modal-trash {
+    display: none;
+    /* Oculta o modal por padrão */
+    position: fixed;
+    /* Fixa no viewport */
+    z-index: 1;
+    /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Largura total */
+    height: 100%;
+    /* Altura total */
+    overflow: auto;
+    /* Adiciona rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fundo semi-transparente */
+}
+
+.modal-content-trash {
+    background-color: #EDEEF9;
+    margin: 10% 10% 5% 30%;
+    /* padding: 20px; */
+    width: 40%;
+    height: 35%;
+    border-radius: 7px;
+    border: none;
+}
+
+.conteudo-trash {
+    height: 100%;
+    width: 100%;
+    padding: 70px 0px 0px 0px;
+}
+
+.conteudo-trash p {
+    font-size: x-large;
+    font-weight: 400;
+    padding: 0px 0px 50px 40px;
+}
+
+.botoes-trash {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 15%;
+}
+
+.botoes-trash button{
+    width: 20%;
+    height: 100%;
+
+    border-radius: 5px;
+    border: none;
+
+    color: #fff;
+    font-weight: 600;
+
+}
+
+
+/* BOTAO DE FECHAR  MODAL READ*/
+.close {
+    color: #aaa;
+    float: right;
+    margin: -30px 10px 10px 10px;
+    font-size: 70px;
+    /* font-weight: bold; */
+}
+
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* BOTAO DE FECHAR  MODAL EDIT*/
+.closeE {
+    color: #aaa;
+    float: right;
+    margin: -30px 10px 10px 10px;
+    font-size: 70px;
+    /* font-weight: bold; */
+}
+
+
+.closeE:hover,
+.closeE:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* BOTAO DE FECHAR  MODAL TRASH*/
+.closeT {
+    color: #aaa;
+    float: right;
+    margin: -30px 10px 10px 10px;
+    font-size: 70px;
+    /* font-weight: bold; */
+}
+
+
+.closeT:hover,
+.closeT:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.openModal {
+    background-color: #fff;
+    border-radius: 7px;
+    border: none;
+    width: 100%;
+    padding: 10px;
+
+}
