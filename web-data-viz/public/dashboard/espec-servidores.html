@@ -65,15 +65,16 @@
 
     <main>
 
-        <section class="chamados">
+        <section class="chamados" id="conteudo">
 
             <article class="alertas">
 
                 <h2>Servidores</h2>
 
-                <div class="openModal" id="openModal">
+                <div class="openModal">
                     <div class="frameAlertas">
-                        <h3>Servidor 1</h3>
+
+                        <h3  id="openModal">Servidor 1</h3>
 
                         <div class="opcoes">
 
@@ -94,10 +95,10 @@
                         </div>
 
                         <div class="icons">
-                            <a href="" id="EditModal"><svg xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="30" zoomAndPan="magnify"
-                                    viewBox="0 0 375 374.999991" height="30" preserveAspectRatio="xMidYMid meet"
-                                    version="1.0">
+                            <div class="iconEdit" id="openModalEdit">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30"
+                                    preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
                                         <clipPath id="4e72f912ee">
                                             <path d="M 25.5 68 L 307 68 L 307 349.5 L 25.5 349.5 Z M 25.5 68 "
@@ -119,12 +120,12 @@
                                             fill-opacity="1" fill-rule="nonzero" />
                                     </g>
                                 </svg>
-                            </a>
+                            </div>
 
-                            <a href=""><svg xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="30" zoomAndPan="magnify"
-                                    viewBox="0 0 375 374.999991" height="30" preserveAspectRatio="xMidYMid meet"
-                                    version="1.0">
+                            <div class="iconTrash" id="openModalTrash">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30"
+                                    preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
                                         <clipPath id="cb48560856">
                                             <path
@@ -138,247 +139,335 @@
                                             fill-opacity="1" fill-rule="evenodd" />
                                     </g>
                                 </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-
-                        <span class="close">&times;</span>
-
-                        <h2>Servidor 1</h2>
-
-                        <div class="linha">
-                            <h3>ID: 0324 </h3>
-                            <h3>Status: <span style="color:green;">Conectado</span> </h3>
-                            <h3>Prioridade: <span style="color:green;">Alta</span></h3>
-                        </div>
-
-                        <div class="superior">
-
-                            <div class="recurso">
-                                <h4>CPU:</h4>
-                                <div class="rec">
-                                    <h5>Fabricante:</h5>
-                                    <p>Intel</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Modelo:</h5>
-                                    <p>Xeon E5 2650</p>
-                                </div>
-
-                                <div class="rec">
-                                    <h5>Velocidade:</h5>
-                                    <p>2.4Ghz</p>
-                                </div>
-
-                                <div class="rec">
-                                    <h5>Núcleos:</h5>
-                                    <p>14</p>
-                                </div>
-
-                                <div class="rec">
-                                    <h5>Threads:</h5>
-                                    <p>28</p>
-                                </div>
-
-                            </div>
-
-                            <div class="recurso">
-                                <h4>RAM:</h4>
-                                <div class="rec">
-                                    <h5> Fabricante:</h5>
-                                    <p> Kingston</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Modelo:</h5>
-                                    <p>KF432C16BB</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Velocidade:</h5>
-                                    <p>3200Mhz</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Capacidade:</h5>
-                                    <p> 16 Gib</p>
-                                </div>
-                            </div>
-
-                            <div class="recurso">
-                                <h4> Disco 1:</h4>
-                                <div class="rec">
-                                    <h5> Fabricante: </h5>
-                                    <p> Western Digital</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Modelo: </h5>
-                                    <p> WD10EURX</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Velocidade: </h5>
-                                    <p>5400 RPM</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Capacidade: </h5>
-                                    <p>1TB</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="inferior">
-                            <div class="recurso">
-                                <h4> Disco 2:</h4>
-                                <div class="rec">
-                                    <h5>Fabricante: </h5>
-                                    <p> Western Digital</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Modelo: </h5>
-                                    <p>WD10EURX</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Velocidade: </h5>
-                                    <p> 5400 RPM</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Capacidade: </h5>
-                                    <p> 1TB</p>
-                                </div>
-                            </div>
-
-                            <div class="recurso">
-                                <h4>Disco 3:</h4>
-                                <div class="rec">
-                                    <h5>Fabricante: </h5>
-                                    <p> Western Digital</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Modelo: </h5>
-                                    <p> WD10EURX</p>
-                                </div>
-                                <div class="rec">
-                                    <h5>Velocidade: </h5>
-                                    <p> 5400 RPM</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Capacidade: </h5>
-                                    <p>1TB</p>
-                                </div>
-                            </div>
-
-                            <div class="recurso">
-                                <h4>Disco 4:</h4>
-                                <div class="rec">
-                                    <h5>Fabricante: </h5>
-                                    <p> Western Digital</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Modelo: </h5>
-                                    <p> WD10EURX</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Velocidade: </h5>
-                                    <p> 5400 RPM</p>
-                                </div>
-                                <div class="rec">
-                                    <h5> Capacidade: </h5>
-                                    <p> 1TB </p>
-                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal para editar -->
-                <div id="editModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Editar Servidor</h2>
-                        <form>
-                            <label for="cpu">CPU:</label>
-                            <input type="text" id="cpu" name="cpu"><br>
-                            <label for="memoria">Memória:</label>
-                            <input type="text" id="memoria" name="memoria"><br>
-                            <label for="disco">Disco:</label>
-                            <input type="text" id="disco" name="disco"><br>
-                            <input type="submit" value="Salvar">
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Modal de exclusão -->
-                <div id="TrashModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Excluir Servidor</h2>
-                        <p>Tem certeza de que deseja excluir este servidor?</p>
-                        <button>Sim</button>
-                        <button>Não</button>
-                    </div>
-                </div>
 
             </article>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+
+                    <span class="close">&times;</span>
+
+                    <h2>Servidor 1</h2>
+
+                    <div style="width: 100%; height: 1px; background-color: rgb(70, 70, 70);"></div>
+
+                    <div class="linha">
+                        <h3>ID: 0324 </h3>
+                        <h3>Status: <span style="color:green;">Conectado</span> </h3>
+                        <h3>Prioridade: <span style="color:green;">Alta</span></h3>
+                    </div>
+
+                    <div class="superior">
+
+                        <div class="recurso">
+                            <h4>CPU:</h4>
+                            <div class="rec">
+                                <h5>Fabricante:</h5>
+                                <p>Intel</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Modelo:</h5>
+                                <p>Xeon E5 2650</p>
+                            </div>
+
+                            <div class="rec">
+                                <h5>Velocidade:</h5>
+                                <p>2.4Ghz</p>
+                            </div>
+
+                            <div class="rec">
+                                <h5>Núcleos:</h5>
+                                <p>14</p>
+                            </div>
+
+                            <div class="rec">
+                                <h5>Threads:</h5>
+                                <p>28</p>
+                            </div>
+
+                        </div>
+
+                        <div class="recurso">
+                            <h4>RAM:</h4>
+                            <div class="rec">
+                                <h5> Fabricante:</h5>
+                                <p> Kingston</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Modelo:</h5>
+                                <p>KF432C16BB</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Velocidade:</h5>
+                                <p>3200Mhz</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Capacidade:</h5>
+                                <p> 16 Gib</p>
+                            </div>
+                        </div>
+
+                        <div class="recurso">
+                            <h4> Disco 1:</h4>
+                            <div class="rec">
+                                <h5> Fabricante: </h5>
+                                <p> Western Digital</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Modelo: </h5>
+                                <p> WD10EURX</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Velocidade: </h5>
+                                <p>5400 RPM</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Capacidade: </h5>
+                                <p>1TB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inferior">
+                        <div class="recurso">
+                            <h4> Disco 2:</h4>
+                            <div class="rec">
+                                <h5>Fabricante: </h5>
+                                <p> Western Digital</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Modelo: </h5>
+                                <p>WD10EURX</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Velocidade: </h5>
+                                <p> 5400 RPM</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Capacidade: </h5>
+                                <p> 1TB</p>
+                            </div>
+                        </div>
+
+                        <div class="recurso">
+                            <h4>Disco 3:</h4>
+                            <div class="rec">
+                                <h5>Fabricante: </h5>
+                                <p> Western Digital</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Modelo: </h5>
+                                <p> WD10EURX</p>
+                            </div>
+                            <div class="rec">
+                                <h5>Velocidade: </h5>
+                                <p> 5400 RPM</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Capacidade: </h5>
+                                <p>1TB</p>
+                            </div>
+                        </div>
+
+                        <div class="recurso">
+                            <h4>Disco 4:</h4>
+                            <div class="rec">
+                                <h5>Fabricante: </h5>
+                                <p> Western Digital</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Modelo: </h5>
+                                <p> WD10EURX</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Velocidade: </h5>
+                                <p> 5400 RPM</p>
+                            </div>
+                            <div class="rec">
+                                <h5> Capacidade: </h5>
+                                <p> 1TB </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal para editar -->
+            <div id="modalEdit" class="modal-edit">
+                <div class="modal-content-edit">
+
+                    <span class="closeE">&times;</span>
+
+                    <h2>Servidor 1</h2>
+
+                    <div style="width: 100%; height: 1px; background-color: rgb(70, 70, 70);"></div>
+
+                    <div class="informacao">
+
+                        <div class="info">
+                            <h3>ID: </h3>
+                            <p>0324</p>
+                        </div>
+                        <div class="info">
+                            <h3>Status: </h3>
+                            <p><span style="color: #0D5E4E;">Conectado</span></p>
+                        </div>
+                        <div class="info">
+                            <h3>Prioridade: </h3>
+                            <select name="prioridade" id="">
+                                <option value="Baixa">Baixa</option>
+                                <option value="Média">Média</option>
+                                <option value="Baixa">Baixa</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="edit-salvar">
+                        <button>Salvar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal de exclusão -->
+            <div id="modalTrash" class="modal">
+                <div class="modal-content-trash">
+
+                    <span class="closeT">&times;</span>
+
+                    <div class="conteudo-trash">
+                        <p>Tem certeza que deseja desativar o <span style="color: #0D5E4E;">Servidor 1</span> ?</p>
+
+                        <div class="botoes-trash">
+                            <button style="background-color: #CE1919;">Cancelar</button>
+                            <button style="background-color: #0BA385;">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </main>
+
+
 </body>
 
 </html>
 <script>
-    // Obtém os elementos do modal
-    var editModal = document.getElementById("editModal");
-    var trashModal = document.getElementById("TrashModal");
-    var myModal = document.getElementById("myModal");
 
-    // Obtém os botões que abrem os modais
-    var editButton = document.getElementById("EditModal");
-    var trashButton = document.getElementById("TrashModal");
-    var openModalButton = document.getElementById("openModal");
+    // MODAL READ 
+    document.getElementById('openModal').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'block';
+        document.querySelector('.conteudo').style.display = 'none';
+    });
 
-    // Obtém os elementos <span> que fecham os modais
-    var closeButtons = document.getElementsByClassName("close");
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('modal').style.display = 'none';
+        document.querySelector('.conteudo').style.display = 'block';
+    });
 
-    // Quando o usuário clica no botão de edição, abre o modal de edição
-    editButton.onclick = function (event) {
-        event.preventDefault(); // Impede o comportamento padrão do link
-        editModal.style.display = "block";
-    }
-  
-    trashButton.onclick = function (event) {
-        event.preventDefault(); // Impede o comportamento padrão do link
-        trashModal.style.display = "block";
-    }
+    // MODAL EDIT 
+    document.getElementById('openModalEdit').addEventListener('click', function () {
+        document.getElementById('modalEdit').style.display = 'block';
+        document.querySelector('.conteudo').style.display = 'none';
+    });
 
-    // Quando o usuário clica no modal aberto, mostra o modal principal
-    openModalButton.onclick = function (event) {
-        event.preventDefault(); // Impede o comportamento padrão do link
-        myModal.style.display = "block";
-    }
+    document.querySelector('.closeE').addEventListener('click', function () {
+        document.getElementById('modalEdit').style.display = 'none';
+        document.querySelector('.conteudo').style.display = 'block';
+    });
 
-    // Adiciona um evento a cada botão de fechar
-    for (let i = 0; i < closeButtons.length; i++) {
-        closeButtons[i].onclick = function () {
-            editModal.style.display = "none";
-            trashModal.style.display = "none";
-            myModal.style.display = "none";
-        }
-    }
+    // MODAL EDIT 
+    document.getElementById('openModalTrash').addEventListener('click', function () {
+        document.getElementById('modalTrash').style.display = 'block';
+        document.querySelector('.conteudo').style.display = 'none';
+    });
 
-    // Quando o usuário clica fora do modal, ele se fecha
-    window.onclick = function (event) {
-        if (event.target == editModal) {
-            editModal.style.display = "none";
-        }
-        if (event.target == trashModal) {
-            trashModal.style.display = "none";
-        }
-        if (event.target == myModal) {
-            myModal.style.display = "none";
-        }
-    }
+    document.querySelector('.closeT').addEventListener('click', function () {
+        document.getElementById('modalTrash').style.display = 'none';
+        document.querySelector('.conteudo').style.display = 'block';
+    });
+
+
+    // document.getElementById('EditModal').addEventListener('click', function () {
+    //     document.getElementById('ModalEdicao').style.display = 'block';
+    //     document.querySelector('.conteudo').style.display = 'none'; // Oculta a div conteudo
+    // });
+
+    // document.querySelector('.closeEdit').addEventListener('click', function () {
+    //     document.getElementById('ModalEdicao').style.display = 'none';
+    //     document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
+    // });
+
+
+
+    //     // Obtém os elementos do modal
+    // var editModal = document.getElementById("editModal");
+    // var trashModal = document.getElementById("trashModal");
+    // var myModal = document.getElementById("myModal");
+
+    // // Obtém os botões que abrem os modais
+    // var editButton = document.getElementById("EditModal");
+    // var trashButton = document.getElementById("TrashModal");
+    // var openModalButton = document.getElementById("openModal");
+
+    // // Obtém os elementos <span> que fecham os modais
+    // var closeButtons = document.getElementsByClassName("close");
+
+    // // Quando o usuário clica no botão de edição, abre o modal de edição e garante que os outros modais estejam fechados
+    // editButton.onclick = function (event) {
+    //     event.preventDefault(); // Impede o comportamento padrão do link
+    //     editModal.style.display = "block";  // Abre o modal de edição
+    //     myModal.style.display = "none";     // Fecha o modal principal
+    //     trashModal.style.display = "none";  // Fecha o modal de exclusão
+    // }
+
+    // // Quando o usuário clica no botão de trash, abre o modal de excluir e fecha os outros modais
+    // trashButton.onclick = function (event) {
+    //     event.preventDefault(); // Impede o comportamento padrão do link
+    //     trashModal.style.display = "block";  // Abre o modal de exclusão
+    //     myModal.style.display = "block";      // Fecha o modal principal
+    //     editModal.style.display = "block";    // Fecha o modal de edição
+    // }
+
+    // // Quando o usuário clica no botão do modal principal, abre o modal principal e fecha os outros
+    // openModalButton.onclick = function (event) {
+    //     event.preventDefault(); // Impede o comportamento padrão do link
+    //     myModal.style.display = "block";     // Abre o modal principal
+    //     editModal.style.display = "none";    // Fecha o modal de edição
+    //     trashModal.style.display = "none";   // Fecha o modal de exclusão
+    // }
+
+    // // Adiciona um evento a cada botão de fechar para fechar os modais individualmente
+    // for (let i = 0; i < closeButtons.length; i++) {
+    //     closeButtons[i].onclick = function () {
+    //         editModal.style.display = "none";  // Fecha o modal de edição
+    //         trashModal.style.display = "none"; // Fecha o modal de exclusão
+    //         myModal.style.display = "none";    // Fecha o modal principal
+    //     }
+    // }
+
+    // // Quando o usuário clica fora de um modal, ele se fecha
+    // window.onclick = function (event) {
+    //     if (event.target == editModal) {
+    //         editModal.style.display = "none";
+    //     }
+    //     if (event.target == trashModal) {
+    //         trashModal.style.display = "none";
+    //     }
+    //     if (event.target == myModal) {
+    //         myModal.style.display = "none";
+    //     }
+    // }
+
 
     // document.addEventListener("DOMContentLoaded", function () {
     //     const modal = document.getElementById("myModal");
