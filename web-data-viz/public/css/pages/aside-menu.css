@@ -29,6 +29,7 @@ aside{
     z-index: 6;
     transition: 200ms linear;
     overflow: hidden;
+    
 }
 
 #aside-menu:hover {
