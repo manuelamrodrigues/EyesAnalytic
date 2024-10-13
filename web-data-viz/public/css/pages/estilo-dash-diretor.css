@@ -154,7 +154,7 @@ main{
 /*==================================================================================================================*/
 .dash {
     background-color: #00000000;
-    margin: 10% 0 0 64%;
+    margin: 10% 0 0 15%;
     height: 100%; /* Ajusta a altura ao conteúdo */
     width: 100%; /* Define uma largura mais apropriada */
     display: flex;
@@ -162,6 +162,7 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    /* border: #0BA385 3px solid; */
     
 }
 
@@ -173,7 +174,7 @@ main{
 }
 
 .topoGrafico{
-    margin: 10px 0 0  3%;
+    margin: 10px 0 0  14%;
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -296,7 +297,7 @@ main{
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
-    margin: 0 0 0 65%;
+    margin: 0 0 0 27%;
     border-radius: 10px;
     width: 90vw;
     height: 100%;
