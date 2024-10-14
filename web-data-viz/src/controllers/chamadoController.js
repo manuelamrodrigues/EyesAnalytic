@@ -63,8 +63,6 @@ function buscarPorId(req, res) {
 function cadastrar(req, res) {
     var assunto = req.body.assunto;
     var descricao = req.body.descricao;
-    var status = req.body.status; //No cadastro ele vai vir com o status "Não atendido"
-    // var dtHora = req.params.dtHora;
     var fkDiretor = req.body.fkDiretor;
     var fkEspecialista = req.body.fkEspecialista;
     var fkUrgencia = req.body.fkUrgencia;
@@ -73,18 +71,14 @@ function cadastrar(req, res) {
         res.status(400).send("O assunto está indefinido!");
     } else if (descricao == undefined) {
         res.status(400).send("A descrição está indefinido!");
-    } else if (status == undefined) {
-        res.status(400).send("O status está indefinido!");
-    }/* else if (dtHora == undefined) {
-        res.status(403).send("O a data e a hora estão indefinidos!");
-    }*/ else if (fkDiretor == undefined) {
+    } else if (fkDiretor == undefined) {
         res.status(403).send("A fkDiretor está indefinida!");
     } else if (fkEspecialista == undefined) {
         res.status(403).send("A fkEspecialista está indefinida!");
     } else if (fkUrgencia == undefined) {
         res.status(403).send("A fkUrgencia está indefinida!");
     } else {
-        chamadoModel.cadastrar(assunto, descricao, status, fkDiretor, fkEspecialista, fkUrgencia)
+        chamadoModel.cadastrar(assunto, descricao, fkDiretor, fkEspecialista, fkUrgencia)
             .then(
                 function (resultado) {
                     res.json(resultado);
