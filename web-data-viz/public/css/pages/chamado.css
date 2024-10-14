@@ -131,8 +131,28 @@ main {
   justify-content: space-around;
 }
 
-h1 {
+.title{
   margin-top: 6vh;
+  display: flex;
+  align-items: center;
+  width: 92%;
+  justify-content: space-between;
+}
+
+.title button {
+  background-color: #0BA385;
+  /* width: 100%; */
+  width: 12.2vw;
+  height: 5vh;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  /* border: none; */
+  border-color: #0BA385;
+}
+
+h1 {
   font-family: "Kanit", sans-serif;
   font-style: normal;
   font-size: 20px;
