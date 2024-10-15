@@ -67,150 +67,151 @@ create database eyesAnalytic;
 
 use eyesAnalytic;
 
--- Criando tabelas indepentes
--- ==============================================================
-
 -- Criando tabela tipo de usuario
-create table TipoUser(
-idTipoUser int primary key auto_increment,
+create table tipo_usuario(
+idTipoUsuario int primary key auto_increment,
 tipo varchar(45)
 );
 
--- Crinado tabela empresa
-create table Empresa(
-idEmpresa int primary key auto_increment,
-nome varchar(225),
-codSeg char(9)
+-- Criando tabela contato
+create table contato(
+idContato int primary key auto_increment,
+razaoSocial varchar(225),
+email varchar(225),
+cnpj char(14),
+telefone varchar(20)
 );
 
 -- Criando tabela componente
-create table Recurso(
+create table recurso(
 idRecurso int primary key auto_increment,
 tipo varchar(45)
 );
 
 -- Criando tabela atributo
-create table Atributo(
+create table atributo(
 idAtributo int primary key auto_increment,
-atributo varchar(225)
+tipo varchar(225)
 );
 
 -- Criando tabela urgencia
-create table Urgencia(
+create table urgencia(
 idUrgencia int primary key auto_increment,
 tipo varchar(45)
 );
 
 -- Criando tabela Prioridade
-create table Prioridade(
+create table prioridade(
 idPrioridade int primary key auto_increment,
 tipo varchar(45)
 );
 
--- Criando tabelas dependentes
+-- Criando tabela empresa
+create table empresa(
+idEmpresa int primary key auto_increment,
+codSeg char(9),
+fkContato int,
+foreign key (fkContato) references contato(idContato)
+);
+
 -- Criando tabela Maquina
-create table Maquina(
+create table maquina(
 idMaquina int primary key auto_increment,
-modelo varchar(90),
-status varchar(45),
+situacao varchar(45),
 fkEmpresa int,
-foreign key(fkEmpresa) references Empresa(idEmpresa),
+foreign key(fkEmpresa) references empresa(idEmpresa),
 fkPrioridade int,
-foreign key(fkPrioridade) references Prioridade(idPrioridade)
+foreign key(fkPrioridade) references prioridade(idPrioridade)
 );
 
 -- Criando tabela Usuario
-create table Usuario(
+create table usuario(
 idUsuario int primary key auto_increment,
 nome varchar(225),
 email varchar(225),
 senha char(8),
-status varchar(45),
+situacao varchar(45),
 fkEmpresa int,
-foreign key(fkEmpresa) references Empresa(idEmpresa),
-fkTipoUser int,
-foreign key(fkTipoUser) references TipoUser(idTipoUser)
+foreign key(fkEmpresa) references empresa(idEmpresa),
+fkTipoUsuario int,
+foreign key(fkTipoUsuario) references tipo_usuario(idTipoUsuario)
 );
 
+
 -- Criando tabela MaquinaComponente
-create table MaquinaRecurso(
+create table maquina_recurso(
 idMaquinaRecurso int auto_increment,
 fkMaquina int,
-foreign key(fkMaquina) references Maquina(idMaquina),
+foreign key(fkMaquina) references maquina(idMaquina),
 fkRecurso int,
-foreign key(fkRecurso) references Recurso(idRecurso),
+foreign key(fkRecurso) references recurso(idRecurso),
 primary key(idMaquinaRecurso, fkMaquina, fkRecurso)
 );
 
 -- Criando tabela Dado
-create table DadoCapturado(
-idDado int auto_increment,
+create table dado_capturado(
+idDadoCapturado int auto_increment,
 registro int,
-dtHora datetime,
-fkMaquinaRecurso int,
-constraint fkDadoCapturado foreign key (fkMaquinaRecurso)
-references MaquinaRecurso(idMaquinaRecurso),
-constraint pkDadoMaquinaRecurso PRIMARY KEY (idDado, fkMaquinaRecurso)
+dtHora datetime default CURRENT_TIMESTAMP(),
+fkMaquina int,
+foreign key(fkMaquina) references maquina_recurso(fkMaquina),
+fkRecurso int,
+foreign key(fkRecurso) references maquina_recurso(fkRecurso),
+primary key( idDadoCapturado, fkMaquina, fkRecurso)
 );
 
 -- Criando tabela Chamado
-create table Chamado(
+create table chamado(
 idChamado int primary key auto_increment,
 assunto varchar(225),
 descricao varchar(1000),
-status varchar(45),
-dtHora datetime,
+situacao varchar(45) default 'Não Atendido',
+dtHora datetime default CURRENT_TIMESTAMP(),
 fkDiretor int,
-constraint fkDiretor foreign key(fkDiretor) references Usuario(idUsuario),
+constraint fkDiretor foreign key(fkDiretor) references usuario(idUsuario),
 fkEspecialista int,
-constraint fkEspecialista foreign key(fkEspecialista) references Usuario(idUsuario),
+constraint fkEspecialista foreign key(fkEspecialista) references usuario(idUsuario),
 fkUrgencia int,
-foreign key(fkUrgencia) references Urgencia(idUrgencia)
+foreign key(fkUrgencia) references urgencia(idUrgencia)
 );
 
 -- Criando tabela AtributoMaquinaComponente
-create table AtributoMaquinaRecurso(
-atributo varchar(255),
+create table atributo_maquina_recurso(
+valor varchar(225),
 fkAtributo int,
-foreign key(fkAtributo) references Atributo(idAtributo),
+foreign key(fkAtributo) references atributo(idAtributo),
 fkMaquinaRecurso int,
-foreign key(fkMaquinaRecurso) references MaquinaRecurso(idMaquinaRecurso),
+foreign key(fkMaquinaRecurso) references maquina_recurso(idMaquinaRecurso),
 primary key(fkAtributo, fkMaquinaRecurso)
 );
-
--- Criando tabela AtributoMaquinaComponente
-create table Contato (
-    id int AUTO_INCREMENT PRIMARY KEY,  -- ID único para cada contato
-    nome varchar(255) not null,                -- Nome do contato
-    email varchar(255) not null,               -- E-mail do contato
-    telefone varchar(20) not null,             -- Telefone do contato
-    cnpj varchar(18) not null,                 -- CNPJ do contato (tamanho padrão para CNPJ)
-);
-
 
 
 -- Inserção de dados
 -- ==============================================================
 
--- Inserindo dados na tabela TipoUser
-insert into TipoUser (tipo) values
+-- Inserindo dados na tabela TipoUsuario
+insert into tipo_usuario (tipo) values
 ('administrador'),
-('usuário comum'),
 ('especialista');
 
+-- Inserindo dados na tabela Contato
+insert into contato (razaoSocial, email, cnpj, telefone) values
+('Empresa Alpha', 'empresaalpha@empresaalpha.com', '12543167897654','40987865'),
+('Empresa Beta', 'empresabeta@empresabeta.com', '12564327865419', '23433212');
+
 -- Inserindo dados na tabela Empresa
-insert into Empresa (nome, codSeg) values
-('empresa alpha', '123456789'),
-('empresa beta', '987654321');
+insert into empresa (codSeg, fkContato) values
+('123456789',1),
+('987654321',2);
 
 -- Inserindo dados na tabela Recurso
-insert into Recurso (tipo) values
+insert into recurso (tipo) values
 ('cpu'),
 ('ram'),
 ('disco rígido');
 
 -- Inserindo dados na tabela Atributo
-insert into Atributo (atributo) values
+insert into atributo (tipo) values
 ('fabricante'),
 ('modelo'),
 ('velocidade'),
@@ -219,38 +220,74 @@ insert into Atributo (atributo) values
 ('capacidade');
 
 -- Inserindo dados na tabela Urgencia
-insert into Urgencia (tipo) values
+insert into urgencia (tipo) values
 ('alta'),
 ('média'),
 ('baixa');
 
 -- Inserindo dados na tabela Prioridade
-insert into Prioridade (tipo) values
+insert into prioridade (tipo) values
 ('alto'),
 ('médio'),
 ('baixo');
 
 -- Inserindo dados na tabela Maquina
-insert into Maquina (modelo, status, fkEmpresa) values
-('dell xps 15', 'ativa', 1),
-('hp elitebook', 'inativa', 2);
+insert into maquina (situacao, fkEmpresa, fkPrioridade) values
+('ativa', 1, 1),
+('inativa', 2, 3);
 
 -- Inserindo dados na tabela Usuario
-insert into Usuario (nome, email, senha, status, fkEmpresa, fkTipoUser) values
-('joão da silva', 'joao.silva@email.com', 'senha123', 'ativo', 1, 1),
-('maria oliveira', 'maria.oliveira@email.com', 'senha123', 'ativo', 2, 2),
-('pedro souza', 'pedro.souza@email.com', 'senha123', 'ativo', 1, 3);
+insert into usuario (idUsuario, nome, email, senha, situacao, fkEmpresa, fkTipoUsuario) values
+(default, 'joão da silva', 'joao.silva@email.com', 'senha123', 'ativo', 1, 1),
+(default, 'maria oliveira', 'maria.oliveira@email.com', 'senha123', 'ativo', 2, 2),
+(default, 'pedro souza', 'pedro.souza@email.com', 'senha123', 'ativo', 1, 2);
 
 -- Inserindo dados na tabela MaquinaRecurso
+insert into maquina_recurso (idMaquinaRecurso,fkMaquina,fkRecurso) values
+(1, 1, 1),
+(2, 2, 1),
+(3, 1, 2),
+(4, 2, 3);
+
+select * from maquina_recurso;
 
 -- Inserindo dados na tabela Dado
-insert into DadoCapturado (registro, dtHora, fkMaquinaRecurso) values
-(85, '2024-09-28 10:30:00', 1), -- dado para a máquina 1 e Recurso cpu
-(70, '2024-09-28 10:45:00', 1), -- dado para a máquina 1 e Recurso ram
-(65, '2024-09-28 11:00:00', 2), -- dado para a máquina 2 e Recurso cpu
-(50, '2024-09-28 11:15:00', 2); -- dado para a máquina 2 e Recurso disco rígido
+insert into dado_capturado (registro, dtHora, fkMaquina, fkRecurso) values
+(85, '2024-09-28 10:30:00', 1, 1), -- dado para a máquina 1 e Recurso cpu
+(70, '2024-09-28 10:45:00', 1, 2), -- dado para a máquina 1 e Recurso ram
+(65, '2024-09-28 11:00:00', 2, 1), -- dado para a máquina 2 e Recurso cpu
+(50, '2024-09-28 11:15:00',2, 3); -- dado para a máquina 2 e Recurso disco rígido
 
 -- Inserindo dados na tabela Chamado
-insert into Chamado (assunto, descricao, status, dtHora, fkDiretor, fkEspecialista, fkUrgencia) values
-('Problema com CPU', 'A CPU está esquentando acima do esperado.', 'Atendido', '2024-09-28 12:00:00', 1, 3, 1),
-('Baixa performance', 'A máquina está apresentando lentidão ao iniciar.', 'Não atendido', '2024-09-28 12:30:00', 2, 3, 2);
+insert into chamado (assunto, descricao, fkDiretor, fkEspecialista, fkUrgencia) values
+('Problema com CPU', 'A CPU está esquentando acima do esperado.', 2, 2, 1),
+('Baixa performance', 'A máquina está apresentando lentidão ao iniciar.', 2, 1, 2);
+
+-- Inserindo dados na tabela Atributo Máquina Recurso
+INSERT INTO atributo_maquina_recurso (valor, fkAtributo, fkMaquinaRecurso) VALUES
+('3.5 GHz', 1, 1),
+('16 GB', 2, 2),
+('45 °C', 3, 3);
+
+select * from chamado;
+
+CREATE VIEW view_select_listar_chamados AS
+SELECT
+    c.idChamado,
+    c.assunto,
+    c.descricao,
+    c.situacao,
+    c.dtHora,
+    d.idUsuario AS idDiretor,
+    d.nome AS NomeDiretor,
+    d.email AS EmailDiretor,
+    e.idUsuario AS idEspecialista,
+    e.nome AS NomeEspecialista,
+    e.email AS EmailEspecialista,
+    u.idUrgencia
+FROM chamado AS c INNER JOIN usuario AS d
+    ON c.fkDiretor = d.idUsuario
+INNER JOIN usuario AS e
+    ON c.fkEspecialista = e.idUsuario
+INNER JOIN urgencia AS u
+    ON c.fkUrgencia = u.idUrgencia;

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="./css/pages/login.css">  
+    <link rel="stylesheet" href="./css/pages/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,22 +19,20 @@
 
     <div class="login">
 
-        <div class="loginTexto"> 
+        <div class="loginTexto">
             <a href="index.html"><img src="./assets/svg/Logo.svg" alt="logo"></a>
             <h1>Login</h1>
         </div>
 
 
         <div class="input field">
-            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input"
-                autocomplete="off">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
             <label for="name" class="caixa">E-mail</label>
         </div>
 
 
         <div class="input field">
-            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input"
-                autocomplete="off">
+            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
             <label for="name" class="caixa">Senha</label>
         </div>
 
@@ -58,24 +56,21 @@
 
 <script>
 
+    function entrar() {
 
-    
-        function entrar() {
-            
-
-
-            var emailVar = email_input.value;
-            var senhaVar = senha_input.value;
-            var errorMessage = document.getElementById("error-message");
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var errorMessage = document.getElementById("error-message");
 
 
-            if (emailVar === "" || senhaVar === "") {
-                errorMessage.style.display = "block";
-                errorMessage.innerText = "Por favor, preencha todos os campos.";
-                return;
-                console.log("Seu erro bateu na Validação do If")
+        if (emailVar === "" || senhaVar === "") {
+            errorMessage.style.display = "block";
+            errorMessage.innerText = "Por favor, preencha todos os campos.";
+            return;
+            console.log("Seu erro bateu na Validação do If")
 
-            }
+        } else {
+
 
             fetch("/usuarios/autenticar", {
                 method: "POST",
@@ -87,35 +82,64 @@
                     senhaServer: senhaVar
                 })
             })
-            .then(function (resposta) {
-                if (!resposta.ok) {
-                    throw new Error("Houve um erro ao tentar realizar o login!");
-                }
-                return resposta.json();
-            })
-            .then(function (json) {
-                sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nome;
-                sessionStorage.ID_USUARIO = json.id;
-                console.log("SUAS CREDENCAIS FORAM ACEITAS")
-                setTimeout(function () {
-                    window.location.href = "index.html";
-                }, 1000); // Apenas para exibir o loading
-            })
-            .catch(function (erro) {
-                console.error(erro);
-                errorMessage.style.display = "block";
-                errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
-            });
-        }
-    
+                .then(function (resposta) {
 
-        function mostrarsenha() {
-            var senhaInput = document.getElementById("senha_input");
-            if (senhaInput.type === "password") {
-                senhaInput.type = "text";
-            } else {
-                senhaInput.type = "password";
-            }
+                    if (resposta.ok) {
+                        console.log(resposta)
+
+
+                        resposta.json().then(json => {
+                            console.log(json);
+                            console.log(JSON.stringify(json));
+
+
+                            sessionStorage.EMAIL_USUARIO = json.email;
+                            sessionStorage.NOME_USUARIO = json.nome;
+                            sessionStorage.ID_USUARIO = json.idUsuario;
+                            sessionStorage.FK_TIPO_USUARIO = json.fkTipoUsuario;
+
+                            // console.log(sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
+
+
+                            if (sessionStorage.FK_TIPO_USUARIO == 1) {
+                                setTimeout(function () {
+                                    window.location = "./dashboard/dash-diretor.html";
+                                }, 1000); // apenas para exibir o loading  
+
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 2){
+                                setTimeout(function () {
+                                    window.location = "./dashboard/dash-especialista.html";
+                                }, 1000); // apenas para exibir o loading
+                            }
+
+                        });
+
+                        // throw new Error("Houve um erro ao tentar realizar o login!");
+                    } else {
+
+                        alert("Houve um erro ao tentar realizar o login!");
+                        console.log("Houve um erro ao tentar realizar o login!");
+                        // return resposta.json();
+
+                    }
+                })
+                .catch(function (erro) {
+                    console.error(erro);
+                    errorMessage.style.display = "block";
+                    errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
+                })
+            return false;
         }
-    </script>
+    }
+
+
+    // function mostrarsenha() {
+    //     var senhaInput = document.getElementById("senha_input");
+    //     if (senhaInput.type === "password") {
+    //         senhaInput.type = "text";
+    //     } else {
+    //         senhaInput.type = "password";
+    //     }
+    // }
+
+</script>
