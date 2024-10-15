@@ -77,6 +77,18 @@ aside{
     margin-left: 15px;
 }
 
+#navLinks .sair {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 50px;
+    width: 100%;
+    margin-top: 14rem;
+    font-family: "Poppins", sans-serif;
+    transition: 200ms linear;
+}
+
 
 .hide {
     opacity: 0;

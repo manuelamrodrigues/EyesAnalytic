@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - EyesAnalytic</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="../css/pages/estilo-dash-diretor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/pages/dash-diretor.css">
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
     <script src="../js/aside-menu.js"></script>
-    <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
 
 </head>
 
 <body onabort=" iniciarAtualizacao()">
    
-    <aside id="aside-menu">
+  <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
@@ -38,8 +38,12 @@
                 <span>Funcionários</span>
             </li>
             <li>
+                <img src="../assets/svg/chamados.svg" alt="Chamados">
+                <span>Chamados</span>
+            </li>
+            <li class="sair">
                 <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
-                <span>Saír</span>
+                <span>Sair</span>
             </li>
         </ul>
         <div class="menu" id="menu-hamburguer">
@@ -66,7 +70,7 @@
 
         </div>
     </aside>
-            <div id="fade" class="hide"></div>
+    <div id="fade" class="hide"></div>
 
     <main>
         <header class="barraSuperior">
