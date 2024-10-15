@@ -98,10 +98,10 @@ function atualizar(req, res) {
     
     var novoAssunto = req.body.assunto;
     var novaDescricao = req.body.descricao;
-    var novoStatus = req.body.status;
+    var novoSituacao = req.body.situacao;
     var idChamado = req.body.idChamado;
 
-    chamadoModel.atualizar(idChamado, novoAssunto, novaDescricao, novoStatus)
+    chamadoModel.atualizar(idChamado, novoAssunto, novaDescricao, novoSituacao)
         .then(
             function (resultado) {
                 res.json(resultado);

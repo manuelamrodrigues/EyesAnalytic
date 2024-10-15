@@ -28,10 +28,10 @@ function cadastrar(assunto, descricao, fkDiretor, fkEspecialista, fkUrgencia) {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(idChamado, novoAssunto, novaDescricao, novoStatus) {
-    console.log("ACESSEI O CHAMADO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar(): ", idChamado, novoAssunto, novaDescricao, novoStatus);
+function atualizar(idChamado, novoAssunto, novaDescricao, novoSituacao) {
+    console.log("ACESSEI O CHAMADO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar(): ", idChamado, novoAssunto, novaDescricao, novoSituacao);
     var instrucaoSql = `
-        UPDATE chamado SET assunto = '${novoAssunto}', descricao = '${novaDescricao}', status = '${novoStatus}' WHERE idChamado = ${idChamado};
+        UPDATE chamado SET assunto = '${novoAssunto}', descricao = '${novaDescricao}', situacao = '${novoSituacao}' WHERE idChamado = ${idChamado};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
