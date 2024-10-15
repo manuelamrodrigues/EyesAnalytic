@@ -46,8 +46,16 @@ aside{
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: end;
+    align-items: start;
     padding: 0;
+}
+
+a{
+    all: unset;
+    /* Caso você precise restabelecer o comportamento de link */
+    display: inline;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #navLinks li {
@@ -57,12 +65,12 @@ aside{
     justify-content: start;
     height: 50px;
     width: 100%;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     font-family: "Poppins", sans-serif;
     transition: 200ms linear;
 }
 
-#navLinks li:hover {
+#navLinks a:hover {
     background-color: #0baf8e66;
     transition: 200ms linear;
 }
@@ -77,14 +85,38 @@ aside{
     margin-left: 15px;
 }
 
-#navLinks .sair {
+#navLinks .outros {
     font-size: 25px;
     display: flex;
     align-items: center;
     justify-content: start;
     height: 50px;
     width: 100%;
-    margin-top: 14rem;
+    margin-top: 14px;
+    font-family: "Poppins", sans-serif;
+    transition: 200ms linear;
+}
+
+#navLinks .sair-diretor {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    width: 100%;
+    margin-top: 200px;
+    font-family: "Poppins", sans-serif;
+    transition: 200ms linear;
+}
+
+#navLinks .sair-esp {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    width: 100%;
+    margin-top: 320px;
     font-family: "Poppins", sans-serif;
     transition: 200ms linear;
 }
