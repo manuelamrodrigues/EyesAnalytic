@@ -1,17 +1,18 @@
+/* Importa a fonte Kanit usando @import */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
+
 /* Reset básico para remover margens e preenchimentos padrão */
-html, body{
+html, body {
     margin: 0;
     padding: 0;
     background-color: #EDEEF9; /* Fundo branco para toda a página */
     height: 100%; /* Ocupa 100% da altura da janela */
-    width: 100%; /* Ocupa 100% da largura da janela */
+    width: 80%; /* Ocupa 100% da largura da janela */
     display: flex;
     flex-direction: column; /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
-    font-family: "Kanit", sans-serif; /* Fonte geral da página */
+    font-family: 'Kanit', sans-serif; /* Fonte geral da página */
 }
 
-/* Importa a fonte "Kanit" */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
 
 
 /* Estilos gerais para a área principal da página */
@@ -21,9 +22,6 @@ main{
     align-items: center;
     background-color: #00000000; /* Fundo claro */
     flex-direction: column;
-    /* width: 100vw; */
-    /* height: 100%; */
-    /* max-height: 900px; */
 }
 /* Barra Superior */
 
@@ -42,16 +40,12 @@ main{
 }
 
 .numPerct{
-    /* gap: -2%; */
     margin-left: 7%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-around; */
     width: auto;
     height: auto;
-    /* border: #EDEEF9 3px solid; */
-    /* font-size: 20px; */
 }
 
 .titlePcrt{
@@ -74,7 +68,7 @@ main{
 /*==================================================================================================================*/
 .dash {
     background-color: #00000000;
-    margin: 10% 0 0 47%;
+    margin: 10% 0 0 15%;
     height: 100%; /* Ajusta a altura ao conteúdo */
     width: 100%; /* Define uma largura mais apropriada */
     display: flex;
@@ -82,44 +76,40 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /* box-sizing: border-box; Inclui padding e border no cálculo da largura */
+    /* border: #0BA385 3px solid; */
+    
 }
 
 .dash h3{
-    /* margin: 10% 0  0 0; */
-    /* border: #0BA385 3px solid; */
     font-size: 24px;
     display: flex;
     justify-content: start;
     align-items: start;
-    /* position: absolute; */
 }
 
 .topoGrafico{
-    margin: 10px 0 0  -40%;
+    margin: 10px 0 0  14%;
     display: flex;
     align-items: start;
     justify-content: space-between;
     flex-direction: row;
-    /* border: #0BA385 1px solid; */
-    width: 90%;
+    width: 90vw;
     height: 10%;
+    
 }
 
 
 
 
 .grafico {
-
-    margin: 10px 0 0  -40%;
-    width: 90%;
+    margin: 10px 0 0  0%;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
     padding: 0;
     border-radius: 10px;
-    /* box-shadow: 2px 0px 1px 3px rgba(63, 0, 0, 0.788); */
     flex-direction: row;
 }
 
@@ -129,7 +119,6 @@ main{
     align-items: start;
     background-color: #ffffff;    
     height: 50%;
-
     padding: 0;
 }
 
@@ -137,7 +126,6 @@ main{
     
     width: 40%;
     height: auto;
-    /* border: #08d334 2px solid; */
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -168,7 +156,6 @@ main{
     list-style: none;
     padding: 0;
     margin: 169px 0 0  -21%;
-    /* background-color: #ffffff; */
     box-shadow: 0 0 10px #00000048;
     border-radius: 10px;
     width: 15.3%;
@@ -190,7 +177,6 @@ main{
 }
 
 .componentes{
-    /* margin-right: -3%; */
     background: #0BA385;
     width: 85%;
     padding: 14px;
@@ -215,7 +201,7 @@ main{
     margin-left: 10%;
     background-color: #8d3f3fec;
     height: auto;
-    /* width: 100vw; */
+    
     
 }
 
@@ -225,11 +211,11 @@ main{
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 0 0 0 27%;
     border-radius: 10px;
-    width: 98%;
+    width: 90vw;
     height: 100%;
-    
+    /* border: #0BA385 3px solid; */
 }
 
 /* Texto dentro da seção de alertas */
@@ -240,7 +226,7 @@ main{
 
 /* Título da seção de alertas */
 .alertas h2{
-    margin-left: 7%;
+    /* margin-left: 7%; */
     font-size: 1.3rem;
     color: #000000;
     margin-bottom: 3%;
@@ -253,12 +239,11 @@ main{
     border-radius: 8px;
     align-items: center;
     padding: -1px;
-    /* margin: 0; */
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-around;
-    width: 90%;
-    margin-left: 7.5%;
+    width: 95%;
+    /* margin-left: 7.5%; */
     box-shadow: 0 0 10px #00000021;
 
 }

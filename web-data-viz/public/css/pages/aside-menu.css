@@ -55,7 +55,7 @@ aside{
     display: flex;
     align-items: center;
     justify-content: start;
-    height: 90px;
+    height: 50px;
     width: 100%;
     margin-top: 10px;
     font-family: "Poppins", sans-serif;
@@ -75,6 +75,18 @@ aside{
 #navLinks li img {
     width: 30px;
     margin-left: 15px;
+}
+
+#navLinks .sair {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 50px;
+    width: 100%;
+    margin-top: 14rem;
+    font-family: "Poppins", sans-serif;
+    transition: 200ms linear;
 }
 
 
