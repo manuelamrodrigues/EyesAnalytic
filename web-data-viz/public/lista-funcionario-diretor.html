@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários - Eyes Analytic</title>
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <link rel="stylesheet" href="./css/pages/lista-funcionario-diretor.css">
+    <link rel="stylesheet" href="./css/pages/aside-menu.css">
+    <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+
+</head>
+
+<body>
+    <aside id="aside-menu">
+        <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+            <li>
+                <img src="./assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                <span>Alerta</span>
+            </li>
+            <li>
+                <img src="./assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                <span>Dashboard</span>
+            </li>
+            <li>
+                <img src="./assets/svg/speed-svgrepo-com.svg" alt="Rede">
+                <span>Rede</span>
+            </li>
+            <li>
+                <img src="./assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                <span>Funcionários</span>
+            </li>
+            <li>
+                <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                <span>Saír</span>
+            </li>
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+    </aside>
+    <div id="fade" class="hide"></div>
+
+    <main>
+
+        <section class="funcionarios">
+            
+                    <article class="lista">
+                        <h2>Funcionários</h2>
+                        <!-- Os frames dos funcionários serão gerados aqui dinamicamente pelo JavaScript -->
+                    </article>
+        </section>
+
+        
+
+        <div class="card">
+            <a href="./dashboard/cadastro_funcionario.html"><button class="cadastroTecnico">Cadastrar Técnico</button></a>
+            <h1 id="nomeFuncionario">Nome do Funcionário</h1>
+            <hr>
+            <div>
+                <p>Email: <span id="emailFuncionario">email@email.com</span></p>
+                <p>Senha: <span id="senhaFuncionario">*************</span></p> 
+                <p>Status: <span id="statusFuncionario" class="status-ativo">Ativo</span></p>
+            </div>
+            <div class="buttons">
+                <button class="btn1" id="btnDesativar" onclick="abrirModal()">Desativar</button>
+                <button class="btn2" id="btnAlterar" onclick="alterarFuncionario()">Alterar</button>
+            </div>
+        </div>
+
+
+            <!-- Modal 1 (Desativar) -->
+            <div id="modal1" class="modal">
+                <div class="modal-content1">
+                    <div class="modal-header1">
+                        <h2>Desativar</h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body1">
+                        <p><strong>Tem certeza que deseja desativar o perfil?</strong></p>
+                    </div>
+                    <div class="modal-footer1">
+                        <button class="Mf1-Btn1">Cancelar</button>
+                        <button class="Mf1-Btn2" onclick="deletarFuncionario()">Sim</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal 2 (Alterar) -->
+            <div id="modal2" class="modal">
+                <div class="modal-content2">
+                    <div class="modal-header2">
+                        <h2>Fernando Silva</h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body2">
+                        <label for="">Email:</label>
+                        <input type="text" name="emailModal" id="UserEmail" value="fernando.silva@email.com">
+                        <label>Senha: </label>
+                        <input type="password" name="senhaModal" id="UserSenha" value="*************">
+                    </div>
+                    <div class="modal-footer2">
+                        <button class="salvar-btn">Salvar</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="chamados">
+            <article class="alertas">
+                <h2>Chamados Recentes</h2>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="./assets/svg/alerta.svg" alt="">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="./assets/svg/alerta.svg" alt="">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="./assets/svg/alerta.svg" alt="">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+
+            </article>
+        </section>
+    </main>
+</body>
+
+</html>
+<script>
+
+    let funcionarioAtual = {};
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const navLinks = document.getElementById('navLinks');
+
+        // Alterna a classe "active" no menu de navegação
+        menuHamburguer.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuHamburguer.classList.toggle('open');
+        });
+
+        // Função para abrir o modal específico
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Função para fechar o modal específico
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Abrir o modal de Desativar
+        document.getElementById('btnDesativar').onclick = function () {
+            openModal('modal1');
+        };
+
+        // Abrir o modal de Alterar
+        document.getElementById('btnAlterar').onclick = function () {
+            openModal('modal2');
+        };
+
+        // Fechar modais
+        const closeButtons = document.querySelectorAll('.close');
+        closeButtons.forEach(button => {
+            button.onclick = function () {
+                const modal = this.closest('.modal');
+                modal.style.display = 'none';
+            };
+        });
+
+        // Fechar ao clicar fora do modal
+        window.onclick = function (event) {
+            const modal1 = document.getElementById('modal1');
+            const modal2 = document.getElementById('modal2');
+            if (event.target === modal1) {
+                closeModal('modal1');
+            } else if (event.target === modal2) {
+                closeModal('modal2');
+            }
+        };
+    });
+    function deletarFuncionario() {
+    if (confirm(`Tem certeza que deseja deletar ${funcionarioAtual.nome}?`)) {
+        fetch(`/usuario/deletar/${funcionarioAtual.id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Funcionário deletado com sucesso.');
+                closeModal();
+                carregarFuncionarios(); // Recarrega a lista de funcionários
+            } else {
+                alert('Erro ao deletar funcionário.');
+            }
+        })
+        .catch(error => console.error('Erro ao deletar funcionário:', error));
+    }
+
+}
+ function alterarFuncionario(){
+fetch('/usuario/update', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email: email, password: password })
+})
+.then(response => response.json())
+.then(data => {
+    alert(data.message);
+    console.log('Usuário atualizado:', data.user);
+    modal.style.display = 'none'; // Fecha o modal após salvar
+})
+.catch(error => console.error('Erro ao atualizar usuário:', error));
+}
+
+function selecionarFuncionario(funcionario) {
+    funcionarioAtual = funcionario;
+
+    document.getElementById('nomeFuncionario').innerText = funcionario.nome;
+    document.getElementById('emailFuncionario').innerText = funcionario.email;
+    document.getElementById('senhaFuncionario').innerText = funcionario.senha; 
+    document.getElementById('statusFuncionario').innerText = funcionario.status;
+    document.getElementById('statusFuncionario').className = `status-${funcionario.status === 'ativo' ? 'ativo' : 'inativo'}`;
+}
+       
+    function carregarFuncionarios() {
+        fetch('/usuario/listarFuncionarios')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(funcionarios => {
+                const listaFuncionarios = document.querySelector('.lista');
+                listaFuncionarios.innerHTML = '<h2>Funcionários</h2>';
+
+                funcionarios.forEach(funcionario => {
+                    const frame = document.createElement('div');
+                    frame.classList.add('frameFuncionarios');
+
+                    frame.innerHTML = `
+                        <div class="userImg">
+                            <img src="../assets/svg/user.svg" alt="Imagem do usuário">
+                        </div>
+                        <p>${funcionario.nome}</p>
+                        <p>Email: ${funcionario.email}</p>
+                        <p>Status: <span class="status-${funcionario.status === 'ativo' ? 'ativo' : 'inativo'}">${funcionario.status}</span></p>
+                    `;
+
+                    listaFuncionarios.appendChild(frame);
+
+                    // Adiciona o evento de clique para cada funcionário
+                    frame.addEventListener('click', () => selecionarFuncionario(funcionario.id));
+                });
+            })
+            .catch(error => console.error('Erro ao carregar funcionários:', error));
+    }
+
+    // Carrega os funcionários quando a página é carregada
+    carregarFuncionarios();
+
+
+</script>

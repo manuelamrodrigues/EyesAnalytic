@@ -24,11 +24,11 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
                         res.json({
-                            idUsuario: resultadoAutenticar[0].idUsuario,
+                            id: resultadoAutenticar[0].id,
                             nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
-                            fkEmpresa:resultadoAutenticar[0].fkEmpresa,
-                            fkTipoUsuario: resultadoAutenticar[0].fkTipoUsuario
+                            empresaId:resultadoAutenticar[0].fkEmpresa,
+                            tipoFunc: resultadoAutenticar[0].fkTipoUser
                         });
                             
                             
@@ -55,7 +55,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var empresaId = req.body.empresaServer;
-    var fkTipoUsuario = req.body.tipoUsuarioServer;
+    var tipoUser = req.body.tipoUserServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -67,13 +67,13 @@ function cadastrar(req, res) {
     } else if (empresaId == undefined) {
         res.status(400).send("Sua empresa está undefined!");
     } 
-    else if(fkTipoUsuario == undefined){
+    else if(tipoUser == undefined){
         res.status(400).send("Seu tipo está undefined!")
     }
         else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa, fkTipoUsuario)
+        usuarioModel.cadastrar(nome, email, senha, empresaId, tipoUser)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -90,8 +90,59 @@ function cadastrar(req, res) {
             );
     }
 }
+function listarFuncionarios(req, res) {
+    var instrucaoSql = `
+        SELECT nome, email, status 
+        FROM Usuario;
+    `;
+
+    database.executar(instrucaoSql)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado); 
+            } else {
+                res.status(204).send("Nenhum funcionário encontrado!"); 
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage); 
+        });
+}
+
+function alterarFuncionario(req, res) {
+    const { email, password } = req.body;
+
+    // Verifica se os parâmetros obrigatórios estão presentes
+    if (!email || !password) {
+        return res.status(400).send("Parâmetros inválidos!");
+    }
+
+    // SQL para atualizar os dados do funcionário
+    const instrucaoSql = `
+        UPDATE Usuario
+        SET senha = '${password}'
+        WHERE email = '${email}';
+    `;
+
+    database.executar(instrucaoSql)
+        .then((resultado) => {
+            if (resultado.affectedRows > 0) {
+                res.status(200).send("Funcionário atualizado com sucesso!");
+            } else {
+                res.status(404).send("Funcionário não encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarFuncionarios,
+    alterarFuncionario
+
 }

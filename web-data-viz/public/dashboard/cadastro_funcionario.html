@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/pages/cadastro_tecnico.css">  
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../js/sessao.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <title>EyesAnalytic | Cadastro Técnico</title>
+</head>
+
+<body onload="listar()">
+    
+    <div class="button-container"></div>
+        <a href="./dashboard.html" class="back-button"></a>
+    </div>
+
+
+
+    <div class="cadastro">
+
+        <div class="cadastroTexto"> 
+            <a href="index.html"><img src="../assets/svg/Logo.svg" alt="logo"></a>
+            <h1>Cadastro de Técnico</h1>
+        </div>
+        
+        <div class="input field">
+            <select class="campo" id="listaTipos">
+                <option selected disabled value="#">Tipo</option>
+            </select>
+        </div>
+        
+
+        <div class="input field">
+            <input type="input" class="campo" placeholder="Nome" required="" id="nome_input"
+                autocomplete="off">
+            <label for="name" class="caixa">Nome</label>
+        </div>
+
+        <div class="input field">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input"
+                autocomplete="off">
+            <label for="name" class="caixa">E-mail</label>
+       </div>
+
+        <div class="input field">
+            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input"
+                autocomplete="off">
+            <label for="name" class="caixa">Senha</label>
+        </div>
+
+
+        <div class="input field">
+            <input type="password" class="campo" placeholder="Senha" required="" id="confirmacao_senha_input"
+                autocomplete="off">
+            <label for="name" class="caixa">Repertir Senha</label>
+        </div>
+        
+        
+
+
+        <div class="esqueceuSenha">
+            <a href="./esqSenha.html">Esqueceu a senha?</a>
+        </div>
+
+        <div id="error-message" style="color: red; display: none;"></div>
+
+        <button type="submit" onclick="cadastrar()">Cadastrar</button>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+
+    function cadastrar() {
+        var errorMessage = document.getElementById("error-message");
+    
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var listaTipos = listaTipos.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    
+     
+        var empresaVar = sessionStorage.EMPRESA_USUARIO;
+    
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            listaTipos == "" ||
+            empresaVar == "" ||  // Validação do campo empresa
+            confirmacaoSenhaVar == ""
+        ) {
+            errorMessage.style.display = "block";
+            errorMessage.innerHTML = "Preencha todos os campos!";
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+    
+        if (emailVar.indexOf('@') < 0) {
+            alert('O e-mail precisa conter @.');
+            return false;
+        }
+    
+        if (senhaVar.length < 5) {
+            alert('A senha precisa ter pelo menos 5 caracteres.');
+            return false;
+        }
+    
+        if (confirmacaoSenhaVar !== senhaVar) {
+            alert('A confirmação da senha não coincide com a senha.');
+            return false;
+        }
+    
+       
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                tipofkServer: listaTipos,
+                empresaServer: empresaVar  
+            }),
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                errorMessage.style.color = "green";
+                errorMessage.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
+                setTimeout(() => {
+                    window.location = "dashboard.html";
+                }, 2000);
+            } else {
+                errorMessage.style.display = "block";
+                errorMessage.innerHTML = "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (erro) {
+            errorMessage.style.display = "block";
+            errorMessage.innerHTML = `#ERRO: ${erro}`;
+        });
+    
+        return false;
+    }
+    
+    </script>
