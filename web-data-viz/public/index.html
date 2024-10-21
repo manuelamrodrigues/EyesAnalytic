@@ -47,7 +47,9 @@
                 <br>
                 <h4>Monitoramento de servidores Firewall para trazer clareza e confiaça ao seu negócio</h4>
 
-                <a href="contato.html"><button onclick="contato()" class="button-welcome">Entre em contato</button></a>
+                <!-- <button onclick="window.location.href='mailto:eyesanalyticsp@gmail.com?subject=Quero%me%cadastrar&body=Olá,%Eyes%Analytic%!'" class="button-welcome">Entre em contato</button> -->
+                <button class="button-welcome" onclick="abrirGmail()">Entre em Contato</button>
+
             </div>
         </div>
     </section>
@@ -231,3 +233,16 @@
 </body>
 
 </html>
+
+<script>
+    function abrirGmail() {
+    const destinatario = 'eyesanalyticsp@gmail.com';
+    const assunto = 'Desejo saber mais sobre o projeto';
+    const corpo = 'Olá! Vim do site Eyes Analytic e gostaria de marcar uma conversa!';
+
+    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${destinatario}&su=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+    
+    window.open(mailtoLink, '_blank');
+  }
+
+</script>
