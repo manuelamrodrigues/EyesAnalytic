@@ -107,13 +107,14 @@
                                 setTimeout(function () {
                                     window.location = "./dashboard/dash-diretor.html";
                                 }, 1000); // apenas para exibir o loading  
-
+                                
                             } else if (sessionStorage.FK_TIPO_USUARIO == 2){
                                 setTimeout(function () {
                                     window.location = "./dashboard/dash-especialista.html";
                                 }, 1000); // apenas para exibir o loading
                             }
-
+                            
+                            alert("Login realizado com sucesso! Bem-vindo " + sessionStorage.NOME_USUARIO);
                         });
 
                         // throw new Error("Houve um erro ao tentar realizar o login!");
