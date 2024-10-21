@@ -51,10 +51,10 @@ function autenticar(req, res) {
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var nome = req.body.nomeServer;
+    var nome = req.body.nomeServer; 
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var empresaId = req.body.empresaServer;
+    var fkEmpresa = req.body.empresaServer;
     var fkTipoUsuario = req.body.tipoUsuarioServer;
 
     // Faça as validações dos valores
@@ -64,10 +64,9 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (empresaId == undefined) {
+    } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa está undefined!");
-    } 
-    else if(fkTipoUsuario == undefined){
+    } else if(fkTipoUsuario == undefined){
         res.status(400).send("Seu tipo está undefined!")
     }
         else {

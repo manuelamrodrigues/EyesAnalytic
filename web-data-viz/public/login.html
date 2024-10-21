@@ -41,9 +41,9 @@
         <div class="esqueceuSenha">
             <a href="./esqSenha.html">Esqueceu a senha?</a>
         </div>
-        <div class="esqueceuSenha">
+        <!-- <div class="esqueceuSenha">
             <a href="./cadastrar-tecnico.html">Crie sua conta</a>
-        </div>
+        </div> -->
 
         <div id="error-message" style="color: red; display: none;"></div>
 
@@ -97,8 +97,10 @@
                             sessionStorage.NOME_USUARIO = json.nome;
                             sessionStorage.ID_USUARIO = json.idUsuario;
                             sessionStorage.FK_TIPO_USUARIO = json.fkTipoUsuario;
+                            sessionStorage.FK_EMPRESA = json.fkEmpresa;
+                            
 
-                            // console.log(sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
+                             console.log(sessionStorage.FK_EMPRESA, sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
 
 
                             if (sessionStorage.FK_TIPO_USUARIO == 1) {
