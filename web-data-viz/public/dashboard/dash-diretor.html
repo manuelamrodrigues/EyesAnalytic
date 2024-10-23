@@ -7,6 +7,7 @@
     <title>Dashboard | EyesAnalytic</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../css/pages/dash-diretor.css">
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
@@ -119,15 +120,27 @@
             <article class="topoGrafico">
                 <h3>Usos médio dos Componentes</h3>
                 <div class="botoesGrafico">
-                    <div class="periodo" id="periodo">Semanal</div>
-                        <ul id="dropdown" class="dropdown hide">
-                            <li class="option">Mensal</li>
-                            <li class="option">Bimestral</li>
-                            <li class="option">Semestral</li>
-                        </ul>
-
-
-                    <div class="componentes">Componentes</div>
+                    <div class="periodo" id="periodo">
+                        Semanal <i class="fas fa-chevron-down"></i> <!-- Ícone de seta -->
+                    </div>
+                    <ul id="dropdown" class="dropdown hide">
+                        <li class="option">Mensal</li>
+                        <li class="option">Bimestral</li>
+                        <li class="option">Semestral</li>
+                    </ul>
+                    
+                    <div class="componentes" id="componentes">
+                        Componentes <i class="fas fa-chevron-down"></i> <!-- Ícone de seta -->
+                    </div>
+                    <ul id="componentesDropdown" class="dropdown hide">
+                        <li class="option">CPU</li>
+                        <li class="option">Disco</li>
+                        <li class="option">Memória RAM</li>
+                        <li class="option">Rede</li>
+                    </ul>
+                    
+                        
+                    
                 </div>
             </article>
             <div class="grafico">
@@ -295,7 +308,7 @@ document.addEventListener("click", function () {
 });
 
 // Detectar quando o usuário seleciona uma opção do dropdown
-document.querySelectorAll(".option").forEach(function (item) {
+document.querySelectorAll("#dropdown .option").forEach(function (item) {
     item.addEventListener("click", function () {
         var selectedText = this.textContent;
 
@@ -312,15 +325,36 @@ document.querySelectorAll(".option").forEach(function (item) {
     });
 });
 
+// *** Repetindo o mesmo para os "Componentes" ***
 
+// Abrir e fechar o dropdown ao clicar na div "componentes"
+document.getElementById("componentes").addEventListener("click", function (event) {
+    var dropdown = document.getElementById("componentesDropdown");
+    dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
+    event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
+});
 
+// Fechar o dropdown ao clicar fora da div "componentes" ou do menu
+document.addEventListener("click", function () {
+    var dropdown = document.getElementById("componentesDropdown");
+    dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
+});
 
-    //     // Criar o gráfico
-    //     new Chart(ctx, config);
+// Detectar quando o usuário seleciona uma opção do dropdown "componentes"
+document.querySelectorAll("#componentesDropdown .option").forEach(function (item) {
+    item.addEventListener("click", function () {
+        var selectedText = this.textContent;
 
-    // // Função para plotar o gráfico usando os dados obtidos
-    // function plotarGrafico(response) {
-    //     var labels = [];
-       
-    // }
+        // Atualiza o texto dentro da div "componentes"
+        var componentesDiv = document.getElementById("componentes");
+        var currentText = componentesDiv.textContent;
+
+        // Atualiza a lista de opções
+        this.textContent = currentText; // A opção selecionada vira a anterior
+        componentesDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
+
+        // Fecha o dropdown após a seleção
+        document.getElementById("componentesDropdown").classList.add("hide");
+    });
+});
 </script>

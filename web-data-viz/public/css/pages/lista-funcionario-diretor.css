@@ -65,7 +65,7 @@ main{
     display: flex;
     background-color: #ffffff; /* Fundo branco */
     border-radius: 8px;
-    padding: 15px;
+    padding: 12px;
     margin-bottom: 10px;
     flex-direction: row; /* Disposição horizontal */
     justify-content: space-between; /* Espaçamento entre elementos */
@@ -97,7 +97,7 @@ main{
     display: flex;
     background-color: #DEDEDE; /* Fundo branco */
     border-radius: 8px;
-    padding: 16.5px;
+    padding: 12.5px;
     margin-bottom: 10px;
     flex-direction: row; /* Disposição horizontal */
     justify-content: space-between; /* Espaçamento entre elementos */
@@ -121,7 +121,7 @@ main{
     margin-top: 11%;
     background: #0BA385; /* Fundo verde */
     width: 100%;
-    padding: 12px;
+    padding: 6.5px;
     border-radius: 8px;
     border: none;
     margin-bottom: 4%;
@@ -169,15 +169,15 @@ hr{
     display: flex;
     justify-content: center;
     flex-direction: row;
-    gap: 5%;
-    margin-top: 17%;
+    gap: 13%;
+    margin-top: 12%;
 }
 
 /* Botão vermelho */
 .btn1{
     background: #E90C0C;
     width: 50%;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     border: none;
     font-size: 20px;
@@ -188,7 +188,7 @@ hr{
 .btn2{
     background: #E9C60C;
     width: 50%;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     border: none;
     font-size: 20px;
@@ -200,7 +200,7 @@ hr{
     margin-top: 11%;
     background: #08836a; /* Fundo verde */
     width: 100%;
-    padding: 12.8px;
+    padding: 10.8px;
     border-radius: 8px;
     border: none;
     margin-bottom: 4%;
@@ -211,7 +211,7 @@ hr{
 .btn1:hover{
     background: #b90a0a;
     width: 50%;
-    padding: 15.3px;
+    padding: 10.3px;
     border-radius: 8px;
     border: none;
     font-size: 20px;
@@ -222,7 +222,7 @@ hr{
 .btn2:hover{
     background: #d3b109;
     width: 50%;
-    padding: 15.3px;
+    padding: 10.3px;
     border-radius: 8px;
     border: none;
     font-size: 20px;
@@ -279,6 +279,7 @@ hr{
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
+    height: 9vh;
 }
 
 /* Cor do status de alerta */

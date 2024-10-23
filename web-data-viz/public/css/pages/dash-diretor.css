@@ -31,7 +31,7 @@ main{
     position: fixed;
     display: flex;
     width: 100%;
-    height: 15%;
+    height: 12%;
     left: 0.3%;
     top: 0;
     justify-content: space-around;
@@ -51,13 +51,13 @@ main{
 .titlePcrt{
     margin-bottom: -4%;
     font-family: "kanit";
-    font-size: 20px;
+    font-size: 16px;
     color: #EDEEF9;
 }
 
 .nmrPcrt{
     font-family: "kanit";
-    font-size: 25px;
+    font-size: 21px;
     color: #EDEEF9;
 }
 
@@ -68,7 +68,7 @@ main{
 /*==================================================================================================================*/
 .dash {
     background-color: #00000000;
-    margin: 10% 0 0 15%;
+    margin: 6.5% 0 0 15%;
     height: 100%; /* Ajusta a altura ao conteúdo */
     width: 100%; /* Define uma largura mais apropriada */
     display: flex;
@@ -102,9 +102,9 @@ main{
 
 
 .grafico {
-    margin: 10px 0 0  0%;
-    width: 100%;
-    height: 100%;
+    margin: 20px 0 0  13%;
+    width: 90%;
+    height: 83.5%;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -118,7 +118,7 @@ main{
     display: flex;
     align-items: start;
     background-color: #ffffff;    
-    height: 50%;
+    height: 10%;
     padding: 0;
 }
 
@@ -135,10 +135,11 @@ main{
 
 /* Estilizando a div "periodo" */
 .periodo {
+    margin-top: 3%;
     margin-right: -3%;
     background: #0BA385;
-    width: 85%;
-    padding: 14px;
+    width: 65%;
+    padding: 6px;
     text-align: center;
     border-radius: 10px;
     font-size: 20px;
@@ -155,7 +156,7 @@ main{
 .dropdown {
     list-style: none;
     padding: 0;
-    margin: 169px 0 0  -21%;
+    margin: 15% 0 0 -21.5%;
     box-shadow: 0 0 10px #00000048;
     border-radius: 10px;
     width: 15.3%;
@@ -165,26 +166,60 @@ main{
 .dropdown li {
     padding: 10px;
     text-align: center;
-    background-color: #0BA385;
-    color: #ffffff;
-    border-bottom: 1px solid #0baf8e;
+    background-color: #ffffff;
+    color: #0BA385;
     cursor: pointer;
     border-radius: 10px;
 }
 
 .dropdown li:hover {
     background-color: #0baf8e;
+    color: #000000;
 }
 
-.componentes{
+/* Estilizando a div "componentes" */
+.componentes {
     background: #0BA385;
-    width: 85%;
-    padding: 14px;
+    width: 70%;
+    padding: 6px;
     text-align: center;
     border-radius: 10px;
     font-size: 20px;
     box-shadow: 0 0 10px #00000048;
-    
+    margin-top: 3%;
+    cursor: pointer; /* Adiciona o cursor para indicar que é clicável */
+}
+
+/* Estilo para o dropdown dos componentes */
+#componentesDropdown {
+    list-style: none;
+    padding: 0;
+    margin: 18% 0 0 21%;
+    box-shadow: 0 0 10px #00000048;
+    border-radius: 10px;
+    width: 15.3%;
+    position: absolute;
+}
+
+#componentesDropdown li {
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #0BA385;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#componentesDropdown li:hover {
+    background-color: #0baf8e;
+    color: #000000;
+}
+
+.periodo i, .componentes i {
+    margin-left: 10px; /* Espaço entre o texto e o ícone */
+    font-size: 16px;
+    color: #000000; /* Cor da seta */
+    vertical-align: middle; /* Centraliza o ícone verticalmente */
 }
 
 
@@ -211,11 +246,11 @@ main{
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
-    margin: 0 0 0 27%;
+    margin: 0 0 0 32%;
     border-radius: 10px;
     width: 90vw;
     height: 100%;
-    /* border: #0BA385 3px solid; */
+    
 }
 
 /* Texto dentro da seção de alertas */
@@ -226,10 +261,10 @@ main{
 
 /* Título da seção de alertas */
 .alertas h2{
-    /* margin-left: 7%; */
+    
     font-size: 1.3rem;
     color: #000000;
-    margin-bottom: 3%;
+    margin-bottom: 1%;
 }
 
 /* Cartão de alerta */
@@ -238,12 +273,11 @@ main{
     background-color: #ffffff;
     border-radius: 8px;
     align-items: center;
-    padding: -1px;
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-around;
     width: 95%;
-    /* margin-left: 7.5%; */
+    height: 9.3vh;
     box-shadow: 0 0 10px #00000021;
 
 }
