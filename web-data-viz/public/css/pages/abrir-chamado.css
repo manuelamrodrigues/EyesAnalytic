@@ -29,6 +29,36 @@
 
 }
 
+.button-container {
+    text-align: center;
+}
+
+.back-button {
+    position: fixed;
+    top: 40px;
+    right: 100px;
+    padding: 0px 0px 0px 10px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #0BA385;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button::before {
+    content: 'X';
+    margin-right: 10px;
+    position: relative;
+    bottom: 1px;
+}
+
+.back-button:hover {
+    background-color: #025544;
+}
+
 .titulo {
     height: 100px;
     display: flex;
@@ -38,7 +68,7 @@
 .titulo h1 {
     font-size: xx-large;
     /* height: 80px; */
-    padding-top: 10px;
+    padding-top: 20px;
     justify-self: center;
 }
 

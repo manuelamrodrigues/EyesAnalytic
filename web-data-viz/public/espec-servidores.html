@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidores | Eyes Analytic</title>
+    <title>Servidores | EyesAnalytic</title>
     <link rel="stylesheet" href="./css/pages/espec-servidores.css">
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <script src="./js/aside-menu.js"></script>
@@ -52,7 +52,7 @@
             </a>
 
             <a href="./index.html" class="sair-diretor">
-                <li >
+                <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -96,23 +96,25 @@
                 <div class="openModal">
                     <div class="frameAlertas">
 
-                        <h3  id="openModal">Servidor 1</h3>
+                        <div class="abrir" id="openModal">
+                            <h3>Servidor 1</h3>
 
-                        <div class="opcoes">
+                            <div class="opcoes">
 
-                            <div class="opcao">
-                                <h4>CPU: </h4>
-                                <p>95%</p>
-                            </div>
+                                <div class="opcao">
+                                    <h4>CPU: </h4>
+                                    <p>95%</p>
+                                </div>
 
-                            <div class="opcao">
-                                <h4>Memória: </h4>
-                                <p>50%</p>
-                            </div>
+                                <div class="opcao">
+                                    <h4>Memória: </h4>
+                                    <p>50%</p>
+                                </div>
 
-                            <div class="opcao">
-                                <h4>Disco: </h4>
-                                <p>55%</p>
+                                <div class="opcao">
+                                    <h4>Disco: </h4>
+                                    <p>55%</p>
+                                </div>
                             </div>
                         </div>
 
@@ -417,110 +419,6 @@
         document.getElementById('modalTrash').style.display = 'none';
         document.querySelector('.conteudo').style.display = 'block';
     });
-
-
-    // document.getElementById('EditModal').addEventListener('click', function () {
-    //     document.getElementById('ModalEdicao').style.display = 'block';
-    //     document.querySelector('.conteudo').style.display = 'none'; // Oculta a div conteudo
-    // });
-
-    // document.querySelector('.closeEdit').addEventListener('click', function () {
-    //     document.getElementById('ModalEdicao').style.display = 'none';
-    //     document.querySelector('.conteudo').style.display = 'block'; // Mostra a div conteudo novamente
-    // });
-
-
-
-    //     // Obtém os elementos do modal
-    // var editModal = document.getElementById("editModal");
-    // var trashModal = document.getElementById("trashModal");
-    // var myModal = document.getElementById("myModal");
-
-    // // Obtém os botões que abrem os modais
-    // var editButton = document.getElementById("EditModal");
-    // var trashButton = document.getElementById("TrashModal");
-    // var openModalButton = document.getElementById("openModal");
-
-    // // Obtém os elementos <span> que fecham os modais
-    // var closeButtons = document.getElementsByClassName("close");
-
-    // // Quando o usuário clica no botão de edição, abre o modal de edição e garante que os outros modais estejam fechados
-    // editButton.onclick = function (event) {
-    //     event.preventDefault(); // Impede o comportamento padrão do link
-    //     editModal.style.display = "block";  // Abre o modal de edição
-    //     myModal.style.display = "none";     // Fecha o modal principal
-    //     trashModal.style.display = "none";  // Fecha o modal de exclusão
-    // }
-
-    // // Quando o usuário clica no botão de trash, abre o modal de excluir e fecha os outros modais
-    // trashButton.onclick = function (event) {
-    //     event.preventDefault(); // Impede o comportamento padrão do link
-    //     trashModal.style.display = "block";  // Abre o modal de exclusão
-    //     myModal.style.display = "block";      // Fecha o modal principal
-    //     editModal.style.display = "block";    // Fecha o modal de edição
-    // }
-
-    // // Quando o usuário clica no botão do modal principal, abre o modal principal e fecha os outros
-    // openModalButton.onclick = function (event) {
-    //     event.preventDefault(); // Impede o comportamento padrão do link
-    //     myModal.style.display = "block";     // Abre o modal principal
-    //     editModal.style.display = "none";    // Fecha o modal de edição
-    //     trashModal.style.display = "none";   // Fecha o modal de exclusão
-    // }
-
-    // // Adiciona um evento a cada botão de fechar para fechar os modais individualmente
-    // for (let i = 0; i < closeButtons.length; i++) {
-    //     closeButtons[i].onclick = function () {
-    //         editModal.style.display = "none";  // Fecha o modal de edição
-    //         trashModal.style.display = "none"; // Fecha o modal de exclusão
-    //         myModal.style.display = "none";    // Fecha o modal principal
-    //     }
-    // }
-
-    // // Quando o usuário clica fora de um modal, ele se fecha
-    // window.onclick = function (event) {
-    //     if (event.target == editModal) {
-    //         editModal.style.display = "none";
-    //     }
-    //     if (event.target == trashModal) {
-    //         trashModal.style.display = "none";
-    //     }
-    //     if (event.target == myModal) {
-    //         myModal.style.display = "none";
-    //     }
-    // }
-
-
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     const modal = document.getElementById("myModal");
-    //     const modalTitle = document.getElementById("modalTitle");
-    //     const modalContent = document.getElementById("modalContent");
-    //     const divs = document.querySelectorAll(".openModal");
-    //     const spans = document.getElementsByClassName("close")[0];
-
-    //     // Abre o modal e define o conteúdo baseado no botão clicado
-    //     divs.forEach(div => {
-    //         div.onclick = function () {
-    //             const title = this.getAttribute("data-title");
-    //             const content = this.getAttribute("data-content");
-    //             modalTitle.textContent = title;
-    //             modalContent.textContent = content;
-    //             modal.style.display = "block";
-    //         };
-    //     });
-
-    //     // Fecha o modal quando o usuário clica no <span> (x)
-    //     spans.onclick = function () {
-    //         modal.style.display = "none";
-    //     };
-
-    //     // Fecha o modal quando o usuário clica fora dele
-    //     window.onclick = function (event) {
-    //         if (event.target == modal) {
-    //             modal.style.display = "none";
-    //         }
-    //     };
-    // });
 
 
 </script>
