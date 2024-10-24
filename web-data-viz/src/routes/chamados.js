@@ -7,7 +7,7 @@ router.get("/listar", function (req, res) {
     chamadoController.listar(req, res);
 });
 
-router.get("/buscarPorId", function (req, res) {
+router.put("/buscarPorId", function (req, res) {
     chamadoController.buscarPorId(req, res);
 });
 
@@ -23,8 +23,17 @@ router.put("/atualizar", function (req, res) {
     chamadoController.atualizar(req, res);
 });
 
+router.put("/listarPorIdEspecialista", function(req,res){
+    chamadoController.listarPorIdEspecialista(req,res)
+})
+
+
 router.delete("/deletar", function (req, res) {
     chamadoController.deletar(req, res);
 });
+
+router.put("/atender", function(req,res){
+    chamadoController.atender(req,res)
+})
 
 module.exports = router;

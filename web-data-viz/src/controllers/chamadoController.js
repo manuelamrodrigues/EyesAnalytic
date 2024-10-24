@@ -1,3 +1,4 @@
+const { json } = require("express");
 var chamadoModel = require("../models/chamadoModel");
 
 function listar(req, res) {
@@ -12,6 +13,32 @@ function listar(req, res) {
         console.log("Houve um erro ao buscar os chamados: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
+}
+
+function listarPorIdEspecialista(req,res){
+    var idEspecialista = req.body.idEspecialista
+
+    chamadoModel.listarPorIdEspecialista(idEspecialista)
+        .then(
+            function (resultado){
+                if(resultado.length > 0){
+                    res.status(200).json(resultado)
+                }
+                else{
+                    res.status(204).send("Nenhum resultado encontrado!")
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os chamados: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
 }
 
 function buscarPorId(req, res) {
@@ -135,6 +162,24 @@ function deletar(req, res) {
         );
 }
 
+function atender(req,res){
+    var idChamado = req.body.idChamado;
+
+    chamadoModel.atender(idChamado)
+    .then(
+        function(resultado){
+            res.status(200).json(resultado)
+        }
+    ) 
+    .catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
 // module.exports = {
 //     listar,
 //     listarPorUsuario,
@@ -144,10 +189,13 @@ function deletar(req, res) {
 //     deletar
 // }
 
+
 module.exports = {
     listar,
     buscarPorId,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    listarPorIdEspecialista,
+    atender
 }
