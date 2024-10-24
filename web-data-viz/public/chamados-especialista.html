@@ -303,21 +303,21 @@
                     cabecalhoChamado.appendChild(informacoesChamado)
                     cabecalhoChamado.appendChild(dadosChamado)
 
-                    
+
                     informacoesChamado.className = "informacoesChamado"
 
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes2)
-                    
-                    
+
+
                     separacaoInformacoes2.className = "separacaoInformacoes2"
                     separacaoInformacoes2.appendChild(status)
                     status.innerHTML = "Status: "
                     separacaoInformacoes2.appendChild(respostaStatus)
                     respostaStatus.innerHTML = element.situacao
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes3)
-                    
+
                     separacaoInformacoes3.className = 'separacaoInformacoes3'
                     separacaoInformacoes3.appendChild(urgencia)
                     urgencia.innerHTML = "Urgência: "
@@ -329,14 +329,14 @@
                     if (element.urgencia == "média") {
                         respostaUrgencia.style.color = "Yellow"
                     }
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes)
                     separacaoInformacoes.className = "separacaoInformacoes"
                     separacaoInformacoes.appendChild(diretor)
                     separacaoInformacoes.appendChild(respostaDiretor)
-                    diretor.innerHTML ="Diretor: "
+                    diretor.innerHTML = "Diretor: "
                     respostaDiretor.innerHTML = element.NomeDiretor
-                    
+
                     dadosChamado.className = 'dadosChamado'
                     dadosChamado.appendChild(sobreChamado)
 
@@ -396,24 +396,26 @@
                             idChamado: idChamado
                         })
                     }).then(function (resultado) {
-                                if (resultado.ok) {
-                                    Swal.fire({
-                                    title: "Chamado Alterado para Atendido!",
-                                    text: "Espere um pouco...",
-                                    icon: "success",
-                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                                    // alert("Chamado Alterado para Atendido! Espere um pouco...")
-                                    // setTimeout(() => {
-                                    //     location.reload()
-                                    // }, 2000)
-                                }
-                                else {
-                                    alert("Erro ao atualizar situação!")
-                                }
-                            })
+                        if (resultado.ok) {
+                            Swal.fire({
+                                title: "Chamado Alterado para Atendido!",
+                                text: "Espere um pouco...",
+                                icon: "success",
+                                confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                timer: 2000, // Tempo antes de fechar automaticamente
+                                timerProgressBar: true
+                            }).then(() => {
+                                location.reload(); // Recarregar a página após o alerta
+                            });
+                            // alert("Chamado Alterado para Atendido! Espere um pouco...")
+                            //     location.reload()
+                            // setTimeout(() => {
+                            // }, 2000)
+                        }
+                        else {
+                            alert("Erro ao atualizar situação!")
+                        }
+                    })
                 }
                 if (resposta.status == 204) {
                     console.log("Não foi encontrado nenhum chamado com esse id")
