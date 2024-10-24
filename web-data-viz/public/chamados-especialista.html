@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/pages/chamados-especialista.css">
     <link rel="stylesheet" href="css/pages/aside-menu.css">
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -395,10 +397,18 @@
                         })
                     }).then(function (resultado) {
                                 if (resultado.ok) {
-                                    alert("Chamado Alterado para Atendido! Espere um pouco...")
-                                    setTimeout(() => {
-                                        location.reload()
-                                    }, 2000)
+                                    Swal.fire({
+                                    title: "Chamado Alterado para Atendido!",
+                                    text: "Espere um pouco...",
+                                    icon: "success",
+                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                                    // alert("Chamado Alterado para Atendido! Espere um pouco...")
+                                    // setTimeout(() => {
+                                    //     location.reload()
+                                    // }, 2000)
                                 }
                                 else {
                                     alert("Erro ao atualizar situação!")
