@@ -19,7 +19,7 @@ main{
     background-color: #EDEEF9; /* Fundo claro */
     flex-direction: column;
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 
 /* Seção de funcionários */
@@ -30,7 +30,7 @@ main{
     align-items: flex-start;
     flex-direction: row; /* Disposição horizontal dos elementos */
     gap: 1%; /* Espaçamento entre elementos */
-    /* margin-left: 7.5%; */
+    margin-left: 7.5%;
     background-color: #ffffff00; /* Fundo transparente */
     height: auto;
 }
@@ -266,7 +266,8 @@ hr{
 .alertas h2{
     font-size: 1.3rem;
     color: #000000;
-    margin-bottom: 3%;
+    margin: 10px;
+    /* margin-bottom: 3%; */
 }
 
 /* Cartão de alerta */
@@ -279,6 +280,23 @@ hr{
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.frameAlertas:hover {
+    background-color: #131313;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.frameAlertas:hover p,
+.frameAlertas:hover .status-alerta,
+.frameAlertas:hover .hrDt p {
+    color: #fff;
+}
+
+/* Estilo para o ícone dentro de .userImg também mudar para branco */
+.frameAlertas:hover .userImg img {
+    filter: brightness(0) invert(1); /* Torna a imagem branca */
 }
 
 /* Cor do status de alerta */
@@ -461,7 +479,7 @@ hr{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        /* margin-right: 15px; */
+        margin-right: 15px;
     }
     
     
@@ -857,13 +875,13 @@ ul {
     display: flex;
 }
 
-a {
+/* a {
     background-color: transparent;
-    /* margin: 0 35px 0 35px; */
+    margin: 0 35px 0 35px;
     text-decoration: none;
     color: gray;
     font-size: 17px;
-}
+} */
 
 a:hover {
     color: white;

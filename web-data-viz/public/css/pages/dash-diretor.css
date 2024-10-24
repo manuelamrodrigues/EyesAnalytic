@@ -268,6 +268,74 @@ main{
 }
 
 /* Cartão de alerta */
+.frameAlertas {
+    display: flex;
+    background-color: #ffffff; /* Fundo normal */
+    border-radius: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
+    height: 9.3vh;
+    box-shadow: 0 0 10px #00000021;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza a transição */
+}
+
+/* Efeito de hover para o cartão de alerta */
+.frameAlertas:hover {
+    background-color: #131313; /* Cor de fundo no hover */
+    color: #fff; /* Cor do texto no hover */
+}
+
+/* Estilo para o ícone mudar no hover */
+.frameAlertas:hover .userImg img {
+    filter: brightness(0) invert(1); /* Torna o ícone branco no hover */
+}
+
+/* Cor do status de alerta */
+.status-alerta {
+    color: #d30808; /* Cor vermelha para alertas */
+}
+
+/* Mantém o texto em vermelho para o status-alerta */
+.frameAlertas:hover .status-alerta {
+    color: #d30808; /* Mantém a cor vermelha durante o hover */
+}
+
+/* Texto dentro da seção de alertas */
+.alertas p {
+    font-size: 1.2rem;
+    color: #000; /* Cor normal do texto */
+}
+
+/* Para garantir que os textos normais mudem de cor no hover */
+.frameAlertas:hover p {
+    color: #fff; /* Muda a cor do texto normal para branco no hover */
+}
+
+/* Seção de data e hora */
+.hrDt {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    gap: 5%;
+    margin-bottom: 2%;
+}
+
+/* Texto de data e hora */
+.hrDt p {
+    font-size: 1.1rem;
+    color: #000; /* Cor normal do texto */
+}
+
+/* Para garantir que os textos de data e hora mudem de cor no hover */
+.frameAlertas:hover .hrDt p {
+    color: #fff; /* Muda a cor do texto de data e hora para branco no hover */
+}
+
+
+/* Cartão de alerta */
 .frameAlertas{
     display: flex;
     background-color: #ffffff;

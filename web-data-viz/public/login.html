@@ -9,6 +9,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -37,7 +39,7 @@
         </div>
 
 
-<!-- 
+        <!-- 
         <div class="esqueceuSenha">
             <a href="./esqueceu-senha.html">Esqueceu a senha?</a>
         </div> -->
@@ -92,46 +94,110 @@
                             console.log(json);
                             console.log(JSON.stringify(json));
 
-
                             sessionStorage.EMAIL_USUARIO = json.email;
                             sessionStorage.NOME_USUARIO = json.nome;
+                            sessionStorage.SITUACAO = json.situacao;
                             sessionStorage.ID_USUARIO = json.idUsuario;
                             sessionStorage.FK_TIPO_USUARIO = json.fkTipoUsuario;
                             sessionStorage.FK_EMPRESA = json.fkEmpresa;
-                            
-
-                             console.log(sessionStorage.FK_EMPRESA, sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
 
 
-                            if (sessionStorage.FK_TIPO_USUARIO == 1) {
-                                setTimeout(function () {
-                                    window.location = "./dashboard/dash-diretor.html";
-                                }, 1000); // apenas para exibir o loading  
-                                
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 2){
-                                setTimeout(function () {
-                                    window.location = "./dashboard/dash-especialista.html";
-                                }, 1000); // apenas para exibir o loading
+                            console.log(sessionStorage.SITUACAO, sessionStorage.FK_EMPRESA, sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
+
+                            if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO == 'ativo') {
+                                Swal.fire({
+                                    title: "Bem-vindo!",
+                                    text: "Bem-vindo " + sessionStorage.getItem("NOME_USUARIO"),
+                                    icon: "success",
+                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true,
+                                    willClose: () => {
+                                        window.location = "./dashboard/dash-diretor.html"; // Redireciona após o tempo
+                                    }
+                                });
+                                // setTimeout(function () {
+                                //     window.location = "./dashboard/dash-diretor.html";
+                                // }, 1000); // apenas para exibir o loading  
+
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO == 'ativo') {
+                                Swal.fire({
+                                    title: "Login realizado com sucesso! ",
+                                    text: "Bem-vindo " + sessionStorage.getItem("NOME_USUARIO"),
+                                    icon: "success",
+                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true,
+                                    willClose: () => {
+                                        window.location = "./dashboard/dash-especialista.html"; // Redireciona após o tempo
+                                    }
+                                });
+
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO != 'ativo') {
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Houve um erro ao tentar realizar o login!",
+                                    icon: "error",
+                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                                // setTimeout(function () {
+                                //     window.location = "./dashboard/dash-diretor.html";
+                                // }, 1000); // apenas para exibir o loading  
+
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO != 'ativo') {
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Houve um erro ao tentar realizar o login!",
+                                    icon: "error",
+                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                            } else if ((sessionStorage.FK_TIPO_USUARIO != 1 || sessionStorage.FK_TIPO_USUARIO != 2)) {
+                                Swal.fire({
+                                    // title: "!",
+                                    text: "Credenciais inválidas. Por favor, tente novamente.",
+                                    icon: "warning",
+                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                                // setTimeout(function () {
+                                //     window.location = "./dashboard/dash-diretor.html";
+                                // }, 1000); // apenas para exibir o loading  
+                            } else {
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Houve um erro ao tentar realizar o login!",
+                                    icon: "error",
+                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                                // alert("Houve um erro ao tentar realizar o login!");
+                                console.log("Houve um erro ao tentar realizar o login!");
+                                // return resposta.json();
+
                             }
-                            
-                            alert("Login realizado com sucesso! Bem-vindo " + sessionStorage.NOME_USUARIO);
-                        });
-
-                        // throw new Error("Houve um erro ao tentar realizar o login!");
-                    } else {
-
-                        alert("Houve um erro ao tentar realizar o login!");
-                        console.log("Houve um erro ao tentar realizar o login!");
-                        // return resposta.json();
-
+                        })
+                        .catch(function (erro) {
+                                console.error(erro);
+                                Swal.fire({
+                                    // title: "!",
+                                    text: "Credenciais inválidas. Por favor, tente novamente.",
+                                    icon: "warning",
+                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                    timer: 2000, // Tempo antes de fechar automaticamente
+                                    timerProgressBar: true
+                                });
+                                // errorMessage.style.display = "block";
+                                errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
+                            })
+                        return false;
                     }
                 })
-                .catch(function (erro) {
-                    console.error(erro);
-                    errorMessage.style.display = "block";
-                    errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
-                })
-            return false;
         }
     }
 
