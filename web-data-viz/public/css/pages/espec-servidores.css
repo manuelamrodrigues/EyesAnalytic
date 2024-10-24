@@ -26,9 +26,9 @@ body {
 }
 
 .chamados h2 {
-    font-size: xx-large;
-    padding: 14px;
-    font-weight: 300;
+    font-size: 1.3rem;
+    padding: 30px 0px 10px 20px;
+    /* font-weight: 300; */
 }
 
 .frameAlertas {
@@ -80,6 +80,26 @@ body {
     justify-content: space-around;
     flex-direction: row;
     gap: 10px;
+}
+
+.openModal:hover{
+    background-color: black;
+    /* color: white; */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 1.0s ease;
+
+}
+
+.openModal:hover h3, .openModal:hover h4, .openModal:hover p,
+.iconEdit:hover svg, .iconTrash:hover svg {
+    color: white;
+    fill: white;
+    cursor: pointer;
+
+}
+
+.openModal:hover .iconEdit svg path, .openModal:hover .iconTrash svg path {
+    fill: white;
 }
 
 
