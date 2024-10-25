@@ -12,10 +12,18 @@ function listar() {
 function listarPorIdEspecialista(idEspecialista){
     console.log("ACESSEI O CHAMADO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql= `
-    SELECT * FROM view_select_listar_chamados WHERE idEspecialista = ${idEspecialista}; 
+    SELECT * FROM view_select_listar_chamados WHERE idEspecialista = ${idEspecialista} ORDER BY situacao DESC; 
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
+}
+function listarPorDiretor(idDiretor){
+    var instrucaoSql = `
+    SELECT * FROM view_select_listar_chamados WHERE idDiretor = ${idDiretor} 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+
 }
 
 function buscarPorId(idChamado) {
@@ -63,6 +71,14 @@ function atender(idChamado){
     return database.executar(instrucaoSql)
 }
 
+function cancelar(idChamado){
+    var instrucaoSql = `
+    UPDATE chamado SET situacao = 'Cancelado' WHERE idChamado = ${idChamado} 
+    `
+    console.log ("Executando a instrução SQL: \n" + instrucaoSql)
+        return database.executar(instrucaoSql)
+}
+
 // module.exports = {
 //     listar,
 //     listarPorUsuario,
@@ -75,9 +91,11 @@ function atender(idChamado){
 module.exports = {
     listar,
     listarPorIdEspecialista,
+    listarPorDiretor,
     buscarPorId,
     cadastrar,
     atualizar,
     deletar,
-    atender
+    atender,
+    cancelar
 }

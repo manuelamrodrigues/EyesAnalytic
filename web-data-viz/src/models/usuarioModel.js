@@ -22,7 +22,16 @@ function cadastrar(nome, email, senha, fkEmpresa, fkTipoUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function listarFunc(idEmpresa){
+    var instrucaoSql = `
+    SELECT * FROM usuario WHERE fkEmpresa = ${idEmpresa} AND fkTipoUsuario = 2; 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarFunc
 };

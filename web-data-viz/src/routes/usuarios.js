@@ -11,5 +11,8 @@ router.post("/cadastrar", function (req, res) {
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
+router.get("/listarFunc/:idEmpresa", function(req,res){
+    usuarioController.listarFunc(req,res)
+})
 
 module.exports = router;

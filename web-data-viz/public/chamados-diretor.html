@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="listarChamados()">
 
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -93,8 +93,8 @@
           <a href="./abrir-chamado.html"><button>Abrir Chamado</button> </a>
         </section>
     
-        <section class="chamados">
-            <section class="chamado">
+        <section class="chamados" id="chamados">
+            <!-- <section class="chamado">
                 <article class="cabecalhoChamado">
                     <div class="informacoesChamado">
     
@@ -163,7 +163,7 @@
                             <p>22/09/2024</p>
                         </div>
     
-                        <!-- <button>Cancelar Chamado</button> -->
+                       
                     </div>
     
                 </article>
@@ -204,7 +204,6 @@
                             <p>22/09/2024</p>
                         </div>
     
-                        <!-- <button>Cancelar Chamado</button> -->
                     </div>
     
                 </article>
@@ -215,7 +214,7 @@
                         <p>Descrição: O uso da CPU está muito elevado, vá investigar! </p>
                     </div>
                 </article>
-            </section>
+            </section> -->
             
         </section>
     </main>
@@ -225,3 +224,188 @@
 </body>
 
 </html>
+
+<script>
+    function listarChamados() {
+        var dataAtual = new Date()
+        var chamados = document.getElementById("chamados")
+        var idDiretor = sessionStorage.ID_USUARIO
+        fetch('/chamados/listarPorDiretor', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idDiretor: idDiretor
+            })
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                console.log("Dados encontrados:", resposta)
+                resposta.forEach(element => {
+                    var base = document.getElementById("chamados")
+                    var data = new Date(element.dtHora)
+                    var dataDia = data.getDate()
+                    var dataMes = data.getMonth()
+                    var dataAno = data.getFullYear()
+                    var dataHoras = data.getHours()
+                    var dataMinutos = data.getMinutes()
+                    var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
+                    var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
+
+
+                    var chamado = document.createElement("section")
+                    var cabecalhoChamado = document.createElement("article")
+                    var informacoesChamado = document.createElement("div")
+                    var separacaoInformacoes = document.createElement("div")
+                    var diretor = document.createElement("p")
+                    var respostaDiretor = document.createElement("p")
+                    var separacaoInformacoes2 = document.createElement("div")
+                    var status = document.createElement("p")
+                    var respostaStatus = document.createElement("p")
+                    var separacaoInformacoes3 = document.createElement("div")
+                    var urgencia = document.createElement("p")
+                    var respostaUrgencia = document.createElement("p")
+                    var dadosChamado = document.createElement("div")
+                    var sobreChamado = document.createElement("div")
+                    var hora = document.createElement("p")
+                    var data = document.createElement("p")
+                    var cancelarchamado = document.createElement("div")
+                    cancelarchamado.innerHTML= `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
+
+                    var fundoChamado = document.createElement("article")
+                    var tituloChamado = document.createElement("p")
+                    var textoChamado = document.createElement("div")
+                    var texto = document.createElement("p")
+
+                    base.appendChild(chamado)
+                    chamado.className = "chamado"
+                    chamado.appendChild(cabecalhoChamado)
+                    chamado.appendChild(fundoChamado)
+
+                    cabecalhoChamado.className = "cabecalhoChamado"
+                    cabecalhoChamado.appendChild(informacoesChamado)
+                    cabecalhoChamado.appendChild(dadosChamado)
+
+                    
+                    informacoesChamado.className = "informacoesChamado"
+
+                    
+                    informacoesChamado.appendChild(separacaoInformacoes2)
+                    
+                    
+                    separacaoInformacoes2.className = "separacaoInformacoes2"
+                    separacaoInformacoes2.appendChild(status)
+                    status.innerHTML = "Status: "
+                    separacaoInformacoes2.appendChild(respostaStatus)
+                    respostaStatus.innerHTML = element.situacao
+                    if(element.situacao == "Não Atendido"){
+                        respostaStatus.style.color= "Yellow"
+                    }
+                    if(element.situacao == "Atendido"){
+                        respostaStatus.style.color= "lightgreen"
+                    }
+                    if(element.situacao == "Cancelado"){
+                        respostaStatus.style.color= "Red"
+                    }
+                    
+                    informacoesChamado.appendChild(separacaoInformacoes3)
+                    
+                    separacaoInformacoes3.className = 'separacaoInformacoes3'
+                    separacaoInformacoes3.appendChild(urgencia)
+                    urgencia.innerHTML = "Urgência: "
+                    separacaoInformacoes3.appendChild(respostaUrgencia)
+                    respostaUrgencia.innerHTML = element.urgencia
+                    if (element.urgencia == "alta") {
+                        respostaUrgencia.style.color = "Red"
+                    }
+                    if (element.urgencia == "média") {
+                        respostaUrgencia.style.color = "Yellow"
+                    }
+                    
+                    informacoesChamado.appendChild(separacaoInformacoes)
+                    separacaoInformacoes.className = "separacaoInformacoes"
+                    separacaoInformacoes.appendChild(diretor)
+                    separacaoInformacoes.appendChild(respostaDiretor)
+                    diretor.innerHTML ="Responsável: "
+                    respostaDiretor.innerHTML = element.NomeEspecialista
+                    
+                    dadosChamado.className = 'dadosChamado'
+                    dadosChamado.appendChild(sobreChamado)
+
+                    sobreChamado.className = 'sobreChamado'
+                    sobreChamado.appendChild(hora)
+                    hora.innerHTML = horas
+                    sobreChamado.appendChild(data)
+                    data.innerHTML = date
+                    dadosChamado.appendChild(cancelarchamado)
+                   
+
+
+
+
+                    fundoChamado.className = 'fundoChamado'
+                    fundoChamado.appendChild(tituloChamado)
+
+                    tituloChamado.className = 'tituloChamado'
+                    tituloChamado.innerHTML = element.assunto
+                    fundoChamado.appendChild(textoChamado)
+                    textoChamado.className = 'textoChamado'
+                    textoChamado.appendChild(texto)
+                    texto.innerHTML = element.descricao
+
+                }
+                );
+            })
+        })
+            .catch(function (error) {
+                console.log("#ERROR:", error)
+            })
+    }
+    function adicionarZero(numero) {
+        return (numero < 10 ? '0' : '') + numero;
+    }
+
+    function cancelarChamado(idChamado){
+        fetch("chamados/buscarPorId", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idChamado: idChamado
+            })
+        })
+            .then(function (resposta) {
+                console.log(resposta)
+                if (resposta.ok) {
+                    fetch("chamados/cancelar", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idChamado: idChamado
+                        })
+                    }).then(function (resultado) {
+                                if (resultado.ok) {
+                                    alert("Chamado Alterado para cancelado! Espere um pouco...")
+                                    setTimeout(() => {
+                                        location.reload()
+                                    }, 2000)
+                                }
+                                else {
+                                    alert("Erro ao atualizar situação!")
+                                }
+                            })
+                }
+                if (resposta.status == 204) {
+                    console.log("Não foi encontrado nenhum chamado com esse id")
+                }
+            })
+            .catch(
+                function (error) {
+                    console.log("#ERRO:", error)
+                }
+            )
+    }
+</script>

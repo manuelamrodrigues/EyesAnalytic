@@ -23,6 +23,7 @@ var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 var chamadosRouter = require("./src/routes/chamados");
 var tipoRouter = require("./src/routes/tipo");
+var urgenciaRouter = require("./src/routes/urgencias")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,6 +39,7 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/chamados", chamadosRouter);
 app.use("/tipo", tipoRouter);
+app.use("/urgencias",urgenciaRouter)
 
 
 app.listen(PORTA_APP, function () {

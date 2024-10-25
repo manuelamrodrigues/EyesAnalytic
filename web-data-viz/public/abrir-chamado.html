@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="./css/pages/abrir-chamado.css" />
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <script src="./js/aside-menu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
 
     <title>Abrir chamado | EyesAnalytic</title>
 </head>
 
-<body>
-   
+<body onload="listarUrgencia(), listarFuncionarios()">
+
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -54,7 +55,7 @@
             </a>
 
             <a href="./index.html" class="sair-diretor">
-                <li >
+                <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -85,13 +86,13 @@
 
         </div>
     </aside>
-            <div id="fade" class="hide"></div>
+    <div id="fade" class="hide"></div>
 
     <main class="chamado">
 
         <div class="button-container"></div>
         <a href="./chamados-diretor.html" class="back-button"></a>
-    </div>
+        </div>
 
         <div class="titulo">
             <h1>Abrir Chamado</h1>
@@ -101,23 +102,15 @@
         <article class="selects">
             <div class="slt1">
                 <h1>Para: </h1>
-                <select class="opcao" for="">
+                <select class="opcao" id="funcionario">
                     <option disabled selected value="">Funcinários</option>
-                    <option value="">Lia Valen</option>
-                    <option value="">Rafael Mendez</option>
-                    <option value="">Sofia Draven</option>
-                    <option value="">Victor Alden</option>
-                    <option value="">Clara Orin</option>
                 </select>
             </div>
 
             <div class="slt2">
                 <h1> Urgência: </h1>
                 <select class="opcao" id="seletor">
-                    <option disabled selected value="emergente">Emergente</option>
-                    <option value="leve">Leve</option>
-                    <option value="medio">Médio</option>
-                    <option value="urgente">Urgente</option>
+                    <option disabled selected value="">Emergencia</option>
                 </select>
             </div>
         </article>
@@ -126,19 +119,19 @@
         <article class="abrindo">
 
             <div class="assunto">
-                <textarea placeholder="Assunto do chamado"></textarea>
+                <textarea placeholder="Assunto do chamado" id="assunto"></textarea>
             </div>
 
             <!-- DESCRIÇÃO -->
             <div class="descricao">
-                <textarea placeholder="Descrição"></textarea>
+                <textarea placeholder="Descrição" id="descricao"></textarea>
             </div>
 
         </article>
-        
+
         <!-- BOTAO  -->
         <section class="botao">
-            <button onclick="">Abrir Chamado</button>
+            <button onclick="abrirChamado()">Abrir Chamado</button>
         </section>
     </main>
 
@@ -147,3 +140,119 @@
 
 </html>
 
+<script>
+    function listarFuncionarios() {
+        var select = document.getElementById("funcionario")
+        var idEmpresa = sessionStorage.FK_EMPRESA
+        fetch(`usuarios/listarFunc/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+                    var option = document.createElement("option")
+                    option.value = element.idUsuario
+                    option.innerHTML = element.nome
+                    select.appendChild(option)
+                })
+            })
+        }).catch(function (error) {
+            console.log("#ERROR:", error)
+        })
+            .catch(function (error) {
+                console.log("#ERROR:", error)
+            })
+
+    }
+    function listarUrgencia() {
+        var select = document.getElementById("seletor")
+        fetch("/urgencias/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+                    var option = document.createElement("option")
+                    option.value = element.idUrgencia
+                    option.innerHTML = element.tipo
+                    select.appendChild(option)
+                })
+            }).catch(function (error) {
+                console.log("#ERROR:", error)
+            })
+        }).catch(function (error) {
+            console.log("#ERROR:", error)
+        })
+    }
+
+    function abrirChamado() {
+        var assunto = document.getElementById("assunto").value
+        var descricao = document.getElementById("descricao").value
+        var fkDiretor = sessionStorage.ID_USUARIO
+        var fkEspecialista = document.getElementById("funcionario").value
+        var fkUrgencia = document.getElementById("seletor").value
+        console.log(fkUrgencia)
+
+        if (assunto == "" || assunto == undefined) {
+            alert("Preencha o assunto")
+        }
+        else if (descricao == "" || assunto == undefined) {
+            alert("Preencha a descricao")
+        }
+        else if (fkEspecialista == "" || fkEspecialista == undefined) {
+            alert("Selecione o funcionário responsável")
+        }
+        else if (fkUrgencia == "" || fkUrgencia == undefined) {
+            alert("Selecione a urgência")
+        }
+        else {
+            fetch("/chamados/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    assunto: assunto,
+                    descricao: descricao,
+                    fkDiretor: fkDiretor,
+                    fkEspecialista: fkEspecialista,
+                    fkUrgencia: fkUrgencia
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    Swal.fire({
+                        title: "Chamado Aberto!",
+                        text: "Chamado aberto com sucesso! Aguarde...",
+                        icon: "success",
+                        confirmButtonCollor: '#4CAF50',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            window.location = "funcionario-diretor.html"; // Redireciona após o tempo
+                        }
+                    })
+                }
+
+                else {
+                    errorMessage.style.display = "block";
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Houve um erro ao tentar realizar o cadastro!",
+                        icon: "error",
+                        confirmButtonColor: '#f44336', // Cor vermelha do botão
+                        timer: 2000, // Tempo antes de fechar automaticamente
+                        timerProgressBar: true
+                    })
+                };
+            }
+            )
+        }
+    }
+
+
+
+</script>
