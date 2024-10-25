@@ -224,9 +224,9 @@
         var chamados = document.getElementById("chamados")
         var idEspecialista = sessionStorage.ID_USUARIO
         fetch("/chamados/listarPorIdEspecialista", {
-            method: "PUT",
+            method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 idEspecialista: idEspecialista
@@ -313,6 +313,16 @@
                     status.innerHTML = "Status: "
                     separacaoInformacoes2.appendChild(respostaStatus)
                     respostaStatus.innerHTML = element.situacao
+                    if(element.situacao == "Não Atendido"){
+                        respostaStatus.style.color= "Yellow"
+                    }
+                    if(element.situacao == "Atendido"){
+                        respostaStatus.style.color= "lightgreen"
+                    }
+                    if(element.situacao == "Cancelado"){
+                        respostaStatus.style.color= "Red"
+                    }
+                    
                     
                     informacoesChamado.appendChild(separacaoInformacoes3)
                     
@@ -374,7 +384,7 @@
 
     function atender(idChamado) {
         fetch("chamados/buscarPorId", {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

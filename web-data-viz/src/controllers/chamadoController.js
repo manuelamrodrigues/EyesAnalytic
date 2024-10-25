@@ -15,17 +15,43 @@ function listar(req, res) {
     });
 }
 
-function listarPorIdEspecialista(req,res){
+function listarPorIdEspecialista(req, res) {
     var idEspecialista = req.body.idEspecialista
 
     chamadoModel.listarPorIdEspecialista(idEspecialista)
         .then(
-            function (resultado){
-                if(resultado.length > 0){
+            function (resultado) {
+                if (resultado.length > 0) {
                     res.status(200).json(resultado)
                 }
-                else{
+                else {
                     res.status(204).send("Nenhum resultado encontrado!")
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os chamados: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+}
+
+function listarPorDiretor(req, res) {
+    var idDiretor = req.body.idDiretor
+
+    chamadoModel.listarPorDiretor(idDiretor)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado)
+                }
+                else {
+                    res.status(500).json(erro.sqlMessage)
                 }
             }
         )
@@ -122,7 +148,7 @@ function cadastrar(req, res) {
 }
 
 function atualizar(req, res) {
-    
+
     var novoAssunto = req.body.assunto;
     var novaDescricao = req.body.descricao;
     var novoSituacao = req.body.situacao;
@@ -162,22 +188,37 @@ function deletar(req, res) {
         );
 }
 
-function atender(req,res){
+function atender(req, res) {
     var idChamado = req.body.idChamado;
 
     chamadoModel.atender(idChamado)
-    .then(
-        function(resultado){
-            res.status(200).json(resultado)
-        }
-    ) 
-    .catch(
-        function (erro) {
+        .then(
+            function (resultado) {
+                res.status(200).json(resultado)
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+}
+
+function cancelar(req, res) {
+    var idChamado = req.body.idChamado;
+
+    chamadoModel.cancelar(idChamado)
+        .then(
+            function (resultado) {
+                res.status(200).json(resultado)
+            }
+        ).catch(function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
-        }
-    )
+        })
 }
 
 // module.exports = {
@@ -197,5 +238,7 @@ module.exports = {
     atualizar,
     deletar,
     listarPorIdEspecialista,
-    atender
+    listarPorDiretor,
+    atender,
+    cancelar
 }
