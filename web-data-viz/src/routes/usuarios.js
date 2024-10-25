@@ -15,4 +15,8 @@ router.get("/listarFunc/:idEmpresa", function(req,res){
     usuarioController.listarFunc(req,res)
 })
 
+router.get("/listar/:idEmpresa", function(req,res){
+    usuarioController.listar(req,res)
+})
+
 module.exports = router;

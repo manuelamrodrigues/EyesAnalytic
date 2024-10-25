@@ -29,9 +29,17 @@ function listarFunc(idEmpresa){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+function listar(idEmpresa){
+    var instrucaoSql = `
+    SELECT * FROM usuario WHERE fkEmpresa = ${idEmpresa}; 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    listarFunc
+    listarFunc,
+    listar
 };

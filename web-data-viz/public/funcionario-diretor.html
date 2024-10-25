@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body onload="listarFuncionarios()">
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -89,9 +89,10 @@
     <main>
 
         <section class="funcionarios">
-            <article class="lista">
+            <article class="lista" id="lista">
                 <h2>Funcionários</h2>
-                <div class="frameFuncionarios">
+
+                <!-- <div class="frameFuncionarios">
                     <div class="userImg">
                         <img src="./assets/svg/user.svg" alt="">
                     </div>
@@ -138,7 +139,7 @@
                     <p>Fernando Silva</p>
                     <p>Email: fernando.silva@email.com</p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
-                </div>
+                </div> -->
 
             </article>
 
@@ -201,7 +202,7 @@
         </section>
 
         <section class="chamados">
-            <article class="alertas">
+            <article class="alertas" id="chamadoCardapio">
                 <h2>Chamados Recentes</h2>
                 <div class="frameAlertas">
                     <div class="userImg">
@@ -300,6 +301,96 @@
             }
         };
     });
+
+    function listarFuncionarios(){
+    var idEmpresa = sessionStorage.FK_EMPRESA;
+    var lista = document.getElementById("lista");
+    fetch(`usuarios/listar/${idEmpresa}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function(resposta){
+        resposta.json().then(function(resposta){
+            resposta.forEach(element => {
+                let frameFuncionarios = document.createElement("div");
+                frameFuncionarios.className = "frameFuncionarios";
+
+                let userImg = document.createElement("div");
+                userImg.className = "userImg"
+                userImg.innerHTML = "<img src='./assets/svg/user.svg' alt=''>" 
+                let nome = document.createElement("p");
+                nome.innerHTML = element.nome;
+
+                let email = document.createElement("p");
+                email.innerHTML = "Email: "+ element.email;
+                
+
+                let status = document.createElement("p");
+                status.innerHTML = "Status: ";
+                let respostaStatus = document.createElement("span");
+                respostaStatus.innerHTML = element.situacao;
+                status.appendChild(respostaStatus);
+
+                if (element.situacao === "ativo") {
+                    respostaStatus.style.color = "green";
+                } else if (element.situacao === "desativo") {
+                    respostaStatus.style.color = "darkgray";
+                }
+
+                frameFuncionarios.appendChild(userImg);
+                frameFuncionarios.appendChild(nome);
+                frameFuncionarios.appendChild(email);
+                frameFuncionarios.appendChild(status);
+                lista.appendChild(frameFuncionarios);
+            });
+        });
+    });
+}
+function listarChamados() {
+        var dataAtual = new Date()
+        var idDiretor = sessionStorage.ID_USUARIO
+        fetch('/chamados/listarPorDiretor', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idDiretor: idDiretor
+            })
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                console.log("Dados encontrados:", resposta)
+                resposta.forEach(element => {
+                    var base = document.getElementById("chamadoCardapio")
+                    var data = new Date(element.dtHora)
+                    var dataDia = data.getDate()
+                    var dataMes = data.getMonth()+1
+                    var dataAno = data.getFullYear()
+                    var dataHoras = data.getHours()
+                    var dataMinutos = data.getMinutes()
+                    var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
+                    var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
+
+                    if(dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth()+1 && dataAno === dataAtual.getFullYear())
+                {
+                    base.appendChild(chamado)
+                    var frameAlertas = document.createElement("div")
+                    frameAlertas.className = "frameAlertas"
+    
+                }
+            }
+                );
+            })
+        })
+            .catch(function (error) {
+                console.log("#ERROR:", error)
+            })
+    }
+    function adicionarZero(numero) {
+        return (numero < 10 ? '0' : '') + numero;
+    }
+
 
 
 </script>
