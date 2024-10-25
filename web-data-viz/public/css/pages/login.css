@@ -80,7 +80,6 @@ body{
     font-size: 17px;
     cursor: text;
     top: 20px;
-    ckground-color: #f0f8ff;
 }
 
 .campo:focus {
@@ -133,12 +132,43 @@ body{
     
 }
 
+.button-container {
+    text-align: center;
+}
+
+.back-button {
+    position: fixed;
+    top: 40px;
+    left: 100px;
+    padding: 0px 7px 3px 12px;
+    font-size: 30px;
+    color: #fff;
+    background-color: #0BA385;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button::before {
+    content: '←';
+    margin-right: 10px;
+    position: relative;
+    bottom: 1px;
+}
+
+.back-button:hover {
+    background-color: #025544;
+}
+
+
 .login button {
     --hover-shadows: 0 0 20px 0 #0D5E4E;
     --accent: #053f33;
     margin: 40px 0 0 0;
     font-weight: bold;
-    width: 85%;
+    width: 65%;
     padding: 6px 10px 6px 10px;
     letter-spacing: 0.1em;
     border: none;
