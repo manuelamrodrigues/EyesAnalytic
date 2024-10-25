@@ -85,7 +85,6 @@
                 })
             })
                 .then(function (resposta) {
-
                     if (resposta.ok) {
                         console.log(resposta)
 
@@ -106,8 +105,8 @@
 
                             if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO == 'ativo') {
                                 Swal.fire({
-                                    title: "Bem-vindo!",
-                                    text: "Bem-vindo " + sessionStorage.getItem("NOME_USUARIO"),
+                                    title: "Login realizado com sucesso!",
+                                    text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
                                     icon: "success",
                                     confirmButtonColor: '#4CAF50', // Cor vermelha do botão
                                     timer: 2000, // Tempo antes de fechar automaticamente
@@ -123,7 +122,7 @@
                             } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO == 'ativo') {
                                 Swal.fire({
                                     title: "Login realizado com sucesso! ",
-                                    text: "Bem-vindo " + sessionStorage.getItem("NOME_USUARIO"),
+                                    text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
                                     icon: "success",
                                     confirmButtonColor: '#4CAF50', // Cor vermelha do botão
                                     timer: 2000, // Tempo antes de fechar automaticamente
@@ -182,24 +181,37 @@
 
                             }
                         })
-                        .catch(function (erro) {
-                                console.error(erro);
-                                Swal.fire({
-                                    // title: "!",
-                                    text: "Credenciais inválidas. Por favor, tente novamente.",
-                                    icon: "warning",
-                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                                // errorMessage.style.display = "block";
-                                errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
-                            })
-                        return false;
+                    } else {
+                        console.error(erro);
+                        Swal.fire({
+                            // title: "!",
+                            text: "Credenciais inválidas. Por favor, tente novamente.",
+                            icon: "warning",
+                            confirmButtonColor: '#f44336', // Cor vermelha do botão
+                            timer: 2000, // Tempo antes de fechar automaticamente
+                            timerProgressBar: true
+                        });
+                        // errorMessage.style.display = "block";
+                        errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
                     }
                 })
+                .catch(function (erro) {
+                    console.error(erro);
+                    Swal.fire({
+                        // title: "!",
+                        text: "Credenciais inválidas. Por favor, tente novamente.",
+                        icon: "warning",
+                        confirmButtonColor: '#f44336', // Cor vermelha do botão
+                        timer: 2000, // Tempo antes de fechar automaticamente
+                        timerProgressBar: true
+                    });
+                    // errorMessage.style.display = "block";
+                    errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
+                });
+            return false;
         }
     }
+
 
 
     // function mostrarsenha() {
