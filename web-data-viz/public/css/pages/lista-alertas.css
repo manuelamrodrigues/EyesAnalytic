@@ -76,6 +76,7 @@ main{
     width: 24px; /* Largura da imagem */
     height: 24px; /* Altura da imagem */
     margin-right: -10%; /* Espaçamento negativo à direita */
+    margin-top: 10px;
 }
 
 /* Ajuste da imagem dentro da div */
@@ -280,6 +281,11 @@ hr{
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.frameAlertas p {
+    padding-top: 10px;
+    margin-bottom: -10px;
 }
 
 .frameAlertas:hover {
