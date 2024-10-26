@@ -66,8 +66,14 @@
 
 
         if (emailVar === "" || senhaVar === "") {
-            errorMessage.style.display = "block";
-            errorMessage.innerText = "Por favor, preencha todos os campos.";
+            Swal.fire({
+                title: "Falha! ",
+                text: "Por favor, preencha todos os campos!",
+                icon: "error",
+                confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                timer: 2000, // Tempo antes de fechar automaticamente
+                timerProgressBar: true
+            });
             return;
             console.log("Seu erro bateu na Validação do If")
 
