@@ -117,9 +117,21 @@ function listar(req, res) {
         })
 }
 
+function buscarPorId(req,res){
+    var idUsuario = req.params.idUsuario
+    usuarioModel.buscarPorId(idUsuario)
+    .then(function (resultado) {
+        res.status(200).json(resultado)
+    }).catch(function (erro) {
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarFunc,
-    listar
+    listar,
+    buscarPorId
 }

@@ -19,4 +19,8 @@ router.get("/listar/:idEmpresa", function(req,res){
     usuarioController.listar(req,res)
 })
 
+router.get("/buscarPorId/:idUsuario", function(req,res){
+    usuarioController.buscarPorId(req,res)
+})
+
 module.exports = router;
