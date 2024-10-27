@@ -7,6 +7,8 @@
     <title>Chamados | EyesAnalytic</title>
     <link rel="stylesheet" href="css/pages/chamado-diretor.css">
     <link rel="stylesheet" href="css/pages/aside-menu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
 
 </head>
@@ -53,7 +55,7 @@
             </a>
 
             <a href="./index.html" class="outros">
-                <li >
+                <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -84,15 +86,15 @@
 
         </div>
     </aside>
-            <div id="fade" class="hide"></div>
-   
+    <div id="fade" class="hide"></div>
+
 
     <main>
         <section class="title">
             <h1>Meus Chamados</h1>
-          <a href="./abrir-chamado.html"><button>Abrir Chamado</button> </a>
+            <a href="./abrir-chamado.html"><button>Abrir Chamado</button> </a>
         </section>
-    
+
         <section class="chamados" id="chamados">
             <!-- <section class="chamado">
                 <article class="cabecalhoChamado">
@@ -215,10 +217,10 @@
                     </div>
                 </article>
             </section> -->
-            
+
         </section>
     </main>
-  
+
 
 
 </body>
@@ -270,7 +272,7 @@
                     var hora = document.createElement("p")
                     var data = document.createElement("p")
                     var cancelarchamado = document.createElement("div")
-                    cancelarchamado.innerHTML= `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
+                    cancelarchamado.innerHTML = `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
 
                     var fundoChamado = document.createElement("article")
                     var tituloChamado = document.createElement("p")
@@ -286,30 +288,30 @@
                     cabecalhoChamado.appendChild(informacoesChamado)
                     cabecalhoChamado.appendChild(dadosChamado)
 
-                    
+
                     informacoesChamado.className = "informacoesChamado"
 
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes2)
-                    
-                    
+
+
                     separacaoInformacoes2.className = "separacaoInformacoes2"
                     separacaoInformacoes2.appendChild(status)
                     status.innerHTML = "Status: "
                     separacaoInformacoes2.appendChild(respostaStatus)
                     respostaStatus.innerHTML = element.situacao
-                    if(element.situacao == "Não Atendido"){
-                        respostaStatus.style.color= "Yellow"
+                    if (element.situacao == "Não Atendido") {
+                        respostaStatus.style.color = "Yellow"
                     }
-                    if(element.situacao == "Atendido"){
-                        respostaStatus.style.color= "lightgreen"
+                    if (element.situacao == "Atendido") {
+                        respostaStatus.style.color = "lightgreen"
                     }
-                    if(element.situacao == "Cancelado"){
-                        respostaStatus.style.color= "Red"
+                    if (element.situacao == "Cancelado") {
+                        respostaStatus.style.color = "Red"
                     }
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes3)
-                    
+
                     separacaoInformacoes3.className = 'separacaoInformacoes3'
                     separacaoInformacoes3.appendChild(urgencia)
                     urgencia.innerHTML = "Urgência: "
@@ -321,14 +323,14 @@
                     if (element.urgencia == "média") {
                         respostaUrgencia.style.color = "Yellow"
                     }
-                    
+
                     informacoesChamado.appendChild(separacaoInformacoes)
                     separacaoInformacoes.className = "separacaoInformacoes"
                     separacaoInformacoes.appendChild(diretor)
                     separacaoInformacoes.appendChild(respostaDiretor)
-                    diretor.innerHTML ="Responsável: "
+                    diretor.innerHTML = "Responsável: "
                     respostaDiretor.innerHTML = element.NomeEspecialista
-                    
+
                     dadosChamado.className = 'dadosChamado'
                     dadosChamado.appendChild(sobreChamado)
 
@@ -338,9 +340,6 @@
                     sobreChamado.appendChild(data)
                     data.innerHTML = date
                     dadosChamado.appendChild(cancelarchamado)
-                   
-
-
 
 
                     fundoChamado.className = 'fundoChamado'
@@ -365,7 +364,7 @@
         return (numero < 10 ? '0' : '') + numero;
     }
 
-    function cancelarChamado(idChamado){
+    function cancelarChamado(idChamado) {
         fetch("chamados/buscarPorId", {
             method: "POST",
             headers: {
@@ -387,16 +386,34 @@
                             idChamado: idChamado
                         })
                     }).then(function (resultado) {
-                                if (resultado.ok) {
-                                    alert("Chamado Alterado para cancelado! Espere um pouco...")
-                                    setTimeout(() => {
-                                        location.reload()
-                                    }, 2000)
-                                }
-                                else {
-                                    alert("Erro ao atualizar situação!")
-                                }
+                        if (resultado.ok) {
+                            Swal.fire({
+                                title: "Chamado Alterado para cancelado!",
+                                text: "Espere um pouco...",
+                                icon: "success",
+                                confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                timer: 2000, // Tempo antes de fechar automaticamente
+                                timerProgressBar: true
+                            }).then(() => {
+                                location.reload(); // Recarregar a página após o alerta
+                            });
+                            // alert("Chamado Alterado para cancelado! Espere um pouco...")
+                            // setTimeout(() => {
+                            //     location.reload()
+                            // }, 2000)
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Erro ao atualizar situação!",
+                                // text: "Espere um pouco...",
+                                icon: "error",
+                                confirmButtonColor: "#bd0023", // Cor vermelha do botão
+                                // timer: 2000, // Tempo antes de fechar automaticamente
+                                // timerProgressBar: true
                             })
+                            // alert("Erro ao atualizar situação!")
+                        }
+                    })
                 }
                 if (resposta.status == 204) {
                     console.log("Não foi encontrado nenhum chamado com esse id")

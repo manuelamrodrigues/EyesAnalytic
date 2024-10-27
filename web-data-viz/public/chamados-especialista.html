@@ -423,7 +423,15 @@
                             // }, 2000)
                         }
                         else {
-                            alert("Erro ao atualizar situação!")
+                            Swal.fire({
+                                title: "Erro ao atualizar situação!",
+                                // text: "Espere um pouco...",
+                                icon: "error",
+                                confirmButtonColor: "#bd0023", // Cor vermelha do botão
+                                // timer: 2000, // Tempo antes de fechar automaticamente
+                                // timerProgressBar: true
+                            })
+                            // alert("Erro ao atualizar situação!")
                         }
                     })
                 }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/pages/abrir-chamado.css" />
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <script src="./js/aside-menu.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
 
@@ -94,7 +95,7 @@
         <a href="./chamados-diretor.html" class="back-button"></a>
         </div>
 
-        
+
         <div class="titulo">
             <h1>Abrir Chamado</h1>
         </div>
@@ -199,16 +200,51 @@
         console.log(fkUrgencia)
 
         if (assunto == "" || assunto == undefined) {
-            alert("Preencha o assunto")
+            Swal.fire({
+                title: '<span style="font-size: 24px; font-weight: 300;">Preencha o assunto</span>',
+                text: "",
+                // icon: "success",
+                confirmButtonColor: "#0BA385",
+                confirmButtonText: "OK"
+                // timer: 2000,
+                // timerProgressBar: true
+            })
         }
         else if (descricao == "" || assunto == undefined) {
-            alert("Preencha a descricao")
+            // alert("Preencha a descricao")
+            Swal.fire({
+                title: '<span style="font-size: 24px; font-weight: 300;">Preencha o descrição</span>',
+                text: "",
+                // icon: "success",
+                confirmButtonColor: "#0BA385",
+                confirmButtonText: "OK"
+                // timer: 2000,
+                // timerProgressBar: true
+            })
         }
         else if (fkEspecialista == "" || fkEspecialista == undefined) {
-            alert("Selecione o funcionário responsável")
+            // alert("Selecione o funcionário responsável")
+            Swal.fire({
+                title: '<span style="font-size: 24px; font-weight: 300;">Selecione o funcionário responsável</span>',
+                text: "",
+                // icon: "success",
+                confirmButtonColor: "#0BA385",
+                confirmButtonText: "OK"
+                // timer: 2000,
+                // timerProgressBar: true
+            })
         }
         else if (fkUrgencia == "" || fkUrgencia == undefined) {
-            alert("Selecione a urgência")
+            // alert("Selecione a urgência")
+            Swal.fire({
+                title: '<span style="font-size: 24px; font-weight: 300;">Selecione a urgência</span>',
+                text: "",
+                // icon: "success",
+                confirmButtonColor: "#0BA385",
+                confirmButtonText: "OK"
+                // timer: 2000,
+                // timerProgressBar: true
+            })
         }
         else {
             fetch("/chamados/cadastrar", {
@@ -229,11 +265,11 @@
                         title: "Chamado Aberto!",
                         text: "Chamado aberto com sucesso! Aguarde...",
                         icon: "success",
-                        confirmButtonCollor: '#4CAF50',
+                        confirmButtonColor: "#0BA385",
                         timer: 2000,
                         timerProgressBar: true,
                         willClose: () => {
-                            window.location = "funcionario-diretor.html"; // Redireciona após o tempo
+                            window.location = "./chamados-diretor.html"; // Redireciona após o tempo
                         }
                     })
                 }
@@ -244,7 +280,7 @@
                         title: "Erro!",
                         text: "Houve um erro ao tentar realizar o cadastro!",
                         icon: "error",
-                        confirmButtonColor: '#f44336', // Cor vermelha do botão
+                        confirmButtonColor: "#bd0023", // Cor vermelha do botão
                         timer: 2000, // Tempo antes de fechar automaticamente
                         timerProgressBar: true
                     })
