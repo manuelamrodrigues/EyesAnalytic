@@ -200,7 +200,7 @@ function atender(req, res) {
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                console.log("Houve um erro ao realizar a alteracao: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         )

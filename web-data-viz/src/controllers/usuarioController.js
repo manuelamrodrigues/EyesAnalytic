@@ -64,7 +64,7 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    }  else if (fkEmpresa == undefined) {
+    } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa está undefined!");
     } else if (fkTipoUsuario == undefined) {
         res.status(400).send("Seu tipo está undefined!")
@@ -117,15 +117,64 @@ function listar(req, res) {
         })
 }
 
-function buscarPorId(req,res){
+function buscarPorId(req, res) {
     var idUsuario = req.params.idUsuario
     usuarioModel.buscarPorId(idUsuario)
-    .then(function (resultado) {
-        res.status(200).json(resultado)
-    }).catch(function (erro) {
-        console.log(erro)
-        res.status(500).json(erro.sqlMessage)
-    })
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+function desativarFunc(req, res) {
+    var idUsuario = req.params.idUsuario
+    usuarioModel.desativarFunc(idUsuario)
+        .then(
+            function (resultado) {
+                res.status(200).json(resultado)
+            }
+
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a alteracao: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+}
+
+function alterarFunc(req, res) {
+    var nome = req.body.nome
+    var email = req.body.email
+    var senha = req.body.senha
+    var idUsuario = req.body.idUsuario
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    }
+    else {
+        usuarioModel.alterarFunc(nome, email, senha, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
 }
 
 module.exports = {
@@ -133,5 +182,7 @@ module.exports = {
     cadastrar,
     listarFunc,
     listar,
-    buscarPorId
+    buscarPorId,
+    desativarFunc,
+    alterarFunc
 }
