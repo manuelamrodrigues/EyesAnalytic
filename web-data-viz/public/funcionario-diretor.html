@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="./css/pages/lista-funcionario-diretor.css">
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body onload="listarFuncionarios()">
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -53,7 +53,7 @@
             </a>
 
             <a href="./index.html" class="outros">
-                <li >
+                <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -89,9 +89,10 @@
     <main>
 
         <section class="funcionarios">
-            <article class="lista">
+            <article class="lista" id="lista">
                 <h2>Funcionários</h2>
-                <div class="frameFuncionarios">
+
+                <!-- <div class="frameFuncionarios">
                     <div class="userImg">
                         <img src="./assets/svg/user.svg" alt="">
                     </div>
@@ -138,30 +139,29 @@
                     <p>Fernando Silva</p>
                     <p>Email: fernando.silva@email.com</p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
-                </div>
+                </div> -->
 
             </article>
 
             <article class="cadastro">
-                <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar Funcionário</button></a>
-                <div class="card">
-                    <h1>Fernando Silva</h1>
+                <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar Técnico</button></a>
+                <div class="card" id="informacao">
+                    <!-- <h1>Fernando Silva</h1>
                     <hr>
                     <div>
                         <p>Email: fernando.silva@email.com</p>
                         <p>Senha: ************* </p>
-                        <p>Status: <span class="status-ativo">Ativo</span></p>
-                    </div>
-                    <div class="buttons">
-                        <button class="btn1" id="btnDesativar">Desativar</button>
-                        <button class="btn2" id="btnAlterar">Alterar</button>
-                    </div>
+                        <p>Status: <span class="status-ativo">Ativo</span></p> -->
                 </div>
+                <!-- <div class="buttons">
+                    <button class="btn1" id="btnDesativar">Desativar</button>
+                    <button class="btn2" id="btnAlterar">Alterar</button>
+                </div> -->
             </article>
 
 
             <!-- Modal 1 (Desativar) -->
-            <div id="modal1" class="modal">
+            <!-- <div id="modal1" class="modal">
                 <div class="modal-content1">
                     <div class="modal-header1">
                         <h2>Desativar</h2>
@@ -176,7 +176,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- Modal 2 (Alterar) -->
@@ -201,7 +201,7 @@
         </section>
 
         <section class="chamados">
-            <article class="alertas">
+            <article class="alertas" id="chamadoCardapio">
                 <h2>Chamados Recentes</h2>
                 <div class="frameAlertas">
                     <div class="userImg">
@@ -271,9 +271,9 @@
         }
 
         // Abrir o modal de Desativar
-        document.getElementById('btnDesativar').onclick = function () {
-            openModal('modal1');
-        };
+        // document.getElementById('btnDesativar').onclick = function () {
+        //     desativar()
+        // };
 
         // Abrir o modal de Alterar
         document.getElementById('btnAlterar').onclick = function () {
@@ -300,6 +300,288 @@
             }
         };
     });
+
+    function listarFuncionarios() {
+        var idEmpresa = sessionStorage.FK_EMPRESA;
+        var lista = document.getElementById("lista");
+        fetch(`usuarios/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+                    let frameFuncionarios = document.createElement("div");
+                    frameFuncionarios.className = "frameFuncionarios";
+
+                    let userImg = document.createElement("div");
+                    userImg.className = "userImg"
+                    userImg.innerHTML = "<img src='./assets/svg/user.svg' alt=''>"
+                    let nome = document.createElement("p");
+                    nome.innerHTML = element.nome;
+
+                    let email = document.createElement("p");
+                    email.innerHTML = "Email: " + element.email;
+
+
+                    let status = document.createElement("p");
+                    status.innerHTML = "Status: ";
+                    let respostaStatus = document.createElement("span");
+                    respostaStatus.innerHTML = element.situacao;
+                    status.appendChild(respostaStatus);
+
+                    if (element.situacao === "ativo") {
+                        respostaStatus.style.color = "green";
+                    } else if (element.situacao === "inativo") {
+                        respostaStatus.style.color = "darkgray";
+                    }
+
+                    frameFuncionarios.appendChild(userImg);
+                    frameFuncionarios.appendChild(nome);
+                    frameFuncionarios.appendChild(email);
+                    frameFuncionarios.appendChild(status);
+                    lista.appendChild(frameFuncionarios);
+                    frameFuncionarios.onclick = function () {
+                        selecionarFunc(element.idUsuario)
+                    }
+                });
+            });
+        });
+    }
+
+    function selecionarFunc(idUsuario) {
+        var informacao = document.getElementById("informacao")
+
+        fetch(`usuarios/buscarPorId/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                console.log(resposta)
+                var status = document.createElement("p")
+                var senha = document.createElement("p")
+                informacao.innerHTML = `<h1>${resposta[0].nome}</h1>
+                <hr>
+                <div>
+                    <p>Email: ${resposta[0].email}</p>
+                    <p>Cargo: ${resposta[0].tipo}</p>
+                    `
+                status.innerHTML = `Status:`
+                var respostaStatus = document.createElement("span")
+                informacao.appendChild(status)
+                status.appendChild(respostaStatus)
+                respostaStatus.innerHTML = resposta[0].situacao
+                var buttons = document.createElement("div")
+                if (resposta[0].situacao == "ativo") {
+                    respostaStatus.style.color = "green"
+                    informacao.appendChild(buttons)
+                }
+                if (resposta[0].situacao == "inativo") {
+                    respostaStatus.style.color = "darkgray"
+                }
+                buttons.className = "buttons"
+                buttons.innerHTML = `<button class='btn1' id='btnDesativar' onclick = desativarFunc(${resposta[0].idUsuario}) style ="color: white">Desativar</button>`
+                buttons.innerHTML += `<button class='btn2' id='btnAlterar' onclick = alterarFunc(${resposta[0].idUsuario}) style ="color: white">Alterar</button>`
+
+
+            })
+        })
+    }
+
+    function desativarFunc(idUsuario) {
+        Swal.fire({
+            title: "Inativar Funcionário?",
+            text: "Tem certeza que quer inativar esse funcionario?",
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/usuarios/desativarFunc/${idUsuario}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        Swal.fire({
+                            title: "Inativado!",
+                            text: "O funcionário foi Inativado.",
+                            icon: "success"
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Houve um erro em inativar o funcionário.",
+                            icon: "error"
+                        });
+                    }
+                })
+
+            }
+        }).catch(function () {
+            Swal.fire({
+                title: "Erro!",
+                text: "Houve um erro em inativar o funcionário.",
+                icon: "error"
+            });
+        })
+
+
+    }
+
+    function alterarFunc(idUsuario) {
+        fetch(`usuarios/buscarPorId/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                let nome = resposta[0].nome
+                let email = resposta[0].email
+                let senha = resposta[0].senha
+                const senhaOculta = senha.replace(/./g, '*');
+                Swal.fire({
+                    title: "Alterar Funcionario",
+                    html: `
+                    <div style="text-align: left;">
+                        <input placeholder = "Nome: ${resposta[0].nome}" id="nomeInput" class="swal2-input" style="width: 90%">
+                        <input placeholder = "Email: ${resposta[0].email}"  id="emailInput" class="swal2-input" style="width: 90%;">
+                        <input placeholder = "Senha: ${senhaOculta}" type="password" id="senhaInput" class="swal2-input" style="width: 90%">
+                    </div>
+                        `,
+                    width: 900,
+                    showCancelButton: true,
+                    confirmButtonText: "Alterar",
+                    confirmButtonColor: "#E9C60C",
+                    cancelButtonColor: "#d33",
+                    reverseButtons: true
+                }).then(function (resposta) {
+                    if (resposta.isConfirmed) {
+                        let nomeInput = document.getElementById("nomeInput").value || nome;
+                        let emailInput = document.getElementById("emailInput").value || email;
+                        let senhaInput = document.getElementById("senhaInput").value || senha;
+
+                        if (nomeInput.length < 3) {
+                            alert("O nome deve possuir pelo menos 3 caracteres");
+                        } else if (emailInput.indexOf('@') < 0) {
+                            alert('O e-mail precisa conter @.');
+                        } else if (senhaInput.length < 5) {
+                            alert("A senha deve possuir pelo menos 5 caracteres");
+                        }
+                        else {
+                            fetch("/usuarios/alterarFunc", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    nome: nomeInput,
+                                    email: emailInput,
+                                    senha: senhaInput,
+                                    idUsuario: idUsuario
+                                })
+                            }).then(function (resposta) {
+                                if (resposta.ok) {
+                                    Swal.fire({
+                                        title: "Sucesso!",
+                                        text: "Alteração Realizada",
+                                        icon: "success",
+                                        confirmButtonColor: '#4CAF50',
+                                        timer: 1000,
+                                        timerProgressBar: true,
+                                        willClose: () => {
+                                            location.reload;
+                                        }
+                                    });
+
+                                    // errorMessage.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
+                                    // alert("Cadastro realizado com sucesso! Redirecionando...")
+                                    // setTimeout(() => {
+                                    //     window.location = "funcionario-diretor.html";
+                                    // }, 2000);
+                                } else {
+                                    errorMessage.style.display = "block";
+                                    Swal.fire({
+                                        title: "Erro!",
+                                        text: "Houve um erro ao tentar realizar o cadastro!",
+                                        icon: "error",
+                                        confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                        timer: 2000, // Tempo antes de fechar automaticamente
+                                        timerProgressBar: true
+                                    });
+                                    // errorMessage.innerHTML = "Houve um erro ao tentar realizar o cadastro!";
+                                }
+                            }
+
+                            )
+                        }
+
+                    }
+                })
+
+            })
+        })
+    }
+    // function listarChamados() {
+    //         var dataAtual = new Date()
+    //         var idDiretor = sessionStorage.ID_USUARIO
+    //         fetch('/chamados/listarPorDiretor', {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 idDiretor: idDiretor
+    //             })
+    //         }).then(function (resposta) {
+    //             resposta.json().then(function (resposta) {
+    //                 console.log("Dados encontrados:", resposta)
+    //                 resposta.forEach(element => {
+    //                     var base = document.getElementById("chamadoCardapio")
+    //                     var data = new Date(element.dtHora)
+    //                     var dataDia = data.getDate()
+    //                     var dataMes = data.getMonth()+1
+    //                     var dataAno = data.getFullYear()
+    //                     var dataHoras = data.getHours()
+    //                     var dataMinutos = data.getMinutes()
+    //                     var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
+    //                     var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
+
+    //                     if(dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth()+1 && dataAno === dataAtual.getFullYear())
+    //                 {
+    //                     base.appendChild(chamado)
+    //                     var frameAlertas = document.createElement("div")
+    //                     frameAlertas.className = "frameAlertas"
+    //                     var status = document.createElement("p")
+    //                     status.innerHTML = "Status"
+    //                     var statusResposta = document.createElement("span")
+    //                     statusResposta.innerHTML = element.situacao
+
+    //                     if(element.situacao == "Atendido")
+    //                 }
+    //             }
+    //                 );
+    //             })
+    //         })
+    //             .catch(function (error) {
+    //                 console.log("#ERROR:", error)
+    //             })
+    //     }
+    function adicionarZero(numero) {
+        return (numero < 10 ? '0' : '') + numero;
+    }
+
 
 
 </script>

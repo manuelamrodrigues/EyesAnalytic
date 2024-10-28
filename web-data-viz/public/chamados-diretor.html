@@ -228,31 +228,31 @@
 </html>
 
 <script>
-    function listarChamados() {
-        var dataAtual = new Date()
-        var chamados = document.getElementById("chamados")
-        var idDiretor = sessionStorage.ID_USUARIO
-        fetch('/chamados/listarPorDiretor', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                idDiretor: idDiretor
-            })
-        }).then(function (resposta) {
-            resposta.json().then(function (resposta) {
-                console.log("Dados encontrados:", resposta)
-                resposta.forEach(element => {
-                    var base = document.getElementById("chamados")
-                    var data = new Date(element.dtHora)
-                    var dataDia = data.getDate()
-                    var dataMes = data.getMonth()
-                    var dataAno = data.getFullYear()
-                    var dataHoras = data.getHours()
-                    var dataMinutos = data.getMinutes()
-                    var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
-                    var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
+        function listarChamados() {
+            var dataAtual = new Date()
+            var chamados = document.getElementById("chamados")
+            var idDiretor = sessionStorage.ID_USUARIO
+            fetch('/chamados/listarPorDiretor', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idDiretor: idDiretor
+                })
+            }).then(function (resposta) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados encontrados:", resposta)
+                    resposta.forEach(element => {
+                        var base = document.getElementById("chamados")
+                        var data = new Date(element.dtHora)
+                        var dataDia = data.getDate()
+                        var dataMes = data.getMonth()+1
+                        var dataAno = data.getFullYear()
+                        var dataHoras = data.getHours()
+                        var dataMinutos = data.getMinutes()
+                        var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
+                        var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
 
 
                     var chamado = document.createElement("section")
@@ -272,46 +272,46 @@
                     var hora = document.createElement("p")
                     var data = document.createElement("p")
                     var cancelarchamado = document.createElement("div")
-                    cancelarchamado.innerHTML = `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
+                    cancelarchamado.innerHTML= `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
 
-                    var fundoChamado = document.createElement("article")
-                    var tituloChamado = document.createElement("p")
-                    var textoChamado = document.createElement("div")
-                    var texto = document.createElement("p")
+                        var fundoChamado = document.createElement("article")
+                        var tituloChamado = document.createElement("p")
+                        var textoChamado = document.createElement("div")
+                        var texto = document.createElement("p")
 
-                    base.appendChild(chamado)
-                    chamado.className = "chamado"
-                    chamado.appendChild(cabecalhoChamado)
-                    chamado.appendChild(fundoChamado)
+                        base.appendChild(chamado)
+                        chamado.className = "chamado"
+                        chamado.appendChild(cabecalhoChamado)
+                        chamado.appendChild(fundoChamado)
 
-                    cabecalhoChamado.className = "cabecalhoChamado"
-                    cabecalhoChamado.appendChild(informacoesChamado)
-                    cabecalhoChamado.appendChild(dadosChamado)
+                        cabecalhoChamado.className = "cabecalhoChamado"
+                        cabecalhoChamado.appendChild(informacoesChamado)
+                        cabecalhoChamado.appendChild(dadosChamado)
 
-
+                    
                     informacoesChamado.className = "informacoesChamado"
 
-
+                    
                     informacoesChamado.appendChild(separacaoInformacoes2)
-
-
+                    
+                    
                     separacaoInformacoes2.className = "separacaoInformacoes2"
                     separacaoInformacoes2.appendChild(status)
                     status.innerHTML = "Status: "
                     separacaoInformacoes2.appendChild(respostaStatus)
                     respostaStatus.innerHTML = element.situacao
-                    if (element.situacao == "Não Atendido") {
-                        respostaStatus.style.color = "Yellow"
+                    if(element.situacao == "Não Atendido"){
+                        respostaStatus.style.color= "Yellow"
                     }
-                    if (element.situacao == "Atendido") {
-                        respostaStatus.style.color = "lightgreen"
+                    if(element.situacao == "Atendido"){
+                        respostaStatus.style.color= "lightgreen"
                     }
-                    if (element.situacao == "Cancelado") {
-                        respostaStatus.style.color = "Red"
+                    if(element.situacao == "Cancelado"){
+                        respostaStatus.style.color= "Red"
                     }
-
+                    
                     informacoesChamado.appendChild(separacaoInformacoes3)
-
+                    
                     separacaoInformacoes3.className = 'separacaoInformacoes3'
                     separacaoInformacoes3.appendChild(urgencia)
                     urgencia.innerHTML = "Urgência: "
@@ -323,14 +323,14 @@
                     if (element.urgencia == "média") {
                         respostaUrgencia.style.color = "Yellow"
                     }
-
+                    
                     informacoesChamado.appendChild(separacaoInformacoes)
                     separacaoInformacoes.className = "separacaoInformacoes"
                     separacaoInformacoes.appendChild(diretor)
                     separacaoInformacoes.appendChild(respostaDiretor)
-                    diretor.innerHTML = "Responsável: "
+                    diretor.innerHTML ="Responsável: "
                     respostaDiretor.innerHTML = element.NomeEspecialista
-
+                    
                     dadosChamado.className = 'dadosChamado'
                     dadosChamado.appendChild(sobreChamado)
 
@@ -340,25 +340,28 @@
                     sobreChamado.appendChild(data)
                     data.innerHTML = date
                     dadosChamado.appendChild(cancelarchamado)
+                   
 
 
-                    fundoChamado.className = 'fundoChamado'
-                    fundoChamado.appendChild(tituloChamado)
 
-                    tituloChamado.className = 'tituloChamado'
-                    tituloChamado.innerHTML = element.assunto
-                    fundoChamado.appendChild(textoChamado)
-                    textoChamado.className = 'textoChamado'
-                    textoChamado.appendChild(texto)
-                    texto.innerHTML = element.descricao
 
-                }
-                );
+                        fundoChamado.className = 'fundoChamado'
+                        fundoChamado.appendChild(tituloChamado)
+
+                        tituloChamado.className = 'tituloChamado'
+                        tituloChamado.innerHTML = element.assunto
+                        fundoChamado.appendChild(textoChamado)
+                        textoChamado.className = 'textoChamado'
+                        textoChamado.appendChild(texto)
+                        texto.innerHTML = element.descricao
+
+                    }
+                    );
+                })
             })
-        })
-            .catch(function (error) {
-                console.log("#ERROR:", error)
-            })
+                .catch(function (error) {
+                    console.log("#ERROR:", error)
+                })
     }
     function adicionarZero(numero) {
         return (numero < 10 ? '0' : '') + numero;

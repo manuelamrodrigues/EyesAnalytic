@@ -29,9 +29,43 @@ function listarFunc(idEmpresa){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+function listar(idEmpresa){
+    var instrucaoSql = `
+    SELECT * FROM usuario WHERE fkEmpresa = ${idEmpresa}; 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function buscarPorId(idUsuario){
+    var instrucaoSql = `
+    SELECT * from buscarUsuario WHERE idUsuario = ${idUsuario};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function desativarFunc(idUsuario){
+    var instrucaoSql = `
+    UPDATE usuario SET situacao = "inativo" WHERE idUsuario = ${idUsuario}
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function alterarFunc(nome, email, senha, idUsuario){
+    var instrucaoSql = `
+    UPDATE usuario SET nome = '${nome}', email = '${email}', senha = '${senha}' WHERE idUsuario = ${idUsuario}
+    `
+    return database.executar(instrucaoSql)
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    listarFunc
+    listarFunc,
+    listar,
+    buscarPorId,
+    desativarFunc,
+    alterarFunc
 };

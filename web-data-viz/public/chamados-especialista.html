@@ -240,7 +240,7 @@
                     var base
                     var data = new Date(element.dtHora)
                     var dataDia = data.getDate()
-                    var dataMes = data.getMonth()
+                    var dataMes = data.getMonth()+1
                     var dataAno = data.getFullYear()
                     var dataHoras = data.getHours()
                     var dataMinutos = data.getMinutes()
@@ -248,11 +248,11 @@
                     var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
 
 
-                    if (dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth() && dataAno === dataAtual.getFullYear()) {
+                    if (dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth()+1 && dataAno === dataAtual.getFullYear()) {
                         console.log("Chamado de Hoje!");
                         base = document.getElementById("chamadosHoje")
                     }
-                    else if (dataMes == dataAtual.getMonth() && dataAno == dataAtual.getFullYear()) {
+                    else if (dataMes == dataAtual.getMonth()+1 && dataAno == dataAtual.getFullYear()) {
                         console.log("Chamado do Mês.");
                         base = document.getElementById("chamadosMes")
                     }
