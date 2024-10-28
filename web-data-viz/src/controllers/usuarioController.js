@@ -64,8 +64,8 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (situacao == undefined) {
-        res.status(400).send("Sua situacao está undefined!");
+    // } else if (situacao == undefined) {
+    //     res.status(400).send("Sua situacao está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa está undefined!");
     } else if (fkTipoUsuario == undefined) {

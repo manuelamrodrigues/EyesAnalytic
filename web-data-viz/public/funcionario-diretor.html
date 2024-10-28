@@ -242,7 +242,6 @@
                     </div>
 
                 </div>
-
             </article>
         </section>
     </main>
@@ -395,10 +394,11 @@
     function desativarFunc(idUsuario) {
         Swal.fire({
             title: "Inativar Funcionário?",
-            text: "Tem certeza que quer inativar esse funcionario?",
-            icon: "error",
+            text: "Tem certeza que quer inativar esse funcionário?",
+            icon: "question",
+            iconColor: "#000",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#05a65d",
             cancelButtonColor: "#d33",
             confirmButtonText: "Sim",
             cancelButtonText: "Cancelar"
@@ -412,16 +412,22 @@
                 }).then(function (resposta) {
                     if (resposta.ok) {
                         Swal.fire({
-                            title: "Inativado!",
-                            text: "O funcionário foi Inativado.",
-                            icon: "success"
+                            title: "Desativado!",
+                            text: "O funcionário foi Inativado",
+                            icon: "success",
+                            confirmButtonColor: "#05a65d",
+                            timer: 1000,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            location.reload(); // Recarregar a página após o alerta
                         });
                     }
                     else {
                         Swal.fire({
                             title: "Erro!",
                             text: "Houve um erro em inativar o funcionário.",
-                            icon: "error"
+                            icon: "error",
+                            confirmButtonColor: "#05a65d"
                         });
                     }
                 })
@@ -452,7 +458,7 @@
                 let senha = resposta[0].senha
                 const senhaOculta = senha.replace(/./g, '*');
                 Swal.fire({
-                    title: "Alterar Funcionario",
+                    title: "Alterar Funcionário",
                     html: `
                     <div style="text-align: left;">
                         <input placeholder = "Nome: ${resposta[0].nome}" id="nomeInput" class="swal2-input" style="width: 90%">
@@ -473,11 +479,29 @@
                         let senhaInput = document.getElementById("senhaInput").value || senha;
 
                         if (nomeInput.length < 3) {
-                            alert("O nome deve possuir pelo menos 3 caracteres");
+                            Swal.fire({
+                                // title: "Erro!",
+                                text: "O nome deve possuir pelo menos 3 caracteres",
+                                // icon: "error",
+                                confirmButtonColor: "#05a65d"
+                            });
+                            // alert("O nome deve possuir pelo menos 3 caracteres");
                         } else if (emailInput.indexOf('@') < 0) {
-                            alert('O e-mail precisa conter @.');
+                            Swal.fire({
+                                // title: "Erro!",
+                                text: "O e-mail precisa conter @",
+                                // icon: "error",
+                                confirmButtonColor: "#05a65d"
+                            });
+                            // alert('O e-mail precisa conter @.');
                         } else if (senhaInput.length < 5) {
-                            alert("A senha deve possuir pelo menos 5 caracteres");
+                            Swal.fire({
+                                // title: "Erro!",
+                                text: "A senha deve possuir pelo menos 5 caracteres",
+                                // icon: "error",
+                                confirmButtonColor: "#05a65d"
+                            });
+                            // alert("A senha deve possuir pelo menos 5 caracteres");
                         }
                         else {
                             fetch("/usuarios/alterarFunc", {
@@ -500,9 +524,8 @@
                                         confirmButtonColor: '#4CAF50',
                                         timer: 1000,
                                         timerProgressBar: true,
-                                        willClose: () => {
-                                            location.reload;
-                                        }
+                                    }).then(() => {
+                                        location.reload(); // Recarregar a página após o alerta
                                     });
 
                                     // errorMessage.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
