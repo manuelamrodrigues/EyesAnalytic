@@ -339,8 +339,10 @@
                     hora.innerHTML = horas
                     sobreChamado.appendChild(data)
                     data.innerHTML = date
-                    dadosChamado.appendChild(cancelarchamado)
-                   
+                    if(element.situacao == "Não Atendido"){
+                        dadosChamado.appendChild(cancelarchamado)     
+                    }
+                    
 
 
 
