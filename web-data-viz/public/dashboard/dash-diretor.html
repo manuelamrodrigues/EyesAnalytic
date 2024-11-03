@@ -114,8 +114,10 @@
                 <p class="titlePcrt">Mbps de Download</p>
                 <p class="nmrPcrt">9.5</p>
             </div>
-        </header>
 
+        </header>
+        <div style="background-color: #000; width: 100%; height: 2px;"></div>
+        
         <section class="dash">
             <article class="topoGrafico">
                 <h3>Uso médio dos Componentes</h3>
@@ -268,19 +270,35 @@
                 label: 'Uso de CPU (%)', // Título do gráfico
                 data: valores, // Dados gerados aleatoriamente
                 borderWidth: 4,
-                borderColor: '#13b3e4',
-                backgroundColor: '#ffff',
+                borderColor: '#0BA385',
+                backgroundColor: '#000000b6',
+                
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true // Faz o gráfico começar em 0 no eixo Y
+         options: {
+        scales: {
+            x: {
+                grid: {
+                    color: 'white', // Cor da linha do eixo X
+                },
+                ticks: {
+                    color: 'white' // Cor dos rótulos do eixo X
                 }
             },
+            y: {
+                beginAtZero: true, // Faz o gráfico começar em 0 no eixo Y
+                grid: {
+                    color: 'white', // Cor da linha do eixo Y
+                },
+                ticks: {
+                    color: 'white' // Cor dos rótulos do eixo Y
+                }
+            }
+        },
             plugins: {
                 legend: {
                     labels: {
+                        color: '#fff',
                         font: {
                             size: 14
                         }

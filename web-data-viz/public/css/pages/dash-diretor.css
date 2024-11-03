@@ -5,7 +5,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #EDEEF9; /* Fundo branco para toda a página */
+    background-color: #ffffff; /* Fundo branco para toda a página */
     height: 100%; /* Ocupa 100% da altura da janela */
     width: 80%; /* Ocupa 100% da largura da janela */
     display: flex;
@@ -27,7 +27,7 @@ main{
 
 /*==================================================================================================================*/
 .barraSuperior{
-    background-color: #131315;
+    background-color: #ffffff;
     position: fixed;
     display: flex;
     width: 100%;
@@ -37,6 +37,7 @@ main{
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
+    color: #000;
 }
 
 .numPerct{
@@ -52,13 +53,13 @@ main{
     margin-bottom: -4%;
     font-family: "Kanit", sans-serif;
     font-size: 16px;
-    color: #EDEEF9;
+    color: #000000;
 }
 
 .nmrPcrt{
     font-family: "Kanit", sans-serif;
     font-size: 21px;
-    color: #EDEEF9;
+    color: #000000;
 }
 
 
@@ -88,7 +89,7 @@ main{
 }
 
 .topoGrafico{
-    margin: 10px 0 0  14%;
+    margin: -15px 0px -10px  20%;
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -99,11 +100,9 @@ main{
 }
 
 
-
-
 .grafico {
-    margin: 20px 0 0  13%;
-    width: 90%;
+    margin: 50px 0 0  13%;
+    width: 80%;
     height: 83.5%;
     display: flex;
     align-items: center;
@@ -117,9 +116,11 @@ main{
 .canvas {
     display: flex;
     align-items: start;
-    background-color: #ffffff;    
+    background-color: #000000b6;    
     height: 10%;
     padding: 0;
+    color: #fff;
+    border-radius: 8px;
 }
 
 .botoesGrafico{

@@ -67,6 +67,7 @@ a{
     display: flex;
     align-items: center;
     justify-content: start;
+    padding-bottom: 10px;
     height: 50px;
     width: 100%;
     /* margin-top: 10px; */
@@ -87,6 +88,7 @@ a{
 #navLinks li img {
     width: 30px;
     margin-left: 15px;
+    padding-top: 10px;
 }
 
 #navLinks .outros {
