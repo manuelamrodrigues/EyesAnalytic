@@ -141,6 +141,72 @@ option {
     background-color: #000000;
 }
 
+/* Estilo do container do dropdown */
+.custom-dropdown {
+    position: relative;
+    width: 200px;
+    font-size: 16px;
+}
+
+/* Esconde o checkbox, que controla a visibilidade */
+.dropdown-toggle {
+    display: none;
+}
+
+/* Estiliza o label como botão do dropdown */
+.selected {
+    display: block;
+    background: #08836A;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Seta customizada para o label */
+.selected::after {
+    content: "▼";
+    float: right;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+/* Estilo para o dropdown escondido */
+.dropdown-options {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    background-color: #131313;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 100%;
+    display: none;
+    /* Esconde inicialmente */
+    z-index: 1;
+}
+
+/* Estilo para cada item do dropdown */
+.dropdown-options li {
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efeito hover para cada item */
+.dropdown-options li:hover {
+    background-color: #08836A;
+}
+
+/* Exibe o dropdown quando o checkbox está marcado */
+.dropdown-toggle:checked + .selected + .dropdown-options {
+    display: block;
+}
+
 
 /* CSS ASSUNTO */
 .abrindo {

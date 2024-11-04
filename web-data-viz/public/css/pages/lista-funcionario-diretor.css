@@ -51,20 +51,31 @@ main {
     /* Alinha itens ao início */
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 20px 0px -10px 0px;
     border-radius: 10px;
     width: 60%;
-    height: 100%;
+    height: 550px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
 
+#respostaStatus:hover {
+    color: #087b97;
 }
 
 /* Título da lista de funcionários */
-.lista h2 {
+.todo h2 {
     font-size: 24px;
     color: #fff;
+    margin: 50px 0px 10px 120px;
     /* Cor preta para o texto */
-    margin-bottom: 20px;
-    margin-top: 50px;
+    /* margin-bottom: 20px; */
+    /* margin-top: 50px; */
+}
+
+.todo {
+    width: 100%;
+    height: 100px;
 }
 
 /* Texto da lista de funcionários */
@@ -87,15 +98,12 @@ main {
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 10px;
-    border: 2px solid #054C3E;
 
     flex-direction: row;
     /* Disposição horizontal */
     justify-content: space-between;
     /* Espaçamento entre elementos */
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+ 
 }
 
 /* Imagem do usuário no card */
@@ -127,7 +135,7 @@ main {
 /* Efeitos Hover */
 /* Efeitos Hover */
 .frameFuncionarios:hover {
-    background-color: #054C3E;
+    background-color: #08836A;
     /* Fundo escuro */
     color: #fff;
     /* Cor do texto branca */
@@ -140,6 +148,11 @@ main {
     /* Espaçamento entre elementos */
     box-shadow: 0 0 10px #0d5e4e8f;
     transition: background-color 0.3s ease, color 0.3s ease;
+
+    border: 2px solid #054C3E;
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
 }
 
 /* Alterar a cor do texto dentro da div ao passar o mouse */
@@ -162,6 +175,7 @@ main {
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    margin-top: -80px;
 }
 
 /* Botão de cadastro técnico */
@@ -192,9 +206,9 @@ main {
     flex-direction: column;
     justify-content: flex-start;
 
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+        -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+        -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+        box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
 }
 
 /* Linha horizontal de separação */
@@ -344,19 +358,21 @@ hr {
     text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease;
     /* Adicionado para suavizar a transição */
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+ 
 }
 
 /* Efeitos Hover para alertas */
 .frameAlertas:hover {
-    background-color: #054C3E;
+    background-color: #08836A;
     align-items: center;
     text-align: center;
     /* Fundo escuro ao passar o mouse */
     color: #fff;
     /* Cor do texto branca ao passar o mouse */
+
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
 }
 
 /* Alterar a cor do texto dentro da div ao passar o mouse */

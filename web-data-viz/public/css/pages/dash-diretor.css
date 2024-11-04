@@ -111,6 +111,7 @@ main {
 }
 
 
+
 .grafico {
     margin: 50px 0 0 13%;
     width: 80%;
@@ -135,44 +136,75 @@ main {
 }
 
 .botoesGrafico {
-    margin-top: 20px;
+    margin-top: 40px;
     width: 40%;
     height: auto;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    gap: 20%;
+    gap: 5%;
 }
 
 /* Estilizando a div "periodo" */
 .periodo {
-    margin-top: 3%;
-    margin-right: -3%;
-    background: #08836A;
-    width: 60%;
-    /* height: 50px; */
-    padding: 6px;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 18px;
-    color: #fff;
-    /* box-shadow: 0 0 10px  #08836A; */
-    cursor: pointer;
-    /* Adiciona o cursor para indicar que é clicável */
+    width: 40%;
+    gap: 1;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-direction: row;
 }
 
-#seta {
+.opcao {
+    width: 200px;
+    height: 40px;
+    font-size: large;
     color: #fff;
+    background-color: #08836A;
 }
+
+option {
+    color: #fff;
+    background-color: #000000;
+}
+
+option:hover {
+    color: #ff0000;
+    background-color: #000000;
+}
+
+
+select {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    padding-left: 10px;
+
+    /* Customiza a seta do select */
+    background-image: url("../../assets/svg/seta-abrir-chamado.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 20px;
+
+    /* Remove estilo padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* #seta {
+    color: #fff;
+} */
 
 /* Dropdown escondido */
-.hide {
+/* .hide {
     display: none;
-}
+} */
 
 /* Estilo para o dropdown */
-.dropdown {
+/* .dropdown {
     list-style: none;
     padding: 0;
     margin: 15% 0 0 -21.5%;
@@ -180,11 +212,9 @@ main {
     border-radius: 10px;
     width: 15.3%;
     position: absolute;
-    /* Fixa a posição */
+    } */
 
-}
-
-.dropdown li {
+/* .dropdown li {
     padding: 10px;
     text-align: center;
     background-color: #131313;
@@ -197,10 +227,10 @@ main {
     background-color: #08836A;
     color: #fff;
 
-}
+} */
 
 /* Estilizando a div "componentes" */
-.componentes {
+/* .componentes {
     background: #08836A;
     width: 60%;
     padding: 6px;
@@ -208,15 +238,12 @@ main {
     border-radius: 10px;
     font-size: 18px;
     color: #fff;
-    /* box-shadow: 0 0 10px #08836A; */
     margin-top: 3%;
     cursor: pointer;
-    /*
-    color Adiciona o cursor para indicar que é clicável */
-}
+} */
 
 /* Estilo para o dropdown dos componentes */
-#componentesDropdown {
+/* #componentesDropdown {
     list-style: none;
     padding: 0;
     margin: 15% 0 0 21%;
@@ -243,13 +270,10 @@ main {
 .periodo i,
 .componentes i {
     margin-left: 10px;
-    /* Espaço entre o texto e o ícone */
     font-size: 16px;
     color: #000000;
-    /* Cor da seta */
     vertical-align: middle;
-    /* Centraliza o ícone verticalmente */
-}
+} */
 
 
 /* Seção de chamados */

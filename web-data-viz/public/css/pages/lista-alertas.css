@@ -1,26 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Reset básico para remover margens e preenchimentos padrão */
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: "Montserrat", sans-serif;
 }
 
 /* Define o comportamento de layout da tag HTML */
-html{
-    display: flex;
-    flex-direction: row; /* Layout em linha, começando na horizontal */
-    background-color: #131313; /* Fundo branco para toda a página */
+html {
+    /* display: flex; */
+    /* flex-direction: row; Layout em linha, começando na horizontal */
+    background-color: #131313;
+    /* Fundo branco para toda a página */
 
 }
 
 
 /* Estilos gerais para a área principal da página */
 /* ==================================================================================================================== */
-main{
+main {
     display: flex;
-    background-color: #131313; /* Fundo claro */
+    background-color: #131313;
+    /* Fundo claro */
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -28,21 +30,26 @@ main{
 
 /* Seção de funcionários */
 /* ==================================================================================================================== */
-.funcionarios{
+.funcionarios {
     display: flex;
-    justify-content: start; /* Alinha à esquerda */
+    justify-content: start;
+    /* Alinha à esquerda */
     align-items: flex-start;
-    flex-direction: row; /* Disposição horizontal dos elementos */
-    gap: 1%; /* Espaçamento entre elementos */
+    flex-direction: row;
+    /* Disposição horizontal dos elementos */
+    gap: 1%;
+    /* Espaçamento entre elementos */
     margin-left: 7.5%;
-    background-color: #ffffff00; /* Fundo transparente */
+    background-color: #ffffff00;
+    /* Fundo transparente */
     height: auto;
 }
 
 /* Lista de funcionários */
 /* ================================================================== */
-.lista{
-    justify-content: flex-start; /* Alinha itens ao início */
+.lista {
+    justify-content: flex-start;
+    /* Alinha itens ao início */
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -52,34 +59,41 @@ main{
 }
 
 /* Título da lista de funcionários */
-.lista h2{
+.lista h2 {
     font-size: 1.2rem;
-    color: #000000; /* Cor preta para o texto */
+    color: #000000;
+    /* Cor preta para o texto */
     margin-bottom: 3%;
 }
 
 /* Texto da lista de funcionários */
-.lista p{
+.lista p {
     font-size: 1.2rem;
     color: #000;
 }
 
 /* Card de funcionários */
-.frameFuncionarios{
+.frameFuncionarios {
     display: flex;
-    background-color: #ffffff; /* Fundo branco */
+    background-color: #ffffff;
+    /* Fundo branco */
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
-    flex-direction: row; /* Disposição horizontal */
-    justify-content: space-between; /* Espaçamento entre elementos */
+    flex-direction: row;
+    /* Disposição horizontal */
+    justify-content: space-between;
+    /* Espaçamento entre elementos */
 }
 
 /* Imagem do usuário no card */
 .userImg {
-    width: 24px; /* Largura da imagem */
-    height: 24px; /* Altura da imagem */
-    margin-right: -10%; /* Espaçamento negativo à direita */
+    width: 24px;
+    /* Largura da imagem */
+    height: 24px;
+    /* Altura da imagem */
+    margin-right: -10%;
+    /* Espaçamento negativo à direita */
     margin-top: 10px;
 }
 
@@ -87,32 +101,36 @@ main{
 .userImg img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ajusta a imagem sem distorção */
+    object-fit: contain;
+    /* Ajusta a imagem sem distorção */
 }
 
 /* Cor do status de ativo */
 .status-ativo {
-    color: #28a745; /* Cor verde */
+    color: #28a745;
+    /* Cor verde */
 }
 
 
 /* Efeitos Hover */
 .frameFuncionarios:hover {
-
     display: flex;
-    background-color: #DEDEDE; /* Fundo branco */
+    background-color: #DEDEDE;
+    /* Fundo branco */
     border-radius: 8px;
     padding: 16.5px;
     margin-bottom: 10px;
-    flex-direction: row; /* Disposição horizontal */
-    justify-content: space-between; /* Espaçamento entre elementos */
+    flex-direction: row;
+    /* Disposição horizontal */
+    justify-content: space-between;
+    /* Espaçamento entre elementos */
     box-shadow: 0 0 10px #0d5e4e8f;
     transition-delay: 2ms;
 }
 
 /* Seção de cadastro */
 /* =================================================================== */
-.cadastro{
+.cadastro {
     display: flex;
     width: 32%;
     height: 100%;
@@ -122,9 +140,10 @@ main{
 }
 
 /* Botão de cadastro técnico */
-.cadastroTecnico{
+.cadastroTecnico {
     margin-top: 11%;
-    background: #0BA385; /* Fundo verde */
+    background: #0BA385;
+    /* Fundo verde */
     width: 100%;
     padding: 12px;
     border-radius: 8px;
@@ -135,7 +154,7 @@ main{
 }
 
 /* Cartão com informações */
-.card{
+.card {
     width: 90%;
     height: 50%;
     background-color: #ffffff;
@@ -149,20 +168,20 @@ main{
 }
 
 /* Linha horizontal de separação */
-hr{
+hr {
     border: 1px solid #000000;
     width: 100%;
 }
 
 /* Título do card */
-.card h1{
+.card h1 {
     text-align: center;
     font-size: 32px;
     color: #000;
 }
 
 /* Texto do card */
-.card p{
+.card p {
     margin-top: 5%;
     margin-bottom: 3%;
     font-size: 1.2rem;
@@ -170,7 +189,7 @@ hr{
 }
 
 /* Botões de ação */
-.buttons{
+.buttons {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -179,7 +198,7 @@ hr{
 }
 
 /* Botão vermelho */
-.btn1{
+.btn1 {
     background: #E90C0C;
     width: 50%;
     padding: 15px;
@@ -190,7 +209,7 @@ hr{
 }
 
 /* Botão amarelo */
-.btn2{
+.btn2 {
     background: #E9C60C;
     width: 50%;
     padding: 15px;
@@ -201,9 +220,10 @@ hr{
 }
 
 /* Efeitos Hover */
-.cadastroTecnico:hover{
+.cadastroTecnico:hover {
     margin-top: 11%;
-    background: #08836a; /* Fundo verde */
+    background: #08836a;
+    /* Fundo verde */
     width: 100%;
     padding: 12.8px;
     border-radius: 8px;
@@ -213,7 +233,8 @@ hr{
     font-size: 24px;
     transition-delay: 2ms;
 }
-.btn1:hover{
+
+.btn1:hover {
     background: #b90a0a;
     width: 50%;
     padding: 15.3px;
@@ -224,7 +245,7 @@ hr{
     transition-delay: 2ms;
 }
 
-.btn2:hover{
+.btn2:hover {
     background: #d3b109;
     width: 50%;
     padding: 15.3px;
@@ -239,7 +260,7 @@ hr{
 
 /* Seção de chamados */
 /* ==================================================================================================================== */
-.chamados{
+.chamados {
     display: flex;
     justify-content: start;
     align-items: flex-start;
@@ -247,36 +268,48 @@ hr{
     gap: 1%;
     margin-left: 7.5%;
     background-color: #ffffff00;
-    height: auto;
+    width: auto;
 }
 
 /* Alerta de chamados */
-.alertas{
+.alertas {
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
     margin: 0;
     border-radius: 10px;
-    width: 85%;
+    width: 95%;
     height: 100%;
 }
 
 /* Texto dentro da seção de alertas */
-.alertas p{
+.alertas p {
     font-size: 1.2rem;
     color: #000;
 }
 
 /* Título da seção de alertas */
-.alertas h2{
+.titulo-alerta {
     font-size: 24px;
     color: #ffffff;
-    margin: 10px;
+    padding: 40px 0px 0px 5px;
+    /* margin: 10px; */
+    /* margin-bottom: 3%; */
+}
+
+.tAlertas {
+    font-size: 22px;
+    color: #ffffff;
+    /* padding: 20px 0px 0px 0px; */
+
+    color: #ffffff;
+    margin: 7px;
+    font-weight: 400;
     /* margin-bottom: 3%; */
 }
 
 /* Cartão de alerta */
-.frameAlertas{
+.frameAlertas {
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
@@ -285,9 +318,8 @@ hr{
     margin-bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    width: 100%;
+
 }
 
 .frameAlertas p {
@@ -296,9 +328,13 @@ hr{
 }
 
 .frameAlertas:hover {
-    background-color: #054C3E;
+    background-color: #08836a;
     color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
+
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
 }
 
 .frameAlertas:hover p,
@@ -309,16 +345,18 @@ hr{
 
 /* Estilo para o ícone dentro de .userImg também mudar para branco */
 .frameAlertas:hover .userImg img {
-    filter: brightness(0) invert(1); /* Torna a imagem branca */
+    filter: brightness(0) invert(1);
+    /* Torna a imagem branca */
 }
 
 /* Cor do status de alerta */
 .status-alerta {
-    color: #d30808; /* Cor vermelha para alertas */
+    color: #d30808;
+    /* Cor vermelha para alertas */
 }
 
 /* Seção de data e hora */
-.hrDt{
+.hrDt {
     flex-direction: row;
     display: flex;
     justify-content: space-around;
@@ -327,7 +365,7 @@ hr{
 }
 
 /* Texto de data e hora */
-.hrDt p{
+.hrDt p {
     font-size: 1.1rem;
     color: #000;
 }
@@ -339,30 +377,34 @@ hr{
     #aside-menu {
         width: 60px;
     }
-    
+
     #aside-menu:hover {
         width: 40%;
     }
 
-    .funcionarios{
+    .funcionarios {
         /* margin-top: 30%; */
         display: flex;
-        justify-content: space-around; /* Alinha à esquerda */
+        justify-content: space-around;
+        /* Alinha à esquerda */
         align-items: flex-start;
-        flex-direction: column; /* Disposição horizontal dos elementos */
-        gap: 1%; /* Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal dos elementos */
+        gap: 1%;
+        /* Espaçamento entre elementos */
         margin-left: 7.5%;
-        background-color: #ffffff00; /* Fundo transparente */
+        background-color: #ffffff00;
+        /* Fundo transparente */
         height: auto;
     }
 
-    .cadastroTecnico{
+    .cadastroTecnico {
         padding: 5px;
         width: 40%;
         margin-right: 4.5%;
     }
 
-    .cadastro{
+    .cadastro {
         width: 90%;
         height: 50%;
         /* background-color: #ffffff; */
@@ -374,30 +416,36 @@ hr{
         flex-direction: column;
         justify-content: flex-start;
     }
-    
+
 
     .frameFuncionarios {
         align-items: start;
-        flex-direction: column; /* Disposição horizontal */
-        justify-content: space-between; /*Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal */
+        justify-content: space-between;
+        /*Espaçamento entre elementos */
         padding: 10px;
         width: 95%;
     }
 
     .frameFuncionarios:hover {
-        background-color: #131313; /* Fundo branco */
+        background-color: #131313;
+        /* Fundo branco */
         border-radius: 8px;
         padding: 10.5px;
         margin-bottom: 10px;
         align-items: start;
-        flex-direction: column; /* Disposição horizontal */
-        justify-content: space-between; /*Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal */
+        justify-content: space-between;
+        /*Espaçamento entre elementos */
         box-shadow: 0 0 10px #0d5e4e8f;
         transition-delay: 2ms;
-        color: #EDEEF9; /* Texto preto no hover */
+        color: #EDEEF9;
+        /* Texto preto no hover */
     }
 
-    .frameAlertas{
+    .frameAlertas {
         margin-left: 1%;
         flex-direction: column;
         padding: 10px;
@@ -406,8 +454,8 @@ hr{
         justify-content: space-around;
     }
 
-    .hrDt{
-        
+    .hrDt {
+
         flex-direction: column;
     }
 
@@ -418,18 +466,19 @@ hr{
 /* Responsividade para iPhone XR e iPhone 14 (largura de 828px e 1170px) */
 /* ============================================================================== */
 @media (min-width: 310px) and (max-width: 915px) {
+
     html,
     body {
-        
+
         display: flex;
         flex-direction: column;
     }
-    
+
     #menu-hamburguer {
         display: flex;
         flex-direction: column;
     }
-    
+
     #aside-menu {
         position: fixed;
         width: 100%;
@@ -440,20 +489,20 @@ hr{
         overflow: visible;
         z-index: 5;
     }
-    
+
     #aside-menu:hover {
         width: 100%;
         height: 75px;
         transition: 200ms linear;
     }
-    
+
     .asideLogo {
         width: 50px;
         margin: 0;
         margin-left: 30px;
         margin-bottom: 5%;
     }
-    
+
     #navLinks {
         opacity: 0;
         flex-direction: column;
@@ -465,7 +514,7 @@ hr{
         z-index: -5;
         transition: 0.3s linear;
     }
-    
+
     #navLinks.active {
         transition: 0.3s ease;
         opacity: 100%;
@@ -478,15 +527,15 @@ hr{
         background-color: rgba(19, 19, 19, 0.7);
         z-index: -5;
     }
-    
+
     #navLinks li {
         align-items: start;
         height: 100%;
         padding: 40px;
-        border-top: 2px solid rgba(0,0,0,0.4);
-        margin:0 ;
+        border-top: 2px solid rgba(0, 0, 0, 0.4);
+        margin: 0;
     }
-    
+
     /* Estilos para o container do menu */
     .menu {
         display: flex;
@@ -494,28 +543,28 @@ hr{
         justify-content: space-between;
         margin-right: 15px;
     }
-    
-    
+
+
     .hamburger-line rect {
         fill: white;
-    
+
     }
-    
+
     .menu svg {
         width: 100%;
         height: 10%;
         transition: transform 300ms ease;
     }
-    
-    
+
+
     .menu.open svg:nth-child(1) {
         transform: rotate(45deg) translate(-1px, 0px);
     }
-    
+
     .menu.open svg:nth-child(2) {
         opacity: 0;
     }
-    
+
     .menu.open svg:nth-child(3) {
         transform: rotate(-45deg) translate(0px, -1px);
     }
@@ -525,21 +574,25 @@ hr{
         gap: 5%;
         flex-direction: column;
         display: flex;
-        justify-content: space-around ;
+        justify-content: space-around;
         align-items: center;
         padding: 1%;
         width: 100%;
         text-align: center;
     }
 
-    .funcionarios{
+    .funcionarios {
         display: flex;
-        justify-content: start; /* Alinha à esquerda */
+        justify-content: start;
+        /* Alinha à esquerda */
         align-items: flex-start;
-        flex-direction: column; /* Disposição horizontal dos elementos */
-        gap: 1%; /* Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal dos elementos */
+        gap: 1%;
+        /* Espaçamento entre elementos */
         margin-left: 7.5%;
-        background-color: #ffffff00; /* Fundo transparente */
+        background-color: #ffffff00;
+        /* Fundo transparente */
         height: auto;
     }
 
@@ -551,25 +604,30 @@ hr{
 
     .frameFuncionarios {
         align-items: start;
-        flex-direction: column; /* Disposição horizontal */
-        justify-content: space-between; /*Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal */
+        justify-content: space-between;
+        /*Espaçamento entre elementos */
         padding: 15px;
         width: 95%;
     }
 
     .frameFuncionarios:hover {
-        background-color: #131313; /* Fundo branco */
+        background-color: #131313;
+        /* Fundo branco */
         border-radius: 8px;
         padding: 10.5px;
         margin-bottom: 10px;
-        flex-direction: column; /* Disposição horizontal */
+        flex-direction: column;
+        /* Disposição horizontal */
 
         box-shadow: 0 0 10px #0d5e4e8f;
         transition-delay: 2ms;
-        color: #EDEEF9; /* Texto preto no hover */
+        color: #EDEEF9;
+        /* Texto preto no hover */
     }
 
-    .frameAlertas{
+    .frameAlertas {
         margin-left: 1%;
         flex-direction: column;
         padding: 10px;
@@ -579,12 +637,12 @@ hr{
         justify-content: space-around;
     }
 
-    .hrDt{
-        
+    .hrDt {
+
         flex-direction: column;
     }
 
-    .iconAlerta{
+    .iconAlerta {
         display: none;
     }
 
@@ -618,7 +676,7 @@ hr{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.modal-header1{
+.modal-header1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -635,28 +693,31 @@ hr{
 .icons {
     display: flex;
     gap: 10px;
-    width: 15%; /* Largura da imagem */
-    height: 5%; /* Altura da imagem */
+    width: 15%;
+    /* Largura da imagem */
+    height: 5%;
+    /* Altura da imagem */
 }
 
 .icons img {
 
     width: 30%;
     height: 30%;
-    object-fit: contain; /* Ajusta a imagem sem distorção */
+    object-fit: contain;
+    /* Ajusta a imagem sem distorção */
 }
 
 
 .modal-body1 p {
-    padding:  50px 0 0 0;
-    
+    padding: 50px 0 0 0;
+
     font-size: 22px;
     text-align: center;
     margin: 10px 0 0;
     color: #000;
 }
 
-.modal-body1 strong{
+.modal-body1 strong {
     color: #000;
 }
 
@@ -664,7 +725,7 @@ hr{
     color: green;
 }
 
-.modal-footer1{
+.modal-footer1 {
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -672,7 +733,7 @@ hr{
     margin: 13%;
 }
 
-.Mf1-Btn1{
+.Mf1-Btn1 {
     background: #CE1919;
     text-align: center;
     width: 30%;
@@ -684,7 +745,7 @@ hr{
     box-shadow: 0 0 10px #000000af;
 }
 
-.Mf1-Btn2{
+.Mf1-Btn2 {
     background: #0BA385;
     text-align: center;
     width: 30%;
@@ -732,7 +793,8 @@ hr{
     margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
-    width: 45%; /* Diminuído para ficar proporcional à imagem */
+    width: 45%;
+    /* Diminuído para ficar proporcional à imagem */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -747,7 +809,8 @@ hr{
 .modal-header2 h2 {
     margin: 0;
     color: #000;
-    font-size: 20px; /* Ajuste de tamanho */
+    font-size: 20px;
+    /* Ajuste de tamanho */
     font-weight: normal;
 }
 
@@ -755,9 +818,9 @@ hr{
     margin-top: 20px;
 }
 
-.modal-body2 label{
+.modal-body2 label {
     display: block;
-    color:#000000 ;
+    color: #000000;
 }
 
 .modal-body2 p {
@@ -800,7 +863,8 @@ hr{
 /* Fechar o modal */
 .close {
     color: black;
-    font-size: 24px; /* Um pouco menor que o original */
+    font-size: 24px;
+    /* Um pouco menor que o original */
     font-weight: bold;
     cursor: pointer;
 }
@@ -848,7 +912,7 @@ nav {
     justify-content: center;
     align-items: center;
     z-index: 999;
-}   
+}
 
 ul {
     background-color: transparent;
@@ -881,23 +945,27 @@ p {
     nav {
         height: 10vh;
     }
+
     .logoNav {
         width: 500px;
         margin-right: 90px;
     }
-}   
+}
 
 @media (max-width: 1199px) {
     nav {
         height: 9vh;
     }
+
     .logoNav {
         width: 45px;
         margin-right: 50px;
     }
+
     .linha1 {
         width: 100px;
     }
+
     .linha2 {
         width: 100px;
     }
@@ -915,41 +983,53 @@ p {
     h1 {
         font-size: 43px;
     }
+
     h2 {
         font-size: 25px;
     }
+
     h4 {
         font-size: 15px;
     }
+
     p {
         font-size: 13px;
     }
+
     .login {
         position: absolute;
         right: 40px;
         top: 9px;
     }
+
     nav {
         height: 8vh;
     }
+
     .logoNav {
         margin: 0;
     }
+
     .linha1 {
         display: none;
     }
+
     .linha2 {
         display: none;
     }
+
     .linha3 {
         display: none;
     }
+
     .linha4 {
         display: none;
     }
+
     li {
         display: none;
     }
+
     ul {
         display: none;
     }
@@ -960,6 +1040,7 @@ p {
     h1 {
         font-size: 38px;
     }
+
     p {
         font-size: 12px;
     }
@@ -969,12 +1050,15 @@ p {
     h1 {
         font-size: 36px;
     }
+
     h2 {
         font-size: 19px;
     }
+
     h4 {
         font-size: 13px;
     }
+
     p {
         font-size: 11px;
     }
@@ -984,12 +1068,15 @@ p {
     h1 {
         font-size: 35px;
     }
+
     h2 {
         font-size: 18px;
     }
+
     h4 {
         font-size: 12px;
     }
+
     .login {
         position: absolute;
         right: 20px;
@@ -1000,9 +1087,11 @@ p {
     h1 {
         font-size: 35px;
     }
+
     h2 {
         font-size: 18px;
     }
+
     h4 {
         font-size: 11px;
     }
@@ -1012,9 +1101,11 @@ p {
     h1 {
         font-size: 30px;
     }
+
     h2 {
         font-size: 16px;
     }
+
     h4 {
         font-size: 10px;
     }

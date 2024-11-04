@@ -88,14 +88,17 @@
 
     <main>
 
-        <section class="funcionarios">
-            <article class="lista" id="lista">
-                <h2>Funcionários</h2>
+        <div class="todo">
 
-                <!-- <div class="frameFuncionarios">
-                    <div class="userImg">
-                        <img src="./assets/svg/user.svg" alt="">
-                    </div>
+            <h2>Funcionários</h2>
+
+            <section class="funcionarios">
+                <article class="lista" id="lista">
+
+                    <!-- <div class="frameFuncionarios">
+                        <div class="userImg">
+                            <img src="./assets/svg/user.svg" alt="">
+                        </div>
                     <p>Fernando Silva</p>
                     <p>Email: fernando.silva@email.com</p>
                     <p>Status: <span class="status-ativo">Ativo</span></p>
@@ -141,27 +144,28 @@
                     <p>Status: <span class="status-ativo">Ativo</span></p>
                 </div> -->
 
-            </article>
+                </article>
 
-            <article class="cadastro">
-                <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar Técnico</button></a>
-                <div class="card" id="informacao">
-                    <!-- <h1>Fernando Silva</h1>
+                <article class="cadastro">
+                    <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar
+                            Técnico</button></a>
+                    <div class="card" id="informacao">
+                        <!-- <h1>Fernando Silva</h1>
                     <hr>
                     <div>
                         <p>Email: fernando.silva@email.com</p>
                         <p>Senha: ************* </p>
                         <p>Status: <span class="status-ativo">Ativo</span></p> -->
-                </div>
-                <!-- <div class="buttons">
+                    </div>
+                    <!-- <div class="buttons">
                     <button class="btn1" id="btnDesativar">Desativar</button>
                     <button class="btn2" id="btnAlterar">Alterar</button>
                 </div> -->
-            </article>
+                </article>
 
 
-            <!-- Modal 1 (Desativar) -->
-            <!-- <div id="modal1" class="modal">
+                <!-- Modal 1 (Desativar) -->
+                <!-- <div id="modal1" class="modal">
                 <div class="modal-content1">
                     <div class="modal-header1">
                         <h2>Desativar</h2>
@@ -173,34 +177,34 @@
                     <div class="modal-footer1">
                         <button class="Mf1-Btn1">Cancelar</button>
                         <button class="Mf1-Btn2">Sim</button>
-
+                        
                     </div>
                 </div>
             </div> -->
 
 
-            <!-- Modal 2 (Alterar) -->
-            <div id="modal2" class="modal">
-                <div class="modal-content2">
-                    <div class="modal-header2">
-                        <h2>Fernando Silva</h2>
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body2">
-                        <label for="">Email:</label>
-                        <input type="text" name="emailModal" id="UserEmail" placeholder="fernando.silva@email.com">
-                        <label>Senha: </label>
-                        <input type="password" name="senhaModal" id="UserSenha" placeholder="*************">
-                    </div>
-                    <div class="modal-footer2">
-                        <button class="salvar-btn">Salvar</button>
+                <!-- Modal 2 (Alterar) -->
+                <div id="modal2" class="modal">
+                    <div class="modal-content2">
+                        <div class="modal-header2">
+                            <h2>Fernando Silva</h2>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body2">
+                            <label for="">Email:</label>
+                            <input type="text" name="emailModal" id="UserEmail" placeholder="fernando.silva@email.com">
+                            <label>Senha: </label>
+                            <input type="password" name="senhaModal" id="UserSenha" placeholder="*************">
+                        </div>
+                        <div class="modal-footer2">
+                            <button class="salvar-btn">Salvar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </section>
+            </section>
 
-        <section class="chamados">
+            <!-- <section class="chamados">
             <article class="alertas" id="chamadoCardapio">
                 <h2>Chamados Recentes</h2>
                 <div class="frameAlertas">
@@ -227,7 +231,7 @@
                         <p>12:13</p>
                         <p>20/09/2024</p>
                     </div>
-
+                    
                 </div>
                 <div class="frameAlertas">
                     <div class="userImg">
@@ -240,10 +244,12 @@
                         <p>12:13</p>
                         <p>20/09/2024</p>
                     </div>
-
+                    
                 </div>
             </article>
-        </section>
+        </section> -->
+
+        </div>
     </main>
 </body>
 
@@ -331,10 +337,10 @@
                     status.appendChild(respostaStatus);
 
                     if (element.situacao === "ativo") {
-                        respostaStatus.style.color = "#029c5e";
+                        respostaStatus.style.color = "#07e85d";
                         respostaStatus.style.fontWeight = 500;
                     } else if (element.situacao === "inativo") {
-                        respostaStatus.style.color = "#6e6e6e";
+                        respostaStatus.style.color = "#";
                         respostaStatus.style.fontWeight = 500;
 
                     }
@@ -381,7 +387,7 @@
                 if (resposta[0].situacao == "ativo") {
                     respostaStatus.style.color = "#029c5e";
                     respostaStatus.style.fontWeight = 500;
-                     informacao.appendChild(buttons)
+                    informacao.appendChild(buttons)
                 }
                 if (resposta[0].situacao == "inativo") {
                     respostaStatus.style.color = "#6e6e6e";
