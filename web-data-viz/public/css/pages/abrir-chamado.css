@@ -1,21 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-  @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-  
-  html,
-  body {
-      overflow-x: hidden
-      !important;
-      font-family: "Kanit", sans-serif;
-      background-color: #EDEEF9;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-  }
-  
-  * {
-      margin: 0;
-      padding: 0;
-      /* box-sizing: border-box; */
-  }
+html,
+body {
+    overflow-x: hidden !important;
+    font-family: "Montserrat", sans-serif;
+    background-color: #131313;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
 
 
 .chamado {
@@ -37,22 +35,24 @@
     position: fixed;
     top: 40px;
     right: 100px;
-    padding: 0px 0px 0px 10px;
-    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    font-size: x-large;
     color: #fff;
-    background-color: #0BA385;
+    background-color: #08836A;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
+    padding: 0; /* Remove qualquer padding extra */
 }
 
 .back-button::before {
     content: 'X';
-    margin-right: 10px;
-    position: relative;
-    bottom: 1px;
 }
 
 .back-button:hover {
@@ -70,6 +70,7 @@
     /* height: 80px; */
     padding-top: 20px;
     justify-self: center;
+    color: #fff;
 }
 
 
@@ -89,10 +90,10 @@ select {
     padding-left: 10px;
 
     /* Customiza a seta do select */
-    background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
+    background-image: url("../../assets/svg/seta-abrir-chamado.svg");
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
-    background-size: 15px;
+    background-size: 20px;
 
     /* Remove estilo padrão */
     appearance: none;
@@ -108,6 +109,7 @@ select {
     gap: 5px;
     align-items: center;
     flex-direction: row;
+
 }
 
 
@@ -121,20 +123,28 @@ select {
 }
 
 .selects h1 {
-    font-size: large;
+    font-size: 20px;
     font-weight: 400;
+    color: #fff;
 }
 
 .opcao {
-    width: 150px;
-    height: 30px;
-    font-size: medium;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    color: #fff;
+    background-color: #08836A;
 }
+
+option {
+    color: #fff;
+    background-color: #000000;
+}
+
 
 /* CSS ASSUNTO */
 .abrindo {
     width: 100%;
-
     gap: 25px;
     display: flex;
     justify-content: space-around;
@@ -158,6 +168,11 @@ select {
 
     overflow-wrap: break-word;
     word-break: break-word;
+    border-radius: 7px;
+    border: #08836A 2px solid;
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
+    -moz-box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
+    box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
 }
 
 .descricao textarea {
@@ -175,55 +190,61 @@ select {
 
     overflow-wrap: break-word;
     word-break: break-word;
+
+    border-radius: 7px;
+    border: #08836A 2px solid;
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
+    -moz-box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
+    box-shadow: 0px 0px 7px 2px rgba(8, 131, 106, 1);
 }
 
 /* BOTAO */
 .botao {
     width: 100%;
-margin-top: 10px;
-margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 50px;
     display: flex;
     justify-content: end;
 }
 
 .botao button {
-    width: 150px;
-    height: 40px;
+    width: 180px;
+    height: 50px;
 
-    background-color: #0BA385;
+    background-color: #08836A;
     border: none;
     border-radius: 7px;
 
     font-weight: 700;
-    font-size: medium;
+    font-size: large;
     color: #fff;
 }
 
 .botao button:hover {
-    width: 150px;
-    height: 40px;
+    width: 180px;
+    height: 50px;
 
     background-color: #025544;
     border: none;
     border-radius: 7px;
 
     font-weight: 700;
-    font-size: medium;
+    font-size: large;
     color: #fff;
 }
 
 /* padrao tablet */
-@media (max-width: 745px){
-.chamado {
+@media (max-width: 745px) {
+    .chamado {
         width: 85%;
         height: auto;
-    
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         /* align-items: center; */
         margin-left: 100px;
-    
+
     }
 
     .selects {
@@ -239,19 +260,19 @@ margin-bottom: 50px;
         border-radius: 5px;
         display: flex;
         padding-left: 10px;
-    
+
         /* Customiza a seta do select */
         background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 10px top 50%;
         background-size: 15px;
-    
+
         /* Remove estilo padrão */
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
     }
-    
+
     .slt1 {
         width: 50%;
         gap: 1;
@@ -261,7 +282,7 @@ margin-bottom: 50px;
         align-items: center;
         flex-direction: row;
     }
-    
+
     .slt2 {
         width: 70%;
         display: flex;
@@ -270,12 +291,12 @@ margin-bottom: 50px;
         align-items: center;
         flex-direction: row;
     }
-    
+
     .selects h1 {
         font-size: large;
         font-weight: 400;
     }
-    
+
     .opcao {
         width: 150px;
         height: 30px;
@@ -285,41 +306,41 @@ margin-bottom: 50px;
     .assunto textarea {
         width: 80%;
         height: 30px;
-    
+
         padding: 10px 20px;
-    
+
         font-family: "Kanit", sans-serif;
         background-color: #fff;
         font-weight: 300;
         color: #000000;
         font-size: medium;
         border: none;
-    
+
         overflow-wrap: break-word;
         word-break: break-word;
     }
-    
+
     .descricao textarea {
         width: 80%;
         height: 200px;
-    
+
         padding: 10px 20px;
-    
+
         font-family: "Kanit", sans-serif;
         background-color: #fff;
         font-weight: 300;
         color: #000000;
         font-size: medium;
         border: none;
-    
+
         overflow-wrap: break-word;
         word-break: break-word;
     }
 
     .botao {
         width: 80%;
-    margin-top: 10px;
-    margin-bottom: 50px;
+        margin-top: 10px;
+        margin-bottom: 50px;
         display: flex;
         justify-content: end;
     }
@@ -332,12 +353,12 @@ margin-bottom: 50px;
     .chamado {
         width: 85%;
         height: auto;
-    
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin-left: 100px;
-    
+
     }
 
     .selects {
@@ -353,20 +374,20 @@ margin-bottom: 50px;
         border-radius: 5px;
         display: flex;
         padding-left: 10px;
-    
+
         /* Customiza a seta do select */
         background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 10px top 50%;
-        background-size: 15px; 
-    
+        background-size: 15px;
+
         /* Remove estilo padrão */
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
-    } 
-    
-     .slt1 {
+    }
+
+    .slt1 {
         width: 50%;
         gap: 1;
         display: flex;
@@ -375,7 +396,7 @@ margin-bottom: 50px;
         align-items: center;
         flex-direction: row;
     }
-    
+
     .slt2 {
         width: 70%;
         display: flex;
@@ -384,12 +405,12 @@ margin-bottom: 50px;
         align-items: center;
         flex-direction: row;
     }
-    
+
     .selects h1 {
         font-size: large;
         font-weight: 400;
     }
-    
+
     .opcao {
         width: 150px;
         height: 30px;
@@ -399,63 +420,42 @@ margin-bottom: 50px;
     .assunto textarea {
         width: 70%;
         height: 30px;
-    
+
         padding: 10px 20px;
-    
+
         font-family: "Kanit", sans-serif;
         background-color: #fff;
         font-weight: 300;
         color: #000000;
         font-size: medium;
         border: none;
-    
+
         overflow-wrap: break-word;
         word-break: break-word;
     }
-    
+
     .descricao textarea {
         width: 70%;
         height: 200px;
-    
+
         padding: 10px 20px;
-    
+
         font-family: "Kanit", sans-serif;
         background-color: #fff;
         font-weight: 300;
         color: #000000;
         font-size: medium;
         border: none;
-    
+
         overflow-wrap: break-word;
         word-break: break-word;
     }
 
     .botao {
         width: 70%;
-    margin-top: 10px;
-    margin-bottom: 50px;
+        margin-top: 10px;
+        margin-bottom: 50px;
         display: flex;
         justify-content: end;
-    } 
-  }
-
-
-/* scrol da tela  */
-::-webkit-scrollbar {
-    width: 0.6vw;
-    background: #222222;
-}
-  
-::-webkit-scrollbar-thumb {
-    background: -webkit-linear-gradient(#087b97, #0bcea7);
-    background: linear-gradient(#087b97, #0bcea7);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: -webkit-linear-gradient(#0ea2c7, #11f0c3);
-}
-
-::-webkit-scrollbar-thumb:active {
-    background: -webkit-linear-gradient(#065c72, #09977b);
+    }
 }

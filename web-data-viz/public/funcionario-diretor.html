@@ -331,9 +331,12 @@
                     status.appendChild(respostaStatus);
 
                     if (element.situacao === "ativo") {
-                        respostaStatus.style.color = "green";
+                        respostaStatus.style.color = "#029c5e";
+                        respostaStatus.style.fontWeight = 500;
                     } else if (element.situacao === "inativo") {
-                        respostaStatus.style.color = "darkgray";
+                        respostaStatus.style.color = "#6e6e6e";
+                        respostaStatus.style.fontWeight = 500;
+
                     }
 
                     frameFuncionarios.appendChild(userImg);
@@ -376,11 +379,13 @@
                 respostaStatus.innerHTML = resposta[0].situacao
                 var buttons = document.createElement("div")
                 if (resposta[0].situacao == "ativo") {
-                    respostaStatus.style.color = "green"
-                    informacao.appendChild(buttons)
+                    respostaStatus.style.color = "#029c5e";
+                    respostaStatus.style.fontWeight = 500;
+                     informacao.appendChild(buttons)
                 }
                 if (resposta[0].situacao == "inativo") {
-                    respostaStatus.style.color = "darkgray"
+                    respostaStatus.style.color = "#6e6e6e";
+                    respostaStatus.style.fontWeight = 500;
                 }
                 buttons.className = "buttons"
                 buttons.innerHTML = `<button class='btn1' id='btnDesativar' onclick = desativarFunc(${resposta[0].idUsuario}) style ="color: white">Desativar</button>`
