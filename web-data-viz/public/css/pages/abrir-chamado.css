@@ -13,6 +13,8 @@ body {
     margin: 0;
     padding: 0;
     /* box-sizing: border-box; */
+    font-family: "Montserrat", sans-serif;
+
 }
 
 
@@ -35,24 +37,25 @@ body {
     position: fixed;
     top: 40px;
     right: 100px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    font-size: x-large;
+    width: 50px;  /* Define a largura do círculo */
+    height: 40px; /* Define a altura do círculo */
+    font-size: 35px; /* Ajusta o tamanho da seta */
     color: #fff;
-    background-color: #08836A;
+    background-color: #0BA385;
     border: none;
-    border-radius: 7px;
+    border-radius: 8px; 
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
-    padding: 0; /* Remove qualquer padding extra */
 }
 
 .back-button::before {
-    content: 'X';
+    content: '→';
+    position: relative;
+    padding-bottom: 0.4rem;
 }
 
 .back-button:hover {
@@ -66,7 +69,7 @@ body {
 }
 
 .titulo h1 {
-    font-size: xx-large;
+    font-size: 24px;
     /* height: 80px; */
     padding-top: 20px;
     justify-self: center;
@@ -281,7 +284,7 @@ option {
     border: none;
     border-radius: 7px;
 
-    font-weight: 700;
+    font-weight: 500;
     font-size: large;
     color: #fff;
 }

@@ -22,26 +22,34 @@ body {
     text-align: center;
 }
 
+h1{
+    font-size: 26px;
+}
+
 .back-button {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 2px 10px;
-    font-size: 18px;
+    top: 40px;
+    left: 100px;
+    width: 50px;  /* Define a largura do círculo */
+    height: 40px; /* Define a altura do círculo */
+    font-size: 35px; /* Ajusta o tamanho da seta */
     color: #fff;
     background-color: #0BA385;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; 
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
 }
 
 .back-button::before {
     content: '←';
-    margin-right: 10px;
     position: relative;
-    bottom: 1px;
+    padding-bottom: 0.4rem;
+
 }
 
 .back-button:hover {
@@ -136,7 +144,7 @@ select.campo::-ms-expand {
 .input {
     position: relative;
     padding: 20px 0 0;
-    margin: 5px 0;
+    margin: 3px 0;
     width: 100%;
     max-width: 300px;
 }
@@ -161,7 +169,7 @@ select.campo::-ms-expand {
 }
 
 .campo:placeholder-shown ~ .caixa {
-    font-size: 17px;
+    font-size: 18px;
     cursor: text;
     top: 20px;
 }
@@ -180,7 +188,7 @@ select.campo::-ms-expand {
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 17px;
+    font-size: 18px;
     color: #ffffff;
     font-weight: 500;
 }
@@ -195,7 +203,7 @@ select.campo::-ms-expand {
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 12px;
+    font-size: 16px;
     color: #868585;
     pointer-events: none;
 }
@@ -216,7 +224,7 @@ select.campo::-ms-expand {
 }
 
 .cadastro button {
-    margin: 40px 0 0 0;
+    margin: 20px 0 0 0;
     font-weight: bold;
     width: 85%;
     padding: 5px 9px;

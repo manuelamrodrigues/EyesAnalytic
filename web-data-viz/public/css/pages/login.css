@@ -65,7 +65,7 @@ body{
     border: none;
     border-bottom: 2px solid #9b9b9b;
     outline: 0;
-    font-size: 17px;
+    font-size: 18px;
     color: #fff;
     padding: 7px 0;
     margin-bottom: 8px;
@@ -78,7 +78,7 @@ body{
 }
 
 .campo:placeholder-shown ~ .caixa {
-    font-size: 17px;
+    font-size: 18px;
     cursor: text;
     top: 20px;
 }
@@ -97,7 +97,7 @@ body{
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 17px;
+    font-size: 18px;
     color: #ffffff;
     font-weight: 500;
 }
@@ -111,7 +111,7 @@ body{
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 12px;
+    font-size: 16px;
     color: #868585;
     pointer-events: none;
 }
@@ -141,28 +141,30 @@ body{
     position: fixed;
     top: 40px;
     left: 100px;
-    padding: 0px 7px 3px 12px;
-    font-size: 30px;
+    width: 50px;  /* Define a largura do círculo */
+    height: 40px; /* Define a altura do círculo */
+    font-size: 35px; /* Ajusta o tamanho da seta */
     color: #fff;
     background-color: #0BA385;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; 
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
 }
 
 .back-button::before {
     content: '←';
-    margin-right: 10px;
     position: relative;
-    bottom: 1px;
+    padding-bottom: 0.4rem;
 }
 
 .back-button:hover {
     background-color: #025544;
 }
-
 
 .login button {
     --hover-shadows: 0 0 20px 0 #0D5E4E;
