@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 /* Reset básico para remover margens e preenchimentos padrão */
 html, body{
     margin: 0;
@@ -16,7 +19,7 @@ html{
 /* ==================================================================================================================== */
 main{
     display: flex;
-    background-color: #EDEEF9; /* Fundo claro */
+    background-color: #0a0a0a; /* Fundo claro */
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -266,9 +269,10 @@ hr{
 /* Título da seção de alertas */
 .alertas h2{
     font-size: 1.3rem;
-    color: #000000;
+    color: white;
     margin: 10px;
     /* margin-bottom: 3%; */
+    font-family: "Montserrat", sans-serif;
 }
 
 /* Cartão de alerta */
@@ -276,11 +280,11 @@ hr{
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
-    padding: 13px;
+    padding:1px;
     margin: 0;
     margin-bottom: 10px;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .frameAlertas p {
@@ -289,7 +293,7 @@ hr{
 }
 
 .frameAlertas:hover {
-    background-color: #131313;
+    background-color: #054C3E;
     color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -811,7 +815,7 @@ section {
     width: 100vw;
     height: 100vh;
     display: flex;
-    font-family: "Poppins", sans-serif;
+    font-family:  "Montserrat", sans-serif;
     font-weight: 300;
     font-style: normal;
     background-color: #131313;
@@ -861,7 +865,7 @@ h4 {
 }
 
 nav {
-    font-family: "Poppins", sans-serif;
+    font-family:  "Montserrat", sans-serif;
     font-weight: 400;
     font-style: normal;
     width: 100%;
