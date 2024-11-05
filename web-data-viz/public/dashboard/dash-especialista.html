@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
     <script src="../js/aside-menu.js"></script>
+    <script src="../js/sessao.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -52,7 +53,7 @@
                 </li>
             </a>
 
-            <a href="../index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li >
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>

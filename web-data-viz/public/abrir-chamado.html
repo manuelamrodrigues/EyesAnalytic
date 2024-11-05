@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
-
+    <script src="../js/sessao.js"></script>
     <title>Abrir chamado | EyesAnalytic</title>
 </head>
 
-<body onload="listarUrgencia(), listarFuncionarios()">
+<body onload="listarUrgencia(), listarFuncionarios(), validarSessao()">
 
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -55,7 +55,7 @@
                 </li>
             </a>
 
-            <a href="./index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>

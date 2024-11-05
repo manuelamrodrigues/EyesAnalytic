@@ -140,8 +140,8 @@
 
                             } else if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO != 'ativo') {
                                 Swal.fire({
-                                    title: "Erro!",
-                                    text: "Houve um erro ao tentar realizar o login!",
+                                    title: "Usuário inativo",
+                                    text: "Esse usuário foi inativado",
                                     icon: "error",
                                     confirmButtonColor: '#f44336', // Cor vermelha do botão
                                     timer: 2000, // Tempo antes de fechar automaticamente
@@ -153,8 +153,8 @@
 
                             } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO != 'ativo') {
                                 Swal.fire({
-                                    title: "Erro!",
-                                    text: "Houve um erro ao tentar realizar o login!",
+                                    title: "Usuário inativo",
+                                    text: "Esse usuário foi inativado",
                                     icon: "error",
                                     confirmButtonColor: '#f44336', // Cor vermelha do botão
                                     timer: 2000, // Tempo antes de fechar automaticamente
