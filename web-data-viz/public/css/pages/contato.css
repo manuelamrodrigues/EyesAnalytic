@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
@@ -57,7 +59,7 @@ body{
 }
 
 .campo {
-    font-family: inherit;
+    font-family: "Kanit", sans-serif;
     width: 100%;
     border: none;
     border-bottom: 2px solid #9b9b9b;
@@ -78,7 +80,6 @@ body{
     font-size: 17px;
     cursor: text;
     top: 20px;
-    ckground-color: #f0f8ff;
 }
 
 .campo:focus {

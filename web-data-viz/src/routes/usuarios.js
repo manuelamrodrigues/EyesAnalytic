@@ -15,4 +15,17 @@ router.get("/listarFunc/:idEmpresa", function(req,res){
     usuarioController.listarFunc(req,res)
 })
 
+router.get("/listar/:idEmpresa", function(req,res){
+    usuarioController.listar(req,res)
+})
+
+router.get("/buscarPorId/:idUsuario", function(req,res){
+    usuarioController.buscarPorId(req,res)
+})
+router.delete("/desativarFunc/:idUsuario", function(req,res){
+    usuarioController.desativarFunc(req,res)
+})
+router.put("/alterarFunc", function(req,res){
+    usuarioController.alterarFunc(req,res)
+})
 module.exports = router;

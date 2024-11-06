@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="css/pages/aside-menu.css">
     <link rel="stylesheet" href="./css/pages/lista-alertas.css">
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
 
 </head>
 
-<body>
+<body onload="validarSessao()">
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -52,7 +53,7 @@
                 </li>
             </a>
 
-            <a href="./index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
@@ -90,7 +91,7 @@
 
         <section class="chamados">
             <article class="alertas">
-                <h2 style="font-size: 1.5rem; padding: 20px 0px 0px 0px;">Alertas</h2>
+                <h2 class="titulo-alerta">Alertas</h2>
 
                 <br>
                 <h2 class="tAlertas">Alertas do dia</h2>

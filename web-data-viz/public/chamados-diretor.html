@@ -7,11 +7,14 @@
     <title>Chamados | EyesAnalytic</title>
     <link rel="stylesheet" href="css/pages/chamado-diretor.css">
     <link rel="stylesheet" href="css/pages/aside-menu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
 
 </head>
 
-<body onload="listarChamados()">
+<body onload="listarChamados(), validarSessao()">
 
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -52,8 +55,8 @@
                 </li>
             </a>
 
-            <a href="./index.html" class="outros">
-                <li >
+            <a onclick="limparSessao()" class="outros">
+                <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -84,15 +87,15 @@
 
         </div>
     </aside>
-            <div id="fade" class="hide"></div>
-   
+    <div id="fade" class="hide"></div>
+
 
     <main>
         <section class="title">
             <h1>Meus Chamados</h1>
-          <a href="./abrir-chamado.html"><button>Abrir Chamado</button> </a>
+            <a href="./abrir-chamado.html"><button>Abrir Chamado</button> </a>
         </section>
-    
+
         <section class="chamados" id="chamados">
             <!-- <section class="chamado">
                 <article class="cabecalhoChamado">
@@ -215,10 +218,10 @@
                     </div>
                 </article>
             </section> -->
-            
+
         </section>
     </main>
-  
+
 
 
 </body>
@@ -226,31 +229,31 @@
 </html>
 
 <script>
-    function listarChamados() {
-        var dataAtual = new Date()
-        var chamados = document.getElementById("chamados")
-        var idDiretor = sessionStorage.ID_USUARIO
-        fetch('/chamados/listarPorDiretor', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                idDiretor: idDiretor
-            })
-        }).then(function (resposta) {
-            resposta.json().then(function (resposta) {
-                console.log("Dados encontrados:", resposta)
-                resposta.forEach(element => {
-                    var base = document.getElementById("chamados")
-                    var data = new Date(element.dtHora)
-                    var dataDia = data.getDate()
-                    var dataMes = data.getMonth()
-                    var dataAno = data.getFullYear()
-                    var dataHoras = data.getHours()
-                    var dataMinutos = data.getMinutes()
-                    var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
-                    var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
+        function listarChamados() {
+            var dataAtual = new Date()
+            var chamados = document.getElementById("chamados")
+            var idDiretor = sessionStorage.ID_USUARIO
+            fetch('/chamados/listarPorDiretor', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idDiretor: idDiretor
+                })
+            }).then(function (resposta) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados encontrados:", resposta)
+                    resposta.forEach(element => {
+                        var base = document.getElementById("chamados")
+                        var data = new Date(element.dtHora)
+                        var dataDia = data.getDate()
+                        var dataMes = data.getMonth()+1
+                        var dataAno = data.getFullYear()
+                        var dataHoras = data.getHours()
+                        var dataMinutos = data.getMinutes()
+                        var horas = `${adicionarZero(dataHoras)}:${adicionarZero(dataMinutos)}`
+                        var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
 
 
                     var chamado = document.createElement("section")
@@ -272,19 +275,19 @@
                     var cancelarchamado = document.createElement("div")
                     cancelarchamado.innerHTML= `<button onclick='cancelarChamado(${element.idChamado})'>Cancelar Chamado</button>`
 
-                    var fundoChamado = document.createElement("article")
-                    var tituloChamado = document.createElement("p")
-                    var textoChamado = document.createElement("div")
-                    var texto = document.createElement("p")
+                        var fundoChamado = document.createElement("article")
+                        var tituloChamado = document.createElement("p")
+                        var textoChamado = document.createElement("div")
+                        var texto = document.createElement("p")
 
-                    base.appendChild(chamado)
-                    chamado.className = "chamado"
-                    chamado.appendChild(cabecalhoChamado)
-                    chamado.appendChild(fundoChamado)
+                        base.appendChild(chamado)
+                        chamado.className = "chamado"
+                        chamado.appendChild(cabecalhoChamado)
+                        chamado.appendChild(fundoChamado)
 
-                    cabecalhoChamado.className = "cabecalhoChamado"
-                    cabecalhoChamado.appendChild(informacoesChamado)
-                    cabecalhoChamado.appendChild(dadosChamado)
+                        cabecalhoChamado.className = "cabecalhoChamado"
+                        cabecalhoChamado.appendChild(informacoesChamado)
+                        cabecalhoChamado.appendChild(dadosChamado)
 
                     
                     informacoesChamado.className = "informacoesChamado"
@@ -337,35 +340,33 @@
                     hora.innerHTML = horas
                     sobreChamado.appendChild(data)
                     data.innerHTML = date
-                    dadosChamado.appendChild(cancelarchamado)
-                   
+                    if(element.situacao == "Não Atendido"){
+                        dadosChamado.appendChild(cancelarchamado)     
+                    }
 
+                        fundoChamado.className = 'fundoChamado'
+                        fundoChamado.appendChild(tituloChamado)
 
+                        tituloChamado.className = 'tituloChamado'
+                        tituloChamado.innerHTML = element.assunto
+                        fundoChamado.appendChild(textoChamado)
+                        textoChamado.className = 'textoChamado'
+                        textoChamado.appendChild(texto)
+                        texto.innerHTML = element.descricao
 
-
-                    fundoChamado.className = 'fundoChamado'
-                    fundoChamado.appendChild(tituloChamado)
-
-                    tituloChamado.className = 'tituloChamado'
-                    tituloChamado.innerHTML = element.assunto
-                    fundoChamado.appendChild(textoChamado)
-                    textoChamado.className = 'textoChamado'
-                    textoChamado.appendChild(texto)
-                    texto.innerHTML = element.descricao
-
-                }
-                );
+                    }
+                    );
+                })
             })
-        })
-            .catch(function (error) {
-                console.log("#ERROR:", error)
-            })
+                .catch(function (error) {
+                    console.log("#ERROR:", error)
+                })
     }
     function adicionarZero(numero) {
         return (numero < 10 ? '0' : '') + numero;
     }
 
-    function cancelarChamado(idChamado){
+    function cancelarChamado(idChamado) {
         fetch("chamados/buscarPorId", {
             method: "POST",
             headers: {
@@ -387,16 +388,34 @@
                             idChamado: idChamado
                         })
                     }).then(function (resultado) {
-                                if (resultado.ok) {
-                                    alert("Chamado Alterado para cancelado! Espere um pouco...")
-                                    setTimeout(() => {
-                                        location.reload()
-                                    }, 2000)
-                                }
-                                else {
-                                    alert("Erro ao atualizar situação!")
-                                }
+                        if (resultado.ok) {
+                            Swal.fire({
+                                title: "Chamado Alterado para cancelado!",
+                                text: "Espere um pouco...",
+                                icon: "success",
+                                confirmButtonColor: '#4CAF50', // Cor vermelha do botão
+                                timer: 2000, // Tempo antes de fechar automaticamente
+                                timerProgressBar: true
+                            }).then(() => {
+                                location.reload(); // Recarregar a página após o alerta
+                            });
+                            // alert("Chamado Alterado para cancelado! Espere um pouco...")
+                            // setTimeout(() => {
+                            //     location.reload()
+                            // }, 2000)
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Erro ao atualizar situação!",
+                                // text: "Espere um pouco...",
+                                icon: "error",
+                                confirmButtonColor: "#bd0023", // Cor vermelha do botão
+                                // timer: 2000, // Tempo antes de fechar automaticamente
+                                // timerProgressBar: true
                             })
+                            // alert("Erro ao atualizar situação!")
+                        }
+                    })
                 }
                 if (resposta.status == 204) {
                     console.log("Não foi encontrado nenhum chamado com esse id")

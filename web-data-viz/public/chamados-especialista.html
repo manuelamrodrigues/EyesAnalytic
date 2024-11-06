@@ -10,10 +10,11 @@
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/sessao.js"></script>
 
 </head>
 
-<body onload="listarChamados()">
+<body onload="listarChamados(), validarSessao()">
 
     <aside id="aside-menu">
         <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -54,7 +55,7 @@
                 </li>
             </a>
 
-            <a href="./index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li>
                     <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
@@ -240,7 +241,7 @@
                     var base
                     var data = new Date(element.dtHora)
                     var dataDia = data.getDate()
-                    var dataMes = data.getMonth()
+                    var dataMes = data.getMonth()+1
                     var dataAno = data.getFullYear()
                     var dataHoras = data.getHours()
                     var dataMinutos = data.getMinutes()
@@ -248,11 +249,11 @@
                     var date = `${adicionarZero(dataDia)}/${adicionarZero(dataMes)}/${adicionarZero(dataAno)}`
 
 
-                    if (dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth() && dataAno === dataAtual.getFullYear()) {
+                    if (dataDia === dataAtual.getDate() && dataMes === dataAtual.getMonth()+1 && dataAno === dataAtual.getFullYear()) {
                         console.log("Chamado de Hoje!");
                         base = document.getElementById("chamadosHoje")
                     }
-                    else if (dataMes == dataAtual.getMonth() && dataAno == dataAtual.getFullYear()) {
+                    else if (dataMes == dataAtual.getMonth()+1 && dataAno == dataAtual.getFullYear()) {
                         console.log("Chamado do Mês.");
                         base = document.getElementById("chamadosMes")
                     }
@@ -423,7 +424,15 @@
                             // }, 2000)
                         }
                         else {
-                            alert("Erro ao atualizar situação!")
+                            Swal.fire({
+                                title: "Erro ao atualizar situação!",
+                                // text: "Espere um pouco...",
+                                icon: "error",
+                                confirmButtonColor: "#bd0023", // Cor vermelha do botão
+                                // timer: 2000, // Tempo antes de fechar automaticamente
+                                // timerProgressBar: true
+                            })
+                            // alert("Erro ao atualizar situação!")
                         }
                     })
                 }

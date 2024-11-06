@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
     <script src="../js/aside-menu.js"></script>
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
 
 </head>
 
-<body onabort=" iniciarAtualizacao()">
+<body onabort=" iniciarAtualizacao()" onload="validarSessao()">
    
   <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -58,7 +59,7 @@
                 </li>
             </a>
 
-            <a href="../index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li >
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
@@ -114,28 +115,44 @@
                 <p class="titlePcrt">Mbps de Download</p>
                 <p class="nmrPcrt">9.5</p>
             </div>
-        </header>
 
+        </header>
+        
         <section class="dash">
             <article class="topoGrafico">
                 <h3>Uso médio dos Componentes</h3>
                 <div class="botoesGrafico">
                     <div class="periodo" id="periodo">
-                        Semanal <i class="fas fa-chevron-down"></i> <!-- Ícone de seta -->
+                        <select class="opcao" id="funcionario">
+                            <option disabled selected value="">Semanal</option>
+                            <option value="">Mensal</option>
+                            <option value="">Bimestral</option>
+                            <option value="">Semestral</option>
+                        </select>
+                      
+                        
+                        <!-- Semanal <i class="fas fa-chevron-down" id="seta"></i> Ícone de seta -->
                     </div>
-                    <ul id="dropdown" class="dropdown hide">
+                    <!-- <ul id="dropdown" class="dropdown hide">
                         <li class="option">Mensal</li>
                         <li class="option">Bimestral</li>
                         <li class="option">Semestral</li>
-                    </ul>
+                    </ul> -->
                     
                     <div class="componentes" id="componentes">
-                        CPU <i class="fas fa-chevron-down"></i> <!-- Ícone de seta -->
+                        <select class="opcao" id="funcionario">
+                            <option disabled selected value="">CPU</option>
+                            <option value="">Disco</option>
+                            <option value="">Memória</option>
+                            <option value="">Rede</option>
+                        </select>
+                      
+                        <!-- CPU <i class="fas fa-chevron-down" id="seta"></i> 
                     </div>
                     <ul id="componentesDropdown" class="dropdown hide">
                         <li class="option">Disco</li>
                         <li class="option">Memória RAM</li>
-                        <li class="option">Rede</li>
+                        <li class="option">Rede</li> -->
                         <!-- <li class="option">Rede</li> -->
                     </ul>
                     
@@ -268,19 +285,35 @@
                 label: 'Uso de CPU (%)', // Título do gráfico
                 data: valores, // Dados gerados aleatoriamente
                 borderWidth: 4,
-                borderColor: '#13b3e4',
+                borderColor: '#08836A',
                 backgroundColor: '#ffff',
+                
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true // Faz o gráfico começar em 0 no eixo Y
+         options: {
+        scales: {
+            x: {
+                grid: {
+                    color: 'black', // Cor da linha do eixo X
+                },
+                ticks: {
+                    color: 'black' // Cor dos rótulos do eixo X
                 }
             },
+            y: {
+                beginAtZero: true, // Faz o gráfico começar em 0 no eixo Y
+                grid: {
+                    color: 'black', // Cor da linha do eixo Y
+                },
+                ticks: {
+                    color: 'black' // Cor dos rótulos do eixo Y
+                }
+            }
+        },
             plugins: {
                 legend: {
                     labels: {
+                        color: '#000',
                         font: {
                             size: 14
                         }

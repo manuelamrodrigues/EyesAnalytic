@@ -1,33 +1,41 @@
 /* Importa a fonte Kanit usando @import */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Reset básico para remover margens e preenchimentos padrão */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
-    background-color: #EDEEF9; /* Fundo branco para toda a página */
-    height: 100%; /* Ocupa 100% da altura da janela */
-    width: 80%; /* Ocupa 100% da largura da janela */
+    background-color: #131313;
+    /* Fundo branco para toda a página */
+    height: 100%;
+    /* Ocupa 100% da altura da janela */
+    width: 80%;
+    /* Ocupa 100% da largura da janela */
     display: flex;
-    flex-direction: column; /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
-    font-family: 'Kanit', sans-serif; /* Fonte geral da página */
+    flex-direction: column;
+    /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
+    font-family: "Montserrat", sans-serif;
+    /* Fonte geral da página */
 }
 
 
 
 /* Estilos gerais para a área principal da página */
 /* ==================================================================================================================== */
-main{
+main {
     display: flex;
     align-items: center;
-    background-color: #00000000; /* Fundo claro */
+    background-color: #00000000;
+    /* Fundo claro */
     flex-direction: column;
 }
+
 /* Barra Superior */
 
 /*==================================================================================================================*/
-.barraSuperior{
-    background-color: #131315;
+.barraSuperior {
+    background-color: #054C3E;
     position: fixed;
     display: flex;
     width: 100%;
@@ -37,28 +45,28 @@ main{
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
+    color: #000;
 }
 
-.numPerct{
+.numPerct {
     margin-left: 7%;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: auto;
     height: auto;
+    
 }
 
-.titlePcrt{
+.titlePcrt {
     margin-bottom: -4%;
-    font-family: "kanit";
-    font-size: 16px;
-    color: #EDEEF9;
+    font-size: 17px;
+    color: #fff;
 }
 
-.nmrPcrt{
-    font-family: "kanit";
+.nmrPcrt {
     font-size: 21px;
-    color: #EDEEF9;
+    color: #fff;
 }
 
 
@@ -69,41 +77,44 @@ main{
 .dash {
     background-color: #00000000;
     margin: 6.5% 0 0 15%;
-    height: 100%; /* Ajusta a altura ao conteúdo */
-    width: 100%; /* Define uma largura mais apropriada */
+    height: 100%;
+    /* Ajusta a altura ao conteúdo */
+    width: 100%;
+    /* Define uma largura mais apropriada */
     display: flex;
     padding: 10px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     /* border: #0BA385 3px solid; */
-    
+
 }
 
-.dash h3{
+.dash h3 {
     font-size: 24px;
     display: flex;
     justify-content: start;
     align-items: start;
+    color: #fff;
+    margin-top: 35px;
 }
 
-.topoGrafico{
-    margin: 10px 0 0  14%;
+.topoGrafico {
+    margin: -15px 0px -10px 20%;
     display: flex;
     align-items: start;
     justify-content: space-between;
     flex-direction: row;
     width: 90vw;
     height: 10%;
-    
+
 }
 
 
 
-
 .grafico {
-    margin: 20px 0 0  13%;
-    width: 90%;
+    margin: 50px 0 0 13%;
+    width: 80%;
     height: 83.5%;
     display: flex;
     align-items: center;
@@ -117,81 +128,122 @@ main{
 .canvas {
     display: flex;
     align-items: start;
-    background-color: #ffffff;    
+    background-color: #ffffff;
     height: 10%;
     padding: 0;
+    color: #fff;
+    border-radius: 8px;
 }
 
-.botoesGrafico{
-    
+.botoesGrafico {
+    margin-top: 40px;
     width: 40%;
     height: auto;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    gap: 20%;
+    gap: 5%;
 }
 
 /* Estilizando a div "periodo" */
 .periodo {
-    margin-top: 3%;
-    margin-right: -3%;
-    background: #0BA385;
-    width: 65%;
-    padding: 6px;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 20px;
-    box-shadow: 0 0 10px #00000048;
-    cursor: pointer; /* Adiciona o cursor para indicar que é clicável */
+    width: 40%;
+    gap: 1;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-direction: row;
 }
+
+.opcao {
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    color: #fff;
+    background-color: #08836A;
+}
+
+option {
+    color: #fff;
+    background-color: #000000;
+}
+
+option:hover {
+    color: #ff0000;
+    background-color: #000000;
+}
+
+
+select {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    padding-left: 10px;
+
+    /* Customiza a seta do select */
+    background-image: url("../../assets/svg/seta-abrir-chamado.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 20px;
+
+    /* Remove estilo padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* #seta {
+    color: #fff;
+} */
 
 /* Dropdown escondido */
-.hide {
+/* .hide {
     display: none;
-}
+} */
 
 /* Estilo para o dropdown */
-.dropdown {
+/* .dropdown {
     list-style: none;
     padding: 0;
     margin: 15% 0 0 -21.5%;
     box-shadow: 0 0 10px #00000048;
     border-radius: 10px;
     width: 15.3%;
-    position: absolute; /* Fixa a posição */
-}
+    position: absolute;
+    } */
 
-.dropdown li {
+/* .dropdown li {
     padding: 10px;
     text-align: center;
-    background-color: #ffffff;
-    color: #0BA385;
+    background-color: #131313;
+    color: #ffff;
     cursor: pointer;
     border-radius: 10px;
 }
 
 .dropdown li:hover {
-    background-color: #0baf8e;
-    color: #000000;
-}
+    background-color: #08836A;
+    color: #fff;
+
+} */
 
 /* Estilizando a div "componentes" */
-.componentes {
-    background: #0BA385;
-    width: 70%;
+/* .componentes {
+    background: #08836A;
+    width: 60%;
     padding: 6px;
     text-align: center;
     border-radius: 10px;
-    font-size: 20px;
-    box-shadow: 0 0 10px #00000048;
+    font-size: 18px;
+    color: #fff;
     margin-top: 3%;
-    cursor: pointer; /* Adiciona o cursor para indicar que é clicável */
-}
+    cursor: pointer;
+} */
 
 /* Estilo para o dropdown dos componentes */
-#componentesDropdown {
+/* #componentesDropdown {
     list-style: none;
     padding: 0;
     margin: 15% 0 0 21%;
@@ -204,30 +256,29 @@ main{
 #componentesDropdown li {
     padding: 10px;
     text-align: center;
-    background-color: #ffffff;
-    color: #0BA385;
+    background-color: #131313;
+    color: #fff;
     cursor: pointer;
     border-radius: 10px;
 }
 
 #componentesDropdown li:hover {
-    background-color: #0baf8e;
-    color: #000000;
+    background-color: #08836A;
+    color: #fff;
 }
 
-.periodo i, .componentes i {
-    margin-left: 10px; /* Espaço entre o texto e o ícone */
+.periodo i,
+.componentes i {
+    margin-left: 10px;
     font-size: 16px;
-    color: #000000; /* Cor da seta */
-    vertical-align: middle; /* Centraliza o ícone verticalmente */
-}
-
-
+    color: #000000;
+    vertical-align: middle;
+} */
 
 
 /* Seção de chamados */
 /* ==================================================================================================================== */
-.chamados3{
+.chamados3 {
     display: flex;
     justify-content: start;
     align-items: flex-start;
@@ -236,12 +287,12 @@ main{
     margin-left: 10%;
     background-color: #8d3f3fec;
     height: auto;
-    
-    
+
+
 }
 
 /* Alerta de chamados */
-.alertas{
+.alertas {
     background-color: #EDEEF9;
     justify-content: flex-start;
     display: flex;
@@ -250,18 +301,18 @@ main{
     border-radius: 10px;
     width: 90vw;
     height: 100%;
-    
+
 }
 
 /* Texto dentro da seção de alertas */
-.alertas p{
+.alertas p {
     font-size: 1.2rem;
     color: #000;
 }
 
 /* Título da seção de alertas */
-.alertas h2{
-    
+.alertas h2 {
+
     font-size: 1.3rem;
     color: #000000;
     margin-bottom: 1%;
@@ -270,7 +321,8 @@ main{
 /* Cartão de alerta */
 .frameAlertas {
     display: flex;
-    background-color: #ffffff; /* Fundo normal */
+    background-color: #ffffff;
+    /* Fundo normal */
     border-radius: 8px;
     align-items: center;
     margin-bottom: 10px;
@@ -279,39 +331,47 @@ main{
     width: 95%;
     height: 9.3vh;
     box-shadow: 0 0 10px #00000021;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza a transição */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Suaviza a transição */
 }
 
 /* Efeito de hover para o cartão de alerta */
 .frameAlertas:hover {
-    background-color: #131313; /* Cor de fundo no hover */
-    color: #fff; /* Cor do texto no hover */
+    background-color: #131313;
+    /* Cor de fundo no hover */
+    color: #fff;
+    /* Cor do texto no hover */
 }
 
 /* Estilo para o ícone mudar no hover */
 .frameAlertas:hover .userImg img {
-    filter: brightness(0) invert(1); /* Torna o ícone branco no hover */
+    filter: brightness(0) invert(1);
+    /* Torna o ícone branco no hover */
 }
 
 /* Cor do status de alerta */
 .status-alerta {
-    color: #d30808; /* Cor vermelha para alertas */
+    color: #d30808;
+    /* Cor vermelha para alertas */
 }
 
 /* Mantém o texto em vermelho para o status-alerta */
 .frameAlertas:hover .status-alerta {
-    color: #d30808; /* Mantém a cor vermelha durante o hover */
+    color: #d30808;
+    /* Mantém a cor vermelha durante o hover */
 }
 
 /* Texto dentro da seção de alertas */
 .alertas p {
     font-size: 1.2rem;
-    color: #000; /* Cor normal do texto */
+    color: #000;
+    /* Cor normal do texto */
 }
 
 /* Para garantir que os textos normais mudem de cor no hover */
 .frameAlertas:hover p {
-    color: #fff; /* Muda a cor do texto normal para branco no hover */
+    color: #fff;
+    /* Muda a cor do texto normal para branco no hover */
 }
 
 /* Seção de data e hora */
@@ -326,17 +386,19 @@ main{
 /* Texto de data e hora */
 .hrDt p {
     font-size: 1.1rem;
-    color: #000; /* Cor normal do texto */
+    color: #000;
+    /* Cor normal do texto */
 }
 
 /* Para garantir que os textos de data e hora mudem de cor no hover */
 .frameAlertas:hover .hrDt p {
-    color: #fff; /* Muda a cor do texto de data e hora para branco no hover */
+    color: #fff;
+    /* Muda a cor do texto de data e hora para branco no hover */
 }
 
 
 /* Cartão de alerta */
-.frameAlertas{
+.frameAlertas {
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
@@ -352,11 +414,12 @@ main{
 
 /* Cor do status de alerta */
 .status-alerta {
-    color: #d30808; /* Cor vermelha para alertas */
+    color: #d30808;
+    /* Cor vermelha para alertas */
 }
 
 /* Seção de data e hora */
-.hrDt{
+.hrDt {
     flex-direction: row;
     display: flex;
     justify-content: space-around;
@@ -365,7 +428,7 @@ main{
 }
 
 /* Texto de data e hora */
-.hrDt p{
+.hrDt p {
     font-size: 1.1rem;
     color: #000;
 }
@@ -377,13 +440,13 @@ main{
     #aside-menu {
         width: 60px;
     }
-    
+
     #aside-menu:hover {
         width: 40%;
     }
 
 
-    .frameAlertas{
+    .frameAlertas {
         margin-left: 1%;
         flex-direction: column;
         padding: 10px;
@@ -392,8 +455,8 @@ main{
         justify-content: space-around;
     }
 
-    .hrDt{
-        
+    .hrDt {
+
         flex-direction: column;
     }
 
@@ -404,17 +467,18 @@ main{
 /* Responsividade para iPhone XR e iPhone 14 (largura de 828px e 1170px) */
 /* ============================================================================== */
 @media (min-width: 310px) and (max-width: 915px) {
+
     html,
     body {
         display: flex;
         flex-direction: column;
     }
-    
+
     #menu-hamburguer {
         display: flex;
         flex-direction: column;
     }
-    
+
     #aside-menu {
         position: fixed;
         width: 100%;
@@ -425,20 +489,20 @@ main{
         overflow: visible;
         z-index: 5;
     }
-    
+
     #aside-menu:hover {
         width: 100%;
         height: 75px;
         transition: 200ms linear;
     }
-    
+
     .asideLogo {
         width: 50px;
         margin: 0;
         margin-left: 30px;
         margin-bottom: 5%;
     }
-    
+
     #navLinks {
         opacity: 0;
         flex-direction: column;
@@ -450,7 +514,7 @@ main{
         z-index: -5;
         transition: 0.3s linear;
     }
-    
+
     #navLinks.active {
         transition: 0.3s ease;
         opacity: 100%;
@@ -463,15 +527,15 @@ main{
         background-color: rgba(19, 19, 19, 0.7);
         z-index: -5;
     }
-    
+
     #navLinks li {
         align-items: start;
         height: 100%;
         padding: 40px;
-        border-top: 2px solid rgba(0,0,0,0.4);
-        margin:0 ;
+        border-top: 2px solid rgba(0, 0, 0, 0.4);
+        margin: 0;
     }
-    
+
     /* Estilos para o container do menu */
     .menu {
         display: flex;
@@ -479,28 +543,28 @@ main{
         justify-content: space-between;
         margin-right: 15px;
     }
-    
-    
+
+
     .hamburger-line rect {
         fill: white;
-    
+
     }
-    
+
     .menu svg {
         width: 100%;
         height: 10%;
         transition: transform 300ms ease;
     }
-    
-    
+
+
     .menu.open svg:nth-child(1) {
         transform: rotate(45deg) translate(-1px, 0px);
     }
-    
+
     .menu.open svg:nth-child(2) {
         opacity: 0;
     }
-    
+
     .menu.open svg:nth-child(3) {
         transform: rotate(-45deg) translate(0px, -1px);
     }
@@ -510,7 +574,7 @@ main{
         gap: 5%;
         flex-direction: column;
         display: flex;
-        justify-content: space-around ;
+        justify-content: space-around;
         align-items: center;
         padding: 1%;
         width: 100%;
@@ -525,25 +589,30 @@ main{
 
     .frameFuncionarios1 {
         align-items: start;
-        flex-direction: column; /* Disposição horizontal */
-        justify-content: space-between; /*Espaçamento entre elementos */
+        flex-direction: column;
+        /* Disposição horizontal */
+        justify-content: space-between;
+        /*Espaçamento entre elementos */
         padding: 15px;
         width: 95%;
     }
 
     .frameFuncionarios1:hover {
-        background-color: #131313; /* Fundo branco */
+        background-color: #131313;
+        /* Fundo branco */
         border-radius: 8px;
         padding: 10.5px;
         margin-bottom: 10px;
-        flex-direction: column; /* Disposição horizontal */
+        flex-direction: column;
+        /* Disposição horizontal */
 
         box-shadow: 0 0 10px #0d5e4e8f;
         transition-delay: 2ms;
-        color: #EDEEF9; /* Texto preto no hover */
+        color: #EDEEF9;
+        /* Texto preto no hover */
     }
 
-    .frameAlertas{
+    .frameAlertas {
         margin-left: 1%;
         flex-direction: column;
         padding: 10px;
@@ -553,16 +622,13 @@ main{
         justify-content: space-around;
     }
 
-    .hrDt{
-        
+    .hrDt {
+
         flex-direction: column;
     }
 
-    .iconAlerta{
+    .iconAlerta {
         display: none;
     }
 
 }
-
-
-
