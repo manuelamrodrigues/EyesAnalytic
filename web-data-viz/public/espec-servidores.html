@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <script src="./js/aside-menu.js"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body onload="listarServidores()">
@@ -443,24 +445,26 @@
                     abrir.id = "openModal";
 
                     let titulo = document.createElement("h3");
-                    titulo.innerText = element.situacao;
+                    titulo.innerText = "Servidor " + element.idMaquina;
 
                     // Adicionando opções de CPU, Memória e Disco
                     let opcoes = document.createElement("div");
                     opcoes.className = "opcoes";
 
+                    // CPU
                     let opcaoCPU = document.createElement("div");
                     opcaoCPU.className = "opcao";
-                    opcaoCPU.innerHTML = "<h4>CPU: </h4><p>95%</p>";
+                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "</p>";
 
+                    // Memória
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória: </h4><p>50%</p>";
+                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "</p>";
 
+                    // Disco
                     let opcaoDisco = document.createElement("div");
                     opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco: </h4><p>55%</p>" + element.situacao;
-                    console.log(element.situacao)
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
@@ -479,7 +483,7 @@
                     let iconEdit = document.createElement("div");
                     iconEdit.className = "iconEdit";
                     iconEdit.id = "openModalEdit";
-                    iconEdit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconEdit.innerHTML = `<svg onclick = alterarServidor(${resposta[0].idMaquina}) xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" clo
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -507,7 +511,7 @@
                     let iconTrash = document.createElement("div");
                     iconTrash.className = "iconTrash";
                     iconTrash.id = "openModalTrash";
-                    iconTrash.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconTrash.innerHTML = `<svg onclick = desativarServidor(${resposta[0].fkEmpresa}) xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30"
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -538,5 +542,124 @@
         })
     }
 
+    //FUNCAO DE ALTERAR
+    function alterarServidor(idPrioridade, idMaquina) {
+        // Busca as opções do select a partir do banco de dados
+        fetch(`/servidor/listarPrioridade/${idPrioridade}`)
+            .then(response => response.json())
+            .then(opcoes => {
+                // Monta o objeto de opções para o SweetAlert usando os dados recebidos
+                // const inputOptions = {};
+                // opcoes.forEach(opcao => {
+                //     inputOptions[opcao.valor] = opcao.tipo;
+                // });
+                // Exibe o SweetAlert com o select preenchido
+                Swal.fire({
+                    // title: "Servidor " + idMaquina,
+                    input: "select",
+                    inputOptions:  {opcoes} ,
+                    text: "aa",
+                    inputPlaceholder: "Select a fruit",
+                    showCancelButton: true,
+                    // icon: "question",
+                    // iconColor: "#000",
+                    showCancelButton: true,
+                    confirmButtonColor: "#05a65d",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/servidor/alterarServidor/${idMaquina}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+                            if (resposta.ok) {
+                                Swal.fire({
+                                    title: "Alterado!",
+                                    text: "O servidor foi editado",
+                                    icon: "success",
+                                    confirmButtonColor: "#05a65d",
+                                    timer: 1000,
+                                    timerProgressBar: true,
+                                }).then(() => {
+                                    location.reload(); // Recarregar a página após o alerta
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Houve um erro em editar o servidor.",
+                                    icon: "error",
+                                    confirmButtonColor: "#05a65d"
+                                });
+                            }
+                        })
+                    }
+                }).catch(function () {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Houve um erro em editar o servidor.",
+                        icon: "error",
+                        confirmButtonColor: "#05a65d"
+                    });
+                })
+            }
+            )
+    }
+
+    // FUNCAO DE DESATIVAR
+    function desativarServidor(idMaquina) {
+                Swal.fire({
+                    title: "Inativar Servidor?",
+                    text: "Tem certeza que quer inativar esse servidor?",
+                    icon: "question",
+                    iconColor: "#000",
+                    showCancelButton: true,
+                    confirmButtonColor: "#05a65d",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/servidor/desativarServidor/${idMaquina}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+                            if (resposta.ok) {
+                                Swal.fire({
+                                    title: "Desativado!",
+                                    text: "O servidor foi Inativado",
+                                    icon: "success",
+                                    confirmButtonColor: "#05a65d",
+                                    timer: 1000,
+                                    timerProgressBar: true,
+                                }).then(() => {
+                                    location.reload(); // Recarregar a página após o alerta
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Houve um erro em inativar o servidor.",
+                                    icon: "error",
+                                    confirmButtonColor: "#05a65d"
+                                });
+                            }
+                        })
+                    }
+                }).catch(function () {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Houve um erro em inativar o servidor.",
+                        icon: "error",
+                        confirmButtonColor: "#05a65d"
+                    });
+                })
+            }
 
 </script>

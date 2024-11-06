@@ -15,6 +15,55 @@ function listar(req, res) {
         })
 }
 
+function listarPrioridade(req, res) {
+    var idPrioridade = req.params.idPrioridade
+    servidorModel.listarPrioridade(idPrioridade)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+function alterarServidor(req, res) {
+    var idMaquina = req.body.idMaquina
+    var idPrioridade = req.body.idPrioridade;
+
+    usuarioModel.alterarFunc(idMaquina, idPrioridade)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function desativarServidor(req, res) {
+    var idMaquina = req.params.idMaquina
+    servidorModel.desativarServidor(idMaquina)
+        .then(
+            function (resultado) {
+                res.status(200).json(resultado)
+            }
+
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a alteracao: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+}
+
 // function autenticar(req, res) {
 //     var email = req.body.emailServer;
 //     var senha = req.body.senhaServer;
@@ -185,7 +234,10 @@ function listar(req, res) {
 // }
 
 module.exports = {
-    listar
+    listar,
+    listarPrioridade,
+    alterarServidor,
+    desativarServidor
     // autenticar,
     // cadastrar,
     // listarFunc,

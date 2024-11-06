@@ -1,8 +1,32 @@
 var database = require("../database/config")
 
-function listar(idEmpresa) {
+function listar(fkEmpresa) {
     var instrucaoSql = `
-SELECT * FROM maquina WHERE fkEmpresa = ${idEmpresa}
+        SELECT * FROM view_listagem_maquinas WHERE fkEmpresa = ${fkEmpresa}
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function listarPrioridade() {
+    var instrucaoSql = `
+    SELECT tipo FROM prioridade;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function alterarServidor(idMaquina) {
+    var instrucaoSql = `
+        UPDATE maquina SET idPrioridade = ${idPrioridade} WHERE idMaquina = ${idMaquina};
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function desativarServidor(idMaquina) {
+    var instrucaoSql = `
+    UPDATE maquina SET situacao = 'inativa' WHERE idMaquina = ${idMaquina};
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -62,7 +86,10 @@ SELECT * FROM maquina WHERE fkEmpresa = ${idEmpresa}
 // }
 
 module.exports = {
-    listar
+    listar,
+    listarPrioridade,
+    alterarServidor,
+    desativarServidor
     // autenticar,
     // cadastrar,
     // listarFunc,
