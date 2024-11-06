@@ -22,7 +22,7 @@ aside{
     position: fixed;
     height: 100%;
     width: 70px;
-    background-color: #131313;
+    background-color: #0a0a0a;
     display: flex;
     flex-direction: column;
     align-items: start;
