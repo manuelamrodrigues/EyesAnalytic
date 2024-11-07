@@ -37,15 +37,15 @@ body {
     align-items: center;
     justify-content: space-around;
     flex-direction: row;
-    
+
 }
 
 
-.abrir{
+.abrir {
     width: 80%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: row;
     /* background-color: #0BA385; */
 }
@@ -85,11 +85,7 @@ body {
     gap: 10px;
 }
 
-.openModal{
-    
-}
-
-.openModal:hover{
+.openModal:hover {
     background-color: #08836A;
     /* color: white; */
     cursor: pointer;
@@ -102,15 +98,19 @@ body {
 
 }
 
-.openModal:hover h3, .openModal:hover h4, .openModal:hover p,
-.iconEdit:hover svg, .iconTrash:hover svg {
+.openModal:hover h3,
+.openModal:hover h4,
+.openModal:hover p,
+.iconEdit:hover svg,
+.iconTrash:hover svg {
     color: white;
     fill: white;
     cursor: pointer;
 
 }
 
-.openModal:hover .iconEdit svg path, .openModal:hover .iconTrash svg path {
+.openModal:hover .iconEdit svg path,
+.openModal:hover .iconTrash svg path {
     fill: white;
 }
 
@@ -236,7 +236,7 @@ body {
     margin: 10% 10% 5% 35%;
     /* padding: 20px; */
     width: 30%;
-    height: 40%;
+    height: 44%;
     border-radius: 7px;
     border: none;
 }
@@ -271,7 +271,7 @@ body {
     justify-content: start;
     align-items: center;
     gap: 10px;
-    padding-top:10px;
+    padding-top: 10px;
 
 }
 
@@ -286,7 +286,7 @@ body {
 }
 
 .info select {
-    border: none;
+    border-color: #0BA385;
     border-radius: 5px;
     display: flex;
     padding: 10px;
@@ -310,12 +310,12 @@ body {
     align-items: center; */
     width: 25%;
     height: 15%;
-    padding: 20px 0px 50px 35%;
+    padding: 28px 0px 50px 35%;
 }
 
 .edit-salvar button {
     width: 100%;
-    height: 100%;
+    height: 85%;
     color: #fff;
     font-weight: 600;
     font-size: medium;
@@ -361,7 +361,7 @@ body {
 }
 
 .conteudo-trash p {
-    font-size: x-large;
+    font-size: 19px;
     font-weight: 400;
     padding: 0px 0px 50px 40px;
 }
@@ -373,9 +373,11 @@ body {
     justify-content: space-around;
     width: 100%;
     height: 15%;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
 }
 
-.botoes-trash button{
+.botoes-trash button {
     width: 20%;
     height: 100%;
 
@@ -384,6 +386,8 @@ body {
 
     color: #fff;
     font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
 
 }
 
@@ -392,7 +396,7 @@ body {
 .close {
     color: #aaa;
     float: right;
-    margin: -30px 10px 10px 10px;
+    margin: -17px 10px 10px 10px;
     font-size: 70px;
     /* font-weight: bold; */
 }
@@ -409,7 +413,7 @@ body {
 .closeE {
     color: #aaa;
     float: right;
-    margin: -30px 10px 10px 10px;
+    margin: -17px 10px 10px 10px;
     font-size: 70px;
     /* font-weight: bold; */
 }
@@ -426,7 +430,7 @@ body {
 .closeT {
     color: #aaa;
     float: right;
-    margin: -30px 10px 10px 10px;
+    margin: -17px 10px 10px 10px;
     font-size: 70px;
     /* font-weight: bold; */
 }
@@ -443,8 +447,8 @@ body {
     background-color: #fff;
     border-radius: 7px;
     border: none;
-    width: 100%;
-    padding: 10px;
+    width: 97%;
+    padding: 6px;
     margin-top: 15px;
 
 }

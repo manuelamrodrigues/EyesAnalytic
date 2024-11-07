@@ -38,18 +38,18 @@ main {
     background-color: #054C3E;
     position: fixed;
     display: flex;
-    width: 100%;
+    width: 96%;
     height: 12%;
-    left: 0.3%;
-    top: 0;
-    justify-content: space-around;
+    left: 4.3%;
+    /* top: 0; */
+    /* justify-content: space-around; */
     align-items: center;
-    flex-direction: row;
+    /* flex-direction: row; */
     color: #000;
 }
 
 .numPerct {
-    margin-left: 7%;
+    margin-left: 6.5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,7 +75,7 @@ main {
 
 /*==================================================================================================================*/
 .dash {
-    background-color: #00000000;
+    background-color: #131313;
     margin: 6.5% 0 0 15%;
     height: 100%;
     /* Ajusta a altura ao conteúdo */
@@ -158,11 +158,11 @@ main {
 }
 
 .opcao {
-    width: 200px;
-    height: 40px;
+    width: 170px;
+    height: 37px;
     font-size: large;
     color: #fff;
-    background-color: #08836A;
+    background-color: #0BA385;
 }
 
 option {
