@@ -314,6 +314,10 @@ hr {
     font-family: "Montserrat", sans-serif;
 }
 
+.alerta-porcentagem p{
+    font-weight: 600;
+}
+
 /* Cartão de alerta */
 .frameAlertas {
     display: flex;
@@ -358,6 +362,7 @@ hr {
 /* Cor do status de alerta */
 .status-alerta {
     color: #d30808;
+    font-weight: 600;
     /* Cor vermelha para alertas */
 }
 

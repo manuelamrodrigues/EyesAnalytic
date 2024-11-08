@@ -21,7 +21,7 @@ aside {
     padding: 0;
     box-sizing: border-box;
     color: white;
-    border-right: #2a2a2a solid 2px;
+    /* border-right: #2a2a2a solid 2px; */
     /* -webkit-box-shadow: 5px 0px 32px -8px rgba(8,131,106,1);
     -moz-box-shadow: 5px 0px 32px -8px rgba(8,131,106,1);
     box-shadow: 5px 0px 32px -8px rgba(8,131,106,1); */

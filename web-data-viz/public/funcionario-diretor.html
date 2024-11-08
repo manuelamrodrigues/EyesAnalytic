@@ -90,8 +90,14 @@
 
         <div class="todo">
 
-            <h2>Funcionários</h2>
+            <div class="cabecalho-funcionario">
+                <h2>Funcionários</h2>
 
+                <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar
+                    Técnico</button></a>
+    
+            </div>
+          
             <section class="funcionarios">
                 <article class="lista" id="lista">
 
@@ -147,8 +153,6 @@
                 </article>
 
                 <article class="cadastro">
-                    <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar
-                            Técnico</button></a>
                     <div class="card" id="informacao">
                         <!-- <h1>Fernando Silva</h1>
                     <hr>
@@ -325,20 +329,22 @@
                     userImg.innerHTML = "<img src='./assets/svg/user.svg' alt=''>"
                     let nome = document.createElement("p");
                     nome.innerHTML = element.nome;
+                    nome.style.fontWeight = 550;
 
                     let email = document.createElement("p");
+                    // email.style.fontWeight = 800;
                     email.innerHTML = "Email: " + element.email;
 
 
                     let status = document.createElement("p");
-                    status.innerHTML = "Status: ";
+                    status.innerHTML = "Status: " ;
                     let respostaStatus = document.createElement("span");
                     respostaStatus.innerHTML = element.situacao;
                     status.appendChild(respostaStatus);
 
                     if (element.situacao === "ativo") {
-                        respostaStatus.style.color = "#07e85d";
-                        respostaStatus.style.fontWeight = 500;
+                        respostaStatus.style.color = "#029c5e";
+                        respostaStatus.style.fontWeight = 800;
                     } else if (element.situacao === "inativo") {
                         respostaStatus.style.color = "#";
                         respostaStatus.style.fontWeight = 500;
@@ -378,7 +384,7 @@
                     <p>Email: ${resposta[0].email}</p>
                     <p>Cargo: ${resposta[0].tipo}</p>
                     `
-                status.innerHTML = `Status:`
+                status.innerHTML = `Status: `
                 var respostaStatus = document.createElement("span")
                 informacao.appendChild(status)
                 status.appendChild(respostaStatus)
@@ -386,7 +392,7 @@
                 var buttons = document.createElement("div")
                 if (resposta[0].situacao == "ativo") {
                     respostaStatus.style.color = "#029c5e";
-                    respostaStatus.style.fontWeight = 500;
+                    respostaStatus.style.fontWeight = 700;
                     informacao.appendChild(buttons)
                 }
                 if (resposta[0].situacao == "inativo") {
