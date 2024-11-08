@@ -1,11 +1,7 @@
 var servidorModel = require("../models/servidorModel");
 
 function listar(req, res) {
-    // var idMaquina = req.params.idMaquina
-    // var situacao = req.params.situacao
     var idEmpresa = req.params.idEmpresa
-    // var fkPrioridade = req.params.fkPrioridade
-
     servidorModel.listar(idEmpresa)
         .then(function (resultado) {
             res.status(200).json(resultado)
@@ -15,36 +11,15 @@ function listar(req, res) {
         })
 }
 
-function listarPrioridade(req, res) {
-    var idPrioridade = req.params.idPrioridade
-    servidorModel.listarPrioridade(idPrioridade)
+function listarEspecifico(req, res) {
+    var idMaquina = req.params.idMaquina
+    servidorModel.listar(idMaquina)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
             console.log(erro)
             res.status(500).json(erro.sqlMessage)
         })
-}
-
-function alterarServidor(req, res) {
-    var idMaquina = req.body.idMaquina
-    var idPrioridade = req.body.idPrioridade;
-
-    usuarioModel.alterarFunc(idMaquina, idPrioridade)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
 }
 
 function desativarServidor(req, res) {
@@ -63,6 +38,39 @@ function desativarServidor(req, res) {
             }
         )
 }
+
+// function listarPrioridade(req, res) {
+//     var idPrioridade = req.params.idPrioridade
+//     servidorModel.listarPrioridade(idPrioridade)
+//         .then(function (resultado) {
+//             res.status(200).json(resultado)
+//         }).catch(function (erro) {
+//             console.log(erro)
+//             res.status(500).json(erro.sqlMessage)
+//         })
+// }
+
+// function alterarServidor(req, res) {
+//     var idMaquina = req.body.idMaquina
+//     // var idPrioridade = req.body.idPrioridade;
+
+//     usuarioModel.alterarFunc(idMaquina)
+//         .then(
+//             function (resultado) {
+//                 res.json(resultado);
+//             }
+//         ).catch(
+//             function (erro) {
+//                 console.log(erro);
+//                 console.log(
+//                     "\nHouve um erro ao realizar o cadastro! Erro: ",
+//                     erro.sqlMessage
+//                 );
+//                 res.status(500).json(erro.sqlMessage);
+//             }
+//         );
+// }
+
 
 // function autenticar(req, res) {
 //     var email = req.body.emailServer;
@@ -235,8 +243,9 @@ function desativarServidor(req, res) {
 
 module.exports = {
     listar,
-    listarPrioridade,
-    alterarServidor,
+    listarEspecifico,
+    // listarPrioridade,
+    // alterarServidor,
     desativarServidor
     // autenticar,
     // cadastrar,

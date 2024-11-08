@@ -8,17 +8,9 @@ function listar(fkEmpresa) {
     return database.executar(instrucaoSql)
 }
 
-function listarPrioridade() {
+function listarEspecifico(idMaquina) {
     var instrucaoSql = `
-    SELECT tipo FROM prioridade;
-    `
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql)
-}
-
-function alterarServidor(idMaquina) {
-    var instrucaoSql = `
-        UPDATE maquina SET idPrioridade = ${idPrioridade} WHERE idMaquina = ${idMaquina};
+    SELECT * FROM view_maquina_especifica WHERE idMaquina = ${idMaquina};
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -31,6 +23,23 @@ function desativarServidor(idMaquina) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+// function listarPrioridade(idPrioridade) {
+//     var instrucaoSql = `
+//     SELECT tipo FROM prioridade;
+//     `
+//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+//     return database.executar(instrucaoSql)
+// }
+
+// function alterarServidor(idMaquina) {
+//     var instrucaoSql = `
+//         UPDATE maquina SET idPrioridade = ${idPrioridade} WHERE idMaquina = ${idMaquina};
+// `
+//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+//     return database.executar(instrucaoSql)
+// }
+
 
 // function autenticar( email, senha) {
 //     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
@@ -87,9 +96,11 @@ function desativarServidor(idMaquina) {
 
 module.exports = {
     listar,
-    listarPrioridade,
-    alterarServidor,
-    desativarServidor
+    desativarServidor,
+    listarEspecifico
+    // listarPrioridade,
+    // listarInfoEdicao,
+    // alterarServidor,
     // autenticar,
     // cadastrar,
     // listarFunc,
