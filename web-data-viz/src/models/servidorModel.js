@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function listar(fkEmpresa) {
     var instrucaoSql = `
-        SELECT * FROM view_listagem_maquinas WHERE fkEmpresa = ${fkEmpresa} AND situacao = 'Ativo'; 
+        SELECT * FROM view_listagem_maquinas WHERE fkEmpresa = ${fkEmpresa} AND situacao = 'Ativo' ORDER BY prioridadeMaquina; 
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
