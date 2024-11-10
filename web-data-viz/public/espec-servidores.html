@@ -91,28 +91,26 @@
 
         <section class="chamados" id="conteudo">
 
+            <h2>Servidores</h2>
             <article class="alertas" id="lista">
+            </article>
 
-                <h2>Servidores</h2>
+            <article class="alertas" id="lista">
 
             </article>
 
             <div id="modal" class="modal">
-                <div class="modal-content">
-
-                    <span class="close">&times;</span>
+                <!-- <div class="modal-content">
+                    <span id="closeModal" class="close">&times;</span>
 
                     <h2>Servidor 1</h2>
-
                     <div style="width: 100%; height: 1px; background-color: rgb(70, 70, 70);"></div>
-
                     <div class="linha">
                         <h3>ID: 0324 </h3>
                         <h3>Status: <span style="color:green;">Conectado</span> </h3>
                         <h3>Prioridade: <span style="color:green;">Alta</span></h3>
                     </div>
-                </div>
-            </div>
+                </div> -->
             </div>
 
         </section>
@@ -123,8 +121,8 @@
 <script>
     function listarServidores() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
-
         var lista = document.getElementById("lista");
+
         fetch(`servidor/listar/${fkEmpresa}`, {
             method: "GET",
             headers: {
@@ -135,40 +133,44 @@
                 resposta.forEach(element => {
                     let openModal = document.createElement("div");
                     openModal.className = "openModal";
-                    // openModal.setAttribute("data-id", element.idMaquina);  // Atribuir o id do servidor
-
 
                     let frameAlertas = document.createElement("div");
                     frameAlertas.className = "frameAlertas";
 
                     let abrir = document.createElement("div");
                     abrir.className = "abrir";
-                    abrir.id = "openModal ";
-                    openModal.onclick = function () {
-                        abrirModal(element.idMaquina);
+                    abrir.id = "openModal";
+                    abrir.onclick = function () {
+                        listarEspecifico(element.idMaquina);
                     };
 
                     let titulo = document.createElement("h3");
-                    titulo.innerText = "Servidor " + element.idMaquina;
+                    // titulo.onclick = function () {
+                    //     listarEspecifico(element.idMaquina);
+                    // };
+                    titulo.innerText = element.nomeMaquina;
 
                     // Adicionando opções de CPU, Memória e Disco
                     let opcoes = document.createElement("div");
                     opcoes.className = "opcoes";
+                    // opcoes.onclick = function () {
+                    //     listarEspecifico(element.idMaquina);
+                    // };
 
                     // CPU
                     let opcaoCPU = document.createElement("div");
                     opcaoCPU.className = "opcao";
-                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "</p>";
+                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
 
                     // Memória
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "</p>";
+                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
 
                     // Disco
                     let opcaoDisco = document.createElement("div");
                     opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "</p>";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
@@ -187,8 +189,7 @@
                     let iconEdit = document.createElement("div");
                     iconEdit.className = "iconEdit";
                     iconEdit.id = "openModalEdit";
-                    // onclick = alterarServidor(${resposta[0].idMaquina})
-                    iconEdit.innerHTML = `<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconEdit.innerHTML = `<svg onclick = alterarServidor(${resposta[0].idMaquina}) xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" clo
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -247,10 +248,194 @@
         })
     }
 
-    // FUNCAO DE DESATIVAR
+    function listarEspecifico(idMaquina) {
+        fetch(`servidor/listarEspecifico/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                // Monta o conteúdo que será exibido no alerta
+                let atributosTexto = ''; // Para armazenar os atributos formatados
+
+                // Itera sobre os elementos da resposta para formatar os atributos
+                resposta.forEach(element => {
+                    atributosTexto += `<b>${element.nomeAtributo}</b>: ${element.valorAtributo} (<b>${element.nomeRecurso}</b>) <br>`;
+
+                    // Exibe um único alerta com todos os atributos da máquina
+                    Swal.fire({
+                        title: element.nomeMaquina,  // Mostra o nome da máquina
+                        html: atributosTexto +  // Exibe a lista de atributos
+                            `<br><b>Prioridade:</b> ${resposta[0].nivelPrioridade} 
+                    <br><b>Situação:</b> <span style="color:#08836A; font-weight: 600" >${resposta[0].situacao}</span>`,  // Exibe a prioridade
+                        showCancelButton: true,
+                        cancelButtonColor: "#05a65d",
+                        showConfirmButton: false,
+                        cancelButtonText: "Ok"
+                    });
+                });
+            })
+        }).catch(function () {
+            Swal.fire({
+                title: "Erro!",
+                text: "Houve um erro em listar informações o servidor.",
+                icon: "error",
+                confirmButtonColor: "#05a65d"
+            });
+        })
+    }
+
+
+    function alterarServidor(idMaquina, idPrioridade) {
+        fetch(`servidor/listarEspecifico/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+
+                let nomeMaquina = resposta[0].nomeMaquina
+                let prioridadeAtualId = resposta[0].nivelPrioridade;
+
+                // Segunda requisição para buscar todas as prioridades
+                fetch(`/servidor/listarPrioridade/${idPrioridade}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (respostaPrioridades) {
+                respostaPrioridades.json().then(function (listaPrioridades) {
+                    // Monta as opções do select com idPrioridade como valor e exibe o nível
+                    let optionsPrioridades = listaPrioridades.map(prioridade => {
+                        // console.log(prioridadeAtualId)
+                        console.log(prioridade.nivel)
+                        return `<option value="${prioridade.idPrioridade}" ${prioridade.nivel == prioridadeAtualId ? "selected" : ""}>${prioridade.nivel}</option>`;
+                    }).join("");
+
+                        Swal.fire({
+                            title: "Informações do servidor",  // Mostra o nome da máquina
+                            html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
+                                    <span style="gap:7px; text-align: left; height: 100px; margin-bottom: -20px; margin-top: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px">
+                                        Nome:
+                                        <input style="color: #000; font-size: 20px; height: 30px;" id="nomeInput" value="${nomeMaquina}"></span>
+                                    <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
+                                        Prioridade: 
+                                        <select id="prioridadeInput" style="color: #000; font-size: 20px; height: 30px;">${optionsPrioridades}</select></span>
+                            </div>`,                                         // <select style="color: #000; font-size: 20px; height: 30px;"><option value="${prioridade}">${prioridade}</option></select></span>
+
+                            showCancelButton: true,
+                            cancelButtonColor: "#d33",
+                            cancelButtonText: "Cancelar",
+
+                            showConfirmButton: true,
+                            confirmButtonColor: "#05a65d",
+                            confirmButtonText: "Salvar",
+
+                        }).then(function (resposta) {
+                            if (resposta.isConfirmed) {
+                                let nomeInput = document.getElementById("nomeInput").value || nomeMaquina;
+                                let novaPrioridadeId = document.getElementById("prioridadeInput").value;
+
+                                if (nomeInput.length < 3) {
+                                    Swal.fire({
+                                        // title: "Erro!",
+                                        text: "O nome deve possuir pelo menos 3 caracteres",
+                                        // icon: "error",
+                                        confirmButtonColor: "#05a65d"
+                                    });
+                                }
+                                else {
+                                    fetch("/servidor/alterarServidor/", {
+                                        method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            nomeMaquina: nomeInput,
+                                            idMaquina: idMaquina,
+                                            idPrioridade: novaPrioridadeId
+                                        })
+                                    }).then(function (resposta) {
+                                        if (resposta.ok) {
+                                            Swal.fire({
+                                                title: "Sucesso!",
+                                                text: "Alteração Realizada",
+                                                icon: "success",
+                                                confirmButtonColor: '#4CAF50',
+                                                timer: 1500,
+                                                timerProgressBar: true,
+                                            }).then(() => {
+                                                location.reload(); // Recarregar a página após o alerta
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                title: "Erro!",
+                                                text: "Houve um erro ao tentar realizar o alteração!",
+                                                icon: "error",
+                                                confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                                timer: 2000, // Tempo antes de fechar automaticamente
+                                                timerProgressBar: true
+                                            });
+                                        }
+                                    }).catch(function (error) {
+                                        console.error("Erro ao enviar a requisição:", error);
+                                    });
+                                }
+                            }
+                        })
+                    })
+                })
+            })
+        })
+    }
+
+
+    // .then((result) => {
+    //     if (result.isConfirmed) {
+    //         fetch(`/servidor/desativarServidor/${idMaquina}`, {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             }
+    //         }).then(function (resposta) {
+    //             if (resposta.ok) {
+    //                 Swal.fire({
+    //                     title: "Inativado!",
+    //                     text: "O servidor foi Inativado do sistema.",
+    //                     icon: "success",
+    //                     confirmButtonColor: "#05a65d",
+    //                     timer: 1000,
+    //                     timerProgressBar: true,
+    //                 }).then(() => {
+    //                     location.reload(); // Recarregar a página após o alerta
+    //                 });
+    //             }
+    //             else {
+    //                 Swal.fire({
+    //                     title: "Erro!",
+    //                     text: "Houve um erro em inativar o servidor.",
+    //                     icon: "error",
+    //                     confirmButtonColor: "#05a65d"
+    //                 });
+    //             }
+    //         })
+    //     }
+    //         }).catch(function () {
+    //             Swal.fire({
+    //                 title: "Erro!",
+    //                 text: "Houve um erro em inativar o servidor.",
+    //                 icon: "error",
+    //                 confirmButtonColor: "#05a65d"
+    //             });
+    //         })
+    //     })
+    // }
+
     function desativarServidor(idMaquina) {
         Swal.fire({
-            title: "Inativar Servidor?",
+            title: "Inativar Servidor",
             text: "Tem certeza que quer inativar esse servidor?",
             icon: "question",
             iconColor: "#000",
@@ -269,8 +454,8 @@
                 }).then(function (resposta) {
                     if (resposta.ok) {
                         Swal.fire({
-                            title: "Desativado!",
-                            text: "O servidor foi Inativado",
+                            title: "Inativado!",
+                            text: "O servidor foi Inativado do sistema.",
                             icon: "success",
                             confirmButtonColor: "#05a65d",
                             timer: 1000,
@@ -299,44 +484,6 @@
         })
     }
 
-    function abrirModal(idMaquina) {
-    var modal = document.getElementById("modal");
-    var modalContent = modal.querySelector(".modal-content");
 
-    // Limpar conteúdo do modal antes de adicionar o novo conteúdo
-    modalContent.innerHTML = "";
-
-    // Fetch para pegar informações do servidor específico
-    fetch(`servidor/listarEspecifico/${idMaquina}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (resposta) {
-        resposta.json().then(function (data) {
-            // Preencher o modal com as informações detalhadas
-            var titulo = document.createElement("h2");
-            titulo.innerText = `Servidor ${data.idMaquina}`;
-            modalContent.appendChild(titulo);
-
-            // Exemplo de adição de informações no modal
-            var status = document.createElement("p");
-            status.innerText = `Status: ${data.status || "N/A"}`;
-            modalContent.appendChild(status);
-
-            // Outros detalhes podem ser adicionados de forma similar
-            var prioridade = document.createElement("p");
-            prioridade.innerText = `Prioridade: ${data.prioridade || "N/A"}`;
-            modalContent.appendChild(prioridade);
-
-            // Exibir o modal
-            modal.style.display = "block";
-        });
-    });
-}
-
-document.querySelector(".close").onclick = function() {
-    document.getElementById("modal").style.display = "none";
-};
 
 </script>

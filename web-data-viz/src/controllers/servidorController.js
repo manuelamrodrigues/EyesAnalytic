@@ -13,7 +13,8 @@ function listar(req, res) {
 
 function listarEspecifico(req, res) {
     var idMaquina = req.params.idMaquina
-    servidorModel.listar(idMaquina)
+
+    servidorModel.listarEspecifico(idMaquina)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
@@ -24,6 +25,7 @@ function listarEspecifico(req, res) {
 
 function desativarServidor(req, res) {
     var idMaquina = req.params.idMaquina
+
     servidorModel.desativarServidor(idMaquina)
         .then(
             function (resultado) {
@@ -39,37 +41,40 @@ function desativarServidor(req, res) {
         )
 }
 
-// function listarPrioridade(req, res) {
-//     var idPrioridade = req.params.idPrioridade
-//     servidorModel.listarPrioridade(idPrioridade)
-//         .then(function (resultado) {
-//             res.status(200).json(resultado)
-//         }).catch(function (erro) {
-//             console.log(erro)
-//             res.status(500).json(erro.sqlMessage)
-//         })
-// }
+function alterarServidor(req, res) {
+    var nomeMaquina = req.body.nomeMaquina
+    var idPrioridade = req.body.idPrioridade
+    var idMaquina = req.body.idMaquina
 
-// function alterarServidor(req, res) {
-//     var idMaquina = req.body.idMaquina
-//     // var idPrioridade = req.body.idPrioridade;
+    servidorModel.alterarServidor(nomeMaquina, idPrioridade, idMaquina)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
-//     usuarioModel.alterarFunc(idMaquina)
-//         .then(
-//             function (resultado) {
-//                 res.json(resultado);
-//             }
-//         ).catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log(
-//                     "\nHouve um erro ao realizar o cadastro! Erro: ",
-//                     erro.sqlMessage
-//                 );
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-// }
+
+function listarPrioridade(req, res) {
+    var idPrioridade = req.params.idPrioridade
+    servidorModel.listarPrioridade(idPrioridade)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
 
 
 // function autenticar(req, res) {
@@ -244,9 +249,10 @@ function desativarServidor(req, res) {
 module.exports = {
     listar,
     listarEspecifico,
+    alterarServidor,
+    desativarServidor,
+    listarPrioridade
     // listarPrioridade,
-    // alterarServidor,
-    desativarServidor
     // autenticar,
     // cadastrar,
     // listarFunc,

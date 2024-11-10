@@ -31,7 +31,7 @@ function listarFunc(idEmpresa){
 }
 function listar(idEmpresa){
     var instrucaoSql = `
-    SELECT * FROM usuario WHERE fkEmpresa = ${idEmpresa} ORDER BY situacao != 'ativo'; 
+    SELECT * FROM usuario WHERE fkEmpresa = ${idEmpresa} ORDER BY situacao != 'Ativo'; 
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

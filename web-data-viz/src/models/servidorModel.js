@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function listar(fkEmpresa) {
     var instrucaoSql = `
-        SELECT * FROM view_listagem_maquinas WHERE fkEmpresa = ${fkEmpresa}
+        SELECT * FROM view_listagem_maquinas WHERE fkEmpresa = ${fkEmpresa} AND situacao = 'Ativo'; 
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -32,13 +32,21 @@ function desativarServidor(idMaquina) {
 //     return database.executar(instrucaoSql)
 // }
 
-// function alterarServidor(idMaquina) {
-//     var instrucaoSql = `
-//         UPDATE maquina SET idPrioridade = ${idPrioridade} WHERE idMaquina = ${idMaquina};
-// `
-//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//     return database.executar(instrucaoSql)
-// }
+function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
+    var instrucaoSql = `
+        UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function listarPrioridade() {
+    var instrucaoSql = `
+            SELECT * FROM prioridade;
+            `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 
 
 // function autenticar( email, senha) {
@@ -97,7 +105,9 @@ function desativarServidor(idMaquina) {
 module.exports = {
     listar,
     desativarServidor,
-    listarEspecifico
+    listarEspecifico,
+    alterarServidor,
+    listarPrioridade
     // listarPrioridade,
     // listarInfoEdicao,
     // alterarServidor,
