@@ -119,6 +119,8 @@
 
 </html>
 <script>
+
+    //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
     function listarServidores() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
         var lista = document.getElementById("lista");
@@ -189,7 +191,7 @@
                     let iconEdit = document.createElement("div");
                     iconEdit.className = "iconEdit";
                     iconEdit.id = "openModalEdit";
-                    iconEdit.innerHTML = `<svg onclick = alterarServidor(${resposta[0].idMaquina}) xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconEdit.innerHTML = `<svg onclick="alterarServidor(${element.idMaquina})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" clo
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -217,7 +219,7 @@
                     let iconTrash = document.createElement("div");
                     iconTrash.className = "iconTrash";
                     iconTrash.id = "openModalTrash";
-                    iconTrash.innerHTML = `<svg onclick = desativarServidor(${resposta[0].fkEmpresa}) xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconTrash.innerHTML = `<svg onclick="desativarServidor(${element.idMaquina})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30"
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -248,6 +250,7 @@
         })
     }
 
+    //FUNÇÃO PARA LISTAR INFORMAÇÕES DE UM SERVIDOR ESPECIFICO
     function listarEspecifico(idMaquina) {
         fetch(`servidor/listarEspecifico/${idMaquina}`, {
             method: "GET",
@@ -266,9 +269,16 @@
                     // Exibe um único alerta com todos os atributos da máquina
                     Swal.fire({
                         title: element.nomeMaquina,  // Mostra o nome da máquina
-                        html: atributosTexto +  // Exibe a lista de atributos
-                            `<br><b>Prioridade:</b> ${resposta[0].nivelPrioridade} 
-                    <br><b>Situação:</b> <span style="color:#08836A; font-weight: 600" >${resposta[0].situacao}</span>`,  // Exibe a prioridade
+                        html: `<div style="text-align: justify; justify-content: center; padding-left:100px">
+                                    ${atributosTexto}
+                                    </div> 
+                                <div>
+                                <br><b>Prioridade:</b> 
+                                    ${resposta[0].nivelPrioridade} 
+                                <br>
+                                <b>Situação:</b> <span style="color:#08836A; font-weight: 600" >
+                                    ${resposta[0].situacao}</span>
+                                 </div>`,  // Exibe a prioridade
                         showCancelButton: true,
                         cancelButtonColor: "#05a65d",
                         showConfirmButton: false,
@@ -286,7 +296,7 @@
         })
     }
 
-
+// FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
     function alterarServidor(idMaquina, idPrioridade) {
         fetch(`servidor/listarEspecifico/${idMaquina}`, {
             method: "GET",
@@ -323,7 +333,7 @@
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
                                         Prioridade: 
                                         <select id="prioridadeInput" style="color: #000; font-size: 20px; height: 30px;">${optionsPrioridades}</select></span>
-                            </div>`,                                         // <select style="color: #000; font-size: 20px; height: 30px;"><option value="${prioridade}">${prioridade}</option></select></span>
+                            </div>`,                                       
 
                             showCancelButton: true,
                             cancelButtonColor: "#d33",
@@ -391,48 +401,7 @@
         })
     }
 
-
-    // .then((result) => {
-    //     if (result.isConfirmed) {
-    //         fetch(`/servidor/desativarServidor/${idMaquina}`, {
-    //             method: "DELETE",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             }
-    //         }).then(function (resposta) {
-    //             if (resposta.ok) {
-    //                 Swal.fire({
-    //                     title: "Inativado!",
-    //                     text: "O servidor foi Inativado do sistema.",
-    //                     icon: "success",
-    //                     confirmButtonColor: "#05a65d",
-    //                     timer: 1000,
-    //                     timerProgressBar: true,
-    //                 }).then(() => {
-    //                     location.reload(); // Recarregar a página após o alerta
-    //                 });
-    //             }
-    //             else {
-    //                 Swal.fire({
-    //                     title: "Erro!",
-    //                     text: "Houve um erro em inativar o servidor.",
-    //                     icon: "error",
-    //                     confirmButtonColor: "#05a65d"
-    //                 });
-    //             }
-    //         })
-    //     }
-    //         }).catch(function () {
-    //             Swal.fire({
-    //                 title: "Erro!",
-    //                 text: "Houve um erro em inativar o servidor.",
-    //                 icon: "error",
-    //                 confirmButtonColor: "#05a65d"
-    //             });
-    //         })
-    //     })
-    // }
-
+    //FUNCAO DE DESATIVAR SERVIDOR
     function desativarServidor(idMaquina) {
         Swal.fire({
             title: "Inativar Servidor",

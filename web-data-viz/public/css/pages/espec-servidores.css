@@ -86,6 +86,7 @@ body {
     justify-content: space-around;
     flex-direction: row;
     gap: 10px;
+    
 }
 
 .openModal {

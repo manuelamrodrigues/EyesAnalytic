@@ -109,7 +109,7 @@
 
                             console.log(sessionStorage.SITUACAO, sessionStorage.FK_EMPRESA, sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
 
-                            if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO == 'ativo') {
+                            if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO == 'Ativo') {
                                 Swal.fire({
                                     title: "Login realizado com sucesso!",
                                     text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
@@ -125,7 +125,7 @@
                                 //     window.location = "./dashboard/dash-diretor.html";
                                 // }, 1000); // apenas para exibir o loading  
 
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO == 'ativo') {
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO == 'Ativo') {
                                 Swal.fire({
                                     title: "Login realizado com sucesso! ",
                                     text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
@@ -138,7 +138,7 @@
                                     }
                                 });
 
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO != 'ativo') {
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO != 'Ativo') {
                                 Swal.fire({
                                     title: "Erro!",
                                     text: "Houve um erro ao tentar realizar o login!",
@@ -151,7 +151,7 @@
                                 //     window.location = "./dashboard/dash-diretor.html";
                                 // }, 1000); // apenas para exibir o loading  
 
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO != 'ativo') {
+                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO != 'Ativo') {
                                 Swal.fire({
                                     title: "Erro!",
                                     text: "Houve um erro ao tentar realizar o login!",
