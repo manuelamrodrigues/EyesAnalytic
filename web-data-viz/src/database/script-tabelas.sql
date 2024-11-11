@@ -291,3 +291,25 @@ INNER JOIN usuario AS e
     ON c.fkEspecialista = e.idUsuario
 INNER JOIN urgencia AS u
     ON c.fkUrgencia = u.idUrgencia;
+
+
+    -- VIEW para os alertas dinamicos
+CREATE OR REPLACE VIEW alertas_detalhados AS
+SELECT 
+    a.idAlerta,
+    a.valorMetrica AS limiteMetrica,
+    d.registro AS valorRegistrado,
+    d.dtHora,
+    m.nomeMaquina,
+    r.nomeRecurso,
+    e.idEmpresa AS empresa
+FROM 
+    alerta AS a
+JOIN 
+    dado_capturado AS d ON a.fkDadoCapturado = d.idDadoCapturado
+JOIN 
+    maquina AS m ON d.fkMaquina = m.idMaquina
+JOIN 
+    recurso AS r ON d.fkRecurso = r.idRecurso
+JOIN 
+    empresa AS e ON m.fkEmpresa = e.idEmpresa;
