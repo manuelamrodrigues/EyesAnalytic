@@ -15,6 +15,10 @@ body {
     /* box-sizing: border-box; */
 }
 
+.alertas {
+    width: 10px;
+}
+
 .chamados {
     width: 90%;
     height: auto;
@@ -40,8 +44,7 @@ body {
 
 }
 
-
-.abrir {
+.abrir{
     width: 80%;
     display: flex;
     align-items: center;
@@ -68,12 +71,12 @@ body {
 }
 
 .frameAlertas h3 {
-    font-weight: 400;
+    font-weight: 700;
     font-size: larger;
 }
 
 .opcao h4 {
-    font-weight: 400;
+    font-weight: 600;
     font-size: medium;
 }
 
@@ -83,18 +86,34 @@ body {
     justify-content: space-around;
     flex-direction: row;
     gap: 10px;
+    
 }
 
-.openModal:hover {
+.openModal {
+    background-color: #fff;
+    border-radius: 7px;
+    border: none;
+    width: 90%;
+    padding: 10px;
+    margin-top: 15px;
+    margin-left: 100px;
+}
+
+.openModal:hover{
     background-color: #08836A;
     /* color: white; */
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 1.0s ease;
-
+    /* cursor: pointer; */
+    border-radius: 7px;
+    border: none;
+    width: 90%;
+    padding: 10px;
+    margin-top: 15px;
+    margin-left: 100px;
+   
     -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
-    margin: 10px 0px 10px 0px;
+    margin-bottom: 10px;
 
 }
 
@@ -116,7 +135,7 @@ body {
 
 
 /* MODAL READ  */
-.modal {
+.modal  {
     display: none;
     /* Oculta o modal por padrão */
     position: fixed;
@@ -151,6 +170,7 @@ body {
 .modal-content h2 {
     font-size: x-large;
     font-weight: 400;
+    color: #000;
     padding: 15px 0px 10px 50px;
 }
 
@@ -443,12 +463,13 @@ body {
     cursor: pointer;
 }
 
-.openModal {
-    background-color: #fff;
-    border-radius: 7px;
-    border: none;
-    width: 97%;
-    padding: 6px;
-    margin-top: 15px;
 
-}
+
+/* TESTE */
+/* Estilos básicos para o modal */
+
+
+/* .hide {
+    display: none;
+} */
+
