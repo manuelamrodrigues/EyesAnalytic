@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #131313;
+}
+
+.button-container {
+    text-align: center;
+}
+
+h1{
+    font-size: 26px;
+}
+
+.back-button {
+    position: fixed;
+    top: 40px;
+    left: 100px;
+    width: 50px;  /* Define a largura do círculo */
+    height: 40px; /* Define a altura do círculo */
+    font-size: 35px; /* Ajusta o tamanho da seta */
+    color: #fff;
+    background-color: #0BA385;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.back-button::before {
+    content: '←';
+    position: relative;
+    padding-bottom: 0.4rem;
+
+}
+
+.back-button:hover {
+    background-color: #025544;
+}
+
+.cadastro {
+    width: 100%;
+    max-width: 400px;
+    max-height: 680px;
+    background-color: #131313;
+    opacity: 0.9;
+    color: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 0 12px 0 #01362c;
+    margin: 0 12px;
+    transition: 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cadastro:hover {
+    box-shadow: 0 4px 8px #025544;
+    transition: 0.5s ease;
+    transform: translateY(-3px);
+}
+
+.cadastro .cadastroTexto {
+    text-align: center;
+    
+}
+
+.cadastro .cadastroTexto img {
+    width: 50px;
+    height: auto;
+}
+
+select.campo {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    color: #868585;
+    border: none;
+    border-bottom: 2px solid #9b9b9b;
+    padding: 5px 0;
+    font-size: 17px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+select.campo:focus {
+    border-bottom-color: white;
+}
+
+select.campo option {
+    background-color: #131313;
+    color: white;
+}
+
+select.campo:disabled {
+    color: #868585;
+}
+
+select.campo::-ms-expand {
+    display: none; 
+}
+
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 330px;
+}
+
+.select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: white;
+    pointer-events: none;
+}
+
+.input {
+    position: relative;
+    padding: 20px 0 0;
+    margin: 3px 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+.campo {
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 17px;
+    color: #fff;
+    padding: 7px 0;
+    margin-bottom: 8px;
+    background: transparent;
+    transition: border-color 0.2s;
+
+}
+
+.campo::placeholder {
+    color: transparent;
+}
+
+.campo:placeholder-shown ~ .caixa {
+    font-size: 18px;
+    cursor: text;
+    top: 20px;
+}
+
+.campo:focus {
+    padding-top: 5px;
+    padding-bottom: 6px;
+    font-weight: 400;
+    border-width: 2px;
+    border-image: white;
+    border-image-slice: 1;
+}
+
+.campo:focus ~ .caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.campo:required,
+.campo:invalid {
+    box-shadow: none;
+}
+
+.caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 16px;
+    color: #868585;
+    pointer-events: none;
+}
+
+.cadastro .esqueceuSenha {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: -6px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.cadastro .esqueceuSenha a {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+}
+
+.cadastro button {
+    margin: 20px 0 0 0;
+    font-weight: 700;
+    width: 58%;
+    padding: 5px 9px;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 1.1em;
+    background-color: #08836a;
+    cursor: pointer;
+    color: white;
+    font-size: 21px;
+    transition: 0.5s;
+    box-shadow: 0 0 15px 0 #455858;
+}
+
+.cadastro button:hover {
+    box-shadow: 0 0 20px 0 #0D5E4E;
+    background-color: #0ba385;
+    transition: 0.8s;
+}
+
+.cadastro button:active {
+    box-shadow: 0 0 10px 0 #053f33;
+    background-color: #053f33;
+    transform: scale(0.95);
+}
+
+.ok {
+    width: 12%;
+    margin-bottom: -12px;
+}
+
+@media (max-width: 768px) {
+    .back-button {
+        font-size: 16px;
+        top: 10px;
+        left: 10px;
+        padding: 5px 8px;
+    }
+
+    .cadastro {
+        max-width: 350px;
+        padding: 25px;
+    }
+
+    .campo {
+        font-size: 15px;
+        padding: 6px 0;
+    }
+
+    .cadastro button {
+        font-size: 20px;
+        padding: 5px 8px;
+    }
+    
+    .select-wrapper::after {
+        right: 5px; 
+    }
+}
+
+@media (max-width: 560px) {
+    .cadastro {
+        width: 100%;
+        max-width: 300px;
+        padding: 20px;
+    }
+
+    .campo {
+        font-size: 13px;
+        padding: 5px 0;
+    }
+
+    .cadastro button {
+        font-size: 18px;
+        padding: 4px 8px;
+    }
+
+    .back-button {
+        font-size: 14px;
+        padding: 4px 6px; 
+    }
+}
+@media (max-width: 420px) {
+    .cadastro {
+        max-width: 250px;
+        padding: 15px;
+    }
+
+    .campo {
+        font-size: 10px;
+        padding: 4px 0;
+    }
+
+    .cadastro button {
+        font-size: 16px;
+        padding: 3px 6px;
+    }
+
+    .back-button {
+        font-size: 12px; 
+        padding: 3px 6px;
+    }
+
+    .select-wrapper::after {
+        right: 3px; 
+    }
+}
