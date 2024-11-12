@@ -342,10 +342,10 @@
                     respostaStatus.innerHTML = element.situacao;
                     status.appendChild(respostaStatus);
 
-                    if (element.situacao === "ativo") {
+                    if (element.situacao === "Ativo") {
                         respostaStatus.style.color = "#029c5e";
                         respostaStatus.style.fontWeight = 800;
-                    } else if (element.situacao === "inativo") {
+                    } else if (element.situacao === "Inativo") {
                         respostaStatus.style.color = "#";
                         respostaStatus.style.fontWeight = 500;
 
@@ -390,7 +390,7 @@
                 status.appendChild(respostaStatus)
                 respostaStatus.innerHTML = resposta[0].situacao
                 var buttons = document.createElement("div")
-                if (resposta[0].situacao == "ativo") {
+                if (resposta[0].situacao == "Ativo") {
                     respostaStatus.style.color = "#029c5e";
                     respostaStatus.style.fontWeight = 700;
                     informacao.appendChild(buttons)

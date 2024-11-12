@@ -47,7 +47,7 @@ function buscarPorId(idUsuario){
 
 function desativarFunc(idUsuario){
     var instrucaoSql = `
-    UPDATE usuario SET situacao = "inativo" WHERE idUsuario = ${idUsuario}
+    UPDATE usuario SET situacao = "Inativo" WHERE idUsuario = ${idUsuario}
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
