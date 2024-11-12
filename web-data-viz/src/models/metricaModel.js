@@ -7,7 +7,7 @@ function cadastrar(idRecurso, valorMetrica) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
    const instrucao = `
-        INSERT INTO metrica_view (idRecurso, valorMetrica) VALUES ('${idRecurso}', '${valorMetrica}');
+        INSERT INTO metrica (idRecurso, valorMetrica) VALUES ('${idRecurso}', '${valorMetrica}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

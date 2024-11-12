@@ -2,15 +2,12 @@ var metricaModel = require("../models/metricaModel");
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var idMetrica = req.params.idMetrica;
-    var valorMetrica = req.params.valorMetricaServer;
-    var idRecurso = req.params.idRecursoServer;
+    var valorMetrica = req.body.valorMetrica;
+    var idRecurso = req.body.idRecurso;
     
 
     // Faça as validações dos valores
-    if (idMetrica == undefined) {
-        res.status(400).send("idMetrica está undefined!");
-    } else if (valorMetrica == undefined) {
+    if (valorMetrica == undefined) {
         res.status(400).send("valor metrica está undefined!");
     } else if (idRecurso == undefined) {
         res.status(400).send("idRecurso está undefined!");
@@ -18,7 +15,7 @@ function cadastrar(req, res) {
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        metricaModel.cadastrar(idMetrica, valorMetrica, idRecurso)
+        metricaModel.cadastrar(valorMetrica, idRecurso)
             .then(
                 function (resultado) {
                     res.json(resultado);

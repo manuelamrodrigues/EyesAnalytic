@@ -381,6 +381,33 @@ frameAlertas p {
 
 .valor-card{
   padding-left: 10px;
+  color: black;
+}
+
+.icons{
+  display: flex;
+}
+
+
+
+
+.conteudo-card:hover h3,
+.conteudo-card:hover h4,
+.conteudo-card:hover p,
+.iconEdit:hover svg,
+.iconTrash:hover svg {
+    color: white;
+    fill: white;
+    cursor: pointer;
+
+}
+
+.conteudo-card:hover .iconEdit svg path,
+.conteudo-card:hover .iconTrash svg path {
+    fill: white;
+    color: white;
+    visibility: visible;
+    
 }
 
 
