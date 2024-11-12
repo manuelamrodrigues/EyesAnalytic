@@ -10,9 +10,10 @@
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
     <script src="../js/aside-menu.js"></script>
     <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <!-- onload="validarSessao()" -->
-<body>
+<body onload="obterDadosGrafico()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -95,6 +96,21 @@
             <section class="grafico-section">
                 <h2>Gráficos de uso em porcentagem (%)</h2>
                 <h3>CPU</h3>
+                <!-- <div id="graficoCPU" class="display-none">
+                    <h3 class="tituloGraficos">
+                        <span id="tituloAquarioCPU">Gráfico de Uso da CPU</span>
+                    </h3>
+                    <div class="graph">
+                        <canvas id="myChartCanvasCPU"></canvas>
+                    </div>
+                    <div class="label-captura">
+                        <p id="avisoCapturaCPU" style="color: white"></p>
+                    </div>
+                </div> -->
+                <canvas id="myChartCanvasCPU" width="400" height="200"></canvas>
+                <canvas id="myChartCanvasRAM" width="400" height="200"></canvas>
+
+                
                 <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
                 <h3>RAM</h3>
                 <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
@@ -207,88 +223,206 @@
         </div>
 
         </section>
-        </div>
-    </main>
+    </div>
+</main>
 
 </body>
 
 </html>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 <script>
-    const ctx1 = document.getElementById('CpuChart').getContext('2d');
-    const ctx2 = document.getElementById('RamChart').getContext('2d');
-    const ctx3 = document.getElementById('RedeChart').getContext('2d');
-    const data1 = {
-        labels: ["23:06:20", "23:06:25", "23:06:30",
-            "23:06:35", "23:06:40", "23:06:45",
-            "23:06:50", "23:06:55", "23:07:00",
-            "23:07:05", "23:07:10"],
-        datasets: [{
-            label: 'Uso de CPU (%)',
-            data: [0, 0, 0, 0, 1.5, 2.5, 35, 50, 100, 25, 0.2],
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-            fill: false
-        }]
+    var labels =[]
+    var data = []
+    // Função para obter os dados em tempo real para o gráfico de CPU
+    function obterDadosGraficoCPU() {
+        fetch(`/medidas/uso-cpu/1`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos para CPU: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();  // Inverter a ordem para exibir os dados de forma cronológica
+                    
+                    // Plotar ou atualizar o gráfico de CPU com os dados recebidos
+                    atualizarGraficoCPU(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API para CPU');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para gráfico de CPU: ${error.message}`);
+        });
     }
-    const data2 = {
-        labels: ["23:06:20", "23:06:25", "23:06:30",
-            "23:06:35", "23:06:40", "23:06:45",
-            "23:06:50", "23:06:55", "23:07:00",
-            "23:07:05", "23:07:10"],
-        datasets: [{
-            label: 'Uso de RAM (%)',
-            data: [50, 70, 75, 90, 100, 75, 60, 60, 60, 55, 40],
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-            fill: false
-        }]
+    
+    // Função para atualizar o gráfico de CPU
+    function atualizarGraficoCPU(resposta) {
+        console.log('Atualizando gráfico de CPU...');
+        console.log(resposta)
+        
+        // Criando estrutura para o gráfico de CPU - labels (momentos)
+        let dadosCPU = {
+            labels: labels,
+            datasets: [{
+                label: 'Uso da CPU (%)',
+                data: data,
+                borderColor: 'rgb(75, 192, 192)',  // Cor da linha de CPU
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Cor de fundo da linha
+                fill: false,  // Não preencher a área abaixo da linha
+                tension: 0.1  // Suavização da linha
+            }]
+        };
+
+        // Inserindo os valores de uso de CPU no gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            let registro = resposta[i];
+
+            // Adicionando o momento e o valor do uso de CPU
+            labels.push(registro.momento_grafico);  // Momento formatado
+            dadosCPU.datasets[0].data.push(registro.uso_cpu);  // Percentual de uso de CPU
+        }
+
+        // Configuração do gráfico de CPU
+        const configCPU = {
+            type: 'line',  // Tipo de gráfico (linha)
+            data: dadosCPU,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'category',
+                        labels: labels,
+                        title: {
+                            display: true,
+                            text: 'Tempo'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Uso (%)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        };
+
+        // Verifica se o gráfico já foi criado, se sim, apenas atualiza o gráfico
+        if (window.myChartCPU) {
+            window.myChartCPU.data = dadosCPU.data; // Atualiza os dados
+            window.myChartCPU.update(); // Atualiza o gráfico
+        } else {
+            // Caso o gráfico ainda não tenha sido criado, cria um novo
+            window.myChartCPU = new Chart(
+                document.getElementById('myChartCanvasCPU'),  // O id do seu canvas de CPU
+                configCPU
+            );
+        }
     }
-    const data3 = {
-        labels: ["23:06:20", "23:06:25", "23:06:30",
-            "23:06:35", "23:06:40", "23:06:45",
-            "23:06:50", "23:06:55", "23:07:00",
-            "23:07:05", "23:07:10"],
-        datasets: [{
-            label: 'Pacotes Recebidos',
-            data: [1000, 1110, 2000, 1800, 1200, 1330, 2000, 1300, 1450, 1500, 1000],
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-            fill: false
-        }]
+
+    // Função para obter os dados em tempo real para o gráfico de RAM
+    function obterDadosGraficoRAM() {
+        fetch(`/medidas/uso-ram/1`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos para RAM: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();  // Inverter a ordem para exibir os dados de forma cronológica
+
+                    // Plotar ou atualizar o gráfico de RAM com os dados recebidos
+                    atualizarGraficoRAM(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API para RAM');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para gráfico de RAM: ${error.message}`);
+        });
     }
-    const config1 = {
-        responsive: false,
-        maintainAspectRatio: false,
-        type: 'line',
-        data: data1,
-        options: {
-            responsive: true,
 
-        }
-    };
-    const config2 = {
-        responsive: false,
-        maintainAspectRatio: false,
-        type: 'line',
-        data: data2,
-        options: {
-            responsive: true,
+    // Função para atualizar o gráfico de RAM
+    function atualizarGraficoRAM(resposta) {
+        console.log('Atualizando gráfico de RAM...');
 
-        }
-    };
-    const config3 = {
-        responsive: false,
-        maintainAspectRatio: false,
-        type: 'line',
-        data: data3,
-        options: {
-            responsive: true,
+        // Criando estrutura para o gráfico de RAM - labels (momentos)
+        let labels = [];
+        let dadosRAM = {
+            labels: labels,
+            datasets: [{
+                label: 'Uso da RAM (%)',
+                data: [],
+                borderColor: 'rgb(54, 162, 235)',  // Cor da linha de RAM
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',  // Cor de fundo da linha
+                fill: false,  // Não preencher a área abaixo da linha
+                tension: 0.1  // Suavização da linha
+            }]
+        };
 
+        // Inserindo os valores de uso de RAM no gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            let registro = resposta[i];
+
+            // Adicionando o momento e o valor do uso de RAM
+            labels.push(registro.momento_grafico);  // Momento formatado
+            dadosRAM.datasets[0].data.push(registro.uso_ram);  // Percentual de uso de RAM
         }
-    };
-    const cpuChart = new Chart(ctx1, config1)
-    const ramChart = new Chart(ctx2, config2)
-    const redeChart = new Chart(ctx3, config3)
+
+        // Configuração do gráfico de RAM
+        const configRAM = {
+            type: 'line',  // Tipo de gráfico (linha)
+            data: dadosRAM,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'category',
+                        labels: labels,
+                        title: {
+                            display: true,
+                            text: 'Tempo'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Uso (%)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        };
+
+        // Verifica se o gráfico já foi criado, se sim, apenas atualiza o gráfico
+        if (window.myChartRAM) {
+            window.myChartRAM.data = dadosRAM.data; // Atualiza os dados
+            window.myChartRAM.update(); // Atualiza o gráfico
+        } else {
+            // Caso o gráfico ainda não tenha sido criado, cria um novo
+            window.myChartRAM = new Chart(
+                document.getElementById('myChartCanvasRAM'),  // O id do seu canvas de RAM
+                configRAM
+            );
+        }
+    }
+
+    // Função que chama as duas funções para obter dados e atualizar os gráficos em intervalos de tempo
+    function iniciarGraficoEmTempoReal() {
+        // Atualiza os gráficos a cada 5 segundos
+        setInterval(() => {
+            obterDadosGraficoCPU(); // Atualiza o gráfico de CPU
+            obterDadosGraficoRAM(); // Atualiza o gráfico de RAM
+        }, 5000); // 5000ms = 5 segundos
+    }
+
+    // Inicia a atualização dos gráficos em tempo real quando a página é carregada
+    window.onload = iniciarGraficoEmTempoReal;
 </script>
