@@ -11,4 +11,9 @@ router.get("/tempo-real/:idAquario", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+// Nova rota para obter os indicadores
+router.get("/captura/indicadores", function (req, res) {
+    medidaController.obterIndicadores(req, res);
+});
+
 module.exports = router;

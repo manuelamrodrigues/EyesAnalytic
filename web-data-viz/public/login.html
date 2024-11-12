@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,222 +10,128 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:wght@100..900&display=swap" rel="stylesheet">
     <title>Login | EyesAnalytic</title>
 </head>
 
 <body>
     <div class="button-container">
-    <a href="./index.html" class="back-button"></a>
+        <a href="./index.html" class="back-button"></a>
     </div>
 
     <div class="login">
-
         <div class="loginTexto">
             <a href="index.html"><img src="./assets/svg/Logo.svg" alt="logo"></a>
             <h1>Login</h1>
         </div>
 
         <div class="input field">
-            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
-            <label for="name" class="caixa">E-mail</label>
+            <input type="email" class="campo" placeholder="E-mail" required id="email_input" autocomplete="off">
+            <label for="email_input" class="caixa">E-mail</label>
         </div>
 
         <div class="input field">
-            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
-            <label for="name" class="caixa">Senha</label>
+            <input type="password" class="campo" placeholder="Senha" required id="senha_input" autocomplete="off">
+            <label for="senha_input" class="caixa">Senha</label>
         </div>
 
-        <!-- 
-        <div class="esqueceuSenha">
-            <a href="./esqueceu-senha.html">Esqueceu a senha?</a>
-        </div> -->
-        <!-- <div class="esqueceuSenha">
-            <a href="./cadastrar-tecnico.html">Crie sua conta</a>
-        </div> -->
-
         <div id="error-message" style="color: red; display: none;"></div>
-
         <button type="submit" onclick="entrar()">Entrar</button>
     </div>
 
-</body>
+    <script>
+        function entrar() {
+            const emailVar = email_input.value;
+            const senhaVar = senha_input.value;
+            const errorMessage = document.getElementById("error-message");
 
-</html>
-
-<script>
-
-    function entrar() {
-
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        var errorMessage = document.getElementById("error-message");
-
-
-        if (emailVar === "" || senhaVar === "") {
-            Swal.fire({
-                title: "Falha! ",
-                text: "Por favor, preencha todos os campos!",
-                icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor vermelha do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
-                timerProgressBar: true
-            });
-            return;
-            console.log("Seu erro bateu na Validação do If")
-
-        } else {
-
+            if (emailVar === "" || senhaVar === "") {
+                Swal.fire({
+                    title: "Falha!",
+                    text: "Por favor, preencha todos os campos!",
+                    icon: "error",
+                    confirmButtonColor: '#4CAF50',
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+                return;
+            }
 
             fetch("/usuarios/autenticar", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    emailServer: emailVar,
-                    senhaServer: senhaVar
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ emailServer: emailVar, senhaServer: senhaVar })
             })
-                .then(function (resposta) {
-                    if (resposta.ok) {
-                        console.log(resposta)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Credenciais inválidas.");
+                }
+            })
+            .then(json => {
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nome;
+                sessionStorage.SITUACAO = json.situacao;
+                sessionStorage.ID_USUARIO = json.idUsuario;
+                sessionStorage.FK_TIPO_USUARIO = json.fkTipoUsuario;
+                sessionStorage.FK_EMPRESA = json.fkEmpresa;
 
+                const nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
 
-                        resposta.json().then(json => {
-                            console.log(json);
-                            console.log(JSON.stringify(json));
-
-                            sessionStorage.EMAIL_USUARIO = json.email;
-                            sessionStorage.NOME_USUARIO = json.nome;
-                            sessionStorage.SITUACAO = json.situacao;
-                            sessionStorage.ID_USUARIO = json.idUsuario;
-                            sessionStorage.FK_TIPO_USUARIO = json.fkTipoUsuario;
-                            sessionStorage.FK_EMPRESA = json.fkEmpresa;
-
-
-                            console.log(sessionStorage.SITUACAO, sessionStorage.FK_EMPRESA, sessionStorage.ID_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.FK_TIPO_USUARIO, sessionStorage.EMAIL_USUARIO)
-
-                            if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO == 'ativo') {
-                                Swal.fire({
-                                    title: "Login realizado com sucesso!",
-                                    text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
-                                    icon: "success",
-                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        window.location = "./dashboard/dash-diretor.html"; // Redireciona após o tempo
-                                    }
-                                });
-                                // setTimeout(function () {
-                                //     window.location = "./dashboard/dash-diretor.html";
-                                // }, 1000); // apenas para exibir o loading  
-
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO == 'ativo') {
-                                Swal.fire({
-                                    title: "Login realizado com sucesso! ",
-                                    text: "Olá " + sessionStorage.getItem("NOME_USUARIO") + "!",
-                                    icon: "success",
-                                    confirmButtonColor: '#4CAF50', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        window.location = "./dashboard/dash-especialista.html"; // Redireciona após o tempo
-                                    }
-                                });
-
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO != 'ativo') {
-                                Swal.fire({
-                                    title: "Erro!",
-                                    text: "Houve um erro ao tentar realizar o login!",
-                                    icon: "error",
-                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                                // setTimeout(function () {
-                                //     window.location = "./dashboard/dash-diretor.html";
-                                // }, 1000); // apenas para exibir o loading  
-
-                            } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO != 'ativo') {
-                                Swal.fire({
-                                    title: "Erro!",
-                                    text: "Houve um erro ao tentar realizar o login!",
-                                    icon: "error",
-                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                            } else if ((sessionStorage.FK_TIPO_USUARIO != 1 || sessionStorage.FK_TIPO_USUARIO != 2)) {
-                                Swal.fire({
-                                    // title: "!",
-                                    text: "Credenciais inválidas. Por favor, tente novamente.",
-                                    icon: "warning",
-                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                                // setTimeout(function () {
-                                //     window.location = "./dashboard/dash-diretor.html";
-                                // }, 1000); // apenas para exibir o loading  
-                            } else {
-                                Swal.fire({
-                                    title: "Erro!",
-                                    text: "Houve um erro ao tentar realizar o login!",
-                                    icon: "error",
-                                    confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                    timer: 2000, // Tempo antes de fechar automaticamente
-                                    timerProgressBar: true
-                                });
-                                // alert("Houve um erro ao tentar realizar o login!");
-                                console.log("Houve um erro ao tentar realizar o login!");
-                                // return resposta.json();
-
-                            }
-                        })
-                    } else {
-                        console.error(erro);
-                        Swal.fire({
-                            title: "Credenciais inválidas!",
-                            text: "Sua conta ou senha está incorreta. Por favor, tente novamente!",
-                            icon: "warning",
-                            confirmButtonColor: '#f44336', // Cor vermelha do botão
-                            timer: 2000, // Tempo antes de fechar automaticamente
-                            timerProgressBar: true
-                        });
-                        // errorMessage.style.display = "block";
-                        errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
-                    }
-                })
-                .catch(function (erro) {
-                    console.error(erro);
+                if (sessionStorage.FK_TIPO_USUARIO == 1 && sessionStorage.SITUACAO === 'Ativo') {
                     Swal.fire({
-                        title: "Credenciais inválidas!",
-                        text: "Sua conta ou senha está incorreta. Por favor, tente novamente!",
-                        icon: "warning",
-                        confirmButtonColor: '#f44336', // Cor vermelha do botão
-                        timer: 2000, // Tempo antes de fechar automaticamente
+                        title: "Login realizado com sucesso!",
+                        text: `Olá ${nomeUsuario}!`,
+                        icon: "success",
+                        confirmButtonColor: '#4CAF50',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => window.location = "./dashboard/dash-diretor.html"
+                    });
+                } else if (sessionStorage.FK_TIPO_USUARIO == 2 && sessionStorage.SITUACAO === 'Ativo') {
+                    Swal.fire({
+                        title: "Login realizado com sucesso!",
+                        text: `Olá ${nomeUsuario}!`,
+                        icon: "success",
+                        confirmButtonColor: '#4CAF50',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => window.location = "./dashboard/dash-especialista.html"
+                    });
+                } else if (sessionStorage.SITUACAO !== 'Inativo') {
+                    Swal.fire({
+                        title: "Usuário inativo",
+                        text: "Esse usuário foi inativado",
+                        icon: "error",
+                        confirmButtonColor: '#f44336',
+                        timer: 2000,
                         timerProgressBar: true
                     });
-                    // errorMessage.style.display = "block";
-                    errorMessage.innerText = "Credenciais inválidas. Por favor, tente novamente.";
+                } else {
+                    Swal.fire({
+                        text: "Credenciais inválidas. Por favor, tente novamente.",
+                        icon: "warning",
+                        confirmButtonColor: '#f44336',
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Erro no login:", error);
+                Swal.fire({
+                    title: "Credenciais inválidas!",
+                    text: "Sua conta ou senha está incorreta. Por favor, tente novamente!",
+                    icon: "warning",
+                    confirmButtonColor: '#f44336',
+                    timer: 2000,
+                    timerProgressBar: true
                 });
-            return false;
+                errorMessage.style.display = "block";
+                errorMessage.innerText = error.message;
+            });
         }
-    }
-
-
-
-    // function mostrarsenha() {
-    //     var senhaInput = document.getElementById("senha_input");
-    //     if (senhaInput.type === "password") {
-    //         senhaInput.type = "text";
-    //     } else {
-    //         senhaInput.type = "password";
-    //     }
-    // }
-
-</script>
+    </script>
+</body>
+</html>

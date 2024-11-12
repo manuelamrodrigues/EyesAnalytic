@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | EyesAnalytic</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
     <script src="../js/aside-menu.js"></script>
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
-
+    <script src="../js/sessao.js"></script>
 </head>
 
-<body onabort=" iniciarAtualizacao()">
-   
-  <aside id="aside-menu">
+<body onload="validarSessao(); iniciarAtualizacao(); atualizarIndicadores();">
+
+    <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
@@ -51,14 +51,14 @@
                 </li>
             </a>
 
-            <a href="../chamados-diretor.html" class="outros">
+            <a href="./metricas-diretor.html" class="outros">
                 <li>
-                    <img src="../assets/svg/chamados.svg" alt="Chamados">
-                    <span>Chamados</span>
+                    <img src="./assets/svg/chamados.svg" alt="Chamados">
+                    <span>Métricas</span>
                 </li>
             </a>
 
-            <a href="../index.html" class="outros">
+            <a onclick="limparSessao()" class="outros">
                 <li >
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
@@ -90,303 +90,159 @@
 
         </div>
     </aside>
-    <div id="fade" class="hide"></div>
-
     <main>
+        <!-- Indicadores Section -->
         <header class="barraSuperior">
             <div class="numPerct">
                 <p class="titlePcrt">Quantidade Máquina</p>
-                <p class="nmrPcrt">10</p>
+                <p class="nmrPcrt" id="quantidade-maquina">0</p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Máquinas Conectadas</p>
-                <p class="nmrPcrt">7</p>
+                <p class="nmrPcrt" id="maquinas-conectadas">0</p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Alertas Recentes</p>
-                <p class="nmrPcrt">3</p>
+                <p class="nmrPcrt" id="alertas-recentes">0</p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Mbps de Upload</p>
-                <p class="nmrPcrt">9.5</p>
+                <p class="nmrPcrt" id="mbps-upload">0</p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Mbps de Download</p>
-                <p class="nmrPcrt">9.5</p>
+                <p class="nmrPcrt" id="mbps-download">0</p>
             </div>
-
         </header>
-        
+
+        <!-- Graph Section -->
         <section class="dash">
             <article class="topoGrafico">
-                <h3>Uso médio dos Componentes</h3>
+                <h3>Uso dos Componentes</h3>
                 <div class="botoesGrafico">
-                    <div class="periodo" id="periodo">
-                        <select class="opcao" id="funcionario">
-                            <option disabled selected value="">Semanal</option>
-                            <option value="">Mensal</option>
-                            <option value="">Bimestral</option>
-                            <option value="">Semestral</option>
+                    <div class="periodo">
+                        <select id="periodo" class="opcao" onchange="atualizarGrafico()">
+                            <option value="semanal" selected>Semanal</option>
+                            <option value="mensal">Mensal</option>
+                            <option value="bimestral">Bimestral</option>
+                            <option value="semestral">Semestral</option>
                         </select>
-                      
-                        
-                        <!-- Semanal <i class="fas fa-chevron-down" id="seta"></i> Ícone de seta -->
                     </div>
-                    <!-- <ul id="dropdown" class="dropdown hide">
-                        <li class="option">Mensal</li>
-                        <li class="option">Bimestral</li>
-                        <li class="option">Semestral</li>
-                    </ul> -->
-                    
-                    <div class="componentes" id="componentes">
-                        <select class="opcao" id="funcionario">
-                            <option disabled selected value="">CPU</option>
-                            <option value="">Disco</option>
-                            <option value="">Memória</option>
-                            <option value="">Rede</option>
+                    <div class="componentes">
+                        <select id="componentes" class="opcao" onchange="atualizarGrafico()">
+                            <option value="cpu" selected>CPU</option>
+                            <option value="disco">Disco</option>
+                            <option value="memoria">Memória</option>
                         </select>
-                      
-                        <!-- CPU <i class="fas fa-chevron-down" id="seta"></i> 
                     </div>
-                    <ul id="componentesDropdown" class="dropdown hide">
-                        <li class="option">Disco</li>
-                        <li class="option">Memória RAM</li>
-                        <li class="option">Rede</li> -->
-                        <!-- <li class="option">Rede</li> -->
-                    </ul>
-                    
-                        
-                    
                 </div>
             </article>
             <div class="grafico">
-                <canvas id="myChartCanvas" class="canvas"></canvas>
-                
-                
+                <canvas id="myChartCanvas"></canvas>
             </div>
-            
         </section>
-
-        <section class="chamados"></section>
-            <!-- <article class="alertas">
-                <h2>Alertas Recentes</h2>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-
-            </article> -->
-        </section>
-
- 
-
-        
     </main>
 </body>
 
-</html>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const menuHamburguer = document.getElementById('menu-hamburguer');
-        const navLinks = document.getElementById('navLinks');
 
-        // Alterna a classe "active" no menu de navegação
-        menuHamburguer.addEventListener('click', () => {
-            console.log("EU ESTOU OBSERVANDO..")
-            navLinks.classList.toggle('active');
-            menuHamburguer.classList.toggle('open');
-        });
-
-        // Iniciar a plotagem do gráfico quando a página carregar
-        iniciarAtualizacao();
-    });
-
-    // Função para iniciar a atualização do gráfico e definir o intervalo de 2 minutos
-    function iniciarAtualizacao() {
-        obterDadosGrafico().then(() => {
-            setInterval(obterDadosGrafico, 120000); // Atualiza a cada 2 minutos
-        });
-    }
-
-    // Função para obter dados do gráfico
-    async function obterDadosGrafico() {
+    async function atualizarIndicadores() {
         try {
-            let response = await fetch("/captura/capturar", { method: "GET" });
+            const response = await fetch(`/medidaController/obterIndicadores`, { method: "GET" });
             if (response.ok) {
-                let json = await response.json();
-                plotarGrafico(json);
+                const indicadores = await response.json();
+                document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
+                document.getElementById("maquinas-conectadas").textContent = indicadores.maquinasConectadas || 0;
+                document.getElementById("alertas-recentes").textContent = indicadores.alertasRecentes || 0;
+                document.getElementById("mbps-upload").textContent = indicadores.upload || 0;
+                document.getElementById("mbps-download").textContent = indicadores.download || 0;
             } else {
-                let texto = await response.text();
-                console.error("Houve um erro ao tentar realizar o obterDadosGrafico!", texto);
+                console.error("Erro ao obter indicadores:", await response.text());
             }
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao buscar indicadores:", erro);
+        }
+    }
+    
+    let myChart;
+
+    function iniciarAtualizacao() {
+        atualizarGrafico();
+        setInterval(atualizarGrafico, 120000); // Atualiza a cada 2 minutos
+    }
+
+    async function atualizarGrafico() {
+        const componente = document.getElementById("componentes").value;
+        const periodo = document.getElementById("periodo").value;
+        const dados = await obterDadosGrafico(componente, periodo);
+        plotarGrafico(dados, componente);
+    }
+
+    async function obterDadosGrafico(componente, periodo) {
+        try {
+            let response = await fetch(`/medidaController/${componente}/${periodo}`, { method: "GET" });
+            if (response.ok) {
+                return await response.json();
+            } else {
+                console.error("Erro ao obter dados do gráfico:", await response.text());
+                return { labels: [], data: [] };
+            }
+        } catch (erro) {
+            console.error("Erro ao buscar dados:", erro);
+            return { labels: [], data: [] };
         }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-    // Defina quantos valores você deseja gerar
-    const quantidadeValores = 10;
-    const valores = [];
-    const labels = [];
+    function plotarGrafico(dados, componente) {
+        const labels = dados.labels || [];
+        const valores = dados.data || [];
+        const cores = {
+            cpu: '#08836A',
+            disco: '#08836A',
+            memoria: '#08836A'
+        };
+        const titulos = {
+            cpu: 'Uso de CPU (%)',
+            disco: 'Uso de Disco (%)',
+            memoria: 'Uso de Memória (%)'
+        };
 
-    // Gera valores aleatórios para o gráfico
-    for (let i = 0; i < quantidadeValores; i++) {
-        const valorAleatorio = Math.random() * 100; // Gera um valor aleatório entre 0 e 100
-        valores.push(valorAleatorio.toFixed(2)); // Adiciona o valor no array
-        labels.push(`Label ${i + 1}`); // Cria um label (pode ser a data ou algo mais específico)
-    }
+        if (myChart) {
+            myChart.destroy();
+        }
 
-    // Pega o contexto do canvas onde o gráfico será renderizado
-    const ctx = document.getElementById('myChartCanvas').getContext('2d');
-
-    // Configuração do gráfico
-    const config = {
-        type: 'line', // Define o tipo de gráfico (linha)
-        data: {
-            labels: labels, // Usa os labels gerados
-            datasets: [{
-                label: 'Uso de CPU (%)', // Título do gráfico
-                data: valores, // Dados gerados aleatoriamente
-                borderWidth: 4,
-                borderColor: '#08836A',
-                backgroundColor: '#ffff',
-                
-            }]
-        },
-         options: {
-        scales: {
-            x: {
-                grid: {
-                    color: 'black', // Cor da linha do eixo X
-                },
-                ticks: {
-                    color: 'black' // Cor dos rótulos do eixo X
-                }
+        const ctx = document.getElementById("myChartCanvas").getContext("2d");
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: titulos[componente],
+                    data: valores,
+                    borderWidth: 4,
+                    borderColor: cores[componente],
+                    backgroundColor: '#fff'
+                }]
             },
-            y: {
-                beginAtZero: true, // Faz o gráfico começar em 0 no eixo Y
-                grid: {
-                    color: 'black', // Cor da linha do eixo Y
+            options: {
+                scales: {
+                    x: {
+                        grid: { color: 'black' },
+                        ticks: { color: 'black' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'black' },
+                        ticks: { color: 'black' }
+                    }
                 },
-                ticks: {
-                    color: 'black' // Cor dos rótulos do eixo Y
-                }
-            }
-        },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#000',
-                        font: {
-                            size: 14
-                        }
+                plugins: {
+                    legend: {
+                        labels: { color: '#000', font: { size: 14 } }
                     }
                 }
             }
-        }
-    };
-
-    // Renderiza o gráfico usando Chart.js
-    new Chart(ctx, config);
-});
-
-// Abrir e fechar o dropdown ao clicar na div "periodo"
-document.getElementById("periodo").addEventListener("click", function (event) {
-    var dropdown = document.getElementById("dropdown");
-    dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
-    event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
-});
-
-// Fechar o dropdown ao clicar fora da div "periodo" ou do menu
-document.addEventListener("click", function () {
-    var dropdown = document.getElementById("dropdown");
-    dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
-});
-
-// Detectar quando o usuário seleciona uma opção do dropdown
-document.querySelectorAll("#dropdown .option").forEach(function (item) {
-    item.addEventListener("click", function () {
-        var selectedText = this.textContent;
-
-        // Atualiza o texto dentro da div "periodo"
-        var periodoDiv = document.getElementById("periodo");
-        var currentText = periodoDiv.textContent;
-
-        // Atualiza a lista de opções
-        this.textContent = currentText; // A opção selecionada vira a anterior
-        periodoDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
-
-        // Fecha o dropdown após a seleção
-        document.getElementById("dropdown").classList.add("hide");
-    });
-});
-
-// *** Repetindo o mesmo para os "Componentes" ***
-
-// Abrir e fechar o dropdown ao clicar na div "componentes"
-document.getElementById("componentes").addEventListener("click", function (event) {
-    var dropdown = document.getElementById("componentesDropdown");
-    dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
-    event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
-});
-
-// Fechar o dropdown ao clicar fora da div "componentes" ou do menu
-document.addEventListener("click", function () {
-    var dropdown = document.getElementById("componentesDropdown");
-    dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
-});
-
-// Detectar quando o usuário seleciona uma opção do dropdown "componentes"
-document.querySelectorAll("#componentesDropdown .option").forEach(function (item) {
-    item.addEventListener("click", function () {
-        var selectedText = this.textContent;
-
-        // Atualiza o texto dentro da div "componentes"
-        var componentesDiv = document.getElementById("componentes");
-        var currentText = componentesDiv.textContent;
-
-        // Atualiza a lista de opções
-        this.textContent = currentText; // A opção selecionada vira a anterior
-        componentesDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
-
-        // Fecha o dropdown após a seleção
-        document.getElementById("componentesDropdown").classList.add("hide");
-    });
-});
+        });
+    }
 </script>
+</html>
