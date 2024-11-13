@@ -15,6 +15,14 @@ router.get("/listar/:idEmpresa", function(req,res){
 })
 // feito :>
 
+router.get("/listarPorId/:idMetrica", function(req,res){
+    metricaController.listarPorId(req,res)
+})
+
+// router.get("/listarComponentes", function(req,res){
+//     metricaController.listarComponentes(req,res)
+// })
+
 //Recebendo os dados do html e direcionando para a função delete de metricaController
 router.delete("/desativarMetrica/:idMetrica", function(req,res){
     metricaController.desativarMetrica(req,res)

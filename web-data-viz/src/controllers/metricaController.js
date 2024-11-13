@@ -4,7 +4,7 @@ function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var valorMetrica = req.body.valorMetrica;
     var idRecurso = req.body.idRecurso;
-    
+
 
     // Faça as validações dos valores
     if (valorMetrica == undefined) {
@@ -36,6 +36,44 @@ function cadastrar(req, res) {
 function listar(req, res) {
     var idEmpresa = req.params.idEmpresa
     metricaModel.listar(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+// function listar() {
+//     fetch("/metricas/listar", {
+//         method: "GET",
+//     })
+//         .then(function (resposta) {
+//             resposta.json().then((metricas) => {
+//                 const listaComponentes = document.getElementById("listaComponentes");
+//                 metricas.forEach((metrica) => {
+//                     listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+//                 });
+//             });
+//         });
+// }
+
+
+// function listarComponentes(req, res) {
+   
+//     metricaModel.listarlistarComponentes()
+//         .then(function (resultado) {
+//             res.status(200).json(resultado)
+//         }).catch(function (erro) {
+//             console.log(erro)
+//             res.status(500).json(erro.sqlMessage)
+//         })
+// }
+
+
+function listarPorId(req, res) {
+    var idMetrica = req.params.idMetrica
+    metricaModel.listarPorId(idMetrica)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
@@ -85,6 +123,7 @@ function alterarMetrica(req, res) {
 module.exports = {
     cadastrar,
     listar,
+    listarPorId,
     desativarMetrica,
     alterarMetrica
 }

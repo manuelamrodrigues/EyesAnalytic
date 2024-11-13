@@ -24,12 +24,32 @@ function listar(idEmpresa){
 }
 // feito :>
 
+function listarPorId(idMetrica){
+    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar():", idMetrica);
+    const instrucao = `
+    SELECT * FROM metrica_view WHERE idMetrica = ${idMetrica}; 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao)
+}
+
+// function listarComponentes(idMetrica){
+//     console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar():", idMetrica);
+//     const instrucao = `
+//     SELECT * FROM metrica_view WHERE idMetrica = ${idMetrica}; 
+//     `
+//     console.log("Executando a instrução SQL: \n" + instrucao);
+//     return database.executar(instrucao)
+// }
+
+
+
 
 
 function desativarMetrica(idMetrica){
     console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function desativarMetrica():", idMetrica);
     const instrucao = `
-    DELETE FROM metrica_view WHERE idMetrica = ${idMetrica}
+    DELETE FROM metrica WHERE idMetrica = ${idMetrica}
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -39,7 +59,7 @@ function desativarMetrica(idMetrica){
 function alterarMetrica(idRecurso, valorMetrica, idMetrica){
     console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function alterarMetrica():", idRecurso, valorMetrica, idMetrica);
     const instrucao = `
-    UPDATE metrica_view SET idRecurso = '${idRecurso}', valorMetrica = '${valorMetrica}' WHERE idMetrica = ${idMetrica}
+    UPDATE metrica SET idRecurso = '${idRecurso}', valorMetrica = '${valorMetrica}' WHERE idMetrica = ${idMetrica}
     `
     return database.executar(instrucao)
 }
@@ -48,6 +68,7 @@ function alterarMetrica(idRecurso, valorMetrica, idMetrica){
 module.exports = {
     cadastrar,
     listar,
+    listarPorId,
     desativarMetrica,
     alterarMetrica
 
