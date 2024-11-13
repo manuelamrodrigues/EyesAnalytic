@@ -43,6 +43,18 @@ function listar(req, res) {
             res.status(500).json(erro.sqlMessage)
         })
 }
+//listarCadastro
+
+function listar(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    metricaModel.listar(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
 
 
 function desativarMetrica(req, res) {
