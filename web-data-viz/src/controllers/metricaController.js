@@ -4,6 +4,7 @@ function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var valorMetrica = req.body.valorMetricaServer;
     var fkRecurso = req.body.fkRecurso;
+    var fkEmpresa = req.body.fkEmpresa;
 
 
     // Faça as validações dos valores
@@ -11,11 +12,13 @@ function cadastrar(req, res) {
         res.status(400).send("valor metrica está undefined!");
     } else if (fkRecurso == undefined) {
         res.status(400).send("fkRecurso está undefined!");
+    }else if (fkEmpresa == undefined){
+        res.status(400).send("fkEmpresa está undefined!");
     }
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        metricaModel.cadastrar(fkRecurso, valorMetrica)
+        metricaModel.cadastrar(fkRecurso, valorMetrica, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);

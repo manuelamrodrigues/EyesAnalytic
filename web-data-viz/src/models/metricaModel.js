@@ -1,13 +1,13 @@
 var database = require("../database/config")
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(fkRecurso, valorMetrica) {
-    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", fkRecurso, valorMetrica);
+function cadastrar(fkRecurso, valorMetrica, fkEmpresa) {
+    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", fkRecurso, valorMetrica, fkEmpresa);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
    const instrucao = `
-        INSERT INTO metrica (fkRecurso, valorMetrica) VALUES ('${fkRecurso}', '${valorMetrica}');
+        INSERT INTO metrica (fkRecurso, valorMetrica, fkEmpresa) VALUES ('${fkRecurso}', '${valorMetrica}', '${fkEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -79,9 +79,10 @@
         var componenteVar = document.getElementById("listaComponentes").value;
         var valorVar = document.getElementById("valor_input").value;
         var errorMessage = document.getElementById("error-message");
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
         errorMessage.style.display = "none"; // Esconde a mensagem de erro no início
 
-        if (componenteVar == "" || valorVar == "") {
+        if (componenteVar == "" || valorVar == "" || fkEmpresa == 0) {
             Swal.fire({
                 title: "Falha!",
                 text: "Preencha os campos!",
@@ -102,7 +103,8 @@
             },
             body: JSON.stringify({
                 fkRecurso: componenteVar,            // Nome do campo pode estar diferente
-                valorMetricaServer: valorVar         // Nome do campo pode estar diferente
+                valorMetricaServer: valorVar,         // Nome do campo pode estar diferente
+                fkEmpresa: fkEmpresa
             }),
         })
             .then(function (resposta) {
@@ -115,7 +117,7 @@
                         timer: 2000,
                         timerProgressBar: true,
                         willClose: () => {
-                            window.location = "metricas-diretor.html";
+                            window.location = "metricas.html";
                         }
                     });
                 } else {
