@@ -10,6 +10,12 @@ router.post("/cadastrar", function (req, res) {
 // feito :>
 
 //Recebendo os dados do html e direcionando para a função listar de metricaController.js
+router.get("/listar", function(req,res){
+    metricaController.listar(req,res)
+})
+//Listar cadastro
+
+//Recebendo os dados do html e direcionando para a função listar de metricaController.js
 router.get("/listar/:idEmpresa", function(req,res){
     metricaController.listar(req,res)
 })
