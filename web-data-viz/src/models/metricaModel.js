@@ -1,20 +1,23 @@
 var database = require("../database/config")
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(idRecurso, valorMetrica) {
-    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idRecurso, valorMetrica);
+function cadastrar(fkRecurso, valorMetrica) {
+    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", fkRecurso, valorMetrica);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
    const instrucao = `
-        INSERT INTO metrica (idRecurso, valorMetrica) VALUES ('${idRecurso}', '${valorMetrica}');
+        INSERT INTO metrica (fkRecurso, valorMetrica) VALUES ('${fkRecurso}', '${valorMetrica}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
+
+    // FALTA CADASTRAR COM A FKEMPRESA
 }
+
 // feito :>
 
-function listar(){
+function listarCadastrar(){
     console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar():");
     const instrucao = `
     SELECT * FROM metrica_view; 
@@ -79,6 +82,7 @@ function alterarMetrica(idRecurso, valorMetrica, idMetrica){
 module.exports = {
     cadastrar,
     listar,
+    listarCadastrar,
     listarPorId,
     desativarMetrica,
     alterarMetrica

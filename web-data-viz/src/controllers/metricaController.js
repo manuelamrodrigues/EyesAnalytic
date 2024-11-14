@@ -2,20 +2,20 @@ var metricaModel = require("../models/metricaModel");
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var valorMetrica = req.body.valorMetrica;
-    var idRecurso = req.body.idRecurso;
+    var valorMetrica = req.body.valorMetricaServer;
+    var fkRecurso = req.body.fkRecurso;
 
 
     // Faça as validações dos valores
     if (valorMetrica == undefined) {
         res.status(400).send("valor metrica está undefined!");
-    } else if (idRecurso == undefined) {
-        res.status(400).send("idRecurso está undefined!");
+    } else if (fkRecurso == undefined) {
+        res.status(400).send("fkRecurso está undefined!");
     }
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        metricaModel.cadastrar(valorMetrica, idRecurso)
+        metricaModel.cadastrar(fkRecurso, valorMetrica)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -33,16 +33,16 @@ function cadastrar(req, res) {
     }
 }
 
-function listar(req, res) {
-    var idEmpresa = req.params.idEmpresa
-    metricaModel.listar(idEmpresa)
-        .then(function (resultado) {
-            res.status(200).json(resultado)
-        }).catch(function (erro) {
-            console.log(erro)
-            res.status(500).json(erro.sqlMessage)
-        })
-}
+// function listar(req, res) {
+//     var idEmpresa = req.params.idEmpresa
+//     metricaModel.listar(idEmpresa)
+//         .then(function (resultado) {
+//             res.status(200).json(resultado)
+//         }).catch(function (erro) {
+//             console.log(erro)
+//             res.status(500).json(erro.sqlMessage)
+//         })
+// }
 //listarCadastro
 
 function listar(req, res) {
@@ -56,8 +56,20 @@ function listar(req, res) {
         })
 }
 
-// function listar() {
-//     fetch("/metricas/listar", {
+
+function listarCadastrar(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    metricaModel.listarCadastrar(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+// function listarCadastrar() {
+//     fetch("/metricas/listarCadastrar", {
 //         method: "GET",
 //     })
 //         .then(function (resposta) {
@@ -135,6 +147,7 @@ function alterarMetrica(req, res) {
 module.exports = {
     cadastrar,
     listar,
+    listarCadastrar,
     listarPorId,
     desativarMetrica,
     alterarMetrica

@@ -15,14 +15,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-        <script src="../js/sessao.js"></script>
+    <script src="../js/sessao.js"></script>
     <title>Cadastro de Métrica | EyesAnalytic</title>
 </head>
 
 <body onload="listar(), validarSessao()">
 
     <div class="button-container"></div>
-    <a href="metricas.html" class="back-button"></a>
+    <a href="metricas-diretor.html" class="back-button"></a>
     </div>
 
 
@@ -35,14 +35,15 @@
         </div>
 
         <div class="input field">
-            <select class="campo" id="listaTipos">
+            <select class="campo" id="listaComponentes">
                 <option selected disabled value="#">Componente</option>
+                <!-- Exemplo de opções estáticas -->
             </select>
         </div>
-    
+
         <div class="input field">
-            <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
-            <label for="name" class="caixa">Valor</label>
+            <input type="number" class="campo" placeholder="Valor" required id="valor_input" autocomplete="off">
+            <label for="valor_input" class="caixa">Valor</label>
         </div>
 
         <div id="error-message" style="color: red; display: none;"></div>
@@ -55,87 +56,86 @@
 </html>
 
 <script>
-     function listar() {
+    function listar() {
 
-fetch("/metricas/listar", {
-    method: "GET",
-})
-    .then(function (resposta) {
-        resposta.json().then((metricas) => {
-            const listaComponentes = document.getElementById("listaComponentes");
-            metricas.forEach((metrica) => {
-                listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+        fetch("/metricas/listarCadastrar", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((metricas) => {
+                    const listaComponentes = document.getElementById("listaComponentes");
+                    metricas.forEach((metrica) => {
+                        listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
             });
-        });
-    })
-    .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-    });
-}
+    }
 
 
-function cadastrar() {
-var componenteVar = document.getElementById("listaComponentes").value;
-var valorVar = document.getElementById("valor_input").value;
-var errorMessage = document.getElementById("error-message");
-errorMessage.style.display = "none"; // Esconde a mensagem de erro no início
+    function cadastrar() {
+        var componenteVar = document.getElementById("listaComponentes").value;
+        var valorVar = document.getElementById("valor_input").value;
+        var errorMessage = document.getElementById("error-message");
+        errorMessage.style.display = "none"; // Esconde a mensagem de erro no início
 
-if (componenteVar == "" || valorVar == "") {
-    Swal.fire({
-        title: "Falha!",
-        text: "Preencha os campos!",
-        icon: "error",
-        confirmButtonColor: '#4CAF50',
-        timer: 2000,
-        timerProgressBar: true
-    });
-
-    finalizarAguardar(); // Certifique-se de que a função existe
-    return false;
-}
-
-fetch("/metricas/cadastrar", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-        fkRecurso: componenteVar,            // Nome do campo pode estar diferente
-        valorMetricaServer: valorVar         // Nome do campo pode estar diferente
-    }),
-})
-    .then(function (resposta) {
-        if (resposta.ok) {
+        if (componenteVar == "" || valorVar == "") {
             Swal.fire({
-                title: "Sucesso!",
-                text: "Cadastro realizado com sucesso! Redirecionando...",
-                icon: "success",
-                confirmButtonColor: '#4CAF50',
-                timer: 2000,
-                timerProgressBar: true,
-                willClose: () => {
-                    window.location = "metricas-diretor.html";
-                }
-            });
-        } else {
-            errorMessage.style.display = "block";
-            Swal.fire({
-                title: "Erro!",
-                text: "Houve um erro ao tentar realizar o cadastro!",
+                title: "Falha!",
+                text: "Preencha os campos!",
                 icon: "error",
-                confirmButtonColor: '#f44336',
+                confirmButtonColor: '#4CAF50',
                 timer: 2000,
                 timerProgressBar: true
             });
-        }
-    })
-    .catch(function (erro) {
-        errorMessage.style.display = "block";
-        errorMessage.innerHTML = `#ERRO: ${erro}`;
-    });
-''
-return false;
-}
 
+            finalizarAguardar(); // Certifique-se de que a função existe
+            return false;
+        }
+
+        fetch("/metricas/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkRecurso: componenteVar,            // Nome do campo pode estar diferente
+                valorMetricaServer: valorVar         // Nome do campo pode estar diferente
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    Swal.fire({
+                        title: "Sucesso!",
+                        text: "Cadastro realizado com sucesso! Redirecionando...",
+                        icon: "success",
+                        confirmButtonColor: '#4CAF50',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            window.location = "metricas-diretor.html";
+                        }
+                    });
+                } else {
+                    errorMessage.style.display = "block";
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Houve um erro ao tentar realizar o cadastro!",
+                        icon: "error",
+                        confirmButtonColor: '#f44336',
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            })
+            .catch(function (erro) {
+                errorMessage.style.display = "block";
+                errorMessage.innerHTML = `#ERRO: ${erro}`;
+            });
+        ''
+        return false;
+    }
 
 </script>
