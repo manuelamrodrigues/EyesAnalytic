@@ -167,11 +167,11 @@
                     let opcaoCmoponente = document.createElement("div");
                     opcaoCmoponente.className = "opcao";
                     opcaoCmoponente.innerHTML = "<h4>Componente:</h4><p>" + (element.nomeRecurso || "N/A");
-                  
+
                     let valorOpcao = document.createElement("div");
                     valorOpcao.className = "opcao";
                     valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A") + "%</p>";
-                  
+
                     // CPU
                     // let opcaoCPU = document.createElement("div");
                     // opcaoCPU.className = "opcao";
@@ -313,9 +313,27 @@
         })
     }
 
-// FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
-// 
-    function alterarServidor(idMetrica, idRecurso) {
+    // function listar() {
+
+    //     fetch("/metricas/listarCadastrar", {
+    //         method: "GET",
+    //     })
+    //         .then(function (resposta) {
+    //             resposta.json().then((metricas) => {
+    //                 const listaComponentes = document.getElementById("listaComponentes");
+    //                 metricas.forEach((metrica) => {
+    //                     listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+    //                 });
+    //             });
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //         });
+    // }
+    // FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
+    // 
+    function alterarServidor(idMetrica, fkRecurso, valorMetrica) {
+        // var idMetrica = sessionStorage.ID_METRICA;
         fetch(`metricas/listarPorId/${idMetrica}`, {
             method: "GET",
             headers: {
@@ -326,98 +344,101 @@
 
                 let nomeRecurso = resposta[0].nomeRecurso
                 let valorMetrica = resposta[0].valorMetrica;
+                let fkRecurso = resposta[0].fkRecurso;
+                var fkEmpresa = sessionStorage.FK_EMPRESA;
 
                 // Segunda requisição para buscar todas as prioridades
-                fetch(`/metricas/listarComponentes`, {
+                fetch(`metricas/listar/${fkEmpresa}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
                     }
-                }).then(function (respostaPrioridades) {
-                respostaPrioridades.json().then(function (listaPrioridades) {
-                    // Monta as opções do select com idPrioridade como valor e exibe o nível
-                    let optionsPrioridades = listaPrioridades.map(prioridade => {
-                        // console.log(prioridadeAtualId)
-                        console.log(prioridade.nivel)
-                        return `<option value="${prioridade.idPrioridade}" ${prioridade.nivel == prioridadeAtualId ? "selected" : ""}>${prioridade.nivel}</option>`;
-                    }).join("");
-
-                        Swal.fire({
-                            title: "Informações da Métrica",  // Mostra o nome da máquina
-                            html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
+                }).then(function (resposta) {
+                    resposta.json().then((metricas) => {
+                        const listaComponentes = document.getElementById("listaComponentes");
+                        metricas.forEach((metrica) => {
+                            listaComponentes.innerHTML += `<option value='${metrica.fkRecurso}'>${metrica.nomeRecurso}</option>`;
+                        });
+                    });
+                })
+                Swal.fire({
+                    title: "Informações da Métrica",  // Mostra o nome da máquina
+                    html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: -20px; margin-top: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px">
                                         Componente:
-                                        <input style="color: #000; font-size: 20px; height: 30px;" id="nomeInput" value="${nomeRecurso}"></span>
+                                        <select id="listaComponentes" style="color: #000; font-size: 20px; height: 30px;">${fkRecurso}</select></span>
+
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
-                                        Vaalor: 
-                                        <select id="prioridadeInput" style="color: #000; font-size: 20px; height: 30px;">${valorMetrica}</select></span>
-                            </div>`,                                       
+                                        Valor: 
+                                        <input style="color: #000; font-size: 20px; height: 30px;" id="nomeInput" value="${valorMetrica}"></span>
 
-                            showCancelButton: true,
-                            cancelButtonColor: "#d33",
-                            cancelButtonText: "Cancelar",
+                            </div>`,
 
-                            showConfirmButton: true,
-                            confirmButtonColor: "#05a65d",
-                            confirmButtonText: "Salvar",
+                    showCancelButton: true,
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Cancelar",
 
-                        }).then(function (resposta) {
-                            if (resposta.isConfirmed) {
-                                let nomeInput = document.getElementById("nomeInput").value || nomeMaquina;
-                                let novaPrioridadeId = document.getElementById("prioridadeInput").value;
+                    showConfirmButton: true,
+                    confirmButtonColor: "#05a65d",
+                    confirmButtonText: "Salvar",
 
-                                if (nomeInput.length < 3) {
+                }).then(function (resposta) {
+                    if (resposta.isConfirmed) {
+
+                        let fkRecurso = document.getElementById("listaComponentes").value || fkRecurso;
+                        let valorMetrica = document.getElementById("nomeInput").value;
+
+                        // if (nomeRecurso.length < 2) {
+                        //     Swal.fire({
+                        //         // title: "Erro!",
+                        //         text: "O nome deve possuir pelo menos 2 caracteres",
+                        //         // icon: "error",
+                        //         confirmButtonColor: "#05a65d"
+                        //     });
+                        // }
+                        // else {
+                            fetch(`/metricas/alterarMetrica/${idMetrica}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    fkRecurso: fkRecurso,                          
+                                    valorMetrica: valorMetrica
+                                   
+                                })
+                            }).then(function (resposta) {
+                                if (resposta.ok) {
                                     Swal.fire({
-                                        // title: "Erro!",
-                                        text: "O nome deve possuir pelo menos 3 caracteres",
-                                        // icon: "error",
-                                        confirmButtonColor: "#05a65d"
+                                        title: "Sucesso!",
+                                        text: "Alteração Realizada",
+                                        icon: "success",
+                                        confirmButtonColor: '#4CAF50',
+                                        timer: 1500,
+                                        timerProgressBar: true,
+                                    }).then(() => {
+                                        location.reload(); // Recarregar a página após o alerta
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Erro!",
+                                        text: "Houve um erro ao tentar realizar a alteração!",
+                                        icon: "error",
+                                        confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                        timer: 2000, // Tempo antes de fechar automaticamente
+                                        timerProgressBar: true
                                     });
                                 }
-                                else {
-                                    fetch("/servidor/alterarServidor/", {
-                                        method: "PUT",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({
-                                            nomeMaquina: nomeInput,
-                                            idMaquina: idMaquina,
-                                            idPrioridade: novaPrioridadeId
-                                        })
-                                    }).then(function (resposta) {
-                                        if (resposta.ok) {
-                                            Swal.fire({
-                                                title: "Sucesso!",
-                                                text: "Alteração Realizada",
-                                                icon: "success",
-                                                confirmButtonColor: '#4CAF50',
-                                                timer: 1500,
-                                                timerProgressBar: true,
-                                            }).then(() => {
-                                                location.reload(); // Recarregar a página após o alerta
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                title: "Erro!",
-                                                text: "Houve um erro ao tentar realizar o alteração!",
-                                                icon: "error",
-                                                confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                                timer: 2000, // Tempo antes de fechar automaticamente
-                                                timerProgressBar: true
-                                            });
-                                        }
-                                    }).catch(function (error) {
-                                        console.error("Erro ao enviar a requisição:", error);
-                                    });
-                                }
-                            }
-                        })
-                    })
+                            }).catch(function (error) {
+                                console.error("Erro ao enviar a requisição:", error);
+                            });
+                        // }
+                    }
                 })
             })
         })
     }
+
 
     //FUNCAO DE DESATIVAR SERVIDOR
     function desativarServidor(idMetrica) {

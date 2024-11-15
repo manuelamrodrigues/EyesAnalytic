@@ -296,7 +296,7 @@
         })
     }
 
-// FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
+    // FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
     function alterarServidor(idMaquina, idPrioridade) {
         fetch(`servidor/listarEspecifico/${idMaquina}`, {
             method: "GET",
@@ -316,13 +316,13 @@
                         "Content-Type": "application/json"
                     }
                 }).then(function (respostaPrioridades) {
-                respostaPrioridades.json().then(function (listaPrioridades) {
-                    // Monta as opções do select com idPrioridade como valor e exibe o nível
-                    let optionsPrioridades = listaPrioridades.map(prioridade => {
-                        // console.log(prioridadeAtualId)
-                        console.log(prioridade.nivel)
-                        return `<option value="${prioridade.idPrioridade}" ${prioridade.nivel == prioridadeAtualId ? "selected" : ""}>${prioridade.nivel}</option>`;
-                    }).join("");
+                    respostaPrioridades.json().then(function (listaPrioridades) {
+                        // Monta as opções do select com idPrioridade como valor e exibe o nível
+                        let optionsPrioridades = listaPrioridades.map(prioridade => {
+                            // console.log(prioridadeAtualId)
+                            console.log(prioridade.nivel)
+                            return `<option value="${prioridade.idPrioridade}" ${prioridade.nivel == prioridadeAtualId ? "selected" : ""}>${prioridade.nivel}</option>`;
+                        }).join("");
 
                         Swal.fire({
                             title: "Informações do servidor",  // Mostra o nome da máquina
@@ -333,7 +333,7 @@
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
                                         Prioridade: 
                                         <select id="prioridadeInput" style="color: #000; font-size: 20px; height: 30px;">${optionsPrioridades}</select></span>
-                            </div>`,                                       
+                            </div>`,
 
                             showCancelButton: true,
                             cancelButtonColor: "#d33",

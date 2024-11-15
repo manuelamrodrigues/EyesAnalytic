@@ -12,7 +12,7 @@ function cadastrar(req, res) {
         res.status(400).send("valor metrica está undefined!");
     } else if (fkRecurso == undefined) {
         res.status(400).send("fkRecurso está undefined!");
-    }else if (fkEmpresa == undefined){
+    } else if (fkEmpresa == undefined) {
         res.status(400).send("fkEmpresa está undefined!");
     }
     else {
@@ -87,7 +87,7 @@ function listarCadastrar(req, res) {
 
 
 // function listarComponentes(req, res) {
-   
+
 //     metricaModel.listarlistarComponentes()
 //         .then(function (resultado) {
 //             res.status(200).json(resultado)
@@ -101,6 +101,17 @@ function listarCadastrar(req, res) {
 function listarPorId(req, res) {
     var idMetrica = req.params.idMetrica
     metricaModel.listarPorId(idMetrica)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+function listarRecursos(req, res) {
+    // var idMetrica = req.params.idMetrica
+    metricaModel.listarRecursos()
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
@@ -124,18 +135,18 @@ function desativarMetrica(req, res) {
 }
 
 function alterarMetrica(req, res) {
-    var idRecurso = req.body.idRecurso;
+    var idMetrica = req.params.idMetrica;
+    var fkRecurso = req.body.fkRecurso;
     var valorMetrica = req.body.valorMetrica;
-    var idMetrica = req.body.idMetrica;
 
-    if (idRecurso == undefined) {
-        res.status(400).send("idRecurso está undefined!");
-    } else if (valorMetrica == undefined) {
-        res.status(400).send("valorMetrica está undefined!");
-    } else if (idMetrica == undefined) {
-        res.status(400).send("idMetrica está undefined!");
-    } else {
-        metricaModel.alterarMetrica(idRecurso, valorMetrica, idMetrica)
+    // if (idMetrica == undefined) {
+    //     res.status(400).send("idMetrica está undefined!");
+    // } else if (fkRecurso == undefined) {
+    //     res.status(400).send("fkRecurso está undefined!");
+    // } else if (valorMetrica == undefined) {
+    //     res.status(400).send("valorMetrica está undefined!");
+    // } else {
+        metricaModel.alterarMetrica(idMetrica, fkRecurso, valorMetrica)
             .then(function (resultado) {
                 res.json(resultado);
             })
@@ -144,13 +155,14 @@ function alterarMetrica(req, res) {
                 console.log("Houve um erro ao realizar a alteração! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             });
-    }
+    // }
 }
 
 module.exports = {
     cadastrar,
     listar,
     listarCadastrar,
+    listarRecursos,
     listarPorId,
     desativarMetrica,
     alterarMetrica

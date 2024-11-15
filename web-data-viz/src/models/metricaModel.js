@@ -25,6 +25,15 @@ function listarCadastrar(){
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao)
 }
+
+function listarRecursos(){
+    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarRecusos():");
+    const instrucao = `
+    select * from recurso; 
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao)
+}
 // feito :>
 // Listar Cadastro
 
@@ -70,11 +79,12 @@ function desativarMetrica(idMetrica){
 }
 
 
-function alterarMetrica(idRecurso, valorMetrica, idMetrica){
-    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function alterarMetrica():", idRecurso, valorMetrica, idMetrica);
+function alterarMetrica(idMetrica, fkRecurso, valorMetrica){
+    console.log("ACESSEI O METRICA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function alterarMetrica():", fkRecurso, valorMetrica, idMetrica);
     const instrucao = `
-    UPDATE metrica SET idRecurso = '${idRecurso}', valorMetrica = '${valorMetrica}' WHERE idMetrica = ${idMetrica}
-    `
+    UPDATE metrica SET fkRecurso = '${fkRecurso}', valorMetrica = '${valorMetrica}' WHERE idMetrica = ${idMetrica}
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao)
 }
 
@@ -84,7 +94,7 @@ module.exports = {
     listar,
     listarCadastrar,
     listarPorId,
+    listarRecursos,
     desativarMetrica,
     alterarMetrica
-
 };

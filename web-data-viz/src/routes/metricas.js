@@ -25,9 +25,9 @@ router.get("/listarPorId/:idMetrica", function(req,res){
     metricaController.listarPorId(req,res)
 })
 
-// router.get("/listarComponentes", function(req,res){
-//     metricaController.listarComponentes(req,res)
-// })
+router.get("/listarRecursos", function(req,res){
+    metricaController.listarRecursos(req,res)
+})
 
 //Recebendo os dados do html e direcionando para a função delete de metricaController
 router.delete("/desativarMetrica/:idMetrica", function(req,res){
@@ -36,7 +36,7 @@ router.delete("/desativarMetrica/:idMetrica", function(req,res){
 // feito :>
 
 //Recebendo os dados do html e direcionando para a função editar de metricaController.js
-router.put("/alterarMetrica", function(req,res){
+router.put("/alterarMetrica/:idMetrica", function(req,res){
     metricaController.alterarMetrica(req,res)
 })
 // feito :>
