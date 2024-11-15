@@ -97,45 +97,55 @@
         }
 
         fetch("/metricas/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                fkRecurso: componenteVar,            // Nome do campo pode estar diferente
-                valorMetricaServer: valorVar,         // Nome do campo pode estar diferente
-                fkEmpresa: fkEmpresa
-            }),
-        })
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    Swal.fire({
-                        title: "Sucesso!",
-                        text: "Cadastro realizado com sucesso! Redirecionando...",
-                        icon: "success",
-                        confirmButtonColor: '#4CAF50',
-                        timer: 2000,
-                        timerProgressBar: true,
-                        willClose: () => {
-                            window.location = "metricas.html";
-                        }
-                    });
-                } else {
-                    errorMessage.style.display = "block";
-                    Swal.fire({
-                        title: "Erro!",
-                        text: "Houve um erro ao tentar realizar o cadastro!",
-                        icon: "error",
-                        confirmButtonColor: '#f44336',
-                        timer: 2000,
-                        timerProgressBar: true
-                    });
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        fkRecurso: componenteVar,
+        valorMetricaServer: valorVar,
+        fkEmpresa: fkEmpresa
+    }),
+})
+    .then((resposta) => {
+        if (resposta.ok) {
+            Swal.fire({
+                title: "Sucesso!",
+                text: "Cadastro realizado com sucesso!",
+                icon: "success",
+                confirmButtonColor: '#4CAF50',
+                timer: 2000,
+                timerProgressBar: true,
+                willClose: () => {
+                    window.location = "metricas.html";
                 }
-            })
-            .catch(function (erro) {
-                errorMessage.style.display = "block";
-                errorMessage.innerHTML = `#ERRO: ${erro}`;
             });
+        } else if (resposta.status === 400) {
+            resposta.text().then((msg) => {
+                Swal.fire({
+                    title: "Aviso!",
+                    text: msg,
+                    icon: "warning",
+                    confirmButtonColor: '#FFC107',
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            });
+        } else {
+            throw new Error("Erro inesperado ao cadastrar a métrica.");
+        }
+    })
+    .catch((erro) => {
+        console.error(erro);
+        Swal.fire({
+            title: "Erro!",
+            text: "Houve um erro ao processar o cadastro. Por favor, tente novamente.",
+            icon: "error",
+            confirmButtonColor: '#f44336',
+            timer: 2000,
+            timerProgressBar: true
+        });
+    });
         ''
         return false;
     }

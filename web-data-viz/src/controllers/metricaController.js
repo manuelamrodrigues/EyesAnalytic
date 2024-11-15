@@ -17,22 +17,28 @@ function cadastrar(req, res) {
     }
     else {
 
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        metricaModel.cadastrar(fkRecurso, valorMetrica, fkEmpresa)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+
+        metricaModel.verificarExistencia(fkRecurso, fkEmpresa)
+        .then((resultado) => {
+            if (resultado[0].qtd > 0) {
+                res.status(400).send("Já existe uma métrica cadastrada para este componente nesta empresa!");
+            } else {
+                metricaModel.cadastrar(fkRecurso, valorMetrica, fkEmpresa)
+                    .then((resultado) => {
+                        res.json(resultado);
+                    })
+                    .catch((erro) => {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+                        res.status(500).json(erro.sqlMessage);
+                    });
+            }
+        })
+        .catch((erro) => {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+
     }
 }
 
