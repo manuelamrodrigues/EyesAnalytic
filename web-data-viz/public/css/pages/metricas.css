@@ -19,6 +19,28 @@ body {
     width: 10px;
 }
 
+.title{
+    margin-top: 3vh;
+    margin-bottom: 4vh;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    color: #fff;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #08836A;
+    width: 14.2vw;
+    margin-top: 5vh;
+    height: 6vh;
+    border-radius: 7px;
+    color: white;
+    font-size: large;
+    border: none;
+   
+}
+
 .chamados {
     width: 90%;
     height: auto;
