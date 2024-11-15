@@ -342,31 +342,41 @@
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
 
-                let nomeRecurso = resposta[0].nomeRecurso
+                var fkEmpresa = sessionStorage.FK_EMPRESA;
+                let recursoAtualId = resposta[0].fkRecurso;
+
+                let nomeRecurso = resposta[0].nomeRecurso;
                 let valorMetrica = resposta[0].valorMetrica;
                 let fkRecurso = resposta[0].fkRecurso;
-                var fkEmpresa = sessionStorage.FK_EMPRESA;
 
                 // Segunda requisição para buscar todas as prioridades
-                fetch(`metricas/listar/${fkEmpresa}`, {
+                fetch(`metricas/listarRecursos`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
                     }
                 }).then(function (resposta) {
-                    resposta.json().then((metricas) => {
-                        const listaComponentes = document.getElementById("listaComponentes");
-                        metricas.forEach((metrica) => {
-                            listaComponentes.innerHTML += `<option value='${metrica.fkRecurso}'>${metrica.nomeRecurso}</option>`;
-                        });
-                    });
-                })
-                Swal.fire({
-                    title: "Informações da Métrica",  // Mostra o nome da máquina
-                    html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
+
+                    // resposta.json().then((metricas) => {
+                    //     const listaComponentes = document.getElementById("listaComponentes");
+                    //     metricas.forEach((metrica) => {
+                    //         listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+                    //     });
+                    // });
+                    resposta.json().then(function (listaRecursos) {
+                        // Monta as opções do select com idPrioridade como valor e exibe o nível
+                        let optionsRecursos = listaRecursos.map(recurso => {
+                            // console.log(prioridadeAtualId)
+                            // console.log(prioridade.nivel)
+                            return `<option value="${recurso.idRecurso}" ${recurso.idRecurso == recursoAtualId ? "selected" : ""}>${recurso.nomeRecurso}</option>`;
+                        }).join("");
+
+                        Swal.fire({
+                            title: "Informações da Métrica",  // Mostra o nome da máquina
+                            html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: -20px; margin-top: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px">
                                         Componente:
-                                        <select id="listaComponentes" style="color: #000; font-size: 20px; height: 30px;">${fkRecurso}</select></span>
+                                        <select id="listaComponentes" style="color: #000; font-size: 20px; height: 30px;">${optionsRecursos}</select></span>
 
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
                                         Valor: 
@@ -374,69 +384,71 @@
 
                             </div>`,
 
-                    showCancelButton: true,
-                    cancelButtonColor: "#d33",
-                    cancelButtonText: "Cancelar",
+                            showCancelButton: true,
+                            cancelButtonColor: "#d33",
+                            cancelButtonText: "Cancelar",
 
-                    showConfirmButton: true,
-                    confirmButtonColor: "#05a65d",
-                    confirmButtonText: "Salvar",
+                            showConfirmButton: true,
+                            confirmButtonColor: "#05a65d",
+                            confirmButtonText: "Salvar",
 
-                }).then(function (resposta) {
-                    if (resposta.isConfirmed) {
+                        }).then(function (resposta) {
+                            if (resposta.isConfirmed) {
 
-                        let fkRecurso = document.getElementById("listaComponentes").value || fkRecurso;
-                        let valorMetrica = document.getElementById("nomeInput").value;
+                                let opcaoRecurso = document.getElementById("listaComponentes").value || optionsRecursos;
+                                let valorMetrica = document.getElementById("nomeInput").value;
 
-                        // if (nomeRecurso.length < 2) {
-                        //     Swal.fire({
-                        //         // title: "Erro!",
-                        //         text: "O nome deve possuir pelo menos 2 caracteres",
-                        //         // icon: "error",
-                        //         confirmButtonColor: "#05a65d"
-                        //     });
-                        // }
-                        // else {
-                            fetch(`/metricas/alterarMetrica/${idMetrica}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    fkRecurso: fkRecurso,                          
-                                    valorMetrica: valorMetrica
-                                   
-                                })
-                            }).then(function (resposta) {
-                                if (resposta.ok) {
-                                    Swal.fire({
-                                        title: "Sucesso!",
-                                        text: "Alteração Realizada",
-                                        icon: "success",
-                                        confirmButtonColor: '#4CAF50',
-                                        timer: 1500,
-                                        timerProgressBar: true,
-                                    }).then(() => {
-                                        location.reload(); // Recarregar a página após o alerta
-                                    });
-                                } else {
-                                    Swal.fire({
-                                        title: "Erro!",
-                                        text: "Houve um erro ao tentar realizar a alteração!",
-                                        icon: "error",
-                                        confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                        timer: 2000, // Tempo antes de fechar automaticamente
-                                        timerProgressBar: true
-                                    });
-                                }
-                            }).catch(function (error) {
-                                console.error("Erro ao enviar a requisição:", error);
-                            });
-                        // }
-                    }
+                                // if (nomeRecurso.length < 2) {
+                                //     Swal.fire({
+                                //         // title: "Erro!",
+                                //         text: "O nome deve possuir pelo menos 2 caracteres",
+                                //         // icon: "error",
+                                //         confirmButtonColor: "#05a65d"
+                                //     });
+                                // }
+                                // else {
+                                fetch(`/metricas/alterarMetrica/${idMetrica}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        fkRecurso: opcaoRecurso,
+                                        valorMetrica: valorMetrica
+
+                                    })
+                                }).then(function (resposta) {
+                                    if (resposta.ok) {
+                                        Swal.fire({
+                                            title: "Sucesso!",
+                                            text: "Alteração Realizada",
+                                            icon: "success",
+                                            confirmButtonColor: '#4CAF50',
+                                            timer: 1500,
+                                            timerProgressBar: true,
+                                        }).then(() => {
+                                            location.reload(); // Recarregar a página após o alerta
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Erro!",
+                                            text: "Houve um erro ao tentar realizar a alteração!",
+                                            icon: "error",
+                                            confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                            timer: 2000, // Tempo antes de fechar automaticamente
+                                            timerProgressBar: true
+                                        });
+                                    }
+                                }).catch(function (error) {
+                                    console.error("Erro ao enviar a requisição:", error);
+                                });
+                                // }
+                            }
+                        })
+                    })
                 })
-            })
-        })
+            });
+        });
     }
 
 
