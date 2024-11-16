@@ -15,6 +15,17 @@ function cadastrar(fkRecurso, valorMetrica, fkEmpresa) {
     // FALTA CADASTRAR COM A FKEMPRESA
 }
 
+function verificarExistencia(fkRecurso, fkEmpresa) {
+    const instrucao = `
+        SELECT COUNT(*) AS qtd 
+        FROM metrica 
+        WHERE fkRecurso = '${fkRecurso}' AND fkEmpresa = '${fkEmpresa}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
 // feito :>
 
 function listarCadastrar(){
@@ -91,6 +102,7 @@ function alterarMetrica(idMetrica, fkRecurso, valorMetrica){
 
 module.exports = {
     cadastrar,
+    verificarExistencia,
     listar,
     listarCadastrar,
     listarPorId,
