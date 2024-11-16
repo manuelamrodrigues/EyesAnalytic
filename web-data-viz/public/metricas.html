@@ -167,10 +167,14 @@
                     let opcaoCmoponente = document.createElement("div");
                     opcaoCmoponente.className = "opcao";
                     opcaoCmoponente.innerHTML = "<h4>Componente:</h4><p>" + (element.nomeRecurso || "N/A");
-
+                    // alert(element.nomeRecurso)
                     let valorOpcao = document.createElement("div");
                     valorOpcao.className = "opcao";
-                    valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A") + "%</p>";
+                    if (element.nomeRecurso == "CPU" || element.nomeRecurso == "RAM" ||  element.nomeRecurso == "Disco Rígido" ) {
+                        valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A") + "%</p>";
+                    }else{
+                        valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A");
+                    }
 
                     // CPU
                     // let opcaoCPU = document.createElement("div");
