@@ -23,6 +23,17 @@ function listarEspecifico(req, res) {
         })
 }
 
+function listarPorUsoCPU(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    servidorModel.listar(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
 function alterarServidor(req, res) {
     var nomeMaquina = req.body.nomeMaquina
     var idPrioridade = req.body.idPrioridade
@@ -77,6 +88,7 @@ function desativarServidor(req, res) {
 module.exports = {
     listar,
     listarEspecifico,
+    listarPorUsoCPU,
     alterarServidor,
     desativarServidor,
     listarPrioridade

@@ -11,6 +11,14 @@ router.get("/listarEspecifico/:idMaquina", function (req, res) {
     servidorController.listarEspecifico(req, res)
 })
 
+router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
+    servidorController.listarPorUsoCPU(req, res)
+})
+
+// router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
+//     servidorController.listarPorUsoCPU(req, res)
+// })
+
 router.delete("/desativarServidor/:idMaquina", function(req,res){
     servidorController.desativarServidor(req,res)
 })

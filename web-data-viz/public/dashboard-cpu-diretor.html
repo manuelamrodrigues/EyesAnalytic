@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard CPU | EyesAnalytic</title>
+    <script src="../js/aside-menu.js"></script>
+    <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/pages/dashboard-cpu-diretor.css">
+    <link rel="stylesheet" href="./css/pages/aside-menu.css">
+    <!-- <link rel="stylesheet" href="./css/pages/espec-servidores.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body onload="listarServidores()">
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+            <a href="../lista-alertas.html" class="outros">
+                <li>
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <span>Alertas</span>
+                </li>
+            </a>
+           
+            <a href="../dashboard/dash-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+
+            <a href="../espec-servidores.html" class="outros">
+                <li>
+                    <img src="../assets/svg/servidor.svg" alt="Rede">
+                    <span>Servidores</span>
+                </li>
+            </a>
+
+            <a href="../funcionario-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                    <span>Funcionários</span>
+                </li>
+            </a>
+
+            <a href="../metricas-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/chamados.svg" alt="Chamados">
+                    <span>Métricas</span>
+                </li>
+            </a>
+
+            <a href="./index.html" class="outros">
+                <li>
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <span>Sair</span>
+                </li>
+            </a>
+
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+    </aside>
+    <div id="fade" class="hide"></div>
+
+    <main>
+        <h1>Uso de CPU</h2>
+        <section class="chamados" id="conteudo">
+            <article class="alertas" id="lista">
+            </article>
+
+            <div id="conteudoServidores" class="conteudoServidores">
+                <h3 class="tituloServidores">Servidores em Sobrecarga</h3>
+            </div>
+
+            <div id="modal" class="modal">
+            </div>
+
+        </section>
+    </main>
+</body>
+
+</html>
+<script>
+
+    //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
+    function listarServidores() {
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        var lista = document.getElementById("lista");
+
+        fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+                    let openModal = document.createElement("div");
+                    openModal.className = "openModal";
+
+                    let frameAlertas = document.createElement("div");
+                    frameAlertas.className = "frameAlertas";
+
+                    let abrir = document.createElement("div");
+                    abrir.className = "abrir";
+                    abrir.id = "openModal";
+                    abrir.onclick = function () {
+                        listarEspecifico(element.idMaquina);
+                    };
+
+                    let titulo = document.createElement("h3");
+                    // titulo.onclick = function () {
+                    //     listarEspecifico(element.idMaquina);
+                    // };
+                    titulo.innerText = element.nomeMaquina;
+
+                    // Adicionando opções de CPU, Memória e Disco
+                    let opcoes = document.createElement("div");
+                    opcoes.className = "opcoes";
+                    // opcoes.onclick = function () {
+                    //     listarEspecifico(element.idMaquina);
+                    // };
+
+                    // CPU
+                    let opcaoCPU = document.createElement("div");
+                    opcaoCPU.className = "opcao";
+                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
+
+                    // Memória
+                    let opcaoMemoria = document.createElement("div");
+                    opcaoMemoria.className = "opcao";
+                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
+
+                    // Disco
+                    let opcaoDisco = document.createElement("div");
+                    opcaoDisco.className = "opcao";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
+
+                    // Adicionando opções à div 'opcoes'
+                    opcoes.appendChild(opcaoCPU);
+                    opcoes.appendChild(opcaoMemoria);
+                    opcoes.appendChild(opcaoDisco);
+
+                    // Montando o conteúdo do modal
+                    abrir.appendChild(titulo);
+                    abrir.appendChild(opcoes);
+                    frameAlertas.appendChild(abrir);
+                    openModal.appendChild(frameAlertas);
+
+                    // Adicionando o modal completo ao DOM
+                    document.body.appendChild(openModal);
+
+                });
+            });
+        })
+    }
+</script>

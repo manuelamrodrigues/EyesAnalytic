@@ -16,6 +16,15 @@ function listarEspecifico(idMaquina) {
     return database.executar(instrucaoSql)
 }
 
+function listarPorUsoCPU(fkEmpresa) {
+    var instrucaoSql = `
+        SELECT * FROM view_quantidade_cpu WHERE fkEmpresa = ${fkEmpresa};
+        // AND situacao = 'Ativo'; 
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};
@@ -43,6 +52,7 @@ module.exports = {
     listar,
     desativarServidor,
     listarEspecifico,
+    listarPorUsoCPU,
     alterarServidor,
     listarPrioridade
 };
