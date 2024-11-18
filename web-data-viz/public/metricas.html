@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidores | EyesAnalytic</title>
-    <link rel="stylesheet" href="./css/pages/espec-servidores.css">
+    <title>Metricas | EyesAnalytic</title>
+    <link rel="stylesheet" href="./css/pages/metricas.css">
     <link rel="stylesheet" href="./css/pages/aside-menu.css">
     <script src="./js/aside-menu.js"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
@@ -91,7 +91,15 @@
 
         <section class="chamados" id="conteudo">
 
-            <h2>Servidores</h2>
+            <section class="title">
+                <h2>Métricas</h2>
+
+                <a href="./cadastrar-metrica.html"><button class="cadastroTecnico ">Cadastrar
+                        Métrica</button></a>
+            </section>
+
+
+
             <article class="alertas" id="lista">
             </article>
 
@@ -125,7 +133,7 @@
         var fkEmpresa = sessionStorage.FK_EMPRESA;
         var lista = document.getElementById("lista");
 
-        fetch(`servidor/listar/${fkEmpresa}`, {
+        fetch(`metricas/listar/${fkEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -146,41 +154,54 @@
                         listarEspecifico(element.idMaquina);
                     };
 
-                    let titulo = document.createElement("h3");
-                    // titulo.onclick = function () {
-                    //     listarEspecifico(element.idMaquina);
-                    // };
-                    titulo.innerText = element.nomeMaquina;
+                    // let titulo = document.createElement("p");
+                    // titulo.innerText = "Componente:";
+
+                    // let valorTitulo = document.createElement("p");
+                    // valorTitulo.innerText = element.nomeRecurso;
 
                     // Adicionando opções de CPU, Memória e Disco
                     let opcoes = document.createElement("div");
                     opcoes.className = "opcoes";
-                    // opcoes.onclick = function () {
-                    //     listarEspecifico(element.idMaquina);
-                    // };
+
+                    let opcaoCmoponente = document.createElement("div");
+                    opcaoCmoponente.className = "opcao";
+                    opcaoCmoponente.innerHTML = "<h4>Componente:</h4><p>" + (element.nomeRecurso || "N/A");
+                    // alert(element.nomeRecurso)
+                    let valorOpcao = document.createElement("div");
+                    valorOpcao.className = "opcao";
+                    if (element.nomeRecurso == "CPU" || element.nomeRecurso == "RAM" ||  element.nomeRecurso == "Disco Rígido" ) {
+                        valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A") + "%</p>";
+                    }else{
+                        valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A");
+                    }
 
                     // CPU
-                    let opcaoCPU = document.createElement("div");
-                    opcaoCPU.className = "opcao";
-                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
+                    // let opcaoCPU = document.createElement("div");
+                    // opcaoCPU.className = "opcao";
+                    // opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
 
-                    // Memória
-                    let opcaoMemoria = document.createElement("div");
-                    opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
+                    // // Memória
+                    // let opcaoMemoria = document.createElement("div");
+                    // opcaoMemoria.className = "opcao";
+                    // opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
 
-                    // Disco
-                    let opcaoDisco = document.createElement("div");
-                    opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
+                    // // Disco
+                    // let opcaoDisco = document.createElement("div");
+                    // opcaoDisco.className = "opcao";
+                    // opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
-                    opcoes.appendChild(opcaoCPU);
-                    opcoes.appendChild(opcaoMemoria);
-                    opcoes.appendChild(opcaoDisco);
+                    // opcoes.appendChild(opcaoCPU);
+                    // opcoes.appendChild(opcaoMemoria);
+                    // opcoes.appendChild(opcaoDisco);
+
+                    opcoes.appendChild(opcaoCmoponente);
+                    opcoes.appendChild(valorOpcao);
 
                     // Montando o conteúdo do modal
-                    abrir.appendChild(titulo);
+                    // abrir.appendChild(titulo);
+                    // abrir.appendChild(valorTitulo);
                     abrir.appendChild(opcoes);
                     frameAlertas.appendChild(abrir);
 
@@ -191,7 +212,7 @@
                     let iconEdit = document.createElement("div");
                     iconEdit.className = "iconEdit";
                     iconEdit.id = "openModalEdit";
-                    iconEdit.innerHTML = `<svg onclick="alterarServidor(${element.idMaquina})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconEdit.innerHTML = `<svg onclick="alterarServidor(${element.idMetrica})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30" clo
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -219,7 +240,7 @@
                     let iconTrash = document.createElement("div");
                     iconTrash.className = "iconTrash";
                     iconTrash.id = "openModalTrash";
-                    iconTrash.innerHTML = `<svg onclick="desativarServidor(${element.idMaquina})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    iconTrash.innerHTML = `<svg onclick="desativarServidor(${element.idMetrica})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="30" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="30"
                                     preserveAspectRatio="xMidYMid meet" version="1.0">
                                     <defs>
@@ -251,8 +272,8 @@
     }
 
     //FUNÇÃO PARA LISTAR INFORMAÇÕES DE UM SERVIDOR ESPECIFICO
-    function listarEspecifico(idMaquina) {
-        fetch(`servidor/listarEspecifico/${idMaquina}`, {
+    function listarEspecifico(idMetrica) {
+        fetch(`metricas/listarPorId/${idMetrica}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -264,20 +285,20 @@
 
                 // Itera sobre os elementos da resposta para formatar os atributos
                 resposta.forEach(element => {
-                    atributosTexto += `<b>${element.nomeAtributo}</b>: ${element.valorAtributo} (<b>${element.nomeRecurso}</b>) <br>`;
+                    atributosTexto += `<b>${element.nomeRecurso}</b>: ${element.valorMetrica} (<b>${element.nomeRecurso}</b>) <br>`;
 
                     // Exibe um único alerta com todos os atributos da máquina
                     Swal.fire({
-                        title: element.nomeMaquina,  // Mostra o nome da máquina
-                        html: `<div style="text-align: center;">
+                        title: element.nomeRecurso,  // Mostra o nome do recurso
+                        html: `<div style="text-align: justify; justify-content: center; padding-left:100px">
                                     ${atributosTexto}
                                     </div> 
                                 <div>
-                                <br><b>Prioridade:</b> 
-                                    ${resposta[0].nivelPrioridade} 
+                                <br><b>Componente:</b> 
+                                    ${resposta[0].nomeRecurso} 
                                 <br>
-                                <b>Situação:</b> <span style="color:#08836A; font-weight: 600" >
-                                    ${resposta[0].situacao}</span>
+                                <b>Valor:</b> <span style="color:#08836A; font-weight: 600" >
+                                    ${resposta[0].valorMetrica}</span>
                                  </div>`,  // Exibe a prioridade
                         showCancelButton: true,
                         cancelButtonColor: "#05a65d",
@@ -296,9 +317,28 @@
         })
     }
 
+    // function listar() {
+
+    //     fetch("/metricas/listarCadastrar", {
+    //         method: "GET",
+    //     })
+    //         .then(function (resposta) {
+    //             resposta.json().then((metricas) => {
+    //                 const listaComponentes = document.getElementById("listaComponentes");
+    //                 metricas.forEach((metrica) => {
+    //                     listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+    //                 });
+    //             });
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //         });
+    // }
     // FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
-    function alterarServidor(idMaquina, idPrioridade) {
-        fetch(`servidor/listarEspecifico/${idMaquina}`, {
+    // 
+    function alterarServidor(idMetrica, fkRecurso, valorMetrica) {
+        // var idMetrica = sessionStorage.ID_METRICA;
+        fetch(`metricas/listarPorId/${idMetrica}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -306,33 +346,46 @@
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
 
-                let nomeMaquina = resposta[0].nomeMaquina
-                let prioridadeAtualId = resposta[0].nivelPrioridade;
+                var fkEmpresa = sessionStorage.FK_EMPRESA;
+                let recursoAtualId = resposta[0].fkRecurso;
+
+                let nomeRecurso = resposta[0].nomeRecurso;
+                let valorMetrica = resposta[0].valorMetrica;
+                let fkRecurso = resposta[0].fkRecurso;
 
                 // Segunda requisição para buscar todas as prioridades
-                fetch(`/servidor/listarPrioridade/${idPrioridade}`, {
+                fetch(`metricas/listarRecursos`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
                     }
-                }).then(function (respostaPrioridades) {
-                    respostaPrioridades.json().then(function (listaPrioridades) {
+                }).then(function (resposta) {
+
+                    // resposta.json().then((metricas) => {
+                    //     const listaComponentes = document.getElementById("listaComponentes");
+                    //     metricas.forEach((metrica) => {
+                    //         listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
+                    //     });
+                    // });
+                    resposta.json().then(function (listaRecursos) {
                         // Monta as opções do select com idPrioridade como valor e exibe o nível
-                        let optionsPrioridades = listaPrioridades.map(prioridade => {
+                        let optionsRecursos = listaRecursos.map(recurso => {
                             // console.log(prioridadeAtualId)
-                            console.log(prioridade.nivel)
-                            return `<option value="${prioridade.idPrioridade}" ${prioridade.nivel == prioridadeAtualId ? "selected" : ""}>${prioridade.nivel}</option>`;
+                            // console.log(prioridade.nivel)
+                            return `<option value="${recurso.idRecurso}" ${recurso.idRecurso == recursoAtualId ? "selected" : ""}>${recurso.nomeRecurso}</option>`;
                         }).join("");
 
                         Swal.fire({
-                            title: "Informações do servidor",  // Mostra o nome da máquina
+                            title: "Informações da Métrica",  // Mostra o nome da máquina
                             html: `<div style="gap:20px; height: 160px; display: flex; flex-direction: column; justify-content: center;">
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: -20px; margin-top: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px">
-                                        Nome:
-                                        <input style="color: #000; font-size: 20px; height: 30px;" id="nomeInput" value="${nomeMaquina}"></span>
+                                        Componente:
+                                        <select id="listaComponentes" style="color: #000; font-size: 20px; height: 30px;">${optionsRecursos}</select></span>
+
                                     <span style="gap:7px; text-align: left; height: 100px; margin-bottom: 0px; display: flex; flex-direction: column; color: #000; font-size: 20px"">
-                                        Prioridade: 
-                                        <select id="prioridadeInput" style="color: #000; font-size: 20px; height: 30px;">${optionsPrioridades}</select></span>
+                                        Valor: 
+                                        <input style="color: #000; font-size: 20px; height: 30px;" id="nomeInput" value="${valorMetrica}"></span>
+
                             </div>`,
 
                             showCancelButton: true,
@@ -345,67 +398,69 @@
 
                         }).then(function (resposta) {
                             if (resposta.isConfirmed) {
-                                let nomeInput = document.getElementById("nomeInput").value || nomeMaquina;
-                                let novaPrioridadeId = document.getElementById("prioridadeInput").value;
 
-                                if (nomeInput.length < 3) {
-                                    Swal.fire({
-                                        // title: "Erro!",
-                                        text: "O nome deve possuir pelo menos 3 caracteres",
-                                        // icon: "error",
-                                        confirmButtonColor: "#05a65d"
-                                    });
-                                }
-                                else {
-                                    fetch("/servidor/alterarServidor/", {
-                                        method: "PUT",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({
-                                            nomeMaquina: nomeInput,
-                                            idMaquina: idMaquina,
-                                            idPrioridade: novaPrioridadeId
-                                        })
-                                    }).then(function (resposta) {
-                                        if (resposta.ok) {
-                                            Swal.fire({
-                                                title: "Sucesso!",
-                                                text: "Alteração Realizada",
-                                                icon: "success",
-                                                confirmButtonColor: '#4CAF50',
-                                                timer: 1500,
-                                                timerProgressBar: true,
-                                            }).then(() => {
-                                                location.reload(); // Recarregar a página após o alerta
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                title: "Erro!",
-                                                text: "Houve um erro ao tentar realizar o alteração!",
-                                                icon: "error",
-                                                confirmButtonColor: '#f44336', // Cor vermelha do botão
-                                                timer: 2000, // Tempo antes de fechar automaticamente
-                                                timerProgressBar: true
-                                            });
-                                        }
-                                    }).catch(function (error) {
-                                        console.error("Erro ao enviar a requisição:", error);
-                                    });
-                                }
+                                let opcaoRecurso = document.getElementById("listaComponentes").value || optionsRecursos;
+                                let valorMetrica = document.getElementById("nomeInput").value;
+
+                                // if (nomeRecurso.length < 2) {
+                                //     Swal.fire({
+                                //         // title: "Erro!",
+                                //         text: "O nome deve possuir pelo menos 2 caracteres",
+                                //         // icon: "error",
+                                //         confirmButtonColor: "#05a65d"
+                                //     });
+                                // }
+                                // else {
+                                fetch(`/metricas/alterarMetrica/${idMetrica}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        fkRecurso: opcaoRecurso,
+                                        valorMetrica: valorMetrica
+
+                                    })
+                                }).then(function (resposta) {
+                                    if (resposta.ok) {
+                                        Swal.fire({
+                                            title: "Sucesso!",
+                                            text: "Alteração Realizada",
+                                            icon: "success",
+                                            confirmButtonColor: '#4CAF50',
+                                            timer: 1500,
+                                            timerProgressBar: true,
+                                        }).then(() => {
+                                            location.reload(); // Recarregar a página após o alerta
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Erro!",
+                                            text: "Houve um erro ao tentar realizar a alteração!",
+                                            icon: "error",
+                                            confirmButtonColor: '#f44336', // Cor vermelha do botão
+                                            timer: 2000, // Tempo antes de fechar automaticamente
+                                            timerProgressBar: true
+                                        });
+                                    }
+                                }).catch(function (error) {
+                                    console.error("Erro ao enviar a requisição:", error);
+                                });
+                                // }
                             }
                         })
                     })
                 })
-            })
-        })
+            });
+        });
     }
 
+
     //FUNCAO DE DESATIVAR SERVIDOR
-    function desativarServidor(idMaquina) {
+    function desativarServidor(idMetrica) {
         Swal.fire({
-            title: "Inativar Servidor",
-            text: "Tem certeza que quer inativar esse servidor?",
+            title: "Excluir Métrica",
+            text: "Tem certeza que quer excluir essa métrica?",
             icon: "question",
             iconColor: "#000",
             showCancelButton: true,
@@ -415,7 +470,7 @@
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`/servidor/desativarServidor/${idMaquina}`, {
+                fetch(`/metricas/desativarMetrica/${idMetrica}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json"
@@ -423,8 +478,8 @@
                 }).then(function (resposta) {
                     if (resposta.ok) {
                         Swal.fire({
-                            title: "Inativado!",
-                            text: "O servidor foi Inativado do sistema.",
+                            title: "Exluída!",
+                            text: "A métrica foi excluída do sistema.",
                             icon: "success",
                             confirmButtonColor: "#05a65d",
                             timer: 1000,
@@ -436,7 +491,7 @@
                     else {
                         Swal.fire({
                             title: "Erro!",
-                            text: "Houve um erro em inativar o servidor.",
+                            text: "Houve um erro em excluir a métrica.",
                             icon: "error",
                             confirmButtonColor: "#05a65d"
                         });
@@ -446,7 +501,7 @@
         }).catch(function () {
             Swal.fire({
                 title: "Erro!",
-                text: "Houve um erro em inativar o servidor.",
+                text: "Houve um erro em excluir a métrica.",
                 icon: "error",
                 confirmButtonColor: "#05a65d"
             });
