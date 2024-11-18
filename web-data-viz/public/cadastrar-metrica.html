@@ -76,37 +76,58 @@
 
 
     function cadastrar() {
-        var componenteVar = document.getElementById("listaComponentes").value;
-        var valorVar = document.getElementById("valor_input").value;
-        var errorMessage = document.getElementById("error-message");
-        var fkEmpresa = sessionStorage.FK_EMPRESA;
-        errorMessage.style.display = "none"; // Esconde a mensagem de erro no início
+    var componenteVar = document.getElementById("listaComponentes").value; // ID do recurso selecionado
+    var valorVar = document.getElementById("valor_input").value;
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
 
-        if (componenteVar == "" || valorVar == "" || fkEmpresa == 0) {
-            Swal.fire({
-                title: "Falha!",
-                text: "Preencha os campos!",
-                icon: "error",
-                confirmButtonColor: '#4CAF50',
-                timer: 2000,
-                timerProgressBar: true
-            });
+    // Esconde mensagens de erro, se houver
+    var errorMessage = document.getElementById("error-message");
+    errorMessage.style.display = "none";
 
-            finalizarAguardar(); // Certifique-se de que a função existe
-            return false;
-        }
+    // Verifica se os campos estão preenchidos
+    if (componenteVar == "" || valorVar == "" || fkEmpresa == 0) {
+        Swal.fire({
+            title: "Falha!",
+            text: "Preencha os campos!",
+            icon: "error",
+            confirmButtonColor: '#4CAF50',
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return false;
+    }
 
-        fetch("/metricas/cadastrar", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-        fkRecurso: componenteVar,
-        valorMetricaServer: valorVar,
-        fkEmpresa: fkEmpresa
-    }),
-})
+    // Converte o valor para número
+    var valorNumerico = parseFloat(valorVar);
+
+    // Lista de IDs restritos (específicos para CPU, RAM e DISCO)
+    var idsRestritos = [1, 2, 3]; // Substitua pelos IDs reais de CPU, RAM e DISCO no seu banco de dados
+
+    // Verifica se o componente selecionado é restrito e valida o valor
+    if (idsRestritos.includes(parseInt(componenteVar)) && valorNumerico > 100) {
+        Swal.fire({
+            title: "Atenção!",
+            text: "O valor para CPU, RAM ou Disco Rígido não pode ser maior que 100.",
+            icon: "warning",
+            confirmButtonColor: '#FFC107',
+            timer: 2000,
+            timerProgressBar: true
+        });
+        return false;
+    }
+
+    // Realiza o cadastro caso as validações sejam atendidas
+    fetch("/metricas/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            fkRecurso: componenteVar,
+            valorMetricaServer: valorVar,
+            fkEmpresa: fkEmpresa
+        }),
+    })
     .then((resposta) => {
         if (resposta.ok) {
             Swal.fire({
@@ -146,8 +167,8 @@
             timerProgressBar: true
         });
     });
-        ''
-        return false;
-    }
+
+    return false;
+}
 
 </script>

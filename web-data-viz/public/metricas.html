@@ -170,9 +170,9 @@
                     // alert(element.nomeRecurso)
                     let valorOpcao = document.createElement("div");
                     valorOpcao.className = "opcao";
-                    if (element.nomeRecurso == "CPU" || element.nomeRecurso == "RAM" ||  element.nomeRecurso == "Disco Rígido" ) {
+                    if (element.nomeRecurso == "CPU" || element.nomeRecurso == "RAM" || element.nomeRecurso == "Disco Rígido") {
                         valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A") + "%</p>";
-                    }else{
+                    } else {
                         valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A");
                     }
 
@@ -280,42 +280,59 @@
             }
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
-                // Monta o conteúdo que será exibido no alerta
+                if (resposta.length === 0) {
+                    Swal.fire({
+                        title: "Aviso",
+                        text: "Nenhuma métrica encontrada para o ID fornecido.",
+                        icon: "info",
+                        confirmButtonColor: "#05a65d"
+                    });
+                    return;
+                }
+
+                // Obtém o primeiro componente (que já está selecionado)
+                const componenteSelecionado = resposta[0];
+
+                // Move o componente selecionado para o início da lista
+                const novaOrdem = resposta.filter(r => r !== componenteSelecionado);
+                novaOrdem.unshift(componenteSelecionado);
+
                 let atributosTexto = ''; // Para armazenar os atributos formatados
 
-                // Itera sobre os elementos da resposta para formatar os atributos
-                resposta.forEach(element => {
-                    atributosTexto += `<b>${element.nomeRecurso}</b>: ${element.valorMetrica} (<b>${element.nomeRecurso}</b>) <br>`;
-
-                    // Exibe um único alerta com todos os atributos da máquina
-                    Swal.fire({
-                        title: element.nomeRecurso,  // Mostra o nome do recurso
-                        html: `<div style="text-align: justify; justify-content: center; padding-left:100px">
-                                    ${atributosTexto}
-                                    </div> 
-                                <div>
-                                <br><b>Componente:</b> 
-                                    ${resposta[0].nomeRecurso} 
-                                <br>
-                                <b>Valor:</b> <span style="color:#08836A; font-weight: 600" >
-                                    ${resposta[0].valorMetrica}</span>
-                                 </div>`,  // Exibe a prioridade
-                        showCancelButton: true,
-                        cancelButtonColor: "#05a65d",
-                        showConfirmButton: false,
-                        cancelButtonText: "Ok"
-                    });
+                // Itera sobre os elementos da nova ordem para formatar os atributos
+                novaOrdem.forEach(element => {
+                    atributosTexto += `<b>${element.nomeRecurso}</b>: ${element.valorMetrica} <br>`;
                 });
-            })
+
+                // Exibe o alerta com os atributos formatados
+                Swal.fire({
+                    title: componenteSelecionado.nomeRecurso,
+                    html: `<div style="text-align: justify; justify-content: center; padding-left:100px">
+                            ${atributosTexto}
+                        </div> 
+                        <div>
+                            <br><b>Componente:</b> 
+                                ${componenteSelecionado.nomeRecurso} 
+                            <br>
+                            <b>Valor:</b> <span style="color:#08836A; font-weight: 600">
+                                ${componenteSelecionado.valorMetrica}</span>
+                        </div>`,
+                    showCancelButton: true,
+                    cancelButtonColor: "#05a65d",
+                    showConfirmButton: false,
+                    cancelButtonText: "Ok"
+                });
+            });
         }).catch(function () {
             Swal.fire({
                 title: "Erro!",
-                text: "Houve um erro em listar informações o servidor.",
+                text: "Houve um erro em listar informações no servidor.",
                 icon: "error",
                 confirmButtonColor: "#05a65d"
             });
-        })
+        });
     }
+
 
     // function listar() {
 
@@ -370,10 +387,9 @@
                     resposta.json().then(function (listaRecursos) {
                         // Monta as opções do select com idPrioridade como valor e exibe o nível
                         let optionsRecursos = listaRecursos.map(recurso => {
-                            // console.log(prioridadeAtualId)
-                            // console.log(prioridade.nivel)
                             return `<option value="${recurso.idRecurso}" ${recurso.idRecurso == recursoAtualId ? "selected" : ""}>${recurso.nomeRecurso}</option>`;
                         }).join("");
+
 
                         Swal.fire({
                             title: "Informações da Métrica",  // Mostra o nome da máquina
