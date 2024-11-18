@@ -23,6 +23,19 @@ function listarEspecifico(req, res) {
         })
 }
 
+function listarMediaMaximo(req, res) {
+    var idMaquina = req.params.idMaquina
+
+    servidorModel.listarEspecifico(idMaquina)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+
 function listarPorUsoCPU(req, res) {
     var idEmpresa = req.params.idEmpresa
     servidorModel.listar(idEmpresa)
@@ -91,5 +104,6 @@ module.exports = {
     listarPorUsoCPU,
     alterarServidor,
     desativarServidor,
-    listarPrioridade
+    listarPrioridade,
+    listarMediaMaximo
 }

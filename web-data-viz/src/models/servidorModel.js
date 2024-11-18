@@ -24,7 +24,7 @@ function listarPorUsoCPU(fkEmpresa) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
-
+fkMaquina=1
 function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};
@@ -32,6 +32,15 @@ function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function listarMediaMaximo(idMaquina) {
+    var instrucaoSql = `
+    SELECT * FROM view_media_max_cpu where idMaquina = "${idMaquina}";
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 
 function listarPrioridade() {
     var instrucaoSql = `
@@ -54,5 +63,6 @@ module.exports = {
     listarEspecifico,
     listarPorUsoCPU,
     alterarServidor,
-    listarPrioridade
+    listarPrioridade,
+    listarMediaMaximo
 };

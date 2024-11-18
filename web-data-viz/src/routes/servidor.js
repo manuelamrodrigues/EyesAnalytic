@@ -15,6 +15,11 @@ router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
     servidorController.listarPorUsoCPU(req, res)
 })
 
+router.get("/listarMediaMaximo/:idMaquina", function (req, res) {
+    servidorController.listarMediaMaximo(req, res)
+})
+
+
 // router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
 //     servidorController.listarPorUsoCPU(req, res)
 // })

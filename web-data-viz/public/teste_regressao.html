@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Regressão Linear</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            max-width: 600px;
+            margin: 50px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gráfico de Regressão Linear</h2>
+    <canvas id="myChart"></canvas>
+
+    <script>
+        // Dados de exemplo (x, y)
+        const dados = {
+            x: [1, 2, 3, 4, 5],
+            y: [1, 2, 1.9, 4.1, 5.1]
+        };
+
+        // Função para calcular os coeficientes da regressão linear
+        function regressaoLinear(x, y) {
+            const n = x.length;
+            const sumX = x.reduce((acc, val) => acc + val, 0);
+            const sumY = y.reduce((acc, val) => acc + val, 0);
+            const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+            const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
+
+            const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const a = (sumY - b * sumX) / n;
+
+            return { a, b };
+        }
+
+        // Calculando a regressão linear para os dados
+        const { a, b } = regressaoLinear(dados.x, dados.y);
+
+        // Gerando os valores da linha de regressão
+        const linhaRegressao = dados.x.map(xVal => a + b * xVal);
+
+        // Configuração do gráfico
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'scatter',  // Tipo de gráfico
+            data: {
+                datasets: [
+                    {
+                        label: 'Dados',
+                        data: dados.x.map((xVal, idx) => ({ x: xVal, y: dados.y[idx] })),
+                        backgroundColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                    },
+                    {
+                        label: 'Linha de Regressão',
+                        data: dados.x.map((xVal, idx) => ({ x: xVal, y: linhaRegressao[idx] })),
+                        type: 'line',
+                        fill: false,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
