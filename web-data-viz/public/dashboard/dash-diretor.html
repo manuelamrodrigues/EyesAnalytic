@@ -17,232 +17,221 @@
 </head>
 
 <body onload="validarSessao(); iniciarAtualizacao(); atualizarIndicadores();">
-
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
-
         <ul id="navLinks">
-       
             <a href="../lista-alertas.html" class="outros">
                 <li>
                     <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
                     <span>Alertas</span>
                 </li>
             </a>
-
             <a href="./dash-diretor.html" class="outros">
                 <li>
                     <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
                     <span>Dashboard</span>
                 </li>
             </a>
-
             <a href="../espec-servidores.html" class="outros">
                 <li>
                     <img src="../assets/svg/servidor.svg" alt="Rede">
                     <span>Servidores</span>
                 </li>
             </a>
-
             <a href="../funcionario-diretor.html" class="outros">
                 <li>
                     <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
                     <span>Funcionários</span>
                 </li>
             </a>
-
             <a href="./metricas-diretor.html" class="outros">
                 <li>
-                    <img src="./assets/svg/chamados.svg" alt="Chamados">
+                    <img src="../assets/svg/chamados.svg" alt="Chamados">
                     <span>Métricas</span>
                 </li>
             </a>
-
             <a onclick="limparSessao()" class="outros">
-                <li >
+                <li>
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
             </a>
-
         </ul>
         <div class="menu" id="menu-hamburguer">
-            <div class="menu" id="menu-hamburguer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
-                    class="hamburger-line">
-                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
-                </svg>
-
-                <!-- Linha 2 -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
-                    class="hamburger-line">
-                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
-                </svg>
-
-                <!-- Linha 3 -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
-                    class="hamburger-line">
-                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
-                </svg>
-            </div>
-
-        </div>
-
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px" class="hamburger-line">
+                <rect x="0" y="8" width="600" height="10" fill="white"></rect>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px" class="hamburger-line">
+                <rect x="0" y="24" width="600" height="10" fill="white"></rect>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px" class="hamburger-line">
+                <rect x="0" y="40" width="600" height="10" fill="white"></rect>
+            </svg>
         </div>
     </aside>
     <main>
-        <!-- Indicadores Section -->
         <header class="barraSuperior">
             <div class="numPerct">
                 <p class="titlePcrt">Quantidade Máquina</p>
-                <p class="nmrPcrt" id="quantidade-maquina">0</p>
+                <p class="nmrPcrt" id="quantidade-maquina"></p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Máquinas Conectadas</p>
-                <p class="nmrPcrt" id="maquinas-conectadas">0</p>
+                <p class="nmrPcrt" id="maquinas-conectadas"></p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Alertas Recentes</p>
-                <p class="nmrPcrt" id="alertas-recentes">0</p>
+                <p class="nmrPcrt" id="alertas-recentes"></p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Mbps de Upload</p>
-                <p class="nmrPcrt" id="mbps-upload">0</p>
+                <p class="nmrPcrt" id="mbps-upload"></p>
             </div>
             <div class="numPerct">
                 <p class="titlePcrt">Mbps de Download</p>
-                <p class="nmrPcrt" id="mbps-download">0</p>
+                <p class="nmrPcrt" id="mbps-download"></p>
             </div>
         </header>
-
-        <!-- Graph Section -->
-        <section class="dash">
-            <article class="topoGrafico">
-                <h3>Uso dos Componentes</h3>
-                <div class="botoesGrafico">
-                    <div class="periodo">
-                        <select id="periodo" class="opcao" onchange="atualizarGrafico()">
-                            <option value="semanal" selected>Semanal</option>
-                            <option value="mensal">Mensal</option>
-                            <option value="bimestral">Bimestral</option>
-                            <option value="semestral">Semestral</option>
-                        </select>
+        <main>
+            <section class="dash">
+                <article class="topoGrafico">
+                    <h3>Uso dos Componentes</h3>
+                    <div class="botoesGrafico">
+                        <div class="periodo">
+                            <select id="periodo" class="opcao" onchange="atualizarGrafico()">
+                                <option value="semanal" selected>Semanal</option>
+                                <option value="mensal">Mensal</option>
+                                <option value="bimestral">Bimestral</option>
+                                <option value="semestral">Semestral</option>
+                            </select>
+                        </div>
+                        <div class="componentes">
+                            <select id="componentes" class="opcao" onchange="atualizarGrafico()">
+                                <option value="cpu" selected>CPU</option>
+                                <option value="disco">Disco</option>
+                                <option value="memoria">Memória</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="componentes">
-                        <select id="componentes" class="opcao" onchange="atualizarGrafico()">
-                            <option value="cpu" selected>CPU</option>
-                            <option value="disco">Disco</option>
-                            <option value="memoria">Memória</option>
-                        </select>
-                    </div>
+                </article>
+                <div class="grafico">
+                    <canvas id="myChartCanvas"></canvas>
                 </div>
-            </article>
-            <div class="grafico">
-                <canvas id="myChartCanvas"></canvas>
-            </div>
-        </section>
-    </main>
-</body>
-
-<script>
-
-    async function atualizarIndicadores() {
-        try {
-            const response = await fetch(`/medidaController/obterIndicadores`, { method: "GET" });
-            if (response.ok) {
-                const indicadores = await response.json();
-                document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
-                document.getElementById("maquinas-conectadas").textContent = indicadores.maquinasConectadas || 0;
-                document.getElementById("alertas-recentes").textContent = indicadores.alertasRecentes || 0;
-                document.getElementById("mbps-upload").textContent = indicadores.upload || 0;
-                document.getElementById("mbps-download").textContent = indicadores.download || 0;
-            } else {
-                console.error("Erro ao obter indicadores:", await response.text());
-            }
-        } catch (erro) {
-            console.error("Erro ao buscar indicadores:", erro);
-        }
-    }
     
-    let myChart;
+               
+        </main>
+    
+        <script>
+            document.addEventListener("atualizarIndicadores", function atualizarIndicadores() {
+                const idMaquina =  carregarIdMaquina();
+                if (!idMaquina) {
+                    console.error("ID da máquina não está definido. Verifique a configuração.");
+                    return;
+                }
+                try {
 
-    function iniciarAtualizacao() {
-        atualizarGrafico();
-        setInterval(atualizarGrafico, 120000); // Atualiza a cada 2 minutos
-    }
+                    const response = fetch(`/medidas/captura/indicadores`, { method: "GET" });
+                    if (response.ok) {
+                        const indicadores =  response.json();
+                        document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
+                        document.getElementById("maquinas-conectadas").textContent = indicadores.maquinasConectadas || 0;
+                        document.getElementById("alertas-recentes").textContent = indicadores.alertasRecentes || 0;
+                        document.getElementById("mbps-upload").textContent = indicadores.upload || 0;
+                        document.getElementById("mbps-download").textContent = indicadores.download || 0;
+                    } else {
+                        console.error("Erro ao obter indicadores:",  response.text());
+                    }
+                } catch (erro) {
+                    console.error("Erro ao buscar indicadores:", erro);
+                }
+                
+            });
+            
+            let myChart;
+            
+         
 
-    async function atualizarGrafico() {
-        const componente = document.getElementById("componentes").value;
-        const periodo = document.getElementById("periodo").value;
-        const dados = await obterDadosGrafico(componente, periodo);
-        plotarGrafico(dados, componente);
-    }
-
-    async function obterDadosGrafico(componente, periodo) {
-        try {
-            let response = await fetch(`/medidaController/${componente}/${periodo}`, { method: "GET" });
-            if (response.ok) {
-                return await response.json();
-            } else {
-                console.error("Erro ao obter dados do gráfico:", await response.text());
-                return { labels: [], data: [] };
+            function iniciarAtualizacao() {
+                atualizarGrafico(idMaquina);
+                atualizarIndicadores();
+                setInterval(() => atualizarIndicadores(), 60000); // Atualiza indicadores a cada 1 minuto
+                setInterval(() => atualizarGrafico(idMaquina), 120000); // Atualiza gráfico a cada 2 minutos
             }
-        } catch (erro) {
-            console.error("Erro ao buscar dados:", erro);
-            return { labels: [], data: [] };
-        }
-    }
-
-    function plotarGrafico(dados, componente) {
-        const labels = dados.labels || [];
-        const valores = dados.data || [];
-        const cores = {
-            cpu: '#08836A',
-            disco: '#08836A',
-            memoria: '#08836A'
-        };
-        const titulos = {
-            cpu: 'Uso de CPU (%)',
-            disco: 'Uso de Disco (%)',
-            memoria: 'Uso de Memória (%)'
-        };
-
-        if (myChart) {
-            myChart.destroy();
-        }
-
-        const ctx = document.getElementById("myChartCanvas").getContext("2d");
-        myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: titulos[componente],
-                    data: valores,
-                    borderWidth: 4,
-                    borderColor: cores[componente],
-                    backgroundColor: '#fff'
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        grid: { color: 'black' },
-                        ticks: { color: 'black' }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'black' },
-                        ticks: { color: 'black' }
+            
+            async function atualizarGrafico(idMaquina) {
+                const componente = document.getElementById("componentes").value;
+                const periodo = document.getElementById("periodo").value;
+                const dados = await obterDadosGrafico(idMaquina, componente, periodo);
+                plotarGrafico(dados, componente);
+            }
+            
+            async function obterDadosGrafico(idMaquina, componente, periodo) {
+             
+                if (!idMaquina || !componente || !periodo) {
+                    console.error("Parâmetros insuficientes para atualizar o gráfico:", { idMaquina, componente, periodo });
+                    return;
+                }
+             
+                try {
+                    const response = await fetch(`./medidas/${idMaquina}/${componente}/${periodo}`, { method: "GET" });
+                    if (response.ok) {
+                        return await response.json();
+                    } else {
+                        console.error("Erro ao obter dados do gráfico:", await response.text());
+                        return { labels: [], data: [] };
                     }
-                },
-                plugins: {
-                    legend: {
-                        labels: { color: '#000', font: { size: 14 } }
-                    }
+                } catch (erro) {
+                    console.error("Erro ao buscar dados:", erro);
+                    return { labels: [], data: [] };
                 }
             }
-        });
-    }
-</script>
+            
+            function plotarGrafico(dados, componente) {
+                const labels = dados.labels || [];
+                const valores = dados.data || [];
+                const cores = {
+                    cpu: '#08836A',
+                    disco: '#FCA311',
+                    memoria: '#14213D'
+                };
+                const titulos = {
+                    cpu: 'Uso de CPU (%)',
+                    disco: 'Uso de Disco (%)',
+                    memoria: 'Uso de Memória (%)'
+                };
+            
+                if (myChart) {
+                    myChart.destroy();
+                }
+            
+                const ctx = document.getElementById("myChartCanvas").getContext("2d");
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: titulos[componente],
+                            data: valores,
+                            borderColor: cores[componente],
+                            backgroundColor: 'rgba(8, 131, 106, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: true },
+                            tooltip: { enabled: true }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Período' } },
+                            y: { beginAtZero: true, title: { display: true, text: 'Uso (%)' } }
+                        }
+                    }
+                });
+            }
+            
+        </script>
+    </body>
 </html>

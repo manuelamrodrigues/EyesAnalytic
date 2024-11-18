@@ -3,7 +3,7 @@ var database = require("../database/config");
 function buscarQuantidadeMaquinas() {
     const instrucaoSql = `
         SELECT COUNT(*) as quantidade 
-        FROM maquina
+        FROM maquina;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -13,7 +13,7 @@ function buscarMaquinasConectadas() {
     const instrucaoSql = `
         SELECT COUNT(*) as conectadas 
         FROM maquina 
-        WHERE status_conexao = 'conectada'
+        WHERE situacao = 'Ativo';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -22,8 +22,9 @@ function buscarMaquinasConectadas() {
 function buscarAlertasRecentes() {
     const instrucaoSql = `
         SELECT COUNT(*) as alertas 
-        FROM alerta 
-        WHERE momento >= NOW() - INTERVAL 1 HOUR
+        FROM alerta AS a
+        JOIN dado_capturado AS dc ON a.fkDadoCapturado = dc.idDadoCapturado
+        WHERE dc.dtHora >= NOW() - INTERVAL 1 HOUR;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -31,10 +32,12 @@ function buscarAlertasRecentes() {
 
 function buscarMbpsUpload() {
     const instrucaoSql = `
-        SELECT valor as upload 
-        FROM dado_capturado 
-        WHERE tipo_componente = 'upload' 
-        ORDER BY momento DESC LIMIT 1
+        SELECT registro as upload 
+        FROM dado_capturado AS dc
+        JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+        WHERE r.nomeRecurso = 'Bytes Enviados'
+        ORDER BY dc.dtHora DESC
+        LIMIT 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -42,45 +45,41 @@ function buscarMbpsUpload() {
 
 function buscarMbpsDownload() {
     const instrucaoSql = `
-        SELECT valor as download 
-        FROM dado_capturado 
-        WHERE tipo_componente = 'download' 
-        ORDER BY momento DESC LIMIT 1
+        SELECT registro as download 
+        FROM dado_capturado AS dc
+        JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+        WHERE r.nomeRecurso = 'Bytes Recebidos'
+        ORDER BY dc.dtHora DESC
+        LIMIT 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-
-function buscarUltimasMedidasComponente(idMaquina, componente, limite_linhas) {
-    var instrucaoSql = `SELECT 
-        valor as ${componente}, 
-        momento,
-        DATE_FORMAT(momento, '%H:%i:%s') as momento_grafico
-    FROM dado_capturado
-    WHERE fk_maquina = ${idMaquina} AND tipo_componente = '${componente}'
-    ORDER BY id DESC LIMIT ${limite_linhas}`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function buscarMedidasEmTempoRealComponente(idMaquina, componente) {
-    var instrucaoSql = `SELECT 
-        valor as ${componente}, 
-        DATE_FORMAT(momento, '%H:%i:%s') as momento_grafico,
-        fk_maquina 
-    FROM dado_capturado 
-    WHERE fk_maquina = ${idMaquina} AND tipo_componente = '${componente}'
-    ORDER BY id DESC LIMIT 1`;
-
+function buscarMediasHistoricoComponentes(idMaquina, intervaloTempo) {
+    const instrucaoSql = `
+        SELECT 
+            DATE_FORMAT(dc.dtHora, '${intervaloTempo}') AS intervalo,
+            AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END) AS mediaCPU,
+            AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END) AS mediaRAM,
+            AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END) AS mediaDisco
+        FROM 
+            dado_capturado AS dc
+        JOIN 
+            recurso AS r ON dc.fkRecurso = r.idRecurso
+        WHERE 
+            dc.fkMaquina = ${idMaquina}
+        GROUP BY 
+            intervalo
+        ORDER BY 
+            intervalo;
+    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    buscarUltimasMedidasComponente,
-    buscarMedidasEmTempoRealComponente,
+    buscarMediasHistoricoComponentes,
     buscarQuantidadeMaquinas,
     buscarMaquinasConectadas,
     buscarAlertasRecentes,

@@ -3,17 +3,18 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.get("/ultimas/:idAquario", function (req, res) {
+// Rota para buscar as últimas medidas de um componente específico para uma máquina
+router.get("/ultimas/:idMaquina/:componente", function (req, res) {
     medidaController.buscarUltimasMedidas(req, res);
 });
 
-router.get("/tempo-real/:idAquario", function (req, res) {
-    medidaController.buscarMedidasEmTempoReal(req, res);
-})
+// Rota para buscar as medidas em tempo real de um componente específico para uma máquina
+router.get("/tempo-historico/:idMaquina/:componente", function (req, res) {
+    medidaController.buscarMedidasEmHistorico(req, res);
+});
 
-// Nova rota para obter os indicadores
+// Rota para obter os indicadores de sistema
 router.get("/captura/indicadores", function (req, res) {
     medidaController.obterIndicadores(req, res);
 });
-
 module.exports = router;
