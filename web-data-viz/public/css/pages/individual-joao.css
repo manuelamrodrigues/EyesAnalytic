@@ -1,0 +1,12 @@
+/* Parte superior da tela */
+.supTela {
+    margin: -15px 0px -10px 20%;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90vw;
+    height: 10%;
+    margin-top: -40px;
+
+}
