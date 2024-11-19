@@ -24,9 +24,9 @@ function listarEspecifico(req, res) {
 }
 
 function listarMediaMaximo(req, res) {
-    var idMaquina = req.params.idMaquina
+    var idEmpresa = req.params.idEmpresa
 
-    servidorModel.listarEspecifico(idMaquina)
+    servidorModel.listarMediaMaximo(idEmpresa)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
@@ -38,7 +38,7 @@ function listarMediaMaximo(req, res) {
 
 function listarPorUsoCPU(req, res) {
     var idEmpresa = req.params.idEmpresa
-    servidorModel.listar(idEmpresa)
+    servidorModel.listarPorUsoCPU(idEmpresa)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {

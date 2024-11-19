@@ -19,7 +19,6 @@ function listarEspecifico(idMaquina) {
 function listarPorUsoCPU(fkEmpresa) {
     var instrucaoSql = `
         SELECT * FROM view_quantidade_cpu WHERE fkEmpresa = ${fkEmpresa};
-        // AND situacao = 'Ativo'; 
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -33,9 +32,9 @@ function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     return database.executar(instrucaoSql)
 }
 
-function listarMediaMaximo(idMaquina) {
+function listarMediaMaximo(fkEmpresa) {
     var instrucaoSql = `
-    SELECT * FROM view_media_max_cpu where idMaquina = "${idMaquina}";
+    SELECT * FROM view_media_max_cpu where fkEmpresa = "${fkEmpresa}";
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

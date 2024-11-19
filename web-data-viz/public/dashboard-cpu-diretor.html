@@ -91,28 +91,35 @@
 
     <main>
         <h1>Uso de CPU</h2>
-            <section class="chamados" id="conteudo">
-                <article class="alertas" id="lista">
+            <section class="servidores" id="conteudo">
+                <!-- <article class="alertas" id="lista"> -->
                 </article>
 
                 <div id="conteudoServidores" class="conteudoServidores">
                     <h3 class="tituloServidores">Servidores em Sobrecarga</h3>
+
+                    <div class="listagemServidores" id="listagemServidores">
+
+                    </div>
                 </div>
 
                 <div id="modal" class="modal">
                 </div>
 
-            </section>
 
-            <section>
+
                 <div>
                     <canvas class="grafico_media_max" id="myChart"></canvas>
                     <!-- <canvas class="grafico_media_max" id="myChart" width="100" height="20" style="box-sizing: border-box;height: 607px;width: 20px;"></canvas> -->
                 </div>
+
+
             </section>
 
+
             <section>
-                <div>
+                <div class="graficoMedia">
+                   <h3>Eficiência de Uso e Capacidade Ociosa</h3>
                     <canvas class="grafico_media_max" id="myChart2"></canvas>
                     <!-- <canvas class="grafico_media_max" id="myChart" width="100" height="20" style="box-sizing: border-box;height: 607px;width: 20px;"></canvas> -->
                 </div>
@@ -136,6 +143,7 @@
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
                 resposta.forEach(element => {
+                    let conteudo = document.getElementById("listagemServidores");
                     let openModal = document.createElement("div");
                     openModal.className = "openModal";
 
@@ -170,12 +178,12 @@
                     // Memória
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
+                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.RAM || "N/A") + "%</p>";
 
                     // Disco
                     let opcaoDisco = document.createElement("div");
                     opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco_Rigido || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
@@ -188,20 +196,94 @@
                     frameAlertas.appendChild(abrir);
                     openModal.appendChild(frameAlertas);
 
+
                     // Adicionando o modal completo ao DOM
                     document.body.appendChild(openModal);
 
+                    conteudo.appendChild(openModal);
                 });
             });
         })
     }
 
-    const ctx = document.getElementById('myChart');
+    // Gráfico 1
+    var color1 = '#0BA385';  // Primeira cor (ex: vermelho)
+    // var color2 = '#CE1919';  // Segunda cor (ex: azul)
+
+    var labels = ['Média', 'Máximo', 'Média'];
+    var data = [10, 20, 30];
+
+    var backgroundColors = [];
+    backgroundColors.push(color1);  // Cor 1 para índices pares
+
+
+
+    // var borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
+    const ctx2 = document.getElementById('myChart');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Uso de CPU',
+                data: data,
+                borderWidth: 1,
+                backgroundColor: backgroundColors,  // Array com cores alternadas
+                // borderColor: borderColors
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            x: {
+                stacked: true
+            },
+            y: {
+                stacked: true
+            }
+        }
+
+    });
+
+
+
+
+
+
+
+    // Gráfico 2
+    const ctx = document.getElementById('myChart2');
     var color1 = '#0BA385';  // Primeira cor (ex: vermelho)
     var color2 = '#CE1919';  // Segunda cor (ex: azul)
 
-    var labels = ['Média', 'Máximo', 'Média', 'Máximo', 'Média', 'Máximo', 'Média', 'Máximo', 'Média', 'Máximo', 'Média', 'Máximo', 'Média', 'Máximo'];
-    var data = [10, 20, 30, 40, 50, 10, 20, 30, 40, 50, 10, 20, 30, 40];
+    var labels = [];
+    var data = [];
+
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
+    fetch(`servidor/listarMediaMaximo/${fkEmpresa}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const mediaCPU = data.map(item => item.media_cpu);  // Todos os valores de "media_cpu"
+            const maxCPU = data.map(item => item.max_cpu);  
+            
+            const nomeServdior = data.map(item => item.nomeMaquina);// Todos os valores de "max_cpu"
+
+            // Agora você pode usar essas variáveis para o gráfico ou para outras lógicas
+            console.log('Média de CPU:', mediaCPU);
+            console.log('Máxima de CPU:', maxCPU);
+
+            // Por exemplo, você pode atualizar o gráfico com esses dados:
+            atualizarGrafico(mediaCPU, maxCPU, nomeServdior);
+        })
+        .catch(error => {
+            console.error('Erro: ', error);
+        });
+
 
     // Criar o array de `backgroundColor` alternando entre as cores
     var backgroundColors = [];
@@ -215,72 +297,36 @@
     });
 
     var borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
+    function atualizarGrafico(mediaCPU, maxCPU, nomeServdior) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nomeServdior,
+                datasets: [{
+                    label: 'Média uso de CPU',
+                    data: mediaCPU,
+                    borderWidth: 1,
+                    backgroundColor: color1
+                },
+                {
+                    label: 'Máximo de uso de CPU',
+                    data: maxCPU,
+                    borderWidth: 1,
+                    backgroundColor: color2
+                }],
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Uso de CPU',
-                data: data,
-                borderWidth: 1,
-                backgroundColor: backgroundColors,  // Array com cores alternadas
-                borderColor: borderColors
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 
 
-    var color1 = '#0BA385';  // Primeira cor (ex: vermelho)
-    var color2 = '#CE1919';  // Segunda cor (ex: azul)
 
-    var labels = ['Média', 'Máximo', 'Média'];
-    var data = [10, 20, 30];
-
-    var backgroundColors = [];
-
-
-    data.forEach((value, index) => {
-        // Alterna entre color1 e color2 baseado no índice
-        if (index % 2 === 0) {
-            backgroundColors.push(color1);  // Cor 1 para índices pares
-        } else {
-            backgroundColors.push(color2);  // Cor 2 para índices ímpares
-        }
-    });
-
-    var borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
-    const ctx2 = document.getElementById('myChart2');
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Uso de CPU',
-                data: data,
-                borderWidth: 1,
-                backgroundColor: backgroundColors,  // Array com cores alternadas
-                borderColor: borderColors
-            }]
-        },
-        options: {
-            responsive: true,
-            indexAxis: 'y',
-            x: {
-                stacked: true
-            },
-            y: {
-                stacked: true
-            }
-        }
-    
-    });
 </script>

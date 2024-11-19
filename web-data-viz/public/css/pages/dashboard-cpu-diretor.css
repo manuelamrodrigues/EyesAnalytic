@@ -46,17 +46,15 @@ body {
     width: 10px;
 }
 
-.chamados {
-    width: 90%;
+.servidores {
+    width: 95%;
     height: auto;
-
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 110px;
+    /* margin-left: 110px; */
+    justify-content: space-between;
 }
 
-.chamados h2 {
+.servidores h2 {
     font-size: 24px;
     padding: 30px 0px 10px 20px;
     color: #fff;
@@ -74,12 +72,11 @@ body {
     align-items: center;
     /* justify-content: space-around; */
     flex-direction: row;
-    margin-left: 5%;
-
+    /* margin-left: 5%; */
 }
 
 .abrir{
-    width: 80%;
+    width: 83%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -92,7 +89,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: start;
-    gap: 5%;
+    gap: 2%;
 }
 
 .opcao {
@@ -100,7 +97,7 @@ body {
     align-items: center;
     justify-content: start;
     flex-direction: row;
-    gap: 5px;
+    gap: 7px;
     font-size: medium;
 }
 
@@ -127,20 +124,20 @@ body {
     background-color: #fff;
     border-radius: 7px;
     border: none;
-    width: 40%;
+    width: 97%;
     padding: 10px;
     margin-top: 15px;
-    margin-left: 10%;
+    /* margin-left: 10%; */
 }
 
 .openModal:hover{
     background-color: #08836A;
     border-radius: 7px;
     border: none;
-    width: 40%;
+    width: 97%;
     padding: 10px;
     margin-top: 15px;
-    margin-left: 10%;
+    /* margin-left: 5%; */
    
     -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
@@ -506,10 +503,36 @@ body {
 } */
 
 .grafico_media_max{
-    width: 30%;
+    width: 525px
 }
 
 canvas{
-    width:500px !important;
-    height:300px !important;
+    width:482px !important;
+    height:250px !important;
+    background-color: #ffffff;
+}
+
+.conteudoServidores{
+    width: 41.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    justify-content: flex-start;
+}
+
+.listagemServidores{
+    width: 100%;
+}
+
+.graficoMedia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.graficoMedia h3{
+    color: white;
+    font-family: "Montserrat", sans-serif;
 }
