@@ -15,7 +15,7 @@
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarServidores(), listarHoras()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -108,8 +108,10 @@
 
 
 
-                <div>
+                <div class="grafico4">
+                    <h3>Tempo acima da métrica definido</h3>
                     <canvas class="grafico_media_max" id="myChart"></canvas>
+                    
                     <!-- <canvas class="grafico_media_max" id="myChart" width="100" height="20" style="box-sizing: border-box;height: 607px;width: 20px;"></canvas> -->
                 </div>
 
@@ -119,7 +121,7 @@
 
             <section>
                 <div class="graficoMedia">
-                   <h3>Eficiência de Uso e Capacidade Ociosa</h3>
+                    <h3>Média de Uso x Máximo de Uso</h3>
                     <canvas class="grafico_media_max" id="myChart2"></canvas>
                     <!-- <canvas class="grafico_media_max" id="myChart" width="100" height="20" style="box-sizing: border-box;height: 607px;width: 20px;"></canvas> -->
                 </div>
@@ -210,8 +212,8 @@
     var color1 = '#0BA385';  // Primeira cor (ex: vermelho)
     // var color2 = '#CE1919';  // Segunda cor (ex: azul)
 
-    var labels = ['Média', 'Máximo', 'Média'];
-    var data = [10, 20, 30];
+    // var labels = ['Média', 'Máximo', 'Média'];
+    // var data = [10, 20, 30];
 
     var backgroundColors = [];
     backgroundColors.push(color1);  // Cor 1 para índices pares
@@ -220,31 +222,61 @@
 
     // var borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
     const ctx2 = document.getElementById('myChart');
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Uso de CPU',
-                data: data,
-                borderWidth: 1,
-                backgroundColor: backgroundColors,  // Array com cores alternadas
-                // borderColor: borderColors
-            }]
-        },
-        options: {
-            responsive: true,
-            indexAxis: 'y',
-            x: {
-                stacked: true
+    // var idMaquina = sessionStorage.ID_MAQUINA;
+    function listarHoras() {
+        fetch(`servidor/listarDiferencaHoras`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const diferenca_horas = data.map(item => item.diferenca_horas);
+
+                const nomeMaquina = data.map(item => item.nomeMaquina);// Todos os valores de "max_cpu"
+
+                // Agora você pode usar essas variáveis para o gráfico ou para outras lógicas
+                console.log('Diferença horas:', diferenca_horas);
+                console.log('Nome Servidor:', nomeMaquina);
+
+                // Por exemplo, você pode atualizar o gráfico com esses dados:
+                // if (diferenca_horas != null) {
+                    atualizarGrafico2(diferenca_horas, nomeMaquina);
+               
+                
+            })
+            .catch(error => {
+                console.error('Erro: ', error);
+            });
+    }
+    function atualizarGrafico2(diferenca_horas, nomeMaquina) {
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: nomeMaquina,
+                datasets: [{
+                    label: 'Uso de CPU',
+                    data: diferenca_horas,
+                    borderWidth: 1,
+                    backgroundColor: backgroundColors,  // Array com cores alternadas
+                    // borderColor: borderColors
+                }]
             },
-            y: {
-                stacked: true
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
+                }
             }
-        }
 
-    });
+        });
 
+    }
 
 
 
@@ -269,8 +301,8 @@
         })
         .then(data => {
             const mediaCPU = data.map(item => item.media_cpu);  // Todos os valores de "media_cpu"
-            const maxCPU = data.map(item => item.max_cpu);  
-            
+            const maxCPU = data.map(item => item.max_cpu);
+
             const nomeServdior = data.map(item => item.nomeMaquina);// Todos os valores de "max_cpu"
 
             // Agora você pode usar essas variáveis para o gráfico ou para outras lógicas
@@ -305,13 +337,13 @@
                 datasets: [{
                     label: 'Média uso de CPU',
                     data: mediaCPU,
-                    borderWidth: 1,
+                    // borderWidth: 1,
                     backgroundColor: color1
                 },
                 {
                     label: 'Máximo de uso de CPU',
                     data: maxCPU,
-                    borderWidth: 1,
+                    // borderWidth: 1,
                     backgroundColor: color2
                 }],
 

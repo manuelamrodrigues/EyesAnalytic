@@ -49,6 +49,16 @@ function listarPrioridade() {
     return database.executar(instrucaoSql)
 }
 
+
+function listarDiferencaHoras() {
+    var instrucaoSql = `
+    SELECT * FROM diferenca_horas;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+
 function desativarServidor(idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET situacao = 'inativa' WHERE idMaquina = ${idMaquina};
@@ -63,5 +73,6 @@ module.exports = {
     listarPorUsoCPU,
     alterarServidor,
     listarPrioridade,
-    listarMediaMaximo
+    listarMediaMaximo,
+    listarDiferencaHoras
 };

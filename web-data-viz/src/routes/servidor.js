@@ -19,6 +19,10 @@ router.get("/listarMediaMaximo/:idEmpresa", function (req, res) {
     servidorController.listarMediaMaximo(req, res)
 })
 
+router.get("/listarDiferencaHoras", function (req, res) {
+    servidorController.listarDiferencaHoras(req, res)
+})
+
 
 // router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
 //     servidorController.listarPorUsoCPU(req, res)

@@ -80,6 +80,18 @@ function listarPrioridade(req, res) {
         })
 }
 
+function listarDiferencaHoras(req, res) {
+    // var idMaquina = req.params.idMaquina
+
+    servidorModel.listarDiferencaHoras()
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
 function desativarServidor(req, res) {
     var idMaquina = req.params.idMaquina
 
@@ -105,5 +117,6 @@ module.exports = {
     alterarServidor,
     desativarServidor,
     listarPrioridade,
-    listarMediaMaximo
+    listarMediaMaximo,
+    listarDiferencaHoras
 }
