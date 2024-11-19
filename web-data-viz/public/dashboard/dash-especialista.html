@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/pages/dash-especialista.css">
     <!-- <link rel="stylesheet" href="../css/pages/espec-servidores.css"> -->
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
+    <link rel="stylesheet" href="./css/pages/lista-alertas.css">
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
     <script src="../js/aside-menu.js"></script>
     <script src="../js/sessao.js"></script>
@@ -101,27 +102,27 @@
                 <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
             </section>
             <section class="dados-section">
-                <h2 class="titulo1">Servidores</h3>
-                    <h2>Servidores</h2>
-                    <article class="card-section" id="lista">
+                <h2>Servidores</h2>
+                <article class="card-section" id="lista">
+
+                </article>
+                <div id="modal" class="modal">
+                </div>
+
+                <section class="dados-section">
+                    <h2>Alertas do dia</h2>
+                    <article class="card-section" id="lista_dia">
 
                     </article>
-                   
-
                     <div id="modal" class="modal">
-
                     </div>
+                    
 
-        <h2 class="titulo2">Alertas do dia</h3>
-            <div class="card-section">
-                <div class="card">
-                    <div class="error-content">
-                        <div id="lista_dia">
+        </div>
+        </div>
+        </div>
+        </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
 
     </main>
 
@@ -358,8 +359,8 @@
             });
         })
     }
-    
-    
+
+
     // Lista de alertas
     function ListarCaptura() {
         var idEmpresa = sessionStorage.FK_EMPRESA;
