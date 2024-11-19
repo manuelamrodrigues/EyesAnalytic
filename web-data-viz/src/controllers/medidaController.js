@@ -30,20 +30,16 @@ function buscarIndicadores(req, res) {
         });
 }
 
-
-
-
-
-
 function buscarMediasHistoricoComponentes(req, res) {
     const intervaloTempo = req.params.intervalo || "semanal";
+    const componente = req.params.componente?.toLowerCase() || "cpu"; // Recebe o componente (cpu, ram, disco) em minúsculo por segurança
 
     // Mapear opções para o intervalo SQL adequado
     const mapeamentoIntervalo = {
         semanal: "WEEK",
         mensal: "MONTH",
-        bimestral: "QUARTER", // Utilizando QUARTER como aproximação
-        semestral: "YEAR" // Utilizando YEAR e ajustando limite no SQL
+        bimestral: "BIMONTHLY", // Corrigido para refletir um intervalo de 2 meses
+        semestral: "SEMIANNUAL" // Corrigido para refletir um intervalo de 6 meses
     };
 
     const intervaloSQL = mapeamentoIntervalo[intervaloTempo];
@@ -51,12 +47,23 @@ function buscarMediasHistoricoComponentes(req, res) {
         return res.status(400).json({ erro: "Intervalo inválido. Use: semanal, mensal, bimestral ou semestral." });
     }
 
-    console.log(`Buscando médias históricas com intervalo: ${intervaloTempo} (${intervaloSQL})`);
+    console.log(`Buscando médias históricas para ${componente} com intervalo: ${intervaloTempo} (${intervaloSQL})`);
 
     medidaModel.buscarMediasHistoricoComponentes(intervaloSQL)
         .then((resultado) => {
             if (resultado.length > 0) {
-                res.status(200).json(resultado);
+                // Processar os dados para o formato do gráfico
+                const labels = resultado.map(row => row.intervalo || row.diaSemana); // Use 'diaSemana' para intervalo semanal
+                const data = resultado.map(row => {
+                    switch (componente) {
+                        case "cpu": return row.mediaCPU;
+                        case "ram": return row.mediaRAM;
+                        case "disco": return row.mediaDisco;
+                        default: return 0; // Valor padrão caso o componente não seja reconhecido
+                    }
+                });
+
+                res.status(200).json({ labels, data });
             } else {
                 res.status(204).send("Nenhum dado encontrado para o intervalo fornecido.");
             }

@@ -110,7 +110,7 @@
                             <select id="componentes" class="opcao" onchange="atualizarGrafico()">
                                 <option value="cpu" selected>CPU</option>
                                 <option value="disco">Disco</option>
-                                <option value="memoria">Memória</option>
+                                <option value="ram">Memória</option>
                             </select>
                         </div>
                     </div>
@@ -144,15 +144,18 @@
             
             window.obterDadosGrafico = async function (componente, periodo) {
                 try {
-                    const response = await fetch(`../medidas/tempo-historico/${componente}/${periodo}`, { method: "GET" });
+                    const response = await fetch(`../medidas/medias-historico/${componente}/${periodo}`, { method: "GET" });
                     if (response.ok) {
                         return await response.json();
+                    } else if (response.status === 204) {
+                        console.warn("Nenhum dado disponível para o gráfico.");
+                        return { labels: [], data: [] };
                     } else {
-                        console.error("Erro ao obter dados do gráfico:", await response.text());
+                        console.error("Erro ao obter dados do gráfico:", response.statusText);
                         return { labels: [], data: [] };
                     }
-                } catch (erro) {
-                    console.error("Erro ao buscar dados do gráfico:", erro);
+                } catch (error) {
+                    console.error("Erro ao buscar dados do gráfico:", error);
                     return { labels: [], data: [] };
                 }
             };
@@ -168,23 +171,36 @@
                 const componente = document.getElementById("componentes").value;
                 const periodo = document.getElementById("periodo").value;
                 const dados = await obterDadosGrafico(componente, periodo);
-                plotarGrafico(dados, componente);
+                plotarGrafico(dados, componente,periodo);
             };
             
-            window.plotarGrafico = function (dados, componente) {
-                const labels = dados.labels || [];
-                const valores = dados.data || [];
+         
+            window.plotarGrafico = function (dados, componente, periodo) {
+                if (!dados || !dados.labels || !dados.data || dados.labels.length === 0) {
+                    console.warn("Nenhum dado disponível para o gráfico.");
+                    return;
+                }
+            
+                let labels = dados.labels;
+                const valores = dados.data;
                 const cores = {
                     cpu: '#08836A',
                     disco: '#FCA311',
-                    memoria: '#14213D'
+                    ram: '#14213D'
                 };
                 const titulos = {
                     cpu: 'Uso de CPU (%)',
                     disco: 'Uso de Disco (%)',
-                    memoria: 'Uso de Memória (%)'
+                    ram: 'Uso de Memória RAM (%)'
                 };
             
+                // Verifica se o intervalo selecionado é semanal e ajusta as labels para dias da semana
+                if (periodo === 'semanal') {
+                    const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+                    labels = diasSemana.slice(0, dados.labels.length); // Ajusta as labels de acordo com o número de dados disponíveis
+                }
+            
+                // Verifica e destrói gráfico existente
                 if (window.myChart) {
                     window.myChart.destroy();
                 }
@@ -195,10 +211,10 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: titulos[componente],
+                            label: titulos[componente] || 'Dados',
                             data: valores,
-                            borderColor: cores[componente],
-                            backgroundColor: 'rgba(8, 131, 106, 0.2)',
+                            borderColor: cores[componente] || '#000000',
+                            backgroundColor: 'rgba(0, 0, 0, 0.1)',
                             borderWidth: 2,
                             tension: 0.3
                         }]
@@ -216,7 +232,6 @@
                     }
                 });
             };
-            
             
         </script>
     </body>
