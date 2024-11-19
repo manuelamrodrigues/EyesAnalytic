@@ -15,7 +15,20 @@ ORDER BY dtHora ASC;
     return database.executar(instrucaoSql)
 }
 
+function listarCapturas(idEmpresa) {
+    const instrucao = `
+        SELECT * FROM alertas_detalhados WHERE empresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 module.exports = {
-    buscarTempoReal
+    buscarTempoReal,
+    listarCapturas
 }
+
+
+
+

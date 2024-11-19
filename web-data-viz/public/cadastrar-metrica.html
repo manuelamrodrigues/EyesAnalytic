@@ -15,14 +15,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-        <script src="../js/sessao.js"></script>
+    <script src="../js/sessao.js"></script>
     <title>Cadastro de Métrica | EyesAnalytic</title>
 </head>
 
 <body onload="listar(), validarSessao()">
 
     <div class="button-container"></div>
-    <a href="metricas-diretor.html" class="back-button"></a>
+    <a href="metricas.html" class="back-button"></a>
     </div>
 
 
@@ -35,14 +35,15 @@
         </div>
 
         <div class="input field">
-            <select class="campo" id="listaTipos">
+            <select class="campo" id="listaComponentes">
                 <option selected disabled value="#">Componente</option>
+                <!-- Exemplo de opções estáticas -->
             </select>
         </div>
-    
+
         <div class="input field">
-            <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
-            <label for="name" class="caixa">Valor</label>
+            <input type="number" class="campo" placeholder="Valor" required id="valor_input" autocomplete="off">
+            <label for="valor_input" class="caixa">Valor</label>
         </div>
 
         <div id="error-message" style="color: red; display: none;"></div>
@@ -57,13 +58,14 @@
 <script>
     function listar() {
 
-        fetch("/tipo/listar", {
+        fetch("/metricas/listarRecursos", {
             method: "GET",
         })
             .then(function (resposta) {
-                resposta.json().then((tipo) => {
-                    tipo.forEach((tipo) => {
-                        listaTipos.innerHTML += `<option value='${tipo.idTipoUsuario}'>${tipo.tipo}</option>`;
+                resposta.json().then((metricas) => {
+                    const listaComponentes = document.getElementById("listaComponentes");
+                    metricas.forEach((metrica) => {
+                        listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
                     });
                 });
             })
@@ -74,141 +76,77 @@
 
 
     function cadastrar() {
-        var tipoSelecionado = document.getElementById("listaTipos")
+        var componenteVar = document.getElementById("listaComponentes").value;
+        var valorVar = document.getElementById("valor_input").value;
         var errorMessage = document.getElementById("error-message");
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        errorMessage.style.display = "none"; // Esconde a mensagem de erro no início
 
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        var confirmacaoSenhaVar = confirmacao_senha_input.value;
-        var tipoVar = tipoSelecionado.value;
-
-        var empresaVar = sessionStorage.FK_EMPRESA;
-
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            tipoVar == "" ||
-            empresaVar == "" ||  // Validação do campo empresa
-            confirmacaoSenhaVar == ""
-        ) {
+        if (componenteVar == "" || valorVar == "" || fkEmpresa == 0) {
             Swal.fire({
                 title: "Falha!",
                 text: "Preencha os campos!",
                 icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor verde do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
+                confirmButtonColor: '#4CAF50',
+                timer: 2000,
                 timerProgressBar: true
             });
 
-            finalizarAguardar();
+            finalizarAguardar(); // Certifique-se de que a função existe
             return false;
-        } else {
-            // setInterval(sumirMensagem, 5000);
         }
 
-        if (emailVar.indexOf('@') < 0) {
+        fetch("/metricas/cadastrar", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        fkRecurso: componenteVar,
+        valorMetricaServer: valorVar,
+        fkEmpresa: fkEmpresa
+    }),
+})
+    .then((resposta) => {
+        if (resposta.ok) {
             Swal.fire({
-                title: "Falha!",
-                text: "O e-mail precisa conter @",
-                icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor verde do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
-                timerProgressBar: true
-            });
-            return false;
-        }
-
-        if (senhaVar.length < 5) {
-            Swal.fire({
-                title: "Falha!",
-                text: "A senha precisa ter pelo menos 5 caracteres!",
-                icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor verde do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
-                timerProgressBar: true
-            });
-            return false;
-        }
-
-        if (confirmacaoSenhaVar !== senhaVar) {
-            Swal.fire({
-                title: "Falha!",
-                text: "A confirmação da senha não coincide com a senha!",
-                icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor verde do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
-                timerProgressBar: true
-            });
-            return false;
-        }
-
-        if (!empresaVar) {
-            errorMessage.style.display = "block";
-            Swal.fire({
-                title: "Falha!",
-                text: "Empresa não identificada. Faça login novamente",
-                icon: "error",
-                confirmButtonColor: '#4CAF50', // Cor verde do botão
-                timer: 2000, // Tempo antes de fechar automaticamente
-                timerProgressBar: true
-            });
-            
-            return false;
-        }
-
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                empresaServer: empresaVar,
-                tipoUsuarioServer: tipoVar
-            }),
-        })
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    errorMessage.style.color = "green";
-                    Swal.fire({
-                        title: "Sucesso!",
-                        text: "Cadastro realizado com sucesso! Redirecionando...",
-                        icon: "success",
-                        confirmButtonColor: '#4CAF50', // Cor verde do botão
-                        timer: 2000, // Tempo antes de fechar automaticamente
-                        timerProgressBar: true,
-                        willClose: () => {
-                            window.location = "funcionario-diretor.html"; // Redireciona após o tempo
-                        }
-                    });
-
-                    // errorMessage.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
-                    // alert("Cadastro realizado com sucesso! Redirecionando...")
-                    // setTimeout(() => {
-                    //     window.location = "funcionario-diretor.html";
-                    // }, 2000);
-                } else {
-                    errorMessage.style.display = "block";
-                    Swal.fire({
-                        title: "Erro!",
-                        text: "Houve um erro ao tentar realizar o cadastro!",
-                        icon: "error",
-                        confirmButtonColor: '#f44336', // Cor vermelha do botão
-                        timer: 2000, // Tempo antes de fechar automaticamente
-                        timerProgressBar: true
-                    });
-                    // errorMessage.innerHTML = "Houve um erro ao tentar realizar o cadastro!";
+                title: "Sucesso!",
+                text: "Cadastro realizado com sucesso!",
+                icon: "success",
+                confirmButtonColor: '#4CAF50',
+                timer: 2000,
+                timerProgressBar: true,
+                willClose: () => {
+                    window.location = "metricas.html";
                 }
-            })
-            .catch(function (erro) {
-                errorMessage.style.display = "block";
-                errorMessage.innerHTML = `#ERRO: ${erro}`;
             });
-
+        } else if (resposta.status === 400) {
+            resposta.text().then((msg) => {
+                Swal.fire({
+                    title: "Aviso!",
+                    text: msg,
+                    icon: "warning",
+                    confirmButtonColor: '#FFC107',
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            });
+        } else {
+            throw new Error("Erro inesperado ao cadastrar a métrica.");
+        }
+    })
+    .catch((erro) => {
+        console.error(erro);
+        Swal.fire({
+            title: "Erro!",
+            text: "Houve um erro ao processar o cadastro. Por favor, tente novamente.",
+            icon: "error",
+            confirmButtonColor: '#f44336',
+            timer: 2000,
+            timerProgressBar: true
+        });
+    });
+        ''
         return false;
     }
 

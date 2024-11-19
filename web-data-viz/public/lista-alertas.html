@@ -45,7 +45,7 @@
                     <span>Funcionários</span>
                 </li>
             </a>
-            
+
             <a href="../metricas-diretor.html" class="outros">
                 <li>
                     <img src="./assets/svg/chamados.svg" alt="Chamados">
@@ -91,25 +91,28 @@
 
         <section class="chamados">
             <article class="alertas">
-                <h2 class="titulo-alerta">Alertas</h2>
+                <h2 style="font-size: 1.5rem; padding: 20px 0px 0px 0px;">Alertas</h2>
 
                 <br>
                 <h2 class="tAlertas">Alertas do dia</h2>
-                <div class="frameAlertas">
+                <div id="lista_dia">
+
+                </div>
+                <!-- <div class="frameAlertas">
                     <div class="userImg">
                         <img src="./assets/svg/alerta-aovivo.svg" alt="">
                     </div>
 
                     <p><span class="status-alerta">Alto uso do Disco</span></p>
                     <p>Servidor 1</p>
-                    <p class="alerta-porcentagem">Uso 98%</p>
+                    <p>Uso 98%</p>
                     <p></p>
                     <div class="hrDt">
                         <p>17:13</p>
                         <p>29/10/2024</p>
-                    </div>
+                    </div>-->
 
-                </div>
+                <!-- </div>
                 <div class="frameAlertas">
                     <div class="userImg">
                         <img src="./assets/svg/alerta-aovivo.svg" alt="">
@@ -123,9 +126,9 @@
                         <p>29/10/2024</p>
                     </div>
 
-                </div>
+                </div> -->
 
-                <div class="frameAlertas">
+                <!--<div class="frameAlertas">
                     <div class="userImg">
                         <img src="./assets/svg/alerta-aovivo.svg" alt="">
                     </div>
@@ -138,7 +141,7 @@
                         <p>29/10/2024</p>
                     </div>
 
-                </div>
+                </div> -->
                 <br>
                 <!-- <h2 class="tAlertas">Alertas da semana</h2>
 
@@ -204,8 +207,10 @@
                 </div>
                 <br><br> -->
                 <h2 class="tAlertas">Alertas do mês</h2>
+                <div id="lista_mes">
 
-                <div class="frameAlertas">
+                </div>
+                <!-- <div class="frameAlertas">
                     <div class="userImg">
                         <img src="./assets/svg/alerta-aovivo.svg" alt="">
                     </div>
@@ -248,10 +253,13 @@
                         <p>02/09/2024</p>
                     </div>
 
-                </div>
+                </div> -->
                 <br><br>
                 <h2 class="tAlertas">Alertas do ano</h2>
-                <div class="frameAlertas">
+                <div id="lista_ano">
+
+                </div>
+                <!-- <div class="frameAlertas">
                     <div class="userImg">
                         <img src="./assets/svg/alerta-aovivo.svg" alt="">
                     </div>
@@ -309,9 +317,11 @@
                     <div class="hrDt">
                         <p>16:20</p>
                         <p>07/02/2023</p>
-                    </div>
+                    </div> 
+                    
 
                 </div>
+                -->
 
 
 
@@ -322,3 +332,70 @@
 </body>
 
 </html>
+
+<script>
+    function ListarCaptura() {
+        var idEmpresa = sessionStorage.FK_EMPRESA;
+        lista_dia.innerHTML = ``;
+        lista_mes.innerHTML = ``;
+        lista_ano.innerHTML = ``;
+
+        fetch(`capturas/listarCapturas/${idEmpresa}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                if (resposta.status == 204) {
+                    lista_dia.innerHTML = `<p>Não há capturas</p>`;
+                    return;
+                }
+
+                resposta.json().then((alertas) => {
+                    const today = new Date();
+                    const currentDay = today.getDate();
+                    const currentMonth = today.getMonth();
+                    const currentYear = today.getFullYear();
+
+                    alertas.forEach((registro) => {
+                        let data = new Date(registro.dtHora);
+                        let dataFormatada = `${("0" + data.getHours()).slice(-2)}:${("0" + data.getMinutes()).slice(-2)} ` +
+                            `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)}`;
+
+
+
+                        let alertaHtml = `
+                    <div class="frameAlertas">
+                        <div class="userImg">
+                            <img src="./assets/svg/alerta-aovivo.svg" alt="">
+                        </div>
+                        <p><span class="status-alerta">Alto uso de ${registro.nomeRecurso}</span></p>
+                        <p>${registro.nomeMaquina}</p>
+                        <p>Uso: ${registro.valorRegistrado}%</p>
+                        <div class="hrDt" style="text-align: center">
+                            ${dataFormatada}
+                        </div>
+                    </div>`;
+
+                        if (data.getFullYear() === currentYear) {
+                            if (data.getMonth() === currentMonth) {
+                                if (data.getDate() === currentDay) {
+                                    lista_dia.innerHTML += alertaHtml;
+                                } else {
+                                    lista_mes.innerHTML += alertaHtml;
+                                }
+                            } else {
+                                lista_ano.innerHTML += alertaHtml;
+                            }
+                        }
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    // Chama a função ao carregar a página ou ao atualizar os dados
+    document.addEventListener('DOMContentLoaded', ListarCaptura);
+
+
+</script>

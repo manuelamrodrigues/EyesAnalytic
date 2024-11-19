@@ -25,9 +25,9 @@ var chamadosRouter = require("./src/routes/chamados");
 var tipoRouter = require("./src/routes/tipo");
 var urgenciaRouter = require("./src/routes/urgencias")
 var servidorRouter = require("./src/routes/servidor")
+var capturaRouter = require("./src/routes/capturas")
 var metricaRouter = require("./src/routes/metricas")
 var capturaRouter = require("./src/routes/capturas")
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,10 +43,11 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/chamados", chamadosRouter);
 app.use("/tipo", tipoRouter);
-app.use("/urgencias", urgenciaRouter);
-app.use("/servidor", servidorRouter);
-app.use("/metricas",metricaRouter);
-app.use("/capturas",capturaRouter);
+app.use("/urgencias", urgenciaRouter)
+app.use("/servidor", servidorRouter)
+app.use("/capturas",capturaRouter)
+app.use("/metricas",metricaRouter)
+
 
 
 app.listen(PORTA_APP, function () {
