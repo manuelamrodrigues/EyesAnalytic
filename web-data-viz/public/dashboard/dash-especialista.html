@@ -14,7 +14,7 @@
     <script src="../js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao(), iniciarGrafico(1), listarServidores()">
+<body onload="validarSessao(), listarServidores()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -116,7 +116,7 @@
                     </article>
                     <div id="modal" class="modal">
                     </div>
-                    
+
 
         </div>
         </div>
@@ -133,7 +133,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 <script>
 
-    async function buscarDados(idMaquina, idRecurso) {
+    var charts = []
+    var idMaquina
+    var intervalo = 1000
+
+    async function buscarDados(idRecurso) {
         try {
             const resposta = await fetch(`/capturas/buscarTempoReal?idMaquina=${idMaquina}&idRecurso=${idRecurso}`)
 
@@ -158,8 +162,8 @@
 
 
 
-    async function plotarGrafico(idMaquina, idRecurso) {
-        const resposta = await buscarDados(idMaquina, idRecurso);
+    async function plotarGrafico(idRecurso) {
+        const resposta = await buscarDados(idRecurso);
 
         const labels = Object.values(resposta.labels);
         const dados = Object.values(resposta.data);
@@ -185,6 +189,7 @@
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderWidth: 1
             }]
+
         };
 
         const config = {
@@ -201,19 +206,20 @@
 
         const chart = new Chart(ctx, config);
 
+        charts.push(chart)
         setTimeout(function () {
-            atualizarDados(chart, idMaquina, idRecurso)
-        }, 5000)
+            atualizarDados(chart, idRecurso)
+        }, intervalo)
 
 
 
     }
 
-    async function atualizarDados(chart, idMaquina, idRecurso) {
+    async function atualizarDados(chart, idRecurso, delay = intervalo) {
         try {
             var dados
             var labels
-            const resposta = await buscarDados(idMaquina, idRecurso)
+            const resposta = await buscarDados(idRecurso)
             dados = Object.values(resposta.data);
             labels = Object.values(resposta.labels);
 
@@ -221,8 +227,8 @@
 
             atualizarGrafico(chart, dados, labels)
             setTimeout(function () {
-                atualizarDados(chart, idMaquina, idRecurso)
-            }, 5000)
+                atualizarDados(chart, idRecurso)
+            }, delay)
 
 
         }
@@ -239,11 +245,15 @@
         }
     }
 
+    function atualizarDash(Maquinaid) {
+        idMaquina = Maquinaid
+        
+    }
 
-    function iniciarGrafico(idMaquina) {
-        plotarGrafico(idMaquina, 1)
-        plotarGrafico(idMaquina, 2)
 
+    function iniciarGrafico() {
+        plotarGrafico(1)
+        plotarGrafico(2)
     }
 
     //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
@@ -269,7 +279,7 @@
                     abrir.className = "abrir";
                     abrir.id = "openModal";
                     abrir.onclick = function () {
-                        listarEspecifico(element.idMaquina);
+                        atualizarDash(element.idMaquina)
                     };
 
                     let titulo = document.createElement("h3");
@@ -310,6 +320,8 @@
                     lista.appendChild(openModal);
 
                 });
+                idMaquina = resposta[0].idMaquina
+                iniciarGrafico()
             });
         })
     }
