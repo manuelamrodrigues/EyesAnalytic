@@ -97,6 +97,7 @@
                 <article class="topoGrafico">
                     <h3>Uso dos Componentes</h3>
                     <div class="botoesGrafico">
+                        
                         <div class="periodo">
                             <select id="periodo" class="opcao" onchange="atualizarGrafico()">
                                 <option value="semanal" selected>Semanal</option>
@@ -122,58 +123,28 @@
         </main>
     
         <script>
-            document.addEventListener("atualizarIndicadores", function atualizarIndicadores() {
-                const idMaquina =  carregarIdMaquina();
-                if (!idMaquina) {
-                    console.error("ID da máquina não está definido. Verifique a configuração.");
-                    return;
-                }
-                try {
 
-                    const response = fetch(`/medidas/captura/indicadores`, { method: "GET" });
+            window.atualizarIndicadores = async function () {
+                try {
+                    const response = await fetch(`../medidas/captura/indicadores`, { method: "GET" });
                     if (response.ok) {
-                        const indicadores =  response.json();
+                        const indicadores = await response.json();
                         document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
                         document.getElementById("maquinas-conectadas").textContent = indicadores.maquinasConectadas || 0;
                         document.getElementById("alertas-recentes").textContent = indicadores.alertasRecentes || 0;
                         document.getElementById("mbps-upload").textContent = indicadores.upload || 0;
                         document.getElementById("mbps-download").textContent = indicadores.download || 0;
                     } else {
-                        console.error("Erro ao obter indicadores:",  response.text());
+                        console.error("Erro ao obter indicadores:", await response.text());
                     }
                 } catch (erro) {
                     console.error("Erro ao buscar indicadores:", erro);
                 }
-                
-            });
+            };
             
-            let myChart;
-            
-         
-
-            function iniciarAtualizacao() {
-                atualizarGrafico(idMaquina);
-                atualizarIndicadores();
-                setInterval(() => atualizarIndicadores(), 60000); // Atualiza indicadores a cada 1 minuto
-                setInterval(() => atualizarGrafico(idMaquina), 120000); // Atualiza gráfico a cada 2 minutos
-            }
-            
-            async function atualizarGrafico(idMaquina) {
-                const componente = document.getElementById("componentes").value;
-                const periodo = document.getElementById("periodo").value;
-                const dados = await obterDadosGrafico(idMaquina, componente, periodo);
-                plotarGrafico(dados, componente);
-            }
-            
-            async function obterDadosGrafico(idMaquina, componente, periodo) {
-             
-                if (!idMaquina || !componente || !periodo) {
-                    console.error("Parâmetros insuficientes para atualizar o gráfico:", { idMaquina, componente, periodo });
-                    return;
-                }
-             
+            window.obterDadosGrafico = async function (componente, periodo) {
                 try {
-                    const response = await fetch(`./medidas/${idMaquina}/${componente}/${periodo}`, { method: "GET" });
+                    const response = await fetch(`../medidas/tempo-historico/${componente}/${periodo}`, { method: "GET" });
                     if (response.ok) {
                         return await response.json();
                     } else {
@@ -181,12 +152,26 @@
                         return { labels: [], data: [] };
                     }
                 } catch (erro) {
-                    console.error("Erro ao buscar dados:", erro);
+                    console.error("Erro ao buscar dados do gráfico:", erro);
                     return { labels: [], data: [] };
                 }
-            }
+            };
             
-            function plotarGrafico(dados, componente) {
+            window.iniciarAtualizacao = function () {
+                atualizarIndicadores();
+                atualizarGrafico();
+                setInterval(atualizarIndicadores, 60000); // Atualiza indicadores a cada 1 minuto
+                setInterval(atualizarGrafico, 120000); // Atualiza gráfico a cada 2 minutos
+            };
+            
+            window.atualizarGrafico = async function () {
+                const componente = document.getElementById("componentes").value;
+                const periodo = document.getElementById("periodo").value;
+                const dados = await obterDadosGrafico(componente, periodo);
+                plotarGrafico(dados, componente);
+            };
+            
+            window.plotarGrafico = function (dados, componente) {
                 const labels = dados.labels || [];
                 const valores = dados.data || [];
                 const cores = {
@@ -200,12 +185,12 @@
                     memoria: 'Uso de Memória (%)'
                 };
             
-                if (myChart) {
-                    myChart.destroy();
+                if (window.myChart) {
+                    window.myChart.destroy();
                 }
             
                 const ctx = document.getElementById("myChartCanvas").getContext("2d");
-                myChart = new Chart(ctx, {
+                window.myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -230,7 +215,8 @@
                         }
                     }
                 });
-            }
+            };
+            
             
         </script>
     </body>

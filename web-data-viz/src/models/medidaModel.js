@@ -1,8 +1,7 @@
 var database = require("../database/config");
-
 function buscarQuantidadeMaquinas() {
     const instrucaoSql = `
-        SELECT COUNT(*) as quantidade 
+        SELECT COUNT(*) AS quantidade 
         FROM maquina;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -11,7 +10,7 @@ function buscarQuantidadeMaquinas() {
 
 function buscarMaquinasConectadas() {
     const instrucaoSql = `
-        SELECT COUNT(*) as conectadas 
+        SELECT COUNT(*) AS conectadas 
         FROM maquina 
         WHERE situacao = 'Ativo';
     `;
@@ -21,7 +20,7 @@ function buscarMaquinasConectadas() {
 
 function buscarAlertasRecentes() {
     const instrucaoSql = `
-        SELECT COUNT(*) as alertas 
+        SELECT COUNT(*) AS alertas 
         FROM alerta AS a
         JOIN dado_capturado AS dc ON a.fkDadoCapturado = dc.idDadoCapturado
         WHERE dc.dtHora >= NOW() - INTERVAL 1 HOUR;
@@ -32,7 +31,7 @@ function buscarAlertasRecentes() {
 
 function buscarMbpsUpload() {
     const instrucaoSql = `
-        SELECT registro as upload 
+        SELECT registro AS upload 
         FROM dado_capturado AS dc
         JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
         WHERE r.nomeRecurso = 'Bytes Enviados'
@@ -45,7 +44,7 @@ function buscarMbpsUpload() {
 
 function buscarMbpsDownload() {
     const instrucaoSql = `
-        SELECT registro as download 
+        SELECT registro AS download 
         FROM dado_capturado AS dc
         JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
         WHERE r.nomeRecurso = 'Bytes Recebidos'
@@ -56,10 +55,10 @@ function buscarMbpsDownload() {
     return database.executar(instrucaoSql);
 }
 
-function buscarMediasHistoricoComponentes(idMaquina, intervaloTempo) {
+function buscarMediasHistoricoComponentes(intervaloSQL) {
     const instrucaoSql = `
         SELECT 
-            DATE_FORMAT(dc.dtHora, '${intervaloTempo}') AS intervalo,
+            DATE_FORMAT(dc.dtHora, '%Y-%m-%d') AS intervalo,
             AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END) AS mediaCPU,
             AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END) AS mediaRAM,
             AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END) AS mediaDisco
@@ -68,7 +67,7 @@ function buscarMediasHistoricoComponentes(idMaquina, intervaloTempo) {
         JOIN 
             recurso AS r ON dc.fkRecurso = r.idRecurso
         WHERE 
-            dc.fkMaquina = ${idMaquina}
+            dc.dtHora >= NOW() - INTERVAL 1 ${intervaloSQL}
         GROUP BY 
             intervalo
         ORDER BY 
@@ -77,7 +76,6 @@ function buscarMediasHistoricoComponentes(idMaquina, intervaloTempo) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 module.exports = {
     buscarMediasHistoricoComponentes,
     buscarQuantidadeMaquinas,

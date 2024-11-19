@@ -1,56 +1,7 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
-    const limite_linhas = 7;
-    const { idMaquina, componente } = req.query;
-
-    if (!idMaquina || !componente) {
-        return res.status(400).json({ error: "Parâmetros idMaquina e componente são obrigatórios." });
-    }
-
-    console.log(`Recuperando as últimas ${limite_linhas} medidas de ${componente} para a máquina ${idMaquina}`);
-
-    medidaModel.buscarMediasHistoricoComponentes(idMaquina, componente, limite_linhas)
-        .then((resultado) => {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!");
-            }
-        })
-        .catch((erro) => {
-            console.error("Erro ao buscar as últimas medidas:", erro.sqlMessage || erro);
-            res.status(500).json({ error: erro.sqlMessage || "Erro ao buscar as últimas medidas" });
-        });
-}
-
-function buscarMedidasEmHistorico(req, res) {
-    const { idMaquina, componente, periodo } = req.query;
-
-    if (!idMaquina || !componente || !periodo) {
-        return res.status(400).json({ error: "Parâmetros idMaquina, componente e período são obrigatórios." });
-    }
-
-    console.log(`Recuperando histórico de medidas de ${componente} para a máquina ${idMaquina} no período ${periodo}`);
-
-    medidaModel.buscarMedidasHistorico(idMaquina, componente, periodo)
-        .then((resultado) => {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!");
-            }
-        })
-        .catch((erro) => {
-            console.error("Erro ao buscar medidas em histórico:", erro.sqlMessage || erro);
-            res.status(500).json({ error: erro.sqlMessage || "Erro ao buscar medidas em histórico" });
-        });
-}
-
-function obterIndicadores(req, res) {
+function buscarIndicadores(req, res) {
     let dados = {};
-
-    console.log("Iniciando a recuperação dos indicadores gerais do sistema.");
 
     medidaModel.buscarQuantidadeMaquinas()
         .then((result) => {
@@ -71,22 +22,52 @@ function obterIndicadores(req, res) {
         })
         .then((result) => {
             dados.download = result[0]?.download || 0;
-
-            if (req.accepts('html')) {
-                res.render("indicadores", { indicadores: dados });
-            } else {
-                res.status(200).json(dados);
-            }
+            res.status(200).json(dados);
         })
         .catch((erro) => {
-            console.error("Erro ao obter indicadores:", erro.sqlMessage || erro);
-            res.status(500).json({ error: erro.sqlMessage || "Erro ao obter indicadores" });
+            console.error("Erro ao buscar indicadores:", erro.sqlMessage || erro);
+            res.status(500).json({ erro: erro.sqlMessage || "Erro ao buscar indicadores" });
         });
 }
 
 
+
+
+
+
+function buscarMediasHistoricoComponentes(req, res) {
+    const intervaloTempo = req.params.intervalo || "semanal";
+
+    // Mapear opções para o intervalo SQL adequado
+    const mapeamentoIntervalo = {
+        semanal: "WEEK",
+        mensal: "MONTH",
+        bimestral: "QUARTER", // Utilizando QUARTER como aproximação
+        semestral: "YEAR" // Utilizando YEAR e ajustando limite no SQL
+    };
+
+    const intervaloSQL = mapeamentoIntervalo[intervaloTempo];
+    if (!intervaloSQL) {
+        return res.status(400).json({ erro: "Intervalo inválido. Use: semanal, mensal, bimestral ou semestral." });
+    }
+
+    console.log(`Buscando médias históricas com intervalo: ${intervaloTempo} (${intervaloSQL})`);
+
+    medidaModel.buscarMediasHistoricoComponentes(intervaloSQL)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum dado encontrado para o intervalo fornecido.");
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar médias históricas dos componentes:", erro.sqlMessage || erro);
+            res.status(500).json({ erro: erro.sqlMessage || "Erro ao buscar médias históricas" });
+        });
+}
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmHistorico,
-    obterIndicadores
+    buscarMediasHistoricoComponentes,
+    buscarIndicadores
+    
 };
