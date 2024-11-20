@@ -91,7 +91,7 @@
 
     <main class="main-dash">
         <header class="header-dash">
-            <h1>Servidor 1</h1>
+            
         </header>
         <div class="content-main">
             <section class="grafico-section">
@@ -108,21 +108,8 @@
                 </article>
                 <div id="modal" class="modal">
                 </div>
-
-                <section class="dados-section">
-                    <h2>Alertas do dia</h2>
-                    <article class="card-section" id="lista_dia">
-
-                    </article>
-                    <div id="modal" class="modal">
-                    </div>
-
-
-        </div>
-        </div>
-        </div>
-        </div>
-
+                
+            </section>
 
     </main>
 
@@ -247,7 +234,7 @@
 
     function atualizarDash(Maquinaid) {
         idMaquina = Maquinaid
-        
+
     }
 
 
@@ -371,62 +358,5 @@
             });
         })
     }
-
-
-    // Lista de alertas
-    function ListarCaptura() {
-        var idEmpresa = sessionStorage.FK_EMPRESA;
-        lista_dia.innerHTML = ``;
-        lista_mes.innerHTML = ``;
-        lista_ano.innerHTML = ``;
-        fetch(`capturas/listarCapturas/${idEmpresa}`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                if (resposta.status == 204) {
-                    lista_dia.innerHTML = `<p>Não há capturas</p>`;
-                    return;
-                }
-                resposta.json().then((alertas) => {
-                    const today = new Date();
-                    const currentDay = today.getDate();
-                    const currentMonth = today.getMonth();
-                    const currentYear = today.getFullYear();
-                    alertas.forEach((registro) => {
-                        let data = new Date(registro.dtHora);
-                        let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)} ` +
-                            `${("0" + data.getHours()).slice(-2)}:${("0" + data.getMinutes()).slice(-2)}:${("0" + data.getSeconds()).slice(-2)}`;
-                        let alertaHtml = `
-                    <div class="frameAlertas">
-                        <div class="userImg">
-                            <img src="./assets/svg/alerta-aovivo.svg" alt="">
-                        </div>
-                        <p><span class="status-alerta">Alto uso de RAM</span></p>
-                        <p>${registro.nomeMaquina}</p>
-                        <p>Uso: ${registro.valorRegistrado}%</p>
-                        <div class="hrDt">
-                            ${dataFormatada}
-                        </div>
-                    </div>`;
-                        if (data.getFullYear() === currentYear) {
-                            if (data.getMonth() === currentMonth) {
-                                if (data.getDate() === currentDay) {
-                                    lista_dia.innerHTML += alertaHtml;
-                                } else {
-                                    lista_mes.innerHTML += alertaHtml;
-                                }
-                            } else {
-                                lista_ano.innerHTML += alertaHtml;
-                            }
-                        }
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-    // Chama a função ao carregar a página ou ao atualizar os dados
-    document.addEventListener('DOMContentLoaded', ListarCaptura);
 
 </script>
