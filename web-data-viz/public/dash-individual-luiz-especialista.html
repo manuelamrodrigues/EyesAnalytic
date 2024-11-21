@@ -96,53 +96,80 @@
 
     <main>
         <section class="dash">
+            <div class="Titulo">
+                <h1>Dashboard Uso dos Componentes</h1>
+            </div>
             <!-- Gráfico de Barras -->
             <div class="chartSup">
-                <div class="chart-container">
-                    <select class="opcao" id="recursoSelecionado">
-                        <option value="cpu">CPU</option>
-                        <option value="disco">Disco</option>
-                        <option value="ram">RAM</option>
-                    </select>
-                    <div id="barChart" class="barChart"></div>
-                </div>
-            
-            
-                <!-- Tabela -->
                 <div class="table-container">
-                    <h3>Servidores com Ocorrências</h3>
+                    <h3>Servidores com Alertas</h3>
                     <table>
                         <thead>
-                           
+
                         </thead>
                         <tbody id="serverTable">
-                <!-- Dados dinâmicos -->
-                </tbody>
-                </table>
-            </div>
+                            <!-- Dados dinâmicos -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="chart-container">
+                    <div class="supsDashs">
+                        <select class="opcao" id="recursoSelecionado2">
+                            <option value="cpu">CPU</option>
+
+                            <option value="ram">RAM</option>
+                        </select>
+
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                            <div class="tooltip-box" id="msgBox">
+                                <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
+                                    latência da rede.</span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div id="barChart" class="barChart" style="overflow-x: auto; max-width: 100%;"></div>
+
+                </div>
+
+
+                <!-- Tabela -->
+
             </div>
 
             <div class="chartInf">
                 <!-- Gráfico de Linhas -->
                 <div class="chart-container">
-                    <select class="opcao" id="recursoSelecionado2">
-                        <option value="cpu">CPU</option>
-                        <option value="disco">Disco</option>
-                        <option value="ram">RAM</option>
-                    </select>
+                    <div class="supsDashs">
+                        <select class="opcao" id="recursoSelecionado3">
+                            <option value="cpu">CPU</option>
+                            <option value="ram">RAM</option>
+                        </select>
+
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                            <div class="tooltip-box" id="msgBox">
+                                <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
+                                    latência da rede.</span>
+                            </div>
+                        </div>
+                    </div>
                     <div id="lineChart" class="lineChart"></div>
                 </div>
 
                 <!-- Heatmap -->
                 <div class="chart-container">
-                    <select class="opcao" id="recursoSelecionado3">
-                        <option value="cpu">CPU</option>
-                        <option value="disco">Disco</option>
-                        <option value="ram">RAM</option>
-                    </select>
+                    <div class="supsDashs">
+                        <!-- Espaço reservado para elementos adicionais -->
+                    </div>
                     <div id="heatmapChart" class="heatmapChart"></div>
                 </div>
             </div>
+
 
         </section>
     </main>
@@ -153,6 +180,7 @@
 
 <script>
 
+    // serverMax -- Gráfico de Barras
 // serverMax -- Gráfico de Barras
 document.addEventListener("DOMContentLoaded", () => {
     const recursoMap = {
@@ -161,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ram: 2
     };
 
-    const selectRecurso = document.getElementById("recursoSelecionado");
+    const selectRecurso = document.getElementById("recursoSelecionado2");
     const barChartContainer = document.querySelector("#barChart");
 
     // Inicializa o gráfico ao carregar a página
@@ -209,21 +237,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const barOptions = {
                     chart: {
-                        type: "bar",
-                        height: 300
-                    },
+                            type: "bar",
+                            height: 300,
+                            width: servidores.length * 50, // Largura ajustada dinamicamente
+                            toolbar: {
+                                show: false // Opcional: Remove a barra de ferramentas do gráfico
+                            }
+                        },
                     series: [
                         {
                             name: "Uso do Componente",
                             data: valores
                         }
                     ],
+                    colors: ["#0BA385"], // Define a cor das barras
                     xaxis: {
                         categories: servidores
-                    },
-                    title: {
-                        text: `Servidores com Máximo de Uso - ${recursoSelecionado.toUpperCase()}`
                     }
+                    
+                
                 };
 
                 const chart = new ApexCharts(barChartContainer, barOptions);
@@ -235,438 +267,307 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// ranking -- Tabelas Dinânicas
-document.addEventListener("DOMContentLoaded", () => {
-    const serverTable = document.getElementById("serverTable");
+    // ranking -- Tabelas Dinânicas
+    document.addEventListener("DOMContentLoaded", () => {
+        const serverTable = document.getElementById("serverTable");
 
-    // Inicializa a tabela ao carregar a página com a consulta para ranking de recursos
-    ListarCapturas();
+        // Inicializa a tabela ao carregar a página com a consulta para ranking de recursos
+        ListarCapturas();
 
-    function ListarCapturas() {
-        // Limpa a tabela antes de adicionar novos dados
-        serverTable.innerHTML = "";
+        function ListarCapturas() {
+            // Limpa a tabela antes de adicionar novos dados
+            serverTable.innerHTML = "";
 
-        // Requisição para buscar os dados de ranking
-        fetch("/individual/ranking", {
-            method: "GET"
-        })
-            .then((resposta) => {
-                if (resposta.status === 204) {
-                    console.log("Não há capturas disponíveis.");
-                    return;
-                }
-                return resposta.json();
+            // Requisição para buscar os dados de ranking
+            fetch("/individual/ranking", {
+                method: "GET"
             })
-            .then((alertas) => {
-                if (!alertas || alertas.length === 0) {
-                    console.log("Nenhum dado disponível para o recurso selecionado.");
-                    return;
-                }
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
 
-                // Cabeçalho da tabela
-                const headerRow = document.createElement("tr");
-                headerRow.innerHTML = "<th>Servidor</th><th>CPU</th><th>RAM</th><th>Disco</th>";
-                serverTable.appendChild(headerRow);
+                    // Cabeçalho da tabela
+                    const headerRow = document.createElement("tr");
 
-                // Preenche a tabela com os dados dos servidores
-                alertas.forEach((registro) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
+                    // Adicione os ícones com tooltip ao lado do texto do cabeçalho
+                    headerRow.innerHTML = `
+                                                        <th>Servidor
+                                    <div class="info-container">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div class="info-box">
+                                            <span class="msg">Nome do servidor monitorado.</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>CPU
+                                    <div class="info-container">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div class="info-box">
+                                            <span class="msg">Uso máximo do processador registrado em megabytes(MB).</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>RAM
+                                    <div class="info-container">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div class="info-box">
+                                            <span class="msg">Uso máximo da memória RAM registrado em megabytes(MB).</span>
+                                        </div>
+                                    </div>
+                                </th>
+                            `;
+
+                    // Anexe a linha do cabeçalho à tabela
+                    serverTable.appendChild(headerRow);
+
+
+
+                    // Preenche a tabela com os dados dos servidores
+                    alertas.forEach((registro) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
                         <td>${registro.Servidor}</td>
-                        <td>${registro.CPU || "N/A"}</td>
-                        <td>${registro.RAM || "N/A"}</td>
-                        <td>${registro.Disco || "N/A"}</td>
+                        <td>${registro.CPU ? parseFloat(registro.CPU).toFixed(2) : "N/A"}%</td>
+                        <td>${registro.RAM ? parseFloat(registro.RAM).toFixed(2) : "N/A"}%</td>
                     `;
-                    serverTable.appendChild(row);
+                        serverTable.appendChild(row);
+                    });
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
                 });
-            })
-            .catch((erro) => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    }
-});
-
-// picosMensal -- Gráfico de Linhas
-document.addEventListener("DOMContentLoaded", () => {
-    const recursoMap = {
-        cpu: 1,
-        disco: 3,
-        ram: 2
-    };
-
-    const selectRecurso = document.getElementById("recursoSelecionado2");
-    const lineChartContainer = document.querySelector("#lineChart");
-
-    // Inicializa o gráfico ao carregar a página
-    ListarCapturas("cpu");
-
-    // Atualiza o gráfico ao mudar a seleção
-    selectRecurso.addEventListener("change", (event) => {
-        const recursoSelecionado = event.target.value;
-        ListarCapturas(recursoSelecionado);
-    });
-
-    function ListarCapturas(recursoSelecionado) {
-        const fkRecurso = recursoMap[recursoSelecionado];
-        if (!fkRecurso) {
-            console.error("Recurso inválido selecionado!");
-            return;
         }
-
-        lineChartContainer.innerHTML = "";  // Limpa o gráfico anterior
-
-        fetch(`/individual/picosMensal/${fkRecurso}`, {  // Chama o endpoint correto
-            method: "GET"
-        })
-            .then((resposta) => {
-                if (resposta.status === 204) {
-                    console.log("Não há capturas disponíveis.");
-                    return;
-                }
-
-                return resposta.json();
-            })
-            .then((dadosMensais) => {
-                if (!dadosMensais || dadosMensais.length === 0) {
-                    console.log("Nenhum dado disponível para o recurso selecionado.");
-                    return;
-                }
-
-                // Mapeia os dados retornados para os valores e meses
-                const meses = dadosMensais.map((registro) => registro.mes);
-                const valores = dadosMensais.map((registro) => registro.valorRegistrado);
-
-                if (meses.length === 0 || valores.length === 0) {
-                    console.log("Os dados retornados estão incompletos ou inválidos.");
-                    return;
-                }
-
-                // Configuração do gráfico de linha
-                var lineOptions = {
-                    chart: {
-                        type: 'line',
-                        height: 300
-                    },
-                    series: [{
-                        name: 'Uso Mensal',
-                        data: valores
-                    }],
-                    xaxis: {
-                        categories: meses,
-                        title: {
-                            text: 'Meses'
-                        }
-                    },
-                    title: {
-                        text: `Uso Mensal de ${recursoSelecionado.toUpperCase()}`
-                    },
-                    dataLabels: {
-                        enabled: false
-                    }
-                };
-
-                // Renderiza o gráfico
-                const chart = new ApexCharts(lineChartContainer, lineOptions);
-                chart.render();
-            })
-            .catch((erro) => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    }
-});
-
-// UsoPorHora -- Mapa de calor
-document.addEventListener("DOMContentLoaded", () => {
-    const recursoMap = {
-        cpu: 1,
-        disco: 3,
-        ram: 2
-    };
-
-    const selectRecurso = document.getElementById("recursoSelecionado3");
-    const heatmapContainer = document.querySelector("#heatmapChart");
-
-    // Inicializa o gráfico de mapa de calor ao carregar a página
-    ListarCapturas("cpu");
-
-    // Atualiza o gráfico de mapa de calor ao mudar a seleção
-    selectRecurso.addEventListener("change", (event) => {
-        const recursoSelecionado = event.target.value;
-        ListarCapturas(recursoSelecionado);
     });
 
-    function ListarCapturas(recursoSelecionado) {
-        const fkRecurso = recursoMap[recursoSelecionado];
-        if (!fkRecurso) {
-            console.error("Recurso inválido selecionado!");
-            return;
-        }
-
-        heatmapContainer.innerHTML = "";
-
-        fetch(`/individual/UsoPorHora/${fkRecurso}`, {
-            method: "GET"
-        })
-            .then((resposta) => {
-                if (resposta.status === 204) {
-                    console.log("Não há capturas disponíveis.");
-                    return;
-                }
-
-                return resposta.json();
-            })
-            .then((alertas) => {
-                if (!alertas || alertas.length === 0) {
-                    console.log("Nenhum dado disponível para o recurso selecionado.");
-                    return;
-                }
-
-                const valores = alertas.map((registro) => registro.valorRegistrado);
-                const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
-                const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
-
-                if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
-                    console.log("Os dados retornados estão incompletos ou inválidos.");
-                    return;
-                }
-
-                // Inicializando as séries com dados aleatórios para cada dia da semana (segunda a domingo)
-                const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
-                const seriesData = diasSemana.map((dia, diaIndex) => {
-                    return {
-                        name: dia,
-                        data: Array.from({ length: 24 }, (_, horaIndex) => {
-                            const valor = valores.find((valor, index) => diasDaSemana[index] === diaIndex + 1 && horas[index] === horaIndex);
-                            return {
-                                x: `${horaIndex}:00`,
-                                y: valor ? valor : Math.floor(Math.random() * 100) // Se não houver valor, atribui aleatório
-                            };
-                        })
-                    };
-                });
-
-                var heatmapOptions = {
-                    chart: {
-                        type: 'heatmap',
-                        height: 350
-                    },
-                    series: seriesData, // Definindo as séries dinamicamente
-                    xaxis: {
-                        type: 'category',
-                        title: {
-                            text: 'Hora do Dia'
-                        }
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Dia da Semana'
-                        }
-                    },
-                    title: {
-                        text: `Uso por Hora e Dia - ${recursoSelecionado.toUpperCase()}`
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    colors: ['#008FFB']
-                };
-
-                const chart = new ApexCharts(heatmapContainer, heatmapOptions);
-                chart.render();
-            })
-            .catch((erro) => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    }
-});
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-        const menuHamburguer = document.getElementById('menu-hamburguer');
-        const navLinks = document.getElementById('navLinks');
-
-        // Alterna a classe "active" no menu de navegação
-        menuHamburguer.addEventListener('click', () => {
-            console.log("EU ESTOU OBSERVANDO..")
-            navLinks.classList.toggle('active');
-            menuHamburguer.classList.toggle('open');
-        });
-
-        // Iniciar a plotagem do gráfico quando a página carregar
-        iniciarAtualizacao();
-    });
-
-</script>
-<!-- <script>
+    // picosMensal -- Gráfico de Linhas
     document.addEventListener("DOMContentLoaded", () => {
-        const menuHamburguer = document.getElementById('menu-hamburguer');
-        const navLinks = document.getElementById('navLinks');
-
-        // Alterna a classe "active" no menu de navegação
-        menuHamburguer.addEventListener('click', () => {
-            console.log("EU ESTOU OBSERVANDO..")
-            navLinks.classList.toggle('active');
-            menuHamburguer.classList.toggle('open');
-        });
-
-        // Iniciar a plotagem do gráfico quando a página carregar
-        iniciarAtualizacao();
-    });
-
-    // Função para iniciar a atualização do gráfico e definir o intervalo de 2 minutos
-    function iniciarAtualizacao() {
-        obterDadosGrafico().then(() => {
-            setInterval(obterDadosGrafico, 120000); // Atualiza a cada 2 minutos
-        });
-    }
-
-    // Função para obter dados do gráfico
-    async function obterDadosGrafico() {
-        try {
-            let response = await fetch("/captura/capturar", { method: "GET" });
-            if (response.ok) {
-                let json = await response.json();
-                plotarGrafico(json);
-            } else {
-                let texto = await response.text();
-                console.error("Houve um erro ao tentar realizar o obterDadosGrafico!", texto);
-            }
-        } catch (erro) {
-            console.error(erro);
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        // Defina quantos valores você deseja gerar
-        const quantidadeValores = 10;
-        const valores = [];
-        const labels = [];
-
-        // Gera valores aleatórios para o gráfico
-        for (let i = 0; i < quantidadeValores; i++) {
-            const valorAleatorio = Math.random() * 100; // Gera um valor aleatório entre 0 e 100
-            valores.push(valorAleatorio.toFixed(2)); // Adiciona o valor no array
-            labels.push(`Label ${i + 1}`); // Cria um label (pode ser a data ou algo mais específico)
-        }
-
-        // Pega o contexto do canvas onde o gráfico será renderizado
-        const ctx = document.getElementById('myChartCanvas').getContext('2d');
-
-        // Configuração do gráfico
-        const config = {
-            type: 'bar', // Define o tipo de gráfico (linha)
-            data: {
-                labels: labels, // Usa os labels gerados
-                datasets: [{
-                    label: 'Uso de CPU (%)', // Título do gráfico
-                    data: valores, // Dados gerados aleatoriamente
-                    borderWidth: 4,
-                    borderColor: '#08836A',
-                    backgroundColor: '#ffff',
-
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        grid: {
-                            color: 'black', // Cor da linha do eixo X
-                        },
-                        ticks: {
-                            color: 'black' // Cor dos rótulos do eixo X
-                        }
-                    },
-                    y: {
-                        beginAtZero: true, // Faz o gráfico começar em 0 no eixo Y
-                        grid: {
-                            color: 'black', // Cor da linha do eixo Y
-                        },
-                        ticks: {
-                            color: 'black' // Cor dos rótulos do eixo Y
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#000',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
+        const recursoMap = {
+            cpu: 1,
+            ram: 2
         };
 
-        // Renderiza o gráfico usando Chart.js
-        new Chart(ctx, config);
+        const selectRecurso = document.getElementById("recursoSelecionado3");
+        const lineChartContainer = document.querySelector("#lineChart");
+
+        // Inicializa o gráfico ao carregar a página
+        ListarCapturas("cpu");
+
+        // Atualiza o gráfico ao mudar a seleção
+        selectRecurso.addEventListener("change", (event) => {
+            const recursoSelecionado = event.target.value;
+            ListarCapturas(recursoSelecionado);
+        });
+
+        function ListarCapturas(recursoSelecionado) {
+            const fkRecurso = recursoMap[recursoSelecionado];
+            if (!fkRecurso) {
+                console.error("Recurso inválido selecionado!");
+                return;
+            }
+
+            lineChartContainer.innerHTML = "";  // Limpa o gráfico anterior
+
+            fetch(`/individual/picosMensal/${fkRecurso}`, {  // Chama o endpoint correto
+                method: "GET"
+            })
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+
+                    return resposta.json();
+                })
+                .then((dadosMensais) => {
+                    if (!dadosMensais || dadosMensais.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
+
+                    // Mapeia os dados retornados para os valores e meses
+                    const meses = dadosMensais.map((registro) => registro.mes);
+                    const valores = dadosMensais.map((registro) => registro.valorRegistrado);
+
+                    if (meses.length === 0 || valores.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
+
+                    // Configuração do gráfico de linha
+                    var lineOptions = {
+                        chart: {
+                            type: 'line',
+                            height: 300
+                        },
+                        series: [{
+                            name: 'Uso Mensal',
+                            data: valores
+                        }],
+                        xaxis: {
+                            categories: meses,
+                            title: {
+                                text: 'Meses'
+                            }
+                        },
+                       
+                        dataLabels: {
+                            enabled: false
+                        },
+                        colors: ['#0BA385'],  // Adicionando a cor desejada
+                    };
+
+                    // Renderiza o gráfico
+                    const chart = new ApexCharts(lineChartContainer, lineOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
     });
 
-    // Abrir e fechar o dropdown ao clicar na div "periodo"
-    document.getElementById("periodo").addEventListener("click", function (event) {
-        var dropdown = document.getElementById("dropdown");
-        dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
-        event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
+    // UsoPorHora -- Mapa de calor
+    document.addEventListener("DOMContentLoaded", () => {
+        const recursoMap = {
+            cpu: 1,
+            ram: 2
+        };
+
+        const selectRecurso = document.getElementById("recursoSelecionado3");
+        const heatmapContainer = document.querySelector("#heatmapChart");
+
+        // Inicializa o gráfico de mapa de calor ao carregar a página
+        ListarCapturas("cpu");
+
+        // Atualiza o gráfico de mapa de calor ao mudar a seleção
+        selectRecurso.addEventListener("change", (event) => {
+            const recursoSelecionado = event.target.value;
+            ListarCapturas(recursoSelecionado);
+        });
+
+        function ListarCapturas(recursoSelecionado) {
+            const fkRecurso = recursoMap[recursoSelecionado];
+            if (!fkRecurso) {
+                console.error("Recurso inválido selecionado!");
+                return;
+            }
+
+            heatmapContainer.innerHTML = "";
+
+            fetch(`/individual/UsoPorHora/${fkRecurso}`, {
+                method: "GET"
+            })
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
+
+                    const valores = alertas.map((registro) => registro.valorRegistrado);
+                    const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
+                    const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
+
+                    if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
+
+                    // Inicializando as séries com dados aleatórios para cada dia da semana (segunda a domingo)
+                    const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+                    const seriesData = diasSemana.map((dia, diaIndex) => {
+                        return {
+                            name: dia,
+                            data: Array.from({ length: 24 }, (_, horaIndex) => {
+                                const valor = valores.find((valor, index) => diasDaSemana[index] === diaIndex + 1 && horas[index] === horaIndex);
+                                return {
+                                    x: `${horaIndex}:00`,
+                                    y: valor ? valor : Math.floor(Math.random() * 100) // Se não houver valor, atribui aleatório
+                                };
+                            })
+                        };
+                    });
+
+                    var heatmapOptions = {
+                        chart: {
+                            type: 'heatmap',
+                            height: 350
+                        },
+                        series: seriesData, // Definindo as séries dinamicamente
+                        xaxis: {
+                            type: 'category',
+                            title: {
+                                text: 'Hora do Dia'
+                            }
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Dia da Semana'
+                            }
+                        },
+                       
+                        dataLabels: {
+                            enabled: false
+                        },
+                        colors: ['#0BA385']
+                    };
+
+                    const chart = new ApexCharts(heatmapContainer, heatmapOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
     });
 
-    // Fechar o dropdown ao clicar fora da div "periodo" ou do menu
-    document.addEventListener("click", function () {
-        var dropdown = document.getElementById("dropdown");
-        dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const navLinks = document.getElementById('navLinks');
+
+        // Alterna a classe "active" no menu de navegação
+        menuHamburguer.addEventListener('click', () => {
+            console.log("EU ESTOU OBSERVANDO..")
+            navLinks.classList.toggle('active');
+            menuHamburguer.classList.toggle('open');
+        });
+
+        // Iniciar a plotagem do gráfico quando a página carregar
+        iniciarAtualizacao();
     });
 
-    // Detectar quando o usuário seleciona uma opção do dropdown
-    document.querySelectorAll("#dropdown .option").forEach(function (item) {
-        item.addEventListener("click", function () {
-            var selectedText = this.textContent;
+    document.addEventListener("DOMContentLoaded", () => {
+        const infoIcon = document.getElementById("infoIcon");
+        const msgBox = document.getElementById("msgBox");
 
-            // Atualiza o texto dentro da div "periodo"
-            var periodoDiv = document.getElementById("periodo");
-            var currentText = periodoDiv.textContent;
+        // Mostrar mensagem no hover
+        infoIcon.addEventListener("mouseenter", () => {
+            msgBox.style.display = "block";
+        });
 
-            // Atualiza a lista de opções
-            this.textContent = currentText; // A opção selecionada vira a anterior
-            periodoDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
-
-            // Fecha o dropdown após a seleção
-            document.getElementById("dropdown").classList.add("hide");
+        // Esconder mensagem ao sair do hover
+        infoIcon.addEventListener("mouseleave", () => {
+            msgBox.style.display = "none";
         });
     });
 
-    // *** Repetindo o mesmo para os "Componentes" ***
 
-    // Abrir e fechar o dropdown ao clicar na div "componentes"
-    document.getElementById("componentes").addEventListener("click", function (event) {
-        var dropdown = document.getElementById("componentesDropdown");
-        dropdown.classList.toggle("hide"); // Alterna entre esconder e mostrar o dropdown
-        event.stopPropagation(); // Impede que o clique na div seja considerado um clique fora dela
-    });
-
-    // Fechar o dropdown ao clicar fora da div "componentes" ou do menu
-    document.addEventListener("click", function () {
-        var dropdown = document.getElementById("componentesDropdown");
-        dropdown.classList.add("hide"); // Fecha o dropdown se clicar fora
-    });
-
-    // Detectar quando o usuário seleciona uma opção do dropdown "componentes"
-    document.querySelectorAll("#componentesDropdown .option").forEach(function (item) {
-        item.addEventListener("click", function () {
-            var selectedText = this.textContent;
-
-            // Atualiza o texto dentro da div "componentes"
-            var componentesDiv = document.getElementById("componentes");
-            var currentText = componentesDiv.textContent;
-
-            // Atualiza a lista de opções
-            this.textContent = currentText; // A opção selecionada vira a anterior
-            componentesDiv.textContent = selectedText; // Atualiza a div com a nova opção selecionada
-
-            // Fecha o dropdown após a seleção
-            document.getElementById("componentesDropdown").classList.add("hide");
-        });
-    });
-</script> -->
+</script>

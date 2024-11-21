@@ -8,7 +8,8 @@ function serverMax(fkRecurso) {
                 dc.registro AS valorRegistrado
             FROM dado_capturado dc
             JOIN maquina m ON dc.fkMaquina = m.idMaquina
-            WHERE dc.fkRecurso = ${fkRecurso};
+            WHERE dc.fkRecurso = ${fkRecurso}
+            ORDER BY dc.registro DESC;;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -17,7 +18,7 @@ function serverMax(fkRecurso) {
 function ranking() {
     console.log("ACESSEI O INDIVIDUAL MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ranking():");
     const instrucao = `
-        SELECT * FROM estado_maquinas;
+        SELECT * FROM estado_maquinas ORDER BY CPU DESC, RAM DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);  // Executa a consulta no banco de dados
@@ -44,7 +45,7 @@ GROUP BY
 ORDER BY 
     m.nomeMaquina,
     dc.fkRecurso,
-    mes;;
+    mes;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);  // Executa a consulta no banco de dados

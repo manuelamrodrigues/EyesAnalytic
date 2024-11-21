@@ -46,6 +46,13 @@ main {
     margin: 0 0 0 15%;
 }
 
+.Titulo{
+    font-size: 20px;
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+}
+
 .chartSup{
     width: 100%;
     display: flex;
@@ -56,14 +63,12 @@ main {
     /* border: 3px solid #43a30b; */
 
 }
-.chartInf{
+.chartInf {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* border: 3px solid #a30b8f; */
-
 }
 
 /* Estilo para os containers de gráficos e tabelas */
@@ -77,6 +82,127 @@ main {
     align-items: flex-start;
     flex-direction: column;
     /* border: red 2px solid; */
+}
+
+.supsDashs{
+    display: flex;
+    /* border: #EDEEF9 2px solid; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+/* icone 1 */
+.alinhar {
+    display: flex;
+    gap: 10px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+/* Contêiner da tooltip */
+.tooltip-container {
+    position: relative;
+    display: flex;
+    align-items: end;
+    padding: 10px;
+}
+
+/* Caixa de tooltip que aparece no hover */
+.tooltip-box {
+    display: none;
+    position: absolute;
+    top: 100%; /* Exibe abaixo do ícone */
+    left: 0;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 250px; /* Ajuste o tamanho da caixa conforme necessário */
+}
+
+/* Estilo do ícone de informação */
+.tooltip-container i {
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer; /* Indica que é interativo */
+}
+
+/* Estilo da mensagem na tooltip */
+.tooltip-box .tooltip-message {
+    font-size: medium;
+}
+
+/* Efeito de fade-in para hover com CSS */
+.tooltip-container:hover .tooltip-box {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.info-container {
+    
+    position: relative;
+    display: inline-flex; /* Alinha o ícone ao lado do texto */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 5px; /* Espaço entre o texto e o ícone */
+    cursor: pointer; /* Indica interatividade */
+}
+
+.info-box {
+    display: none;
+    position: absolute;
+    top: 100%; /* Exibe abaixo do ícone */
+    left: 0;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 250px; /* Ajuste o tamanho da caixa conforme necessário */
+}
+
+.info-container i {
+    color: #ffffff;
+    font-size: 10px;
+    cursor: pointer; /* Indica que é interativo */
+}
+
+.info-box .msg {
+    font-size: medium;
+}
+
+/* Efeito de fade-in para hover com CSS */
+.info-container:hover .info-box {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -119,7 +245,12 @@ select {
     border-radius: 10px;
     background: #ffffff;
     width: 650px;
-    height: 400px;
+    /* height: 400px; */
+    overflow-x: auto; /* Ativa rolagem horizontal */
+    max-width: 100%;  /* Permite que o gráfico se ajuste ao tamanho da tela */
+    border: 1px solid #ddd; /* (Opcional) Adiciona uma borda ao contêiner */
+    
+    padding: 10px;     /* (Opcional) Espaçamento interno */
 }
 
 .table-container {
@@ -148,6 +279,8 @@ select {
     padding: 8px;
     border-bottom: 1px solid #555;
     background-color: #0BA385;
+    color: #FFF;
+
 
 }
 
@@ -159,18 +292,14 @@ select {
 
 }
 
-.lineChart{
-    border-radius: 10px;
-    background: #ffffff;
-    width: 650px;
-    height: 400px;
-}
 
-.heatmapChart{
+
+.lineChart,
+.heatmapChart {
     border-radius: 10px;
     background: #ffffff;
-    width: 550px;
-    height: 380px;
+    width: 600px; /* Largura padronizada */
+    height: 320px; /* Altura padronizada */
 }
 
 
