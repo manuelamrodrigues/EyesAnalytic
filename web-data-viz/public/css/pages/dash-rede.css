@@ -49,7 +49,7 @@ h2 {
     width: 320px;
     height: 200px;
     display: flex;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     padding-bottom: -30px;
     justify-content: center;
     align-items: center;
@@ -138,8 +138,10 @@ select {
 
 .opcoes h4 {
     font-size: large;
-    font-weight: 600;
+    font-weight: 800;
 }
+
+
 
 .opcoes h5 {
     font-size: large;
@@ -151,7 +153,7 @@ select {
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* margin-top: 60px;     */
+    margin-top: -10px;    
     /* justify-content: space-around; */
     /* gap: 100px; */
     margin-bottom: 20px;
@@ -174,9 +176,10 @@ select {
 
 .lista {
     background-color: #19ceaa18;
-    /* margin-left: 60px; */
+    margin-left: 40px;
+    padding-top: 10px;
     padding-bottom: 12px;
-    width: 100%;
+    width: 80%;
     height: 400px;
     align-items: center;
     text-align: center;
@@ -191,16 +194,40 @@ select {
     /* Evita quebra de linha dos itens */
 }
 
+/* .valor p {
+font-size: 16px;
+font-weight: 600;
+} */
+
+.qtd {
+margin-top: 10px;
+margin-bottom: -40px;
+}
+
 .serv {
     /* display: ; Permite que os itens sejam colocados em linha */
     /* justify-content: space-around; */
     align-items: center;
     background-color: #19ceaa53;
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 250px;
-    height: 30px;
-    padding: 12px 10px 12px 10px;
+    height: 25px;
+    padding: 15px 10px 15px 10px;
     margin-top: 14px;
+    gap: 7px;
+}
+
+.serv h4{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.serv h6{
+    font-size: 18px;
+    font-weight: 400;
 }
 
 /* direita embaixo - titulo e grafico  */
@@ -211,7 +238,7 @@ select {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: -20px;
+    margin-top: 10px;
     /* margin-left: 75px; */
 
 }

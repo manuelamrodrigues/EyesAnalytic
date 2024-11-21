@@ -5,28 +5,30 @@ var redeController = require("../controllers/redeController");
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 
-// router.post("/cadastrar", function (req, res) {
-//     usuarioController.cadastrar(req, res);
-// })
+router.get("/listarIndicadores/:idMaquina", function (req, res) {
+    redeController.listarIndicadores(req, res)
+})
 
-// router.post("/autenticar", function (req, res) {
-//     usuarioController.autenticar(req, res);
-// });
-// router.get("/listarFunc/:idEmpresa", function(req,res){
-//     usuarioController.listarFunc(req,res)
-// })
+router.get("/listarServidor/:idEmpresa", function(req,res){
+    redeController.listarServidor(req,res)
+})
 
-// router.get("/listar/:idEmpresa", function(req,res){
-//     usuarioController.listar(req,res)
-// })
+router.put("/atualizarQualidade", function(req,res){
+    redeController.atualizarQualidade(req,res)
+})
 
-// router.get("/buscarPorId/:idUsuario", function(req,res){
-//     usuarioController.buscarPorId(req,res)
-// })
-// router.delete("/desativarFunc/:idUsuario", function(req,res){
-//     usuarioController.desativarFunc(req,res)
-// })
-// router.put("/alterarFunc", function(req,res){
-//     usuarioController.alterarFunc(req,res)
-// })
+router.get("/buscarQualidade/:idMaquina", function(req,res){
+    redeController.buscarQualidade(req,res)
+})
+
+router.get("/buscarTempoReal", function(req,res){
+    // const {idMaquina} = req.query
+    redeController.buscarTempoReal(req,res);
+})
+
+router.get("/listar/:idEmpresa", function(req,res){
+    redeController.listar(req,res)
+})
+
+
 module.exports = router;
