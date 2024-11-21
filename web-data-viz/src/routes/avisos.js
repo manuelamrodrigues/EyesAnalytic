@@ -6,6 +6,9 @@ var avisoController = require("../controllers/avisoController");
 router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
+router.get("/ultimas", function (req, res) {
+    medidaController.buscarAlertas(req, res);
+});
 
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
