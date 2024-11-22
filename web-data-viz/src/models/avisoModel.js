@@ -19,13 +19,23 @@ function listar() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function buscarAlertas() {
 
-    var instrucaoSql = ``;
+function buscarAlertas() {
+    console.log("ACESSEI O ALERTA MODEL \n\n\t\t >> Certifique-se de que a view 'view_alertas_maquina_recurso' está criada no banco de dados.\n\n function buscarAlertas()");
+
+    var instrucaoSql = `
+        SELECT 
+            idMaquinaRecurso,
+            nomeMaquina,
+            nomeRecurso,
+            quantidade_alertas
+        FROM view_alertas_maquina_recurso;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 
 function pesquisarDescricao(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
