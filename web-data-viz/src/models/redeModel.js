@@ -51,13 +51,7 @@ function atualizarQualidade(qualidadeRede, idMaquina) {
 
 function listar(idEmpresa) {
     var instrucaoSql = `
-      SELECT DISTINCT idMaquina,
-		nomeMaquina, 
-        qualidadeRede
-    FROM maquina AS m
-    LEFT JOIN dado_capturado dc ON dc.fkMaquina = m.idMaquina
-    where fkEmpresa = ${idEmpresa}
-    order by qualidadeRede != 'Baixa';
+      SELECT * FROM view_servidores_qualidade WHERE fkEmpresa = ${idEmpresa};
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

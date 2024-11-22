@@ -86,7 +86,7 @@
                         <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
                         <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
                         <div class="info-box">
-                            <span class="msg">Informação tirada da comparação da parda de pacotes e latência da
+                            <span class="msg">Informação tirada da comparação da média da parda de pacotes e latência da
                                 rede.</span>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
             </div>
 
             <div class="baixo-direita">
-                <h3>Comparação de Mbps de Upload e Download</h3>
+                <h3>Comparação de megaBytes por segundo(MBps) de Upload e Download</h3>
                 <div class="grafico">
                     <canvas id="myChart" class="canvas"></canvas>
                 </div>
@@ -157,11 +157,11 @@
     var idMaquina
 
     function iniciar() {
-        // setTimeout(() => {
-        listarIndicadores()
         iniciarGrafico()
+        setTimeout(() => {
+        listarIndicadores()
         qualidadeDaRede()
-        // }, 5000);
+        }, 120000);// 120.000 ms = 2 minutos
     }
 
     // listar servidores
@@ -212,7 +212,7 @@
     // QUALIDADE DA REDE
     function qualidadeDaRede() {
         let valor1 = document.getElementById("valor");
-        valor1.innerHTML = ""; // Limpar conteúdo anterior
+         // Limpar conteúdo anterior
 
         // Recupera a qualidade da rede do banco
         fetch(`rede/buscarQualidade/${idMaquina}`, {
@@ -224,6 +224,7 @@
             return resposta.json();
         }).then(function (resposta) {
             resposta.forEach(element => {
+                valor1.innerHTML = "";
                 let valor = document.createElement("div");
                 valor.className = "valor";
                 valor.innerHTML = `${element.qualidadeRede || "N/A"}`;
@@ -236,7 +237,7 @@
                 let anguloRotacao = 0;
 
                 // Verificar condições para atualizar a qualidade e a rotação do ponteiro
-                if (element.mediaLatencia <= 100 && element.perdaPacotes <= 10) {
+                if (element.mediaLatencia <= 23 && element.perdaPacotes <= 10) {
                     novaQualidade = 'Estável';
                     valor.style.fontWeight = 600;
                     valor.style.fontSize = '18px';
@@ -247,9 +248,9 @@
                     ponteiro.style.top = "190px";
                     ponteiro.style.left = "240px";
 
-                } else if ((element.mediaLatencia >= 170 && element.mediaLatencia <= 220) ||
-                    (element.perdaPacotes >= 11 && element.perdaPacotes <= 20)) {
-                    novaQualidade = 'Médio';
+                }else if ((element.mediaLatencia >= 40 && element.mediaLatencia <= 80) &&
+                (element.perdaPacotes >= 11 && element.perdaPacotes <= 20)) {
+                    novaQualidade = 'Média';
                     valor.style.fontWeight = 600;
                     valor.style.fontSize = '18px';
                     valor.style.color = '#ff9800';
@@ -270,11 +271,11 @@
                     ponteiro.style.left = "300px";
                 }
                 // Aplicar rotação no ponteiro
-                ponteiro.style.transform = `rotate(${anguloRotacao}deg)`;
+                 ponteiro.style.transform = `rotate(${anguloRotacao}deg)`;
 
                 // setTimeout(function () {
                     // Atualizar a qualidade da rede no banco se necessário
-                    if (novaQualidade !== element.qualidadeRede) {
+                    if (novaQualidade != element.qualidadeRede) {
                         fetch("/rede/atualizarQualidade/", {
                             method: "PUT",
                             headers: {
@@ -287,7 +288,7 @@
                         })
                             .then(() => {
                                 // Recarregar a página após a atualização
-                                setTimeout(() => qualidadeDaRede(), 2000);
+                                setTimeout(() => qualidadeDaRede(), 120000);
                                 // location.reload();
                             })
                             .catch(function (error) {
@@ -315,7 +316,7 @@
     //FUNÇÃO PARA LISTAR TODOS OS INDICADORES DE UMA DETERMINADA EMPRESA
     function listarIndicadores() {
         let op = document.getElementById("op");
-        op.innerHTML = "";
+        op.innerHTML = ""; 
 
         fetch(`rede/listarIndicadores/${idMaquina}`, {
             method: "GET",
@@ -342,17 +343,17 @@
 
                     let opcoesUp = document.createElement("div");
                     opcoesUp.className = "opcoes";
-                    opcoesUp.innerHTML = `<h4>Mbps Upload</h4><h5>${element.mediaUpload || "N/A"}</h5>`;
+                    opcoesUp.innerHTML = `<h4>MBps Upload</h4><h5>${element.mediaUpload || "N/A"}</h5>`;
                     opcoes.appendChild(opcoesUp);
 
                     let opcoesDw = document.createElement("div");
                     opcoesDw.className = "opcoes";
-                    opcoesDw.innerHTML = `<h4>Mbps Download</h4><h5>${element.mediaDownload || "N/A"}</h5>`;
+                    opcoesDw.innerHTML = `<h4>MBps Download</h4><h5>${element.mediaDownload || "N/A"}</h5>`;
                     opcoes.appendChild(opcoesDw);
 
                     op.appendChild(opcoes);
                 });
-                setTimeout(() => listarIndicadores(), 2000);
+                // setTimeout(() => listarIndicadores(), 120000); // 120.000 ms = 2 minutos
             })
         }).catch(function (erro) {
             console.error("Erro na requisição fetch: ", erro);
@@ -363,6 +364,7 @@
     function listarServidoresQualidade() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
         var lista = document.getElementById("lista");
+        lista.innerHTML = "";
 
         fetch(`rede/listar/${fkEmpresa}`, {
             method: "GET",
@@ -458,7 +460,7 @@
                     y: {
                         title: {
                             display: true,
-                            text: 'Mbps',
+                            text: 'MBps',
                         },
                     },
                 },
