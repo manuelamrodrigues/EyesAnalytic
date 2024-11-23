@@ -9,7 +9,7 @@ function serverMax(fkRecurso) {
             FROM dado_capturado dc
             JOIN maquina m ON dc.fkMaquina = m.idMaquina
             WHERE dc.fkRecurso = ${fkRecurso}
-            ORDER BY dc.registro DESC;;
+            ORDER BY dc.registro DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

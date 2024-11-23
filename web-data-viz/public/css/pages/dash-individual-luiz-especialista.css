@@ -22,7 +22,7 @@ body {
 
 
 /* Estilos gerais para a área principal da página */
-/* ==================================================================================================================== */
+/* ============================================================================================================== */
 /* Configurações principais */
 main {
     display: flex;
@@ -40,7 +40,7 @@ main {
     max-width: 1300px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
     /* border: 3px solid #0BA385; */
     border-radius: 8px;
     margin: 0 0 0 15%;
@@ -50,15 +50,15 @@ main {
     font-size: 20px;
     color: #ffffff;
     width: 100%;
-    text-align: center;
+    text-align: start;
 }
 
 .chartSup{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: start;
+    justify-content:center;
+    align-items: center;
 
     /* border: 3px solid #43a30b; */
 
@@ -67,8 +67,11 @@ main {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 4%;
     align-items: center;
+    /* border: 3px solid #730ba3; */
+    padding: 0 0 40px 0;
 }
 
 /* Estilo para os containers de gráficos e tabelas */
@@ -78,7 +81,7 @@ main {
     /* padding: 15px; */
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: flex-start;
     flex-direction: column;
     /* border: red 2px solid; */
@@ -88,17 +91,34 @@ main {
     display: flex;
     /* border: #EDEEF9 2px solid; */
     align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
+}
+.informacao{
+    
+    display: flex;
+    /* border: #2b2d44 2px solid; */
+    align-items: center;
     justify-content: center;
     flex-direction: row;
+    /* border: red 2px solid; */
+}
+.title{
+    font-size: 20px;
+    color: #FFF;
 }
 
-/* icone 1 */
-.alinhar {
+.sla{
     display: flex;
-    gap: 10px;
-    /* justify-content: center; */
+    /* border: #EDEEF9 2px solid; */
     align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
 }
+
 
 /* Contêiner da tooltip */
 .tooltip-container {
@@ -244,11 +264,11 @@ select {
 
     border-radius: 10px;
     background: #ffffff;
-    width: 650px;
+    width: 1200px;
     /* height: 400px; */
     overflow-x: auto; /* Ativa rolagem horizontal */
     max-width: 100%;  /* Permite que o gráfico se ajuste ao tamanho da tela */
-    border: 1px solid #ddd; /* (Opcional) Adiciona uma borda ao contêiner */
+    /* border: 1px solid #ddd; (Opcional) Adiciona uma borda ao contêiner */
     
     padding: 10px;     /* (Opcional) Espaçamento interno */
 }
@@ -269,7 +289,7 @@ select {
 
 /* Estilo da tabela */
 .table-container table {
-    width: 500px;
+    width: 700px;
     height: auto;
     border-collapse: collapse;
 }
@@ -294,12 +314,20 @@ select {
 
 
 
-.lineChart,
+.lineChart {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 580px; /* Largura padronizada */
+    height: 365px; /* Altura padronizada */
+}
+
 .heatmapChart {
     border-radius: 10px;
     background: #ffffff;
-    width: 600px; /* Largura padronizada */
+    width: 580px; /* Largura padronizada */
     height: 320px; /* Altura padronizada */
+    /* margin-top: 35px; */
+    
 }
 
 

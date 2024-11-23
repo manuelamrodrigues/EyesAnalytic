@@ -41,24 +41,12 @@
 
             <a href="./espec-servidores.html" class="outros">
                 <li>
-                    <img src="./assets/svg/dashboard-svgrepo-com.svg" alt="Rede">
+                    <img src="./assets/svg/icon-luiz.svg" alt="Rede">
                     <span>Componentes</span>
                 </li>
             </a>
 
-            <!-- <a href="./funcionario-diretor.html" class="outros">
-                <li>
-                    <img src="./assets/svg/user-svgrepo-com.svg" alt="Usuário">
-                    <span>Funcionários</span>
-                </li>
-            </a> -->
 
-            <!-- <a href="./metricas-diretor.html" class="outros">
-                <li>
-                    <img src="./assets/svg/chamados.svg" alt="Chamados">
-                    <span>Métricas</span>
-                </li>
-            </a> -->
 
             <a onclick="limparSessao()" class="outros">
                 <li>
@@ -97,7 +85,7 @@
     <main>
         <section class="dash">
             <div class="Titulo">
-                <h1>Dashboard Uso dos Componentes</h1>
+                <h1>Uso dos Componentes</h1>
             </div>
             <!-- Gráfico de Barras -->
             <div class="chartSup">
@@ -113,31 +101,6 @@
                     </table>
                 </div>
 
-                <div class="chart-container">
-                    <div class="supsDashs">
-                        <select class="opcao" id="recursoSelecionado2">
-                            <option value="cpu">CPU</option>
-
-                            <option value="ram">RAM</option>
-                        </select>
-
-                        <div class="tooltip-container">
-                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
-                            <div class="tooltip-box" id="msgBox">
-                                <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                    latência da rede.</span>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    <div id="barChart" class="barChart" style="overflow-x: auto; max-width: 100%;"></div>
-
-                </div>
-
-
-                <!-- Tabela -->
 
             </div>
 
@@ -145,18 +108,22 @@
                 <!-- Gráfico de Linhas -->
                 <div class="chart-container">
                     <div class="supsDashs">
+                        <div class="informacao">
+                            <div class="title">Titulo da Dash</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
+                                        latência da rede.</span>
+                                </div>
+                            </div>
+                        </div>
                         <select class="opcao" id="recursoSelecionado3">
                             <option value="cpu">CPU</option>
                             <option value="ram">RAM</option>
                         </select>
 
-                        <div class="tooltip-container">
-                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
-                            <div class="tooltip-box" id="msgBox">
-                                <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                    latência da rede.</span>
-                            </div>
-                        </div>
+
                     </div>
                     <div id="lineChart" class="lineChart"></div>
                 </div>
@@ -164,9 +131,43 @@
                 <!-- Heatmap -->
                 <div class="chart-container">
                     <div class="supsDashs">
-                        <!-- Espaço reservado para elementos adicionais -->
+                        <div class="informacao">
+                            <div class="title">Titulo da Dash</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
+                                        latência da rede.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="heatmapChart" class="heatmapChart"></div>
+                </div>
+            </div>
+
+            <div class="sla">
+                <div class="chart-container">
+                    <div class="supsDashs">
+                        <div class="informacao">
+                            <div class="title">Titulo da Dash</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
+                                        latência da rede.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <select class="opcao" id="recursoSelecionado3">
+                            <option value="cpu">CPU</option>
+                            <option value="ram">RAM</option>
+                        </select>
+
+
+                    </div>
+                    <div id="barChart" class="barChart" style="overflow-x: auto; max-width: 100%;"></div>
+
                 </div>
             </div>
 
@@ -181,62 +182,62 @@
 <script>
 
     // serverMax -- Gráfico de Barras
-// serverMax -- Gráfico de Barras
-document.addEventListener("DOMContentLoaded", () => {
-    const recursoMap = {
-        cpu: 1,
-        disco: 3,
-        ram: 2
-    };
+    // serverMax -- Gráfico de Barras
+    document.addEventListener("DOMContentLoaded", () => {
+        const recursoMap = {
+            cpu: 1,
+            disco: 3,
+            ram: 2
+        };
 
-    const selectRecurso = document.getElementById("recursoSelecionado2");
-    const barChartContainer = document.querySelector("#barChart");
+        const selectRecurso = document.getElementById("recursoSelecionado2");
+        const barChartContainer = document.querySelector("#barChart");
 
-    // Inicializa o gráfico ao carregar a página
-    ListarCapturas("cpu");
+        // Inicializa o gráfico ao carregar a página
+        ListarCapturas("cpu");
 
-    // Atualiza o gráfico ao mudar a seleção
-    selectRecurso.addEventListener("change", (event) => {
-        const recursoSelecionado = event.target.value;
-        ListarCapturas(recursoSelecionado);
-    });
+        // Atualiza o gráfico ao mudar a seleção
+        selectRecurso.addEventListener("change", (event) => {
+            const recursoSelecionado = event.target.value;
+            ListarCapturas(recursoSelecionado);
+        });
 
-    function ListarCapturas(recursoSelecionado) {
-        const fkRecurso = recursoMap[recursoSelecionado];
-        if (!fkRecurso) {
-            console.error("Recurso inválido selecionado!");
-            return;
-        }
+        function ListarCapturas(recursoSelecionado) {
+            const fkRecurso = recursoMap[recursoSelecionado];
+            if (!fkRecurso) {
+                console.error("Recurso inválido selecionado!");
+                return;
+            }
 
-        barChartContainer.innerHTML = "";
+            barChartContainer.innerHTML = "";
 
-        fetch(`/individual/serverMax/${fkRecurso}`, {
-            method: "GET"
-        })
-            .then((resposta) => {
-                if (resposta.status === 204) {
-                    console.log("Não há capturas disponíveis.");
-                    return;
-                }
-
-                return resposta.json();
+            fetch(`/individual/serverMax/${fkRecurso}`, {
+                method: "GET"
             })
-            .then((alertas) => {
-                if (!alertas || alertas.length === 0) {
-                    console.log("Nenhum dado disponível para o recurso selecionado.");
-                    return;
-                }
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
 
-                const servidores = alertas.map((registro) => registro.nomeMaquina);
-                const valores = alertas.map((registro) => registro.valorRegistrado);
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
 
-                if (servidores.length === 0 || valores.length === 0) {
-                    console.log("Os dados retornados estão incompletos ou inválidos.");
-                    return;
-                }
+                    const servidores = alertas.map((registro) => registro.nomeMaquina);
+                    const valores = alertas.map((registro) => registro.valorRegistrado);
 
-                const barOptions = {
-                    chart: {
+                    if (servidores.length === 0 || valores.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
+
+                    const barOptions = {
+                        chart: {
                             type: "bar",
                             height: 300,
                             width: servidores.length * 50, // Largura ajustada dinamicamente
@@ -244,28 +245,28 @@ document.addEventListener("DOMContentLoaded", () => {
                                 show: false // Opcional: Remove a barra de ferramentas do gráfico
                             }
                         },
-                    series: [
-                        {
-                            name: "Uso do Componente",
-                            data: valores
+                        series: [
+                            {
+                                name: "Uso do Componente",
+                                data: valores
+                            }
+                        ],
+                        colors: ["#0BA385"], // Define a cor das barras
+                        xaxis: {
+                            categories: servidores
                         }
-                    ],
-                    colors: ["#0BA385"], // Define a cor das barras
-                    xaxis: {
-                        categories: servidores
-                    }
-                    
-                
-                };
 
-                const chart = new ApexCharts(barChartContainer, barOptions);
-                chart.render();
-            })
-            .catch((erro) => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    }
-});
+
+                    };
+
+                    const chart = new ApexCharts(barChartContainer, barOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
+    });
 
     // ranking -- Tabelas Dinânicas
     document.addEventListener("DOMContentLoaded", () => {
@@ -418,7 +419,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 text: 'Meses'
                             }
                         },
-                       
+
                         dataLabels: {
                             enabled: false
                         },
@@ -521,7 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 text: 'Dia da Semana'
                             }
                         },
-                       
+
                         dataLabels: {
                             enabled: false
                         },
