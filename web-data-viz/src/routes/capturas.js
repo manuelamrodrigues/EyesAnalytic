@@ -7,5 +7,9 @@ router.get("/listarCapturas/:idEmpresa", function (req, res) {
     capturaController.listarCapturas(req, res);
 });
 
+router.get("/coletarRegrecaoConexao/:idEmpresa", function(req,res){
+    capturaController.coletarRegrecaoConexao(req,res);
+})
+
 module.exports = router;
 

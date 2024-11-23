@@ -17,7 +17,7 @@
 
 </head>
 
-<body> <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
+<body onload="realizarRegressoes()"> <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
 
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -102,7 +102,7 @@
                     <div class="header-kpi">
                         <h2>Conexões Ativas Atuais</h2>
                     </div>
-                    <h3>100000</h3>
+                    <span id="conexoes_atuais"></span>
                 </div>
                 <img src="../assets/svg/Rectangle 139.svg" alt="">
                 <div class="kpi">
@@ -122,26 +122,14 @@
                     <div class="content-kpi">
                         <div class="indicador">
                             <span>Atual</span>
-                            <span>5%</span>
+                            <span id="atual_cpu"></span>
                         </div>
-                        <div class="comparador">
-                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px"
-                                viewBox="0 0 103.537 103.537" xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path d="M103.048,12.002c-1.445-3.771-5.679-5.649-9.438-4.207L4.692,41.9c-2.753,1.055-4.603,3.662-4.688,6.609
-			c-0.087,2.948,1.608,5.656,4.295,6.872l88.917,40.196c0.978,0.44,2,0.65,3.006,0.65c2.784,0,5.442-1.6,6.665-4.302
-			c1.661-3.678,0.029-8.007-3.648-9.671L26.273,49.277l72.568-27.834C102.61,19.998,104.496,15.771,103.048,12.002z"
-                                            fill="#FFFFFF" />
-
-                                    </g>
-                                </g>
-                            </svg>
+                        <div class="comparador" id="comparador_cpu">
+                            
                         </div>
                         <div class="indicador">
                             <span>Estimativa</span>
-                            <span>6.5%</span>
+                            <span id="estimativa_cpu"></span>
 
                         </div>
                     </div>
@@ -164,9 +152,9 @@
                     <div class="content-kpi">
                         <div class="indicador">
                             <span>Atual</span>
-                            <span>25%</span>
+                            <span id="atual_ram"></span>
                         </div>
-                        <div class="comparador">
+                        <div class="comparador" id="comparador_ram">
                             <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px"
                                 viewBox="0 0 103.537 103.537" xml:space="preserve">
@@ -183,7 +171,7 @@
                         </div>
                         <div class="indicador">
                             <span>Estimativa</span>
-                            <span>10%</span>
+                            <span id="estimativa_ram"></span>
                         </div>
                     </div>
                 </div>
@@ -245,5 +233,134 @@
 
 </html>
 <script>
+    async function obterDados(){
+        try{
+            var idEmpresa = sessionStorage.getItem("FK_EMPRESA")
+            const resposta = await fetch(`/capturas/coletarRegrecaoConexao/${idEmpresa}`)
+            
+            const json = await resposta.json()
+            
+            const cpu = []
+            const ram = []
+            const conexoes = []
+            
+            json.forEach(element =>{
+                conexoes.push(element.conexoes_ativas)
+                cpu.push(element.uso_cpu)
+                ram.push(element.uso_ram)
+            })
+
+            console.log(cpu,ram,conexoes)
+            
+            return {
+                cpu:cpu,
+                ram:ram,
+                conexoes:conexoes
+            }
+        }
+        catch(erro){
+            console.log(erro)
+            return{cpu:[],ram:[],conexoes:[]}
+        }
+    }
+    
+    async function realizarRegressoes(){
+        try{
+            const estimativaCpuDiv = document.getElementById("estimativa_cpu")
+            const estimativaRamDiv = document.getElementById("estimativa_ram")
+            const resposta =  await obterDados() 
+            
+            const cpu = resposta.cpu
+            const ram = resposta.ram
+            const conexoes = resposta.conexoes
+
+            atualizarAtual(conexoes[0],cpu[0],ram[0])
+            
+            const regressaoCpu = regressao(conexoes, cpu)
+            const regressaoRam = regressao(conexoes, ram)
+
+            const estimativaCpu = criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)
+            const estimativaRam = criarEstimativa(conexoes[0], regressaoRam).toFixed(2)
+
+            estimativaCpuDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)}%`
+            estimativaRamDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoRam).toFixed(2)}%`
+
+            if(cpu[0]>estimativaCpu){
+
+            }
+            if(cpu[0]<estimativaCpu){
+
+            }
+            if(cpu[0]==estimativaCpu){
+
+            }
+
+             if(ram[0]>estimativaRam){
+
+            }
+            if(ram[0]<estimativaRam){
+
+            }
+            if(ram[0]==estimativaRam){
+                
+            }
+            
+
+
+            console.log(regressaoCpu,regressaoRam)
+
+
+
+
+        }
+        catch(erro){
+            console.log(erro)
+        }
+    }
+
+    function regressao(conexoes, recurso){
+        var regressor = {}
+        
+        const conexoes_mean = conexoes.reduce((a,b) => a+b,0)/conexoes.length
+        const recurso_mean = recurso.reduce((a,b) => a+b,0)/recurso.length
+        
+        var slope = 0, slope_numerator = 0, slope_denominator = 0;
+
+        for(i=0;i<conexoes.length;i++){
+            slope_numerator+=(conexoes[i]-conexoes_mean)*(recurso[i]-recurso_mean);
+            slope_denominator += Math.pow((conexoes[i]-conexoes_mean),2);
+        }
+        slope =  slope_numerator/slope_denominator
+        regressor['slope'] = slope
+
+        var intercept = recurso_mean - conexoes_mean*slope
+
+        var recurso_hat = []
+
+        for(i; i<conexoes.length;i++){
+            recurso_hat.push(conexoes[i]*regressor['slope']+regressor['intercept'])
+        }
+
+        
+        return {
+            slope:slope,
+            intercept:intercept,
+            recurso_hat:recurso_hat
+        }
+    }
+
+    function atualizarAtual(conexao,cpu,ram){
+        conexoesAtuais = document.getElementById("conexoes_atuais")
+        cpuAtual = document.getElementById("atual_cpu")
+        ramAtual = document.getElementById("atual_ram")
+        conexoesAtuais.innerHTML = conexao
+        cpuAtual.innerHTML = `${cpu}%`
+        ramAtual.innerHTML = `${ram}%`
+    }
+    
+    function criarEstimativa(conexoes, regressao){
+        const estimativa = conexoes*regressao.slope+regressao.intercept
+        return estimativa
+    }
 
 </script>

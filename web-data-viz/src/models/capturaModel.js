@@ -8,7 +8,16 @@ function listarCapturas(idEmpresa) {
     return database.executar(instrucao);
 }
 
+function coletarRegrecaoConexao(idEmpresa){
+    const instrucao = `
+        SELECT minuto, conexoes_ativas, uso_cpu, uso_ram FROM conexao_regressao WHERE idEmpresa = ${idEmpresa};
+    `
+    console.log(instrucao)
+    return database.executar(instrucao)
+}
+
 module.exports = { 
-    listarCapturas
+    listarCapturas,
+    coletarRegrecaoConexao
 };
 
