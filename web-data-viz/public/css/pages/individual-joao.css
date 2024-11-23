@@ -10,3 +10,16 @@
     margin-top: -40px;
 
 }
+
+.barChart{
+
+    border-radius: 10px;
+    background: #ffffff;
+    width: 800px;
+    /* height: 400px; */
+    overflow-x: auto; /* Ativa rolagem horizontal */
+    max-width: 100%;  /* Permite que o gráfico se ajuste ao tamanho da tela */
+    /* border: 1px solid #ddd; (Opcional) Adiciona uma borda ao contêiner */
+    
+    padding: 10px;     /* (Opcional) Espaçamento interno */
+}

@@ -6,6 +6,7 @@ var avisoController = require("../controllers/avisoController");
 router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
+
 router.get("/ultimas", function (req, res) {
     avisoController.buscarAlertas(req, res);
 });

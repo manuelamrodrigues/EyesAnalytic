@@ -21,15 +21,36 @@ function listar() {
 }
 
 function buscarAlertas() {
-    console.log("ACESSEI O ALERTA MODEL \n\n\t\t >> Certifique-se de que a view 'view_alertas_maquina_recurso' está criada no banco de dados.\n\n function buscarAlertas()");
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
 
-    var instrucaoSql = `
-        SELECT * FROM contagem_alertas;
+    const instrucaoSql = `
+        SELECT 
+            u.nome AS nomeUsuario,
+            e.idEmpresa,
+            r.nomeRecurso,
+            COUNT(a.idAlerta) AS totalAlertas
+        FROM 
+            alerta a
+        JOIN 
+            dado_capturado d ON a.fkDadoCapturado = d.idDadoCapturado
+        JOIN 
+            maquina m ON d.fkMaquina = m.idMaquina
+        JOIN 
+            empresa e ON m.fkEmpresa = e.idEmpresa
+        JOIN 
+            recurso r ON d.fkRecurso = r.idRecurso
+        JOIN 
+            usuario u ON e.idEmpresa = u.fkEmpresa
+        GROUP BY 
+            u.nome, e.idEmpresa, r.nomeRecurso
+        ORDER BY 
+            u.nome, e.idEmpresa, r.nomeRecurso;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 
 
 function pesquisarDescricao(texto) {
