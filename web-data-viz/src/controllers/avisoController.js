@@ -15,7 +15,7 @@ function listar(req, res) {
 }
 function buscarAlertas(req, res) {
 
-    medidaModel.buscarAlertas().then(function (resultado) {
+    avisoModel.buscarAlertas().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

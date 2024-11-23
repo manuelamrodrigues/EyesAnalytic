@@ -99,11 +99,11 @@
         
         <section class="dash">
             <article class="supTela">
-                <h3>Monitoramento de alertas</h3>
+                <h3>Central de alertas</h3>
                 
             </article>
             <div class="grafico">
-                <canvas id="myChartCanvas" class="canvas"></canvas>
+                <canvas id="myChartCanvas1" width="400" height="200"></canvas>
                 
                 
             </div>
@@ -131,23 +131,26 @@
 
 function obterDadosGrafico() {
 
-fetch(`/medidas/ultimas`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/avisos/ultimas`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
-
-            plotarGrafico(resposta);
-            
-
+        response.text().then(function (text) {
+            console.log(`Resposta bruta: ${text}`);
+            try {
+                let resposta = JSON.parse(text); // Tenta converter a resposta para JSON
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+                // Continue com o restante do código...
+            } catch (error) {
+                console.error('Erro ao analisar JSON:', error.message);
+            }
         });
     } else {
-        console.error('Nenhum dado encontrado ou erro na API');
+        console.error(`Erro na resposta da API: ${response.status} - ${response.statusText}`);
     }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
+}).catch(function (error) {
+    console.error(`Erro de comunicação com a API: ${error.message}`);
+});
+
 }
 
 
@@ -155,20 +158,22 @@ function plotarGrafico(resposta) {
 
 console.log('iniciando plotagem do gráfico...');
 
+const freq = resposta.map((registros) => registros.totalAlertas);
+const recursos = resposta.map((registros) => registro.nomeRecurso);
+
 // Criando estrutura para plotar gráfico - labels
 let labels = [];
 
 // Criando estrutura para plotar gráfico - dados
 let dados = {
-    labels: labels,
-    datasets: [{
-        label: '',
-        data: [],
-        backgroundColor: [],
+    labels: recursos,
+    datasets: [{ 
+        label: 'Frequência de Alertas',
+        data: freq,
+        backgroundColor: "#00000",
         fill: false,
         tension: 0.1
-    },
-    ]
+    }]
 };
 
 
@@ -176,11 +181,7 @@ console.log('----------------------------------------------')
 console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
 console.log(resposta)
 
-// Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta.length; i++) {
-    var regist
-        ro = resposta[i];
-}
+
 
 console.log('----------------------------------------------')
 console.log('O gráfico será plotado com os respectivos valores:')
@@ -192,13 +193,13 @@ console.log('----------------------------------------------')
 
 // Criando estrutura para plotar gráfico - config
 const config = {
-    type: 'pie',
+    type: 'bar',
     data: dados,
 };
 
 // Adicionando gráfico criado em div na tela
 let myChart = new Chart(
-    document.getElementById(`myChartCanvas`),
+    document.getElementById(`myChartCanvas1`),
     config
 );
 

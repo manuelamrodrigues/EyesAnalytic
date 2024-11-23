@@ -24,12 +24,7 @@ function buscarAlertas() {
     console.log("ACESSEI O ALERTA MODEL \n\n\t\t >> Certifique-se de que a view 'view_alertas_maquina_recurso' está criada no banco de dados.\n\n function buscarAlertas()");
 
     var instrucaoSql = `
-        SELECT 
-            idMaquinaRecurso,
-            nomeMaquina,
-            nomeRecurso,
-            quantidade_alertas
-        FROM view_alertas_maquina_recurso;
+        SELECT * FROM contagem_alertas;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
