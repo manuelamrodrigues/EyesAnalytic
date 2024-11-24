@@ -125,7 +125,7 @@
                             <span id="atual_cpu"></span>
                         </div>
                         <div class="comparador" id="comparador_cpu">
-                            
+
                         </div>
                         <div class="indicador">
                             <span>Estimativa</span>
@@ -192,7 +192,7 @@
                                 </div>
                             </div>
                         </div>
-                        <canvas></canvas>
+                        <canvas id="cpu_graph" class="graph_regress"></canvas>
 
                     </div>
                     <div class="graph">
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                         </div>
-                        <canvas></canvas>
+                        <canvas id="ram_graph" class="graph_regress"></canvas>
                     </div>
                 </div>
                 <div class="graph-row">
@@ -233,49 +233,49 @@
 
 </html>
 <script>
-    async function obterDados(){
-        try{
+    async function obterDados() {
+        try {
             var idEmpresa = sessionStorage.getItem("FK_EMPRESA")
             const resposta = await fetch(`/capturas/coletarRegrecaoConexao/${idEmpresa}`)
-            
+
             const json = await resposta.json()
-            
+
             const cpu = []
             const ram = []
             const conexoes = []
-            
-            json.forEach(element =>{
+
+            json.forEach(element => {
                 conexoes.push(element.conexoes_ativas)
                 cpu.push(element.uso_cpu)
                 ram.push(element.uso_ram)
             })
 
-            console.log(cpu,ram,conexoes)
-            
+            console.log(cpu, ram, conexoes)
+
             return {
-                cpu:cpu,
-                ram:ram,
-                conexoes:conexoes
+                cpu: cpu,
+                ram: ram,
+                conexoes: conexoes
             }
         }
-        catch(erro){
+        catch (erro) {
             console.log(erro)
-            return{cpu:[],ram:[],conexoes:[]}
+            return { cpu: [], ram: [], conexoes: [] }
         }
     }
-    
-    async function realizarRegressoes(){
-        try{
+
+    async function realizarRegressoes() {
+        try {
             const estimativaCpuDiv = document.getElementById("estimativa_cpu")
             const estimativaRamDiv = document.getElementById("estimativa_ram")
-            const resposta =  await obterDados() 
-            
+            const resposta = await obterDados()
+
             const cpu = resposta.cpu
             const ram = resposta.ram
             const conexoes = resposta.conexoes
 
-            atualizarAtual(conexoes[0],cpu[0],ram[0])
-            
+            atualizarAtual(conexoes[0], cpu[0], ram[0])
+
             const regressaoCpu = regressao(conexoes, cpu)
             const regressaoRam = regressao(conexoes, ram)
 
@@ -285,71 +285,92 @@
             estimativaCpuDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)}%`
             estimativaRamDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoRam).toFixed(2)}%`
 
-            if(cpu[0]>estimativaCpu){
+            if (cpu[0] > estimativaCpu) {
 
             }
-            if(cpu[0]<estimativaCpu){
+            if (cpu[0] < estimativaCpu) {
 
             }
-            if(cpu[0]==estimativaCpu){
+            if (cpu[0] == estimativaCpu) {
 
             }
 
-             if(ram[0]>estimativaRam){
+            if (ram[0] > estimativaRam) {
 
             }
-            if(ram[0]<estimativaRam){
+            if (ram[0] < estimativaRam) {
 
             }
-            if(ram[0]==estimativaRam){
-                
+            if (ram[0] == estimativaRam) {
+
             }
-            
+            console.log(regressaoCpu, regressaoRam)
+            const ctx1 = document.getElementById("cpu_graph")
+            ctx1.height = 275
+            const ctx2 = document.getElementById("ram_graph")
+            ctx2.height = 275
 
-
-            console.log(regressaoCpu,regressaoRam)
-
-
+            plotarGraficoRegressao(conexoes, cpu, regressaoCpu.recurso_hat, ctx1,1)
+            plotarGraficoRegressao(conexoes, ram, regressaoRam.recurso_hat, ctx2,2)
 
 
         }
-        catch(erro){
+        catch (erro) {
             console.log(erro)
         }
     }
 
-    function regressao(conexoes, recurso){
-        var regressor = {}
-        
-        const conexoes_mean = conexoes.reduce((a,b) => a+b,0)/conexoes.length
-        const recurso_mean = recurso.reduce((a,b) => a+b,0)/recurso.length
-        
-        var slope = 0, slope_numerator = 0, slope_denominator = 0;
+    function regressao(conexoes, recurso) {
+        // Calcula as médias
+        const conexoes_mean = conexoes.reduce((a, b) => a + b, 0) / conexoes.length;
+        const recurso_mean = recurso.reduce((a, b) => a + b, 0) / recurso.length;
 
-        for(i=0;i<conexoes.length;i++){
-            slope_numerator+=(conexoes[i]-conexoes_mean)*(recurso[i]-recurso_mean);
-            slope_denominator += Math.pow((conexoes[i]-conexoes_mean),2);
-        }
-        slope =  slope_numerator/slope_denominator
-        regressor['slope'] = slope
+        var slope = 0,
+            slope_numerator = 0,
+            slope_denominator = 0;
 
-        var intercept = recurso_mean - conexoes_mean*slope
-
-        var recurso_hat = []
-
-        for(i; i<conexoes.length;i++){
-            recurso_hat.push(conexoes[i]*regressor['slope']+regressor['intercept'])
+        // Calcula o numerador e o denominador da inclinação (slope)
+        for (let i = 0; i < conexoes.length; i++) {
+            slope_numerator += (conexoes[i] - conexoes_mean) * (recurso[i] - recurso_mean);
+            slope_denominator += Math.pow((conexoes[i] - conexoes_mean), 2);
         }
 
-        
+        // Verifica divisor zero
+        if (slope_denominator !== 0) {
+            slope = slope_numerator / slope_denominator;
+        } else {
+            slope = 0; // Ou outra lógica de fallback
+        }
+
+        // Calcula o intercepto
+        const intercept = recurso_mean - conexoes_mean * slope;
+
+        // Inicializa o regressor
+
+
+        const regressor = {
+            slope: slope,
+            intercept: intercept,
+        };
+        // Calcula os valores estimados
+        const recurso_hat = [];
+        for (let i = 0; i < conexoes.length; i++) {
+            recurso_hat.push(conexoes[i] * regressor.slope + regressor.intercept);
+        }
+        // Exibe os resultados
+        console.log("Slope:", regressor.slope);
+        console.log("Intercept:", regressor.intercept);
+        console.log("Valores previstos:", recurso_hat);
+
         return {
-            slope:slope,
-            intercept:intercept,
-            recurso_hat:recurso_hat
+            slope: slope,
+            intercept: intercept,
+            recurso_hat
         }
+
     }
 
-    function atualizarAtual(conexao,cpu,ram){
+    function atualizarAtual(conexao, cpu, ram) {
         conexoesAtuais = document.getElementById("conexoes_atuais")
         cpuAtual = document.getElementById("atual_cpu")
         ramAtual = document.getElementById("atual_ram")
@@ -357,10 +378,51 @@
         cpuAtual.innerHTML = `${cpu}%`
         ramAtual.innerHTML = `${ram}%`
     }
-    
-    function criarEstimativa(conexoes, regressao){
-        const estimativa = conexoes*regressao.slope+regressao.intercept
+
+    function criarEstimativa(conexoes, regressao) {
+        const estimativa = conexoes * regressao.slope + regressao.intercept
         return estimativa
+    }
+
+    function plotarGraficoRegressao(conexoes, recurso, recurso_hat, ctx, fkRecurso) {
+
+        var text = ""
+        if(fkRecurso == 1){
+            text = "Média Uso de CPU"
+        }
+        if(fkRecurso == 2){
+            text = "Média Uso de RAM"
+        }
+
+        var mixedChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    type: 'line',
+                    label: 'Estimativa',
+                    data: recurso_hat.map((y, index) => ({ x: conexoes[index], y: y })),
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false,
+                    lineTension: 0, // Não curvar a linha
+                    pointRadius: 0
+                }, {
+                    type: 'scatter',
+                    label: text,
+                    data: recurso.map((y, index) => ({ x: conexoes[index], y: y })),
+                    backgroundColor: '#14352E',
+                }],
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
     }
 
 </script>

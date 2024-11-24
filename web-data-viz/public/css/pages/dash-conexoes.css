@@ -159,3 +159,10 @@ h1{
 .graph-title .info-container{
     margin: 22px 0 0 5px;
 }
+.graph_regress {
+    width: 650px; 
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+
