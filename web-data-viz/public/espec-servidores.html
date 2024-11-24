@@ -134,9 +134,7 @@
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
                 resposta.forEach(element => {
-                    let  anguloRotacao = -50;
-                            ponteiro.style.top = "205px";
-                            ponteiro.style.left = "240px"; = document.createElement("div");
+                    let openModal = document.createElement("div");
                     openModal.className = "openModal";
 
                     let frameAlertas = document.createElement("div");

@@ -8,10 +8,30 @@ function listarServidor(req, res) {
         });
 }
 
-function listarIndicadores(req, res) {
+function listarIp(req, res) {
+    var idMaquina = req.params.idMaquina
+    redeModel.listarIp(idMaquina)
+        .then((resultado) => {
+            res.status(200).json(resultado);
+        });
+}
+
+function listarIndicadorPacote(req, res) {
     var idMaquina = req.params.idMaquina
 
-    redeModel.listarIndicadores(idMaquina)
+    redeModel.listarIndicadorPacote(idMaquina)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+function listarIndicadorOutros(req, res) {
+    var idMaquina = req.params.idMaquina
+
+    redeModel.listarIndicadorOutros(idMaquina)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
@@ -87,11 +107,13 @@ function listar(req, res) {
 
 
 module.exports = {
-    listarIndicadores,
+    listarIndicadorPacote,
+    listarIndicadorOutros,
     listarServidor,
     buscarTempoReal,
     buscarQualidade,
     atualizarQualidade,
-    listar
+    listar,
+    listarIp
 
 }

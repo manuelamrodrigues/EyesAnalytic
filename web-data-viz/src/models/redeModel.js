@@ -1,8 +1,16 @@
 var database = require("../database/config")
 
-function listarIndicadores(idMaquina) {
+function listarIndicadorPacote(idMaquina) {
     var instrucaoSql = `
-    SELECT * FROM view_indicadores_rede WHERE idMaquina = ${idMaquina};
+    SELECT * FROM view_indicador_pacote WHERE idMaquina = ${idMaquina};
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function listarIndicadorOutros(idMaquina) {
+    var instrucaoSql = `
+    SELECT * FROM view_indicador_outros WHERE idMaquina = ${idMaquina};
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -35,7 +43,7 @@ function buscarTempoReal(idMaquina) {
 
 function buscarQualidade(idMaquina) {
     var instrucaoSql = `
-    SELECT * FROM view_indicadores_rede WHERE idMaquina =  ${idMaquina};
+   SELECT qualidadeRede FROM maquina WHERE idMaquina = ${idMaquina};
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -57,12 +65,22 @@ function listar(idEmpresa) {
     return database.executar(instrucaoSql)
 }
 
+function listarIp(idMaquina) {
+    var instrucaoSql = `
+      SELECT * FROM log_ip WHERE fkMaquina = ${idMaquina};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 
 module.exports = {
-    listarIndicadores,
+    listarIndicadorPacote,
+    listarIndicadorOutros,
     listarServidor,
     buscarTempoReal,
     atualizarQualidade,
     buscarQualidade,
-    listar
+    listar,
+    listarIp
 };

@@ -5,8 +5,16 @@ var redeController = require("../controllers/redeController");
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 
-router.get("/listarIndicadores/:idMaquina", function (req, res) {
-    redeController.listarIndicadores(req, res)
+router.get("/listarIndicadorPacote/:idMaquina", function (req, res) {
+    redeController.listarIndicadorPacote(req, res)
+})
+
+router.get("/listarIndicadorOutros/:idMaquina", function (req, res) {
+    redeController.listarIndicadorOutros(req, res)
+})
+
+router.get("/listarIp/:idMaquina", function (req, res) {
+    redeController.listarIp(req, res)
 })
 
 router.get("/listarServidor/:idEmpresa", function(req,res){
