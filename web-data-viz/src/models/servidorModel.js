@@ -58,6 +58,14 @@ function listarDiferencaHoras() {
     return database.executar(instrucaoSql)
 }
 
+function listarDadoEspecifico(fkMaquina) {
+    var instrucaoSql = `
+    SELECT * FROM dados_regressao where fkMaquina = "${fkMaquina}";
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 
 function desativarServidor(idMaquina) {
     var instrucaoSql = `
@@ -74,5 +82,6 @@ module.exports = {
     alterarServidor,
     listarPrioridade,
     listarMediaMaximo,
-    listarDiferencaHoras
+    listarDiferencaHoras,
+    listarDadoEspecifico
 };

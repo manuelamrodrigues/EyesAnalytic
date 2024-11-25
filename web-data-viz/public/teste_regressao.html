@@ -15,7 +15,7 @@
 </head>
 <body>
     <h2>Gráfico de Regressão Linear</h2>
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart4"></canvas>
 
     <script>
         // Dados de exemplo (x, y)
@@ -84,3 +84,115 @@
     </script>
 </body>
 </html>
+
+<!-- Opção 2 -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Regressão Linear</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gráfico de Regressão Linear</h1>
+    <p>Insira os dados de tempo e uso de CPU:</p>
+    <textarea id="data-input" rows="10" cols="50">
+# Formato dos dados: tempo, uso_cpu
+1, 20
+2, 25
+3, 30
+4, 35
+5, 40
+    </textarea>
+    <br><br>
+    <button onclick="drawChart()">Gerar Gráfico</button>
+    <h3>Resultados:</h3>
+    <canvas id="regressionChart" width="800" height="400"></canvas>
+
+    <script>
+        function drawChart() {
+            const dataInput = document.getElementById('data-input').value.trim();
+            const dataLines = dataInput.split('\n').filter(line => !line.startsWith('#') && line.trim() !== '');
+
+            // Parse the data
+            const data = dataLines.map(line => {
+                const [x, y] = line.split(',').map(Number);
+                return { x, y };
+            });
+
+            // Calculate means
+            const n = data.length;
+            const meanX = data.reduce((sum, point) => sum + point.x, 0) / n;
+            const meanY = data.reduce((sum, point) => sum + point.y, 0) / n;
+
+            // Calculate slope (m) and intercept (b)
+            let numerator = 0;
+            let denominator = 0;
+
+            data.forEach(point => {
+                numerator += (point.x - meanX) * (point.y - meanY);
+                denominator += (point.x - meanX) ** 2;
+            });
+
+            const m = numerator / denominator; // Slope
+            const b = meanY - m * meanX;       // Intercept
+
+            // Prepare data for regression line
+            const regressionData = data.map(point => {
+                return { x: point.x, y: m * point.x + b };
+            });
+
+            // Extract x and y values for Chart.js
+            const scatterData = data.map(point => ({ x: point.x, y: point.y }));
+            const regressionLine = regressionData.map(point => ({ x: point.x, y: point.y }));
+
+            // Create the chart
+            const ctx = document.getElementById('regressionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Pontos de Dados',
+                            data: scatterData,
+                            backgroundColor: 'blue',
+                        },
+                        {
+                            label: 'Linha de Regressão',
+                            data: regressionLine,
+                            type: 'line',
+                            borderColor: 'red',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0,
+                        },
+                    ],
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Regressão Linear: Uso de CPU ao Longo do Tempo',
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tempo',
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Uso de CPU (%)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+    </script>
+</body>
+</html> -->
