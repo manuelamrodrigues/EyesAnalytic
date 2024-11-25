@@ -17,7 +17,8 @@
 
 </head>
 
-<body onload="realizarRegressoes()"> <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
+<body onload="realizarRegressoes(), plotarGraficoHistorico()">
+    <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
 
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
@@ -216,7 +217,7 @@
                         <div class="graph-title">
                             <h2>Tendência Conexões Ativas</h2>
                         </div>
-                        <canvas></canvas>
+                        <canvas class="graph_regress" id="tend_graph"></canvas>
 
                     </div>
                     <div class="graph">
@@ -233,9 +234,82 @@
 
 </html>
 <script>
-    async function obterDados() {
+
+    async function plotarGraficoHistorico() {
         try {
-            var idEmpresa = sessionStorage.getItem("FK_EMPRESA")
+            const resposta = await obterDadosHistorico();
+
+            const dia = resposta.dia;
+            const media = resposta.media;
+
+            console.log("teste", media, dia);
+
+            const ctx = document.getElementById("tend_graph");
+            ctx.height = 250
+
+            var ChartTend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dia,
+                    datasets: [
+                        {
+                            label: "Conexões ativas", // Adicione aspas ao rótulo
+                            data: media,
+                            backgroundColor: 'rgba(24,52,44,0.2)',
+                            borderColor: 'rgb(24,52,44)' ,
+                            pointRadius: 2,
+                            fill:false
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                    x: {
+                        ticks: {
+                            display: false // Oculta labels do eixo X
+                        }
+                    }
+                }
+                },
+                
+            });
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+
+    async function obterDadosHistorico() {
+        try {
+            let idEmpresa = sessionStorage.getItem("FK_EMPRESA");
+            const resposta = await fetch(`/capturas/coletarHistoricoConexoes/${idEmpresa}`);
+
+            // Corrigido: Chamando a função .json()
+            const json = await resposta.json();
+
+            let media = [];
+            let dia = [];
+
+            json.forEach((element) => {
+                media.push(element.media_conexoes);
+                dia.push(element.dia);
+            });
+
+            console.log(media, dia);
+
+            return {
+                media: media,
+                dia: dia,
+            };
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+
+
+
+    async function obterDadosRegressao() {
+        try {
+            let idEmpresa = sessionStorage.getItem("FK_EMPRESA")
             const resposta = await fetch(`/capturas/coletarRegrecaoConexao/${idEmpresa}`)
 
             const json = await resposta.json()
@@ -268,7 +342,7 @@
         try {
             const estimativaCpuDiv = document.getElementById("estimativa_cpu")
             const estimativaRamDiv = document.getElementById("estimativa_ram")
-            const resposta = await obterDados()
+            const resposta = await obterDadosRegressao()
 
             const cpu = resposta.cpu
             const ram = resposta.ram
@@ -306,12 +380,12 @@
             }
             console.log(regressaoCpu, regressaoRam)
             const ctx1 = document.getElementById("cpu_graph")
-            ctx1.height = 275
+            ctx1.height = 250
             const ctx2 = document.getElementById("ram_graph")
-            ctx2.height = 275
+            ctx2.height = 250
 
-            plotarGraficoRegressao(conexoes, cpu, regressaoCpu.recurso_hat, ctx1,1)
-            plotarGraficoRegressao(conexoes, ram, regressaoRam.recurso_hat, ctx2,2)
+            plotarGraficoRegressao(conexoes, cpu, regressaoCpu.recurso_hat, ctx1, 1)
+            plotarGraficoRegressao(conexoes, ram, regressaoRam.recurso_hat, ctx2, 2)
 
 
         }
@@ -387,10 +461,10 @@
     function plotarGraficoRegressao(conexoes, recurso, recurso_hat, ctx, fkRecurso) {
 
         var text = ""
-        if(fkRecurso == 1){
+        if (fkRecurso == 1) {
             text = "Média Uso de CPU"
         }
-        if(fkRecurso == 2){
+        if (fkRecurso == 2) {
             text = "Média Uso de RAM"
         }
 
@@ -405,7 +479,7 @@
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     fill: false,
                     lineTension: 0, // Não curvar a linha
-                    pointRadius: 0
+                    pointRadius: 0,
                 }, {
                     type: 'scatter',
                     label: text,

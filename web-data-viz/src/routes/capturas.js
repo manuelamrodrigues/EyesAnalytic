@@ -11,5 +11,9 @@ router.get("/coletarRegrecaoConexao/:idEmpresa", function(req,res){
     capturaController.coletarRegrecaoConexao(req,res);
 })
 
+router.get("/coletarHistoricoConexoes/:idEmpresa", function(req,res){
+    capturaController.coletarHistoricoConexoes(req,res)
+})
+
 module.exports = router;
 

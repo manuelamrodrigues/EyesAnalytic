@@ -16,8 +16,17 @@ function coletarRegrecaoConexao(idEmpresa){
     return database.executar(instrucao)
 }
 
+function coletarHistoricoConexoes(idEmpresa){
+    const instrucao = `
+    SELECT * FROM view_historico_conexao_ativa WHERE fkEmpresa = ${idEmpresa}; 
+    `
+    console.log(instrucao)
+    return database.executar(instrucao)
+
+}
 module.exports = { 
     listarCapturas,
-    coletarRegrecaoConexao
+    coletarRegrecaoConexao,
+    coletarHistoricoConexoes
 };
 

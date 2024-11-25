@@ -15,12 +15,13 @@ main{
 
 h1{
     font-size: 25px;
+    margin: 3px 0;
 }
 
 .kpi-section{
     background-color: #14352E;
     width: 96.5%;
-    height: 17vh;
+    height: 15vh;
     display: flex;
     justify-content: space-around;
     border-radius: 10px;
@@ -40,17 +41,17 @@ h1{
 
 .kpi h2{
     margin: 0 5px 10px 0;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .kpi h3{
     margin-top: 0px;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
 }
 .kpi span{
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .header-kpi{
@@ -90,7 +91,7 @@ h1{
     height: fit-content;
     /* Garante que o ícone e a mensagem fiquem lado a lado */
     align-items: start;
-    margin-top: 5px;
+    margin-top: 0px;
     padding: 2px;
     /* Alinha o conteúdo verticalmente no centro */
 }
@@ -120,14 +121,17 @@ h1{
 }
 
 /* Estilo da mensagem */
-.info-box .msg {
+.info-box span {
     font-size: medium;
     color: #333;
 }
 
+
+
 /* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
 .info-container:hover .info-box {
     opacity: 1;
+    z-index: 100;
     /* Torna visível */
     visibility: visible;
     /* Torna visível */
@@ -156,11 +160,19 @@ h1{
     display: flex;
 }
 
+.graph-title span{
+    font-weight: bold;
+}
+
+.graph-title h2{
+    margin: 8px 0;
+}
+
 .graph-title .info-container{
-    margin: 22px 0 0 5px;
+    margin: 8px 0 0 5px;
 }
 .graph_regress {
-    width: 650px; 
+    width: 600px; 
     background-color: #ffffff;
     border-radius: 10px;
 }
