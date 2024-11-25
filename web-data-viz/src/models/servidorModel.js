@@ -23,7 +23,7 @@ function listarPorUsoCPU(fkEmpresa) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
-fkMaquina=1
+fkMaquina = 1
 function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};
@@ -34,7 +34,7 @@ function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
 
 function listarMediaMaximo(fkEmpresa) {
     var instrucaoSql = `
-    SELECT * FROM view_media_max_cpu where fkEmpresa = "${fkEmpresa}";
+   SELECT *  FROM view_media_max_cpu ORDER BY max_cpu DESC LIMIT 3;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
