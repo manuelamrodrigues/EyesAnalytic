@@ -11,6 +11,10 @@ router.get("/ultimas", function (req, res) {
     avisoController.buscarAlertas(req, res);
 });
 
+router.get("/geral", function (req, res) {
+    avisoController.contarAlertas(req, res);
+});
+
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });

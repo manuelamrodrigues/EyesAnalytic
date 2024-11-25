@@ -30,6 +30,22 @@ function buscarAlertas(req, res) {
         });
 }
 
+function contarAlertas(req, res) {
+    avisoModel
+        .contarAlertas()
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error("Houve um erro ao buscar os alertas:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
@@ -148,6 +164,7 @@ module.exports = {
     listarPorUsuario,
     pesquisarDescricao,
     buscarAlertas,
+    contarAlertas,
     publicar,
     editar,
     deletar

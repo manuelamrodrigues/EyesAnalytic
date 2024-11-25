@@ -106,12 +106,11 @@
             <div class="chart-container">
                 <div class="supsDashs">
                     <div class="informacao">
-                        <div class="title">Titulo da Dash</div>
+                        <div class="title">Alertas por Componente</div>
                         <div class="tooltip-container">
                             <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                             <div class="tooltip-box" id="msgBox">
-                                <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                    latência da rede.</span>
+                                <span class="tooltip-message"></span>
                             </div>
                         </div>
                     </div>
@@ -143,6 +142,20 @@
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+        const infoIcon = document.getElementById("infoIcon");
+        const msgBox = document.getElementById("msgBox");
+
+        // Mostrar mensagem no hover
+        infoIcon.addEventListener("mouseenter", () => {
+            msgBox.style.display = "block";
+        });
+
+        // Esconder mensagem ao sair do hover
+        infoIcon.addEventListener("mouseleave", () => {
+            msgBox.style.display = "none";
+        });
+    });
 
 document.addEventListener("DOMContentLoaded", () => {
     const barChartContainer = document.querySelector("#barChart");
