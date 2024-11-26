@@ -11,9 +11,17 @@ router.get("/listarCapturas/:idEmpresa", function (req, res) {
     capturaController.listarCapturas(req, res);
 });
 
-module.exports = router
+router.get("/coletarRegrecaoConexao/:idEmpresa", function(req,res){
+    capturaController.coletarRegrecaoConexao(req,res);
+})
 
+router.get("/coletarHistoricoConexoes/:idEmpresa", function(req,res){
+    capturaController.coletarHistoricoConexoes(req,res)
+})
 
+router.get("/coletarComparacaoSemana/:idEmpresa", function(req,res){
+    capturaController.coletarComparacaoSemana(req,res)
+})
 
-
+module.exports = router;
 

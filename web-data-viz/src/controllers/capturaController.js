@@ -38,8 +38,59 @@ function listarCapturas(req, res) {
                      res.status(500).json(erro.sqlMessage);
                  });
 }
+
+function coletarRegrecaoConexao(req,res){
+    var idEmpresa = req.params.idEmpresa
+
+    capturaModel.coletarRegrecaoConexao(idEmpresa)
+    .then(function(resultado){
+        if(resultado.length > 0)
+            res.status(200).json(resultado)
+        else
+            res.status(204).send("Nenhum dado encontrado")
+    })
+    .catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
+function coletarHistoricoConexoes(req,res){
+   var idEmpresa = req.params.idEmpresa
+
+    capturaModel.coletarHistoricoConexoes(idEmpresa)
+    .then(function(resultado){
+        if(resultado.length > 0)
+            res.status(200).json(resultado)
+        else
+            res.status(204).send("Nenhum dado encontrado")
+    })
+    .catch(function(erro){
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
+function coletarComparacaoSemana(req,res){
+    var idEmpresa = req.params.idEmpresa
+ 
+     capturaModel.coletarComparacaoSemana(idEmpresa)
+     .then(function(resultado){
+         if(resultado.length > 0)
+             res.status(200).json(resultado)
+         else
+             res.status(204).send("Nenhum dado encontrado")
+     })
+     .catch(function(erro){
+         console.log(erro);
+         res.status(500).json(erro.sqlMessage)
+     })
+ }
+
         
 module.exports = {
     listarCapturas,
-    buscarTempoReal
+    coletarRegrecaoConexao,
+    coletarHistoricoConexoes,
+    coletarComparacaoSemana
      };
