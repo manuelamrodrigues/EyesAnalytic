@@ -93,7 +93,6 @@
                 </div>
 
                 <div class="qtd" id="valor">
-                    <!-- <p>Média</p> -->
                 </div>
 
                 <canvas id="gaugeChart" class="gauge"></canvas>
@@ -117,25 +116,55 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="op" id="op">
+                <div class="op">
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op1">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op2">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op3">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op4">
+                            <h5>0.00%</h5>
+                        </div>
                     </div>
 
                 </div>
+
             </div>
         </div>
+
 
         <div class="baixo">
 
             <div class="servidores">
-                <h3>Lista de Qualidade da Rede</h3>
-                <div class="lista" id="lista">
+                <h3>Lista de Firewalls</h3>
+                <div class="lista">
+                    <div id="lista"> </div>
                 </div>
             </div>
 
             <div class="baixo-direita">
                 <h3>Comparação de megaBytes por segundo(MBps) de Upload e Download</h3>
-                <div class="grafico" >
+                <div class="grafico">
                     <div class="ip" id="ip">
 
                     </div>
@@ -158,17 +187,19 @@
 
     function iniciar() {
         iniciarGrafico()
-        atualizarOutrosDados()
         qualidadeDaRede()
+        atualizarPacotesPerdidos()
+        atualizarIndicadoresRede()
         listarIp()
+        // atualizarDadosServidor()
     }
 
     function atualizarDadosServidor() {
-        qualidadeDaRede();  
-        atualizarOutrosDados();
-        iniciarGrafico(); 
-        listarIp()
- 
+        listarIp();             // Atualizar IP do servidor
+        qualidadeDaRede();      // Atualizar qualidade
+        atualizarPacotesPerdidos(); // Atualizar pacotes perdidos
+        atualizarIndicadoresRede(); // Atualizar indicadores
+        iniciarGrafico();
     }
 
     // Grafico gauge
@@ -210,6 +241,7 @@
             return resposta.json();
         }).then(function (resposta) {
             resposta.forEach(element => {
+
                 valor1.innerHTML = "";
                 let valor = document.createElement("div");
                 valor.className = "valor";
@@ -221,8 +253,10 @@
                 let novaQualidade = "";
                 let anguloRotacao = 0;
 
+                console.log(element.ultimaLatencia, element.perdaPacotes);
+
                 // Verificar condições para atualizar a qualidade e a rotação do ponteiro
-                if (element.ultimaLatencia <= 23 && element.perdaPacotes <= 10) {
+                if (element.ultimaLatencia <= 50 && element.perdaPacotes <= 2) {
                     novaQualidade = 'Estável';
                     valor.style.fontWeight = 600;
                     valor.style.fontSize = '18px';
@@ -230,13 +264,13 @@
 
                     // Alterar o estilo do ponteiro - alto
                     anguloRotacao = -50;
-                    ponteiro.style.top = "150px";
-                    ponteiro.style.left = "272px";
+                    ponteiro.style.top = "177px";
+                    ponteiro.style.left = "300px";
                     ponteiro.style.transition = "transform 0.5s ease"; // Apenas transforma suavemente
                     ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
 
-                } else if ((element.ultimaLatencia >= 40 && element.ultimaLatencia <= 80) &&
-                    (element.perdaPacotes >= 11 && element.perdaPacotes <= 20)) {
+                } else if ((element.ultimaLatencia > 50 && element.ultimaLatencia <= 100) &&
+                    (element.perdaPacotes > 2 && element.perdaPacotes <= 3)) {
                     novaQualidade = 'Média';
                     valor.style.fontWeight = 600;
                     valor.style.fontSize = '18px';
@@ -244,9 +278,21 @@
 
                     // Alterar o estilo do ponteiro - medio
                     anguloRotacao = 40;
-                    ponteiro.style.top = "152px";
-                    ponteiro.style.left = "265px";
+                    ponteiro.style.top = "177px";
+                    ponteiro.style.left = "287px";
                     ponteiro.style.transition = "transform 0.5s ease"; // Apenas transforma suavemente
+                    ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
+
+                } else if (element.ultimaLatencia > 100 && element.perdaPacotes > 3) {
+                    novaQualidade = 'Baixa';
+                    valor.style.fontWeight = 600;
+                    valor.style.fontSize = '18px';
+                    valor.style.color = '#f44336';
+
+                    anguloRotacao = 85;
+                    ponteiro.style.top = "165px";
+                    ponteiro.style.left = "290px";
+                    ponteiro.style.transition = "transform 0.5s ease";
                     ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
 
                 } else {
@@ -255,9 +301,9 @@
                     valor.style.fontSize = '18px';
                     valor.style.color = '#f44336';
 
-                    anguloRotacao = 80;
-                    ponteiro.style.top = "145px";
-                    ponteiro.style.left = "265px";
+                    anguloRotacao = 85;
+                    ponteiro.style.top = "167px";
+                    ponteiro.style.left = "287px";
                     ponteiro.style.transition = "transform 0.5s ease";
                     ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa               
                 }
@@ -275,29 +321,23 @@
                             qualidadeRede: novaQualidade,
                             idMaquina: idMaquina
                         })
-                    })
-                        .then(() => {
-                            // Recarregar a página após a atualização
-                            setTimeout(() => qualidadeDaRede(), 300000); //5min
-                            // location.reload();
-                        })
-                        .catch(function (error) {
-                            console.error("Erro ao atualizar a qualidade da rede:", error);
-                        });
+                    }).catch(function (error) {
+                        console.error("Erro ao atualizar a qualidade da rede:", error);
+                    });
                 }
-            
             });
+            // setTimeout(() => qualidadeDaRede(), 20000); //20seg
         }).catch(function (erro) {
             console.error("Erro na requisição fetch: ", erro);
         });
     }
 
     //FUNÇÃO PARA LISTAR TODOS OS INDICADORES DE UMA DETERMINADA EMPRESA
-    function atualizarOutrosDados() {
-        let op = document.getElementById("op");
-        op.innerHTML = "";  
 
-        // Chama a função para adicionar a perda de pacotes (dentro do mesmo bloco)
+    function atualizarPacotesPerdidos() {
+        let op1 = document.getElementById("op1");
+        op1.innerHTML = "";
+
         fetch(`rede/listarIndicadorPacote/${idMaquina}`, {
             method: "GET",
             headers: {
@@ -306,47 +346,54 @@
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
                 resposta.forEach(pacote => {
-                    let opcoesPP = document.createElement("div");
-                    opcoesPP.className = "opcoes";
-                    opcoesPP.innerHTML = `<h4>Pacotes Perdidos</h4><h5>${pacote.perdaPacotes || "N/A"}%</h5>`;
-                    op.appendChild(opcoesPP);  
-                });
 
-                // Segunda chamada para obter os dados de latência, upload e download
-                fetch(`rede/listarIndicadorOutros/${idMaquina}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }).then(function (resposta) {
-                    resposta.json().then(function (resposta) {
-                        resposta.forEach(element => {
-                            // Adiciona a latência
-                            let opcoesLa = document.createElement("div");
-                            opcoesLa.className = "opcoes";
-                            opcoesLa.innerHTML = `<h4>Latência</h4><h5>${element.ultimaLatencia || "N/A"}ms</h5>`;
-                            op.appendChild(opcoesLa);  
-                            
-                            let opcoesUp = document.createElement("div");
-                            opcoesUp.className = "opcoes";
-
-                            // Para transformar um valor em bytes por segundo (Bps) para KBps (Kilobytes por segundo), você deve dividir o valor por 1024. Isso ocorre porque 1 KB = 1024 bytes.
-                            let uploadMBps = element.ultimoUpload / 1e6;
-
-                            opcoesUp.innerHTML = `<h4>MBps Upload</h4><h5>${uploadKBps.toFixed(2) || "N/A"}</h5>`;
-                            op.appendChild(opcoesUp);  // Adiciona diretamente ao elemento "op"
-
-                            // Adiciona o download
-                            let opcoesDw = document.createElement("div");
-                            opcoesDw.className = "opcoes";
-
-                            let downloadMBps = element.ultimoDownload / 1e6;
-                            opcoesDw.innerHTML = `<h4>MBps Download</h4><h5>${downloadKBps.toFixed(2) || "N/A"}</h5>`;
-                            op.appendChild(opcoesDw);  
-                        });
-                    });
+                    let opcoesPP = document.createElement("h5");
+                    opcoesPP.innerHTML = `${pacote.perdaPacotes.toFixed(2)}%`;
+                    op1.appendChild(opcoesPP);
                 });
             });
+            // setTimeout(() => atualizarPacotesPerdidos(), 20000); //20seg
+        }).catch(function (erro) {
+            console.error("Erro ao buscar pacotes perdidos:", erro);
+        });
+    }
+
+    function atualizarIndicadoresRede() {
+        let op2 = document.getElementById("op2");
+        op2.innerHTML = "";
+
+        let op3 = document.getElementById("op3");
+        op3.innerHTML = "";
+
+        let op4 = document.getElementById("op4");
+        op4.innerHTML = "";
+
+        fetch(`rede/listarIndicadorOutros/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+
+                    let opcoesLa = document.createElement("h5");
+                    opcoesLa.innerHTML = `${element.ultimaLatencia.toFixed(0)}ms`;
+                    op2.appendChild(opcoesLa);
+
+                    let opcoesUp = document.createElement("h5");
+                    opcoesUp.innerHTML = `${element.ultimoUpload.toFixed(2)}`;
+                    op3.appendChild(opcoesUp);
+
+                    let opcoesDw = document.createElement("h5");
+                    opcoesDw.innerHTML = `${element.ultimoDownload.toFixed(2)}`;
+                    op4.appendChild(opcoesDw);
+                });
+            });
+            // setTimeout(() => atualizarIndicadoresRede(), 20000); //20seg
+
+        }).catch(function (erro) {
+            console.error("Erro ao buscar indicadores de rede:", erro);
         });
     }
 
@@ -354,7 +401,7 @@
     function listarServidoresQualidade() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
         var lista = document.getElementById("lista");
-        lista.innerHTML = ""; 
+        lista.innerHTML = "";
 
         fetch(`rede/listar/${fkEmpresa}`, {
             method: "GET",
@@ -384,7 +431,7 @@
                     } else if (element.qualidadeRede == "Média") {
                         h6.style.color = '#ffeb3b';
                     } else if (element.qualidadeRede == "Estável") {
-                        h6.style.color = '#42bd47'; 
+                        h6.style.color = '#42bd47';
                     }
                     else {
                         h6.style.color = '#000';
@@ -413,7 +460,7 @@
 
     function listarIp() {
         var ips = document.getElementById("ip");
-        ips.innerHTML= ""
+        ips.innerHTML = ""
 
         fetch(`rede/listarIp/${idMaquina}`, {
             method: "GET",
@@ -422,7 +469,7 @@
             }
         }).then(function (resposta) {
             resposta.json().then(function (servidores) {
-    
+
                 servidores.forEach(element => {
                     let ip = document.createElement("div");
                     ip.className = "ip";
@@ -541,7 +588,6 @@
             // Atualizar o gráfico
             chart.update();
 
-            // Reagendar a atualização (exemplo: a cada 5 segundos)
             setTimeout(() => atualizarDados(chart), 2000);
         } catch (erro) {
             console.log("Erro ao atualizar os dados:", erro);

@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function listarIndicadorPacote(idMaquina) {
     var instrucaoSql = `
-    SELECT * FROM view_indicador_pacote WHERE idMaquina = ${idMaquina};
+    SELECT * FROM view_indicador WHERE idMaquina = ${idMaquina};
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -10,7 +10,7 @@ function listarIndicadorPacote(idMaquina) {
 
 function listarIndicadorOutros(idMaquina) {
     var instrucaoSql = `
-    SELECT * FROM view_indicador_outros WHERE idMaquina = ${idMaquina};
+    SELECT * FROM view_indicador WHERE idMaquina = ${idMaquina};
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -42,8 +42,8 @@ function buscarTempoReal(idMaquina) {
 }
 
 function buscarQualidade(idMaquina) {
-    var instrucaoSql = `
-   SELECT qualidadeRede FROM maquina WHERE idMaquina = ${idMaquina};
+    var instrucaoSql = `    
+   SELECT * FROM view_indicador WHERE idMaquina = ${idMaquina};
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -67,7 +67,7 @@ function listar(idEmpresa) {
 
 function listarIp(idMaquina) {
     var instrucaoSql = `
-      SELECT * FROM log_ip WHERE fkMaquina = ${idMaquina};
+      SELECT * FROM log_ip DISTICIT WHERE fkMaquina = ${idMaquina} LIMIT 1;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
