@@ -401,36 +401,39 @@
                         const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
                         const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
 
+                        // Calcula os coeficientes da regressão linear
                         const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
                         const a = (sumY - b * sumX) / n;
 
                         return { a, b };
                     }
 
+                    // Normaliza os timestamps para evitar problemas de escala
+                    const timestamps = dtHora.map(d => d.getTime());
+                    const minTimestamp = Math.min(...timestamps);
+                    const normalizedTimestamps = timestamps.map(t => t - minTimestamp); // Normaliza para começar em 0
 
-                    // Calculando a regressão linear
-                    const { a, b } = regressaoLinear(
-                        dtHora.map(d => d.getTime()), // Convertendo para timestamp
-                        registro
-                    );
+                    // Calcula a regressão linear usando os timestamps normalizados
+                    const { a, b } = regressaoLinear(normalizedTimestamps, registro);
 
                     console.log('Coeficientes da regressão linear:', { a, b });
 
-                    // **NOVO**: Criar um intervalo contínuo de timestamps
-                    const intervaloLinha = [];
-                    const minTimestamp = Math.min(...dtHora.map(d => d.getTime()));
-                    const maxTimestamp = Math.max(...dtHora.map(d => d.getTime()));
+                    // Gera intervalo contínuo de timestamps normalizados
                     const passo = 60 * 60 * 1000; // Intervalo de 1 hora
-
-                    for (let t = minTimestamp; t <= maxTimestamp; t += passo) {
+                    const intervaloLinha = [];
+                    for (let t = 0; t <= Math.max(...normalizedTimestamps); t += passo) {
                         intervaloLinha.push(t);
                     }
 
-                    // **NOVO**: Calcular os pontos da linha de regressão
+                    // Reconstrói os pontos da linha de regressão
                     const dadosLinhaRegressao = intervaloLinha.map(t => ({
-                        x: t,
+                        x: t + minTimestamp, // Desnormaliza os timestamps
                         y: a + b * t
                     }));
+
+                    console.log('Dados da linha de regressão:', dadosLinhaRegressao);
+
+
 
                     // Se o gráfico já existir, destruímos a instância anterior
                     if (myChart) {
