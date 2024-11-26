@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="realizarRegressoes(), plotarGraficoHistorico()">
+<body onload="realizarRegressoes(), plotarGraficoHistorico(), plotarGraficoComparacao()">
     <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
 
     <aside id="aside-menu">
@@ -156,19 +156,7 @@
                             <span id="atual_ram"></span>
                         </div>
                         <div class="comparador" id="comparador_ram">
-                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px"
-                                viewBox="0 0 103.537 103.537" xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path d="M103.048,12.002c-1.445-3.771-5.679-5.649-9.438-4.207L4.692,41.9c-2.753,1.055-4.603,3.662-4.688,6.609
-        c-0.087,2.948,1.608,5.656,4.295,6.872l88.917,40.196c0.978,0.44,2,0.65,3.006,0.65c2.784,0,5.442-1.6,6.665-4.302
-        c1.661-3.678,0.029-8.007-3.648-9.671L26.273,49.277l72.568-27.834C102.61,19.998,104.496,15.771,103.048,12.002z"
-                                            fill="#FFFFFF" />
-
-                                    </g>
-                                </g>
-                            </svg>
+                            
                         </div>
                         <div class="indicador">
                             <span>Estimativa</span>
@@ -188,7 +176,8 @@
                                 <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
                                 <div class="info-box">
                                     <span class="msg">
-                                        Estimativa realizada com base nas conexões ativas.
+                                        Eixo Y = Uso médio da CPU
+                                        Eixo X = Número de Conexões Ativas
                                     </span>
                                 </div>
                             </div>
@@ -204,7 +193,8 @@
                                 <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
                                 <div class="info-box">
                                     <span class="msg">
-                                        Estimativa realizada com base nas conexões ativas.
+                                        Eixo Y = Uso médio da RAM
+                                        Eixo X = Número de Conexões Ativas
                                     </span>
                                 </div>
                             </div>
@@ -222,9 +212,18 @@
                     </div>
                     <div class="graph">
                         <div class="graph-title">
-                            <h2>Alertas emitidos no mês</h2>
+                            <h2 id="comparacao"> Comparação</h2>
+                            <div class="info-container">
+                                <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                                <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                                <div class="info-box">
+                                    <span class="msg">
+                                        Comparação dos dados atuais com a semana anterior
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <canvas></canvas>
+                        <canvas id="graph_comp" class="graph_regress"></canvas>
                     </div>
 
             </section>
@@ -234,6 +233,86 @@
 
 </html>
 <script>
+    
+    async function obterDadoComparacao() {
+        let idEmpresa = sessionStorage.getItem("FK_EMPRESA");
+        try{
+            const resposta = await fetch(`/capturas/coletarComparacaoSemana/${idEmpresa}`)
+            
+            const json = await resposta.json()
+            
+            console.log(json)
+            const hora = []
+            const mediaAtual = []
+            const mediaAnterior = []
+            let diaSemana
+            let dataAtual 
+            let dataAnterior 
+            
+            json.forEach(resposta =>{
+                hora.push(resposta.hora)
+                mediaAtual.push(resposta.media_atual)
+                mediaAnterior.push(resposta.media_anterior)
+                diaSemana = resposta.dia_semana
+                dataAtual = resposta.data_atual
+                dataAnterior = resposta.data_anterior
+            })
+
+
+            console.log(diaSemana,dataAtual)
+
+            return{
+                diaSemana:diaSemana,
+                dataAtual:dataAtual,
+                dataAnterior:dataAnterior,
+                hora:hora,
+                mediaAtual:mediaAtual,
+                mediaAnterior:mediaAnterior
+            }
+        }
+        catch(erro){
+            console.log(erro)
+            return []
+        }
+    }
+
+    async function plotarGraficoComparacao(){
+        try{
+
+            const divComparacao = document.getElementById("comparacao")
+            
+            const resposta = await obterDadoComparacao()
+
+
+            const dadosAtual = resposta.mediaAtual
+            const dadosAnterior = resposta.mediaAnterior
+            const labels = resposta.hora
+            
+            divComparacao.innerHTML = `Comparação dia: ${resposta.dataAtual} X ${resposta.dataAnterior}`
+            
+            const ctx = document.getElementById('graph_comp')
+            ctx.height = 250
+            var chartComp = new Chart(ctx, {
+                type:'bar',
+                data: {
+                    labels:labels,
+                    datasets:[{
+                        label:resposta.dataAtual,
+                        data:dadosAtual
+                    },
+                {
+                    label:resposta.dataAnterior,
+                    data:dadosAnterior
+                }]
+                }
+            }
+
+            )
+        }
+        catch(erro){
+            console.log(erro)
+        }
+    }
 
     async function plotarGraficoHistorico() {
         try {
@@ -257,7 +336,7 @@
                             data: media,
                             backgroundColor: 'rgba(24,52,44,0.2)',
                             borderColor: 'rgb(24,52,44)' ,
-                            pointRadius: 2,
+                            pointRadius: 1,
                             fill:false
                         },
                     ],
@@ -302,6 +381,7 @@
             };
         } catch (erro) {
             console.log(erro);
+            return []
         }
     }
 
@@ -359,23 +439,28 @@
             estimativaCpuDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)}%`
             estimativaRamDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoRam).toFixed(2)}%`
 
-            if (cpu[0] > estimativaCpu) {
+            const comparadorRam = document.getElementById("comparador_ram")
+            const comparadorCpu = document.getElementById("comparador_cpu")
 
+            if (cpu[0] > estimativaCpu) {
+                comparadorCpu.innerHTML= "<h1>></h1>"   
             }
             if (cpu[0] < estimativaCpu) {
-
+                comparadorCpu.innerHTML= "<h1><</h1>"   
             }
             if (cpu[0] == estimativaCpu) {
-
+                comparadorCpu.innerHTML = '<h1>=</h1>'
             }
 
             if (ram[0] > estimativaRam) {
-
+                comparadorRam.innerHTML = '<h1>></h1>'
             }
             if (ram[0] < estimativaRam) {
-
+                comparadorRam.innerHTML = '<h1><</h1>'
+                
             }
             if (ram[0] == estimativaRam) {
+                comparadorRam.innerHTML = '<h1>=</h1>'
 
             }
             console.log(regressaoCpu, regressaoRam)
@@ -476,7 +561,7 @@
                     label: 'Estimativa',
                     data: recurso_hat.map((y, index) => ({ x: conexoes[index], y: y })),
                     borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.01)',
                     fill: false,
                     lineTension: 0, // Não curvar a linha
                     pointRadius: 0,

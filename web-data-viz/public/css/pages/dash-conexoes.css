@@ -14,14 +14,14 @@ main{
 }
 
 h1{
-    font-size: 25px;
+    font-size: 20px;
     margin: 3px 0;
 }
 
 .kpi-section{
     background-color: #14352E;
     width: 96.5%;
-    height: 15vh;
+    height: 12vh;
     display: flex;
     justify-content: space-around;
     border-radius: 10px;
@@ -29,7 +29,7 @@ h1{
 }
 
 .kpi-section img{
-    height: 14vh;
+    height: 10vh;
 }
 
 .kpi{
@@ -157,6 +157,7 @@ h1{
 }
 
 .graph-title{
+    margin-top: 5px;
     display: flex;
 }
 
@@ -165,6 +166,7 @@ h1{
 }
 
 .graph-title h2{
+    font-size: 18px;
     margin: 8px 0;
 }
 

@@ -15,5 +15,9 @@ router.get("/coletarHistoricoConexoes/:idEmpresa", function(req,res){
     capturaController.coletarHistoricoConexoes(req,res)
 })
 
+router.get("/coletarComparacaoSemana/:idEmpresa", function(req,res){
+    capturaController.coletarComparacaoSemana(req,res)
+})
+
 module.exports = router;
 
