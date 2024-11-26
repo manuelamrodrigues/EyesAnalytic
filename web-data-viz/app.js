@@ -27,6 +27,7 @@ var urgenciaRouter = require("./src/routes/urgencias")
 var servidorRouter = require("./src/routes/servidor")
 var capturaRouter = require("./src/routes/capturas")
 var metricaRouter = require("./src/routes/metricas")
+var capturaRouter = require("./src/routes/capturas")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
