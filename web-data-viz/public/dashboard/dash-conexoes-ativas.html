@@ -250,7 +250,7 @@
             let dataAnterior 
             
             json.forEach(resposta =>{
-                hora.push(resposta.hora)
+                hora.push(`${resposta.hora}:00`)
                 mediaAtual.push(resposta.media_atual)
                 mediaAnterior.push(resposta.media_anterior)
                 diaSemana = resposta.dia_semana
