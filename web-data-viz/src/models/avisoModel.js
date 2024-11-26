@@ -55,6 +55,37 @@ function contarAlertas() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
 
     const instrucaoSql = `
+    SELECT COUNT(*) AS total_alertas 
+    FROM alerta;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function contarAlertadia() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
+
+    const instrucaoSql = `
+    SELECT COUNT(*) AS total_alertas_24h
+    FROM alerta a
+    JOIN dado_capturado dc ON a.fkDadoCapturado = dc.idDadoCapturado
+    WHERE dc.dtHora >= NOW() - INTERVAL 1 DAY;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contarAlertamaq() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
+
+    const instrucaoSql = `
+    SELECT m.nomeMaquina, COUNT(a.idAlerta) AS total_alertas
+    FROM alerta a
+    JOIN dado_capturado dc ON a.fkDadoCapturado = dc.idDadoCapturado
+    JOIN maquina_recurso mr ON dc.fkMaquina = mr.fkMaquina
+    JOIN maquina m ON mr.fkMaquina = m.idMaquina
+    GROUP BY m.nomeMaquina;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -134,6 +165,7 @@ module.exports = {
     listar,
     buscarAlertas,
     contarAlertas,
+    contarAlertadia,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

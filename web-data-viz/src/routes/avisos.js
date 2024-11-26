@@ -15,6 +15,10 @@ router.get("/geral", function (req, res) {
     avisoController.contarAlertas(req, res);
 });
 
+router.get("/dia", function (req, res) {
+    avisoController.contarAlertadia(req, res);
+});
+
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });

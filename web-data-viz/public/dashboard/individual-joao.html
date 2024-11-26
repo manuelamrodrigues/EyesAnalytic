@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | EyesAnalytic</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,13 +19,14 @@
 
 </head>
 <!-- onload="validarSessao()" -->
-<body onabort=" iniciarAtualizacao()" onload="obterDadosGrafico()" onload="validarSessao()" >
-   
-  <aside id="aside-menu">
+
+<body onabort=" iniciarAtualizacao()" onload="obterDadosGrafico()" onload="validarSessao()">
+
+    <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
-       
+
             <a href="../lista-alertas.html" class="outros">
                 <li>
                     <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
@@ -62,7 +63,7 @@
             </a>
 
             <a onclick="limparSessao()" class="outros">
-                <li >
+                <li>
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
@@ -96,34 +97,66 @@
     <div id="fade" class="hide"></div>
 
     <main>
-        
-        
+
+
         <section class="dash">
             <article class="supTela">
                 <h3>Central de alertas</h3>
-                
+
             </article>
             <div class="chart-container">
-                <div class="supsDashs">
-                    <div class="informacao">
-                        <div class="title">Alertas por Componente</div>
-                        <div class="tooltip-container">
-                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
-                            <div class="tooltip-box" id="msgBox">
-                                <span class="tooltip-message"></span>
+                <div class="alinhaG">
+                    <div class="supsDashs">
+                        <div class="informacao">
+                            <div class="title">Alertas por Componente</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Olá Mundo</span>
+                                </div>
                             </div>
                         </div>
+
+
+
                     </div>
-                    
 
-
+                    <div id="barChart" class="barChart"></div>
                 </div>
-                <div id="barChart" class="barChart"></div>
+                <div class="alinhaG">
+                    <div class="supsDashs">
+                        <div class="informacao">
+                            <div class="title">Alertas por Componente</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Olá Mundo</span>
+                                </div>
+                            </div>
+                        </div>
 
+
+
+                    </div>
+
+                    <div id="barChart1" class="barChart"></div>
+                </div>
+
+            </div>
+
+            <div class="card" id="card">
+                <div class="cardAlertas" id="cardAlertas">
+                    <h3>João</h3>
+                    João
+                </div>
+                <div class="cardAlertas2" id="cardAlertas2">
+
+                    Luiz
+                </div>
             </div>
             
         </section>
-        
+
     </main>
 </body>
 
@@ -131,18 +164,18 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-    const menuHamburguer = document.getElementById('menu-hamburguer');
-    const navLinks = document.getElementById('navLinks');
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const navLinks = document.getElementById('navLinks');
 
-    // Alterna a classe "active" no menu de navegação
-    menuHamburguer.addEventListener('click', () => {
-        console.log("EU ESTOU OBSERVANDO..")
-        navLinks.classList.toggle('active');
-        menuHamburguer.classList.toggle('open');
+        // Alterna a classe "active" no menu de navegação
+        menuHamburguer.addEventListener('click', () => {
+            console.log("EU ESTOU OBSERVANDO..")
+            navLinks.classList.toggle('active');
+            menuHamburguer.classList.toggle('open');
+        });
     });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         const infoIcon = document.getElementById("infoIcon");
         const msgBox = document.getElementById("msgBox");
 
@@ -157,149 +190,202 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const barChartContainer = document.querySelector("#barChart");
+    document.addEventListener("DOMContentLoaded", () => {
+        const barChartContainer = document.querySelector("#barChart");
 
-    // Função para listar capturas e renderizar o gráfico
-    function ListarCapturas() {
-        barChartContainer.innerHTML = ""; // Limpa o contêiner do gráfico
+        // Função para listar capturas e renderizar o gráfico
+        function ListarCapturas() {
+            barChartContainer.innerHTML = ""; // Limpa o contêiner do gráfico
 
-        fetch(`/avisos/ultimas`, {
-            method: "GET",
-        })
-            .then((resposta) => {
-                if (resposta.status === 204) {
-                    console.log("Não há capturas disponíveis.");
-                    return;
-                }
-                return resposta.json();
+            fetch(`/avisos/ultimas`, {
+                method: "GET",
             })
-            .then((alertas) => {
-                if (!alertas || alertas.length === 0) {
-                    console.log("Nenhum dado disponível para o recurso selecionado.");
-                    return;
-                }
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
 
-                // Extraindo dados para o gráfico
-                const freq = alertas.map((registro) => registro.totalAlertas);
-                const recurso = alertas.map((registro) => registro.nomeRecurso);
+                    // Extraindo dados para o gráfico
+                    const freq = alertas.map((registro) => registro.totalAlertas);
+                    const recurso = alertas.map((registro) => registro.nomeRecurso);
 
-                if (freq.length === 0 || recurso.length === 0) {
-                    console.log("Os dados retornados estão incompletos ou inválidos.");
-                    return;
-                }
+                    if (freq.length === 0 || recurso.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
 
-                // Configuração do gráfico
-                const barOptions = {
-                    chart: {
-                        type: "bar",
-                        height: 300,
-                        // width: freq.length * 50, // Ajusta largura dinamicamente
-                        toolbar: {
-                            show: false, // Remove barra de ferramentas
+                    // Configuração do gráfico
+                    const barOptions = {
+                        chart: {
+                            type: "bar",
+                            height: 300,
+                            // width: freq.length * 50, // Ajusta largura dinamicamente
+                            toolbar: {
+                                show: false, // Remove barra de ferramentas
+                            },
                         },
-                    },
-                    series: [
-                        {
-                            name: "Uso do Componente",
-                            data: freq, // Dados de frequência (eixo Y)
+                        series: [
+                            {
+                                name: "Uso do Componente",
+                                data: freq, // Dados de frequência (eixo Y)
+                            },
+                        ],
+                        colors: ["#0BA385"], // Define a cor das barras
+                        xaxis: {
+                            categories: recurso, // Nomes dos recursos (eixo X)
                         },
-                    ],
-                    colors: ["#0BA385"], // Define a cor das barras
-                    xaxis: {
-                        categories: recurso, // Nomes dos recursos (eixo X)
-                    },
-                };
+                    };
 
-                const chart = new ApexCharts(barChartContainer, barOptions);
-                chart.render();
+                    const chart = new ApexCharts(barChartContainer, barOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
+
+        // Inicializa o gráfico ao carregar a página
+        ListarCapturas();
+
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const barChartContainer = document.querySelector("#barChart1");
+
+        // Função para listar capturas e renderizar o gráfico
+        function ListarCapturas() {
+            barChartContainer.innerHTML = ""; // Limpa o contêiner do gráfico
+
+            fetch(`/avisos/geral`, {
+                method: "GET",
             })
-            .catch((erro) => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    }
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
 
-    // Inicializa o gráfico ao carregar a página
-    ListarCapturas();
-});
-    
+                    // Extraindo dados para o gráfico
+                    const freq = alertas.map((registro) => registro.totalAlertas);
+                    const recurso = alertas.map((registro) => registro.nomeRecurso);
 
- </script>
+                    if (freq.length === 0 || recurso.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
 
- <!-- 
-function obterDadosGrafico() {
+                    // Configuração do gráfico
+                    const barOptions = {
+                        chart: {
+                            type: "bar",
+                            height: 300,
+                            // width: freq.length * 50, // Ajusta largura dinamicamente
+                            toolbar: {
+                                show: false, // Remove barra de ferramentas
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Uso do Componente",
+                                data: freq, // Dados de frequência (eixo Y)
+                            },
+                        ],
+                        colors: ["#0BA385"], // Define a cor das barras
+                        xaxis: {
+                            categories: recurso, // Nomes dos recursos (eixo X)
+                        },
+                    };
 
-    fetch(`/avisos/ultimas`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.text().then(function (text) {
-            console.log(`Resposta bruta: ${text}`);
-            try {
-                let resposta = JSON.parse(text); // Tenta converter a resposta para JSON
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-                // Continue com o restante do código...
-            } catch (error) {
-                console.error('Erro ao analisar JSON:', error.message);
+                    const chart = new ApexCharts(barChartContainer, barOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
+
+        // Inicializa o gráfico ao carregar a página
+        ListarCapturas();
+    });
+
+    // Função para buscar e exibir o total de alertas no cardAlertas
+    function carregarTotalAlertas() {
+    fetch(`/avisos/geral`, { // Atualize a rota para corresponder à sua API
+        method: "GET",
+    })
+        .then((resposta) => {
+            if (!resposta.ok) {
+                throw new Error(`Erro na API: ${resposta.status}`);
             }
+            return resposta.json(); // Converte a resposta para JSON
+        })
+        .then((dados) => {
+            const cardAlertas = document.getElementById("cardAlertas");
+            cardAlertas.innerHTML = ""; // Limpa conteúdo anterior
+
+            // Exibe apenas o total de alertas
+            if (dados.length === 0) { 
+                cardAlertas.innerHTML = "<p>Total de alertas: 0</p>";
+            } else {
+                // Se `dados` é um array e cada item tem `total_alertas`, somamos os valores:
+                const totalAlertas = dados.reduce((soma, registro) => soma + registro.total_alertas, 0);
+                cardAlertas.innerHTML = `<p>Total de alertas: ${totalAlertas}</p>`;
+            }
+        })
+        .catch((erro) => {
+            console.error(`#ERRO: ${erro.message}`);
+            const cardAlertas = document.getElementById("cardAlertas");
+            cardAlertas.innerHTML = "<p>Erro ao carregar o total de alertas.</p>";
         });
-    } else {
-        console.error(`Erro na resposta da API: ${response.status} - ${response.statusText}`);
-    }
-}).catch(function (error) {
-    console.error(`Erro de comunicação com a API: ${error.message}`);
-});
-
 }
 
-
-function plotarGrafico(resposta) {
-
-console.log('iniciando plotagem do gráfico...');
-
-const freq = resposta.map((registros) => registros.totalAlertas);
-const recursos = resposta.map((registros) => registro.nomeRecurso);
-
-// Criando estrutura para plotar gráfico - labels
-let labels = [];
-
-// Criando estrutura para plotar gráfico - dados
-let dados = {
-    labels: recursos,
-    datasets: [{ 
-        label: 'Frequência de Alertas',
-        data: freq,
-        backgroundColor: "#00000",
-        fill: false,
-        tension: 0.1
-    }]
-};
+// Chama a função ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarTotalAlertas);
 
 
-console.log('----------------------------------------------')
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta)
+function carregarAlertasdia() {
+    fetch(`/avisos/dia`, { // Atualize a rota para corresponder à sua API
+        method: "GET",
+    })
+        .then((resposta) => {
+            if (!resposta.ok) {
+                throw new Error(`Erro na API: ${resposta.status}`);
+            }
+            return resposta.json(); // Converte a resposta para JSON
+        })
+        .then((dados) => {
+            const cardAlertas2 = document.getElementById("cardAlertas2");
+            cardAlertas2.innerHTML = ""; // Limpa conteúdo anterior
 
+            // Extrai o total de alertas das últimas 24h
+            const totalAlertas24h = dados.total_alertas_24h || 0; // Garante que será 0 se não houver dados
 
-
-console.log('----------------------------------------------')
-console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-console.log(labels)
-console.log('Dados:')
-console.log(dados.datasets)
-console.log('----------------------------------------------')
-
-// Criando estrutura para plotar gráfico - config
-const config = {
-    type: 'bar',
-    data: dados,
-};
-
-// Adicionando gráfico criado em div na tela
-let myChart = new Chart(
-    document.getElementById(`myChartCanvas1`),
-    config
-);
-
+            // Exibe o total de alertas
+            cardAlertas2.innerHTML = `<p>Total de alertas (últimas 24h): ${totalAlertas24h}</p>`;
+        })
+        .catch((erro) => {
+            console.error(`#ERRO: ${erro.message}`);
+            const cardAlertas2 = document.getElementById("cardAlertas2");
+            cardAlertas2.innerHTML = "<p>Erro ao carregar o total de alertas das últimas 24 horas.</p>";
+        });
 }
- -->
+
+// Chama a função ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarAlertasdia);
+
+
+</script>
