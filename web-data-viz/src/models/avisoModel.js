@@ -25,26 +25,28 @@ function buscarAlertas() {
 
     const instrucaoSql = `
         SELECT 
-            u.nome AS nomeUsuario,
-            e.idEmpresa,
-            r.nomeRecurso,
-            COUNT(a.idAlerta) AS totalAlertas
-        FROM 
-            alerta a
-        JOIN 
-            dado_capturado d ON a.fkDadoCapturado = d.idDadoCapturado
-        JOIN 
-            maquina m ON d.fkMaquina = m.idMaquina
-        JOIN 
-            empresa e ON m.fkEmpresa = e.idEmpresa
-        JOIN 
-            recurso r ON d.fkRecurso = r.idRecurso
-        JOIN 
-            usuario u ON e.idEmpresa = u.fkEmpresa
-        GROUP BY 
-            u.nome, e.idEmpresa, r.nomeRecurso
-        ORDER BY 
-            u.nome, e.idEmpresa, r.nomeRecurso;
+    u.nome AS nomeUsuario,
+    e.idEmpresa,
+    r.nomeRecurso,
+    COUNT(a.idAlerta) AS totalAlertas
+FROM 
+    alerta a
+JOIN 
+    dado_capturado d ON a.fkDadoCapturado = d.idDadoCapturado
+JOIN 
+    maquina m ON d.fkMaquina = m.idMaquina
+JOIN 
+    empresa e ON m.fkEmpresa = e.idEmpresa
+JOIN 
+    recurso r ON d.fkRecurso = r.idRecurso
+JOIN 
+    usuario u ON e.idEmpresa = u.fkEmpresa
+WHERE 
+    u.idUsuario = 1
+GROUP BY 
+    u.nome, e.idEmpresa, r.nomeRecurso
+ORDER BY 
+    u.nome, e.idEmpresa, r.nomeRecurso;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -166,6 +168,7 @@ module.exports = {
     buscarAlertas,
     contarAlertas,
     contarAlertadia,
+    contarAlertamaq,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

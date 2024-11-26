@@ -55,7 +55,7 @@ body {
 
 .card{
     display: flex;
-    border: yellow 2px solid;
+    /* border: yellow 2px solid; */
     align-items: center;
     justify-content: center;
     gap: 30%;
@@ -63,12 +63,14 @@ body {
 }
 .cardAlertas,.cardAlertas2 {
     display: flex;
-    background-color: red;
+    background-color: #08836A;
     height: 140px;
     width: 180px;
-    margin-top: 20px;
-    
-
+    margin-top: 10px;
+    border-radius: 15px;
+    font-size: larger;
+    justify-content: center;
+    align-items: center;
 }
 
 
