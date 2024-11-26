@@ -89,6 +89,7 @@ function coletarComparacaoSemana(req,res){
 
         
 module.exports = {
+    buscarTempoReal,
     listarCapturas,
     coletarRegrecaoConexao,
     coletarHistoricoConexoes,

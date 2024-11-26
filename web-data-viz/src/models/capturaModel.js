@@ -48,6 +48,7 @@ function coletarComparacaoSemana(idEmpresa){
 }
 module.exports = { 
     listarCapturas,
+    buscarTempoReal,
     coletarRegrecaoConexao,
     coletarHistoricoConexoes,
     coletarComparacaoSemana
