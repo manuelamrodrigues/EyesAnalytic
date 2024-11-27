@@ -359,196 +359,359 @@
     }
 
     // Regressão linear-----------------------------------------------------------------------------------------------
-
-    // Função para carregar os dados ao selecionar um servidor
     // Variável global para armazenar o gráfico
-    let myChart = null;
 
-    // Função para carregar os dados ao selecionar um servidor
-    function carregarDadosPorServidor(idMaquinaSelecionado) {
-        if (idMaquinaSelecionado) {  // Verifica se foi selecionado algum valor
-            // Requisição para obter os dados específicos do servidor selecionado
-            fetch(`servidor/listarDadoEspecifico/${idMaquinaSelecionado}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na requisição do dado específico: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Transformando os dados
-                    const registro = data.map(item => item.registro); // Valores do uso da CPU
-                    const dtHora = data.map(item => new Date(item.dtHora)); // Datas formatadas
+    // Linha correta
+//     let myChart = null;
 
-                    const datasApenas = dtHora.map(d => {
-                        return new Date(d.getFullYear(), d.getMonth(), d.getDate()); // Apenas ano, mês e dia
-                    });
+// // Função para carregar os dados ao selecionar um servidor
+// function carregarDadosPorServidor(idMaquinaSelecionado) {
+//     if (idMaquinaSelecionado) {
+//         fetch(`servidor/listarDadoEspecifico/${idMaquinaSelecionado}`, {
+//             method: "GET",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             }
+//         })
+//             .then(response => {
+//                 if (!response.ok) {
+//                     throw new Error('Erro na requisição do dado específico: ' + response.statusText);
+//                 }
+//                 return response.json();
+//             })
+//             .then(data => {
+//                 // Transformando os dados
+//                 const registro = data.map(item => item.registro); // Uso da CPU
+//                 const dtHora = data.map(item => new Date(item.dtHora)); // Datas formatadas
+
+//                 console.log('Uso da CPU (registro):', registro);
+//                 console.log('Data (dtHora):', dtHora);
+
+//                 // Função para calcular a regressão linear
+//                 function regressaoLinear(x, y) {
+//                     const n = x.length;
+//                     const sumX = x.reduce((acc, val) => acc + val, 0);
+//                     const sumY = y.reduce((acc, val) => acc + val, 0);
+//                     const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+//                     const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
+
+//                     const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+//                     const a = (sumY - b * sumX) / n;
+
+//                     return { a, b };
+//                 }
+
+//                 // Normaliza os timestamps
+//                 const timestamps = dtHora.map(d => d.getTime());
+//                 const minTimestamp = Math.min(...timestamps);
+//                 const maxTimestamp = Math.max(...timestamps);
+//                 const normalizedTimestamps = timestamps.map(t => t - minTimestamp);
+
+//                 // Calcula a regressão linear
+//                 const { a, b } = regressaoLinear(normalizedTimestamps, registro);
+
+//                 console.log('Coeficientes da regressão linear:', { a, b });
+
+//                 // Define dois pontos: início e fim da linha de regressão
+//                 const dadosLinhaRegressao = [
+//                     { x: minTimestamp, y: a }, // Início
+//                     { x: maxTimestamp, y: a + b * (maxTimestamp - minTimestamp) } // Fim
+//                 ];
+
+//                 console.log('Dados da linha de regressão:', dadosLinhaRegressao);
+
+//                 // Destruir o gráfico anterior se existir
+//                 if (myChart) {
+//                     myChart.destroy();
+//                 }
+
+//                 // Criar o gráfico
+//                 const ctx3 = document.getElementById('myChart3').getContext('2d');
+//                 myChart = new Chart(ctx3, {
+//                     type: 'scatter',
+//                     data: {
+//                         datasets: [
+//                             {
+//                                 label: 'Dados (Uso da CPU)',
+//                                 data: dtHora.map((date, idx) => ({
+//                                     x: date.getTime(),
+//                                     y: registro[idx]
+//                                 })),
+//                                 backgroundColor: '#000000',
+//                                 borderColor: '#000000',
+//                                 borderWidth: 1
+//                             },
+//                             {
+//                                 label: 'Linha de Regressão',
+//                                 data: dadosLinhaRegressao, // Apenas dois pontos extremos
+//                                 type: 'line', // Linha contínua
+//                                 fill: false,
+//                                 borderColor: '#CE1919', // Cor da linha
+//                                 borderWidth: 1, // Espessura da linha
+//                                 tension: 0, // Linha reta
+//                                 pointRadius: 0 // Remove os pontos visíveis
+//                             }
+//                         ]
+//                     },
+//                     options: {
+//                         scales: {
+//                             x: {
+//                                 type: 'linear',
+//                                 position: 'bottom',
+//                                 title: {
+//                                     display: true,
+//                                     text: 'Data'
+//                                 },
+//                                 ticks: {
+//                                     callback: function (value) {
+//                                         const date = new Date(value);
+//                                         return date.toLocaleDateString(); // Formata a data no eixo
+//                                     }
+//                                 }
+//                             },
+//                             y: {
+//                                 beginAtZero: false,
+//                                 title: {
+//                                     display: true,
+//                                     text: 'Uso da CPU (%)'
+//                                 }
+//                             }
+//                         },
+//                         responsive: true
+//                     }
+//                 });
+//             })
+//             .catch(error => {
+//                 console.error('Erro:', error);
+//             });
+//     }
+// }
+
+// // Requisição para listar os servidores
+// fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
+//     method: "GET",
+//     headers: {
+//         "Content-Type": "application/json"
+//     }
+// })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Erro na requisição: ' + response.statusText);
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         const nomeMaquina = data.map(item => item.nomeMaquina);
+//         const idMaquina = data.map(item => item.idMaquina);
+
+//         const selectElement = document.getElementById("servidores");
+
+//         // Limpar opções existentes
+//         // selectElement.innerHTML = '<option value="">Selecione...</option>';
+
+//         // Adicionar as opções dinamicamente
+//         data.forEach((item, index) => {
+//             const option = document.createElement("option");
+//             option.value = item.idMaquina;
+//             option.textContent = item.nomeMaquina;
+//             if (index === 0) {
+//                 option.selected = true;
+//             }
+//             selectElement.appendChild(option);
+//         });
+
+//         // Carregar dados para o primeiro item da lista
+//         const idMaquinaEspecifico = idMaquina[0];
+//         carregarDadosPorServidor(idMaquinaEspecifico);
+
+//         // Evento para atualizar os dados ao mudar o servidor
+//         selectElement.addEventListener("change", (event) => {
+//             carregarDadosPorServidor(event.target.value);
+//         });
+//     })
+//     .catch(error => {
+//         console.error('Erro:', error);
+//     });
 
 
-                    console.log('Uso da CPU (registro):', registro);
-                    console.log('Data', datasApenas);
+// 2 ------------------------------------------------------------------------------------------------------
+let myChart = null;
 
-                    // Função para calcular a regressão linear
-                    function regressaoLinear(x, y) {
-                        const n = x.length;
-                        const sumX = x.reduce((acc, val) => acc + val, 0);
-                        const sumY = y.reduce((acc, val) => acc + val, 0);
-                        const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
-                        const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
-
-                        // Calcula os coeficientes da regressão linear
-                        const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-                        const a = (sumY - b * sumX) / n;
-
-                        return { a, b };
-                    }
-
-                    // Normaliza os timestamps para evitar problemas de escala
-                    const timestamps = dtHora.map(d => d.getTime());
-                    const minTimestamp = Math.min(...timestamps);
-                    const normalizedTimestamps = timestamps.map(t => t - minTimestamp); // Normaliza para começar em 0
-
-                    // Calcula a regressão linear usando os timestamps normalizados
-                    const { a, b } = regressaoLinear(normalizedTimestamps, registro);
-
-                    console.log('Coeficientes da regressão linear:', { a, b });
-
-                    // Gera intervalo contínuo de timestamps normalizados
-                    const passo = 60 * 60 * 1000; // Intervalo de 1 hora
-                    const intervaloLinha = [];
-                    for (let t = 0; t <= Math.max(...normalizedTimestamps); t += passo) {
-                        intervaloLinha.push(t);
-                    }
-
-                    // Reconstrói os pontos da linha de regressão
-                    const dadosLinhaRegressao = intervaloLinha.map(t => ({
-                        x: t + minTimestamp, // Desnormaliza os timestamps
-                        y: a + b * t
-                    }));
-
-                    console.log('Dados da linha de regressão:', dadosLinhaRegressao);
-
-
-
-                    // Se o gráfico já existir, destruímos a instância anterior
-                    if (myChart) {
-                        myChart.destroy();
-                    }
-
-                    // Criando o gráfico novamente
-                    const ctx3 = document.getElementById('myChart3').getContext('2d');
-                    myChart = new Chart(ctx3, {
-                        type: 'scatter',
-                        data: {
-                            datasets: [
-                                {
-                                    label: 'Dados (Uso da CPU)',
-                                    data: datasApenas.map((date, idx) => ({
-                                        x: date.getTime(),
-                                        y: registro[idx]
-                                    })),
-                                    backgroundColor: 'rgba(255, 99, 132, 1)',
-                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                    borderWidth: 1
-                                },
-
-                                {
-                                    label: 'Linha de Regressão',
-                                    data: dadosLinhaRegressao, // Linha contínua
-                                    type: 'line', // Assegura que é uma linha
-                                    fill: false,
-                                    borderColor: 'rgba(75, 192, 192, 1)', // Cor da linha
-                                    borderWidth: 0.5, // Linha mais fina
-                                    tension: 0 // Mantém a linha reta
-                                }
-
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                x: {
-                                    type: 'linear',
-                                    position: 'bottom',
-                                    title: {
-                                        display: true,
-                                        text: 'Data'
-                                    },
-                                    ticks: {
-                                        callback: function (value) {
-                                            const date = new Date(value);
-                                            return date.toLocaleDateString();
-                                        }
-                                    }
-                                },
-                                y: {
-                                    beginAtZero: false,
-                                    title: {
-                                        display: true,
-                                        text: 'Uso da CPU (%)'
-                                    }
-                                }
-                            },
-                            responsive: true
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                });
-        }
-    }
-
-    // Requisição para listar os servidores (já existente no seu código)
-    fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+// Função para carregar os dados ao selecionar um servidor
+function carregarDadosPorServidor(idMaquinaSelecionado) {
+    if (idMaquinaSelecionado) {
+        fetch(`servidor/listarDadoEspecifico/${idMaquinaSelecionado}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.statusText);
+                throw new Error('Erro na requisição do dado específico: ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
             // Transformando os dados
-            const nomeMaquina = data.map(item => item.nomeMaquina); // Nomes das máquinas
-            const idMaquina = data.map(item => item.idMaquina); // IDs das máquinas
+            const registro = data.map(item => item.registro); // Uso da CPU
+            const dtHora = data.map(item => new Date(item.dtHora)); // Datas formatadas
 
-            const selectElement = document.getElementById("servidores");
+            console.log('Uso da CPU (registro):', registro);
+            console.log('Data (dtHora):', dtHora);
 
-            // Limpar as opções existentes, mantendo apenas a padrão
-            // selectElement.innerHTML = '<option value="">Selecione...</option>';
+            // Função para calcular a regressão linear
+            function regressaoLinear(x, y) {
+                const n = x.length;
+                const sumX = x.reduce((acc, val) => acc + val, 0);
+                const sumY = y.reduce((acc, val) => acc + val, 0);
+                const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+                const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
 
-            // Adicionar as opções dinamicamente
-            data.forEach((item, index) => {
-                const option = document.createElement("option");
-                option.value = item.idMaquina; // Define o ID como valor
-                option.textContent = item.nomeMaquina; // Define o nome da máquina como texto visível
-                if (index === 0) {
-                    option.selected = true; // Define o primeiro item como selecionado
+                const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                const a = (sumY - b * sumX) / n;
+
+                return { a, b };
+            }
+
+            // Normaliza os timestamps
+            const timestamps = dtHora.map(d => d.getTime());
+            const minTimestamp = Math.min(...timestamps);
+            const maxTimestamp = Math.max(...timestamps);
+            const normalizedTimestamps = timestamps.map(t => t - minTimestamp);
+
+            // Calcula a regressão linear
+            const { a, b } = regressaoLinear(normalizedTimestamps, registro);
+
+            console.log('Coeficientes da regressão linear:', { a, b });
+
+            // Agrupar os pontos por data, mas sem fazer a média, apenas mantendo os valores originais
+            const groupedData = dtHora.map((date, index) => ({
+                x: date.getTime(), // Manter o timestamp exato para cada ponto
+                y: registro[index]  // Valor de uso da CPU
+            }));
+
+            console.log('Dados para o gráfico:', groupedData);
+
+            // Define os pontos extremos para a linha de regressão
+            const dadosLinhaRegressao = [
+                { x: minTimestamp, y: a }, // Início
+                { x: maxTimestamp, y: a + b * (maxTimestamp - minTimestamp) } // Fim
+            ];
+
+            console.log('Dados da linha de regressão:', dadosLinhaRegressao);
+
+            // Destruir o gráfico anterior se existir
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            // Criar o gráfico
+            const ctx3 = document.getElementById('myChart3').getContext('2d');
+            myChart = new Chart(ctx3, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Dados (Uso da CPU)',
+                            data: groupedData, // Dados individuais para cada ponto
+                            backgroundColor: '#000000',
+                            borderColor: '#000000',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Linha de Regressão',
+                            data: dadosLinhaRegressao, // Apenas dois pontos extremos para a linha
+                            type: 'line', // Linha contínua
+                            fill: false,
+                            borderColor: '#CE1919', // Cor da linha
+                            borderWidth: 1, // Espessura da linha
+                            tension: 0, // Linha reta
+                            pointRadius: 0 // Remove os pontos visíveis na linha
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'Data'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    const date = new Date(value);
+                                    return date.toLocaleDateString(); // Formata a data no eixo
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Uso da CPU (%)'
+                            }
+                        }
+                    },
+                    responsive: true
                 }
-                selectElement.appendChild(option);
-            });
-
-            // Carregar dados para o primeiro item da lista (primeiro servidor)
-            const idMaquinaEspecifico = idMaquina[0];
-            carregarDadosPorServidor(idMaquinaEspecifico);
-
-            // Adicionar evento de mudança para atualizar os dados quando o ID do servidor mudar
-            selectElement.addEventListener("change", (event) => {
-                carregarDadosPorServidor(event.target.value);
             });
         })
         .catch(error => {
             console.error('Erro:', error);
         });
+    }
+}
+
+// Requisição para listar os servidores
+fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.statusText);
+    }
+    return response.json();
+})
+.then(data => {
+    const nomeMaquina = data.map(item => item.nomeMaquina);
+    const idMaquina = data.map(item => item.idMaquina);
+
+    const selectElement = document.getElementById("servidores");
+
+    // Limpar opções existentes
+    // selectElement.innerHTML = '<option value="">Selecione...</option>';
+
+    // Adicionar as opções dinamicamente
+    data.forEach((item, index) => {
+        const option = document.createElement("option");
+        option.value = item.idMaquina;
+        option.textContent = item.nomeMaquina;
+        if (index === 0) {
+            option.selected = true;
+        }
+        selectElement.appendChild(option);
+    });
+
+    // Carregar dados para o primeiro item da lista
+    const idMaquinaEspecifico = idMaquina[0];
+    carregarDadosPorServidor(idMaquinaEspecifico);
+
+    // Evento para atualizar os dados ao mudar o servidor
+    selectElement.addEventListener("change", (event) => {
+        carregarDadosPorServidor(event.target.value);
+    });
+})
+.catch(error => {
+    console.error('Erro:', error);
+});
+
+
 
 
 </script>
