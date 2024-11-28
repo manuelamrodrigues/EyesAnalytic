@@ -31,7 +31,7 @@ function buscarTempoReal(idMaquina) {
     SELECT registro, dtHora, nomeRecurso, idRecurso
     FROM dado_capturado
     JOIN recurso AS r ON fkRecurso = idRecurso
-    WHERE fkMaquina = ${idMaquina} AND fkRecurso IN(6,7)
+    WHERE fkMaquina = ${idMaquina} AND fkRecurso IN(4,5)
     ORDER BY dtHora DESC 
     LIMIT 10
         ) AS subconsulta_rede
