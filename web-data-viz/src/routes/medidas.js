@@ -3,12 +3,14 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.get("/ultimas/:idAquario", function (req, res) {
-    medidaController.buscarUltimasMedidas(req, res);
+router.get("/medias-historico/:componente/:intervalo", function (req, res) {
+    medidaController.buscarMediasHistoricoComponentes(req, res);
 });
 
-router.get("/tempo-real/:idAquario", function (req, res) {
-    medidaController.buscarMedidasEmTempoReal(req, res);
-})
+
+// Rota para obter os indicadores de sistema
+router.get("/captura/indicadores", function (req, res) {
+    medidaController.buscarIndicadores(req, res);
+});
 
 module.exports = router;

@@ -162,6 +162,27 @@ main {
     animation: fadeIn 0.3s ease-in-out;
 }
 
+.chart-legend {
+    list-style-type: none;
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -238,7 +259,7 @@ main {
     height: 37px;
     font-size: large;
     color: #fff;
-    background-color: #0BA385;
+    background-color: #14352E;
 }
 
 select {
@@ -260,17 +281,14 @@ select {
 }
 
 
-.barChart{
-
+.barChart {
     border-radius: 10px;
     background: #ffffff;
-    width: 1200px;
-    /* height: 400px; */
-    overflow-x: auto; /* Ativa rolagem horizontal */
-    max-width: 100%;  /* Permite que o gráfico se ajuste ao tamanho da tela */
-    /* border: 1px solid #ddd; (Opcional) Adiciona uma borda ao contêiner */
-    
-    padding: 10px;     /* (Opcional) Espaçamento interno */
+    min-width: 500px;  /* Largura inicial padrão */
+    width: auto;       /* Ajusta dinamicamente conforme o conteúdo */
+    max-width: 100%;   /* Garante que não ultrapasse o tamanho da tela */
+    overflow-x: auto;  /* Ativa rolagem horizontal se necessário */
+    padding: 10px;     /* Espaçamento interno */
 }
 
 .table-container {
@@ -298,7 +316,7 @@ select {
     text-align: left;
     padding: 8px;
     border-bottom: 1px solid #555;
-    background-color: #0BA385;
+    background-color: #14352E;
     color: #FFF;
 
 

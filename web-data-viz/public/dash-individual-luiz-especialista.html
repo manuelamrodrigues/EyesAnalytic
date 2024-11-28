@@ -109,12 +109,12 @@
                 <div class="chart-container">
                     <div class="supsDashs">
                         <div class="informacao">
-                            <div class="title">Titulo da Dash</div>
+                            <div class="title">Média Mensal</div>
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                        latência da rede.</span>
+                                    <span class="tooltip-message">Gráfico mostrando a média mensal de uso dos componentes do servidor. Eixo Y: Frequência de uso; Eixo X: Meses.
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -132,13 +132,25 @@
                 <div class="chart-container">
                     <div class="supsDashs">
                         <div class="informacao">
-                            <div class="title">Titulo da Dash</div>
+                            <div class="title">Uso Diário</div>
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                        latência da rede.</span>
+                                    <span class="tooltip-message">
+                                        Mapa de Calor que exibe o uso detalhado dos componentes do servidor.
+                                        <br><br>
+                                        <strong>Legenda:</strong>
+                                        <ul class="chart-legend">
+                                            <li><span class="legend-color" style="background-color:#099478;"></span> Uso entre 100% - 90%</li>
+                                            <li><span class="legend-color" style="background-color: #0BA385;"></span> Uso entre 80% - 70%</li>
+                                            <li><span class="legend-color" style="background-color: #3db19a;"></span> Uso entre 60% - 50%</li>
+                                            <li><span class="legend-color" style="background-color: #53d4bb;"></span> Uso entre 40% - 30%</li>
+                                            <li><span class="legend-color" style="background-color: #7de6d1;"></span> Uso entre 20% - 10%</li>
+                                            <li><span class="legend-color" style="background-color: #d8e9e9;"></span> Uso entre 10% - 0%</li>
+                                        </ul>
+                                    </span>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -150,16 +162,15 @@
                 <div class="chart-container">
                     <div class="supsDashs">
                         <div class="informacao">
-                            <div class="title">Titulo da Dash</div>
+                            <div class="title">Ranking de Captura</div>
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Informação tirada da comparação da perda de pacotes e
-                                        latência da rede.</span>
+                                    <span class="tooltip-message">Gráfico mostrando Ranking de uso dos componentes por servidor. Eixo Y: Frequência de uso; Eixo X: Servidor.</span>
                                 </div>
                             </div>
                         </div>
-                        <select class="opcao" id="recursoSelecionado3">
+                        <select class="opcao" id="recursoSelecionado2">
                             <option value="cpu">CPU</option>
                             <option value="ram">RAM</option>
                         </select>
@@ -244,6 +255,9 @@
                             toolbar: {
                                 show: false // Opcional: Remove a barra de ferramentas do gráfico
                             }
+                        },
+                        title: {
+                            text: `${recursoSelecionado.toUpperCase()}`
                         },
                         series: [
                             {
@@ -419,6 +433,9 @@
                                 text: 'Meses'
                             }
                         },
+                        title: {
+                            text: `${recursoSelecionado.toUpperCase()}`
+                        },
 
                         dataLabels: {
                             enabled: false
@@ -481,8 +498,12 @@
                         return;
                     }
 
-                    const valores = alertas.map((registro) => registro.valorRegistrado);
+                    const valores = alertas.map((registro) => registro.valorRegistrado); // Y
                     const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
+                    // x
+
+
+                    // dado
                     const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
 
                     if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
@@ -521,6 +542,9 @@
                             title: {
                                 text: 'Dia da Semana'
                             }
+                        },
+                        title: {
+                            text: `${recursoSelecionado.toUpperCase()}`
                         },
 
                         dataLabels: {
