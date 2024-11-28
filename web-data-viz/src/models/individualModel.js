@@ -3,14 +3,20 @@ var database = require("../database/config");
 function serverMax(fkRecurso) {
     console.log("ACESSEI O INDIVIDUAL MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function serverMax():", fkRecurso);
     const instrucao = `
-         SELECT 
-                m.nomeMaquina, 
-                dc.registro AS valorRegistrado
-            FROM dado_capturado dc
-            JOIN maquina m ON dc.fkMaquina = m.idMaquina
-            WHERE dc.fkRecurso = ${fkRecurso}
-            ORDER BY dc.registro DESC;
-    `;
+                SELECT 
+            m.nomeMaquina, 
+            MAX(dc.registro) AS valorRegistrado
+        FROM 
+            dado_capturado dc
+        JOIN 
+            maquina m ON dc.fkMaquina = m.idMaquina
+        WHERE 
+            dc.fkRecurso = ${fkRecurso}
+        GROUP BY 
+            m.nomeMaquina
+        ORDER BY 
+            valorRegistrado DESC;
+            `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
