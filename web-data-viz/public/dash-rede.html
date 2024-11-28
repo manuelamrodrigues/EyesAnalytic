@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede | EyesAnalytic</title>
+    <link rel="stylesheet" href="./css/pages/dash-rede.css">
+    <link rel="stylesheet" href="../css/pages/aside-menu.css">
+    <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/aside-menu.js"></script>
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body onload="listarServidoresQualidade()">
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+
+            <a href="../lista-alertas-especialista.html" class="outros">
+                <li>
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <span>Alertas</span>
+                </li>
+            </a>
+
+            <a href="./dash-especialista.html" class="outros">
+                <li>
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+            <a href="./dash-rede.html" class="outros">
+                <li>
+                    <img src="../assets/svg/gauge.svg" alt="Dashboard">
+                    <span>Rede</span>
+                </li>
+            </a>
+            <a onclick="limparSessao()" class="outros">
+                <li>
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <span>Sair</span>
+                </li>
+            </a>
+
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+    </aside>
+    <div id="fade" class="hide"></div>
+
+    <main>
+        <h2>Informações de Rede</h2>
+
+        <div class="topo">
+
+            <div class="quality">
+                <div class="alinhar">
+                    <h3>Qualidade da Rede</h3>
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">Informação tirada da comparação da média da parda de pacotes e latência da
+                                rede.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qtd" id="valor">
+                </div>
+
+                <canvas id="gaugeChart" class="gauge"></canvas>
+                <div id="ponteiro"
+                    style="width: 90px; height: 90px; background-image: url(./assets/svg/ponteiro.svg); background-size: cover; position: absolute; top: 170px;">
+                </div>
+            </div>
+
+            <div class="topo-direita">
+
+                <div class="indicador">
+                    <div class="alinhar2">
+                        <h3>Indicadores de Qualidade</h3>
+
+                        <div class="info-container">
+                            <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                            <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                            <div class="info-box">
+                                <span class="msg">Informação tirada a partir da média de dos últimos cinco
+                                    registros.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="op">
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op1">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op2">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op3">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                    <div class="pacotes">
+                        <h4>Perda de Pacotes</h4>
+                        <div id="op4">
+                            <h5>0.00%</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="baixo">
+
+            <div class="servidores">
+                <h3>Lista de Firewalls</h3>
+                <div class="lista">
+                    <div id="lista"> </div>
+                </div>
+            </div>
+
+            <div class="baixo-direita">
+                <h3>Comparação de megaBytes por segundo(MBps) de Upload e Download</h3>
+                <div class="grafico">
+                    <div class="ip" id="ip">
+
+                    </div>
+                    <!-- <h4>Endereço IPv4: 127.0.0.0</h4> -->
+                    <canvas id="myChart" class="canvas"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
+<script>
+
+    var idMaquina
+
+    function iniciar() {
+        iniciarGrafico()
+        qualidadeDaRede()
+        atualizarPacotesPerdidos()
+        atualizarIndicadoresRede()
+        listarIp()
+        // atualizarDadosServidor()
+    }
+
+    function atualizarDadosServidor() {
+        listarIp();             // Atualizar IP do servidor
+        qualidadeDaRede();      // Atualizar qualidade
+        atualizarPacotesPerdidos(); // Atualizar pacotes perdidos
+        atualizarIndicadoresRede(); // Atualizar indicadores
+        iniciarGrafico();
+    }
+
+    // Grafico gauge
+    const ctx2 = document.getElementById('gaugeChart').getContext('2d');
+    const gaugeChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [50, 30, 20], // Definição dos dados
+                backgroundColor: ['#42bd47', '#ffeb3b', '#f44336'],
+                borderWidth: 0, // Remover borda
+                circumference: 180, // Limita o gráfico a metade
+                rotation: 270 // Inicia o gráfico a partir da metade inferior
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '80%', // Define o tamanho do "buraco" central do gráfico
+            rotation: -90 * Math.PI / 180, // Inicia o gráfico na metade superior
+            circumference: 180 * Math.PI / 180, // Faz o gráfico ocupar apenas metade
+            plugins: {
+                tooltip: { enabled: false } // Desabilita as tooltips
+            },
+        }
+    });
+
+    // QUALIDADE DA REDE
+    function qualidadeDaRede() {
+        let valor1 = document.getElementById("valor");
+        // Limpar conteúdo anterior
+
+        // Recupera a qualidade da rede do banco
+        fetch(`rede/buscarQualidade/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            return resposta.json();
+        }).then(function (resposta) {
+            resposta.forEach(element => {
+
+                valor1.innerHTML = "";
+                let valor = document.createElement("div");
+                valor.className = "valor";
+                valor.innerHTML = `${element.qualidadeRede || "N/A"}`;
+                valor1.appendChild(valor);
+
+                let ponteiro = document.getElementById("ponteiro");
+
+                let novaQualidade = "";
+                let anguloRotacao = 0;
+
+                console.log(element.ultimaLatencia, element.perdaPacotes);
+
+                // Verificar condições para atualizar a qualidade e a rotação do ponteiro
+                if (element.ultimaLatencia <= 50 && element.perdaPacotes <= 2) {
+                    novaQualidade = 'Estável';
+                    valor.style.fontWeight = 600;
+                    valor.style.fontSize = '18px';
+                    valor.style.color = '#42bd47';
+
+                    // Alterar o estilo do ponteiro - alto
+                    anguloRotacao = -50;
+                    ponteiro.style.top = "177px";
+                    ponteiro.style.left = "300px";
+                    ponteiro.style.transition = "transform 0.5s ease"; // Apenas transforma suavemente
+                    ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
+
+                } else if ((element.ultimaLatencia > 50 && element.ultimaLatencia <= 100) &&
+                    (element.perdaPacotes > 2 && element.perdaPacotes <= 3)) {
+                    novaQualidade = 'Média';
+                    valor.style.fontWeight = 600;
+                    valor.style.fontSize = '18px';
+                    valor.style.color = '#ff9800';
+
+                    // Alterar o estilo do ponteiro - medio
+                    anguloRotacao = 40;
+                    ponteiro.style.top = "177px";
+                    ponteiro.style.left = "287px";
+                    ponteiro.style.transition = "transform 0.5s ease"; // Apenas transforma suavemente
+                    ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
+
+                } else if (element.ultimaLatencia > 100 && element.perdaPacotes > 3) {
+                    novaQualidade = 'Baixa';
+                    valor.style.fontWeight = 600;
+                    valor.style.fontSize = '18px';
+                    valor.style.color = '#f44336';
+
+                    anguloRotacao = 85;
+                    ponteiro.style.top = "165px";
+                    ponteiro.style.left = "290px";
+                    ponteiro.style.transition = "transform 0.5s ease";
+                    ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa
+
+                } else {
+                    novaQualidade = 'Baixa';
+                    valor.style.fontWeight = 600;
+                    valor.style.fontSize = '18px';
+                    valor.style.color = '#f44336';
+
+                    anguloRotacao = 85;
+                    ponteiro.style.top = "167px";
+                    ponteiro.style.left = "287px";
+                    ponteiro.style.transition = "transform 0.5s ease";
+                    ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa               
+                }
+                // Aplicar rotação no ponteiro
+                ponteiro.style.transform = `rotate(${anguloRotacao}deg)`;
+
+                // Atualizar a qualidade da rede no banco se necessário
+                if (novaQualidade != element.qualidadeRede) {
+                    fetch("/rede/atualizarQualidade/", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            qualidadeRede: novaQualidade,
+                            idMaquina: idMaquina
+                        })
+                    }).catch(function (error) {
+                        console.error("Erro ao atualizar a qualidade da rede:", error);
+                    });
+                }
+            });
+            // setTimeout(() => qualidadeDaRede(), 20000); //20seg
+        }).catch(function (erro) {
+            console.error("Erro na requisição fetch: ", erro);
+        });
+    }
+
+    //FUNÇÃO PARA LISTAR TODOS OS INDICADORES DE UMA DETERMINADA EMPRESA
+
+    function atualizarPacotesPerdidos() {
+        let op1 = document.getElementById("op1");
+        op1.innerHTML = "";
+
+        fetch(`rede/listarIndicadorPacote/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(pacote => {
+
+                    let opcoesPP = document.createElement("h5");
+                    opcoesPP.innerHTML = `${pacote.perdaPacotes.toFixed(2)}%`;
+                    op1.appendChild(opcoesPP);
+                });
+            });
+            // setTimeout(() => atualizarPacotesPerdidos(), 20000); //20seg
+        }).catch(function (erro) {
+            console.error("Erro ao buscar pacotes perdidos:", erro);
+        });
+    }
+
+    function atualizarIndicadoresRede() {
+        let op2 = document.getElementById("op2");
+        op2.innerHTML = "";
+
+        let op3 = document.getElementById("op3");
+        op3.innerHTML = "";
+
+        let op4 = document.getElementById("op4");
+        op4.innerHTML = "";
+
+        fetch(`rede/listarIndicadorOutros/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach(element => {
+
+                    let opcoesLa = document.createElement("h5");
+                    opcoesLa.innerHTML = `${element.ultimaLatencia.toFixed(0)}ms`;
+                    op2.appendChild(opcoesLa);
+
+                    let opcoesUp = document.createElement("h5");
+                    opcoesUp.innerHTML = `${element.ultimoUpload.toFixed(2)}`;
+                    op3.appendChild(opcoesUp);
+
+                    let opcoesDw = document.createElement("h5");
+                    opcoesDw.innerHTML = `${element.ultimoDownload.toFixed(2)}`;
+                    op4.appendChild(opcoesDw);
+                });
+            });
+            // setTimeout(() => atualizarIndicadoresRede(), 20000); //20seg
+
+        }).catch(function (erro) {
+            console.error("Erro ao buscar indicadores de rede:", erro);
+        });
+    }
+
+    // LISTAR TODOS OS SERVIDORES
+    function listarServidoresQualidade() {
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        var lista = document.getElementById("lista");
+        lista.innerHTML = "";
+
+        fetch(`rede/listar/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (servidores) {
+                servidores.forEach(element => {
+                    console.log(`Servidor: ${element.nomeMaquina}, Qualidade: ${element.qualidadeRede}`);
+
+                    // Criar um container para cada servidor
+                    let serv = document.createElement("div");
+                    serv.className = "serv";
+                    serv.onclick = function () {
+                        mudarServidor(element.idMaquina); // Chama a função com o ID correto
+                    };
+
+                    let h4 = document.createElement("h4");
+                    h4.innerHTML = `${element.nomeMaquina}: `;
+
+                    let h6 = document.createElement("h6");
+                    h6.innerHTML = element.qualidadeRede || "N/A";
+
+                    if (element.qualidadeRede == "Baixa") {
+                        h6.style.color = '#f44336';
+                    } else if (element.qualidadeRede == "Média") {
+                        h6.style.color = '#ffeb3b';
+                    } else if (element.qualidadeRede == "Estável") {
+                        h6.style.color = '#42bd47';
+                    }
+                    else {
+                        h6.style.color = '#000';
+                    }
+
+                    serv.appendChild(h4);
+                    serv.appendChild(h6);
+                    lista.appendChild(serv);
+                });
+
+                // Atualizar o ID da primeira máquina na lista e carregar os dados iniciais
+                if (servidores.length > 0) {
+                    idMaquina = servidores[0].idMaquina;
+                    iniciar();
+                }
+            });
+        }).catch(function (erro) {
+            console.error(`#ERRO: ${erro}`);
+        });
+    }
+
+    function mudarServidor(novoIdMaquina) {
+        idMaquina = novoIdMaquina; // Atualiza o ID da máquina
+        atualizarDadosServidor(); // Atualiza os dados da tela
+    }
+
+    function listarIp() {
+        var ips = document.getElementById("ip");
+        ips.innerHTML = ""
+
+        fetch(`rede/listarIp/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (servidores) {
+
+                servidores.forEach(element => {
+                    let ip = document.createElement("div");
+                    ip.className = "ip";
+
+                    let h4 = document.createElement("h4");
+                    h4.innerHTML = `<span style=" color: #a5a5a5; font-weight: 500; font-size:18px"> Endereço IPv4: </span> ${element.ip || "N/A"}`;
+                    console.log(element.ip)
+
+                    ip.appendChild(h4);
+                    ips.appendChild(ip);
+                });
+            });
+        }).catch(function (erro) {
+            console.error(`#ERRO: ${erro}`);
+        });
+    }
+
+
+    // grafico de linha
+    async function buscarDados() {
+        try {
+            const resposta = await fetch(`/rede/buscarTempoReal?idMaquina=${idMaquina}`);
+            const json = await resposta.json();
+
+            let dataEnviados = [];
+            let dataRecebidos = [];
+            let labels = [];
+
+            json.forEach((element) => {
+                if (element.idRecurso == 6) {
+                    dataEnviados.push(element.registro);
+                } else if (element.idRecurso == 7) {
+                    dataRecebidos.push(element.registro);
+                }
+                if (!labels.includes(element.dtHora)) {
+                    labels.push(element.dtHora); // Adicionar apenas horários únicos
+                }
+            });
+            return { labels, dataEnviados, dataRecebidos };
+
+        } catch (erro) {
+            console.log("Erro ao buscar os dados:", erro);
+            return { labels: [], dataEnviados: [], dataRecebidos: [] };
+        }
+    }
+
+    async function plotarGrafico() {
+        const { labels, dataEnviados, dataRecebidos } = await buscarDados();
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Upload",
+                    data: dataEnviados,
+                    borderColor: 'rgba(68, 132, 184, 1)',
+                    backgroundColor: 'rgba(68, 132, 184, 0.2)',
+                    tension: 0.1,
+                    borderWidth: 2,
+                },
+                {
+                    label: "Download",
+                    data: dataRecebidos,
+                    borderColor: 'rgba(119, 58, 194, 1)',
+                    backgroundColor: 'rgba(119, 58, 194, 0.2)',
+                    tension: 0.1,
+                    borderWidth: 2,
+                }
+            ],
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tempo',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'MBps',
+                        },
+                    },
+                },
+            },
+        };
+
+        return new Chart(ctx, config);
+    }
+
+    async function atualizarDados(chart) {
+        try {
+            const { labels, dataEnviados, dataRecebidos } = await buscarDados();
+
+            // Adicionar apenas novos dados para evitar duplicação
+            labels.forEach((label, index) => {
+                if (!chart.data.labels.includes(label)) {
+                    chart.data.labels = labels;
+                    chart.data.datasets[0].data = dataEnviados;
+                    chart.data.datasets[1].data = dataRecebidos;
+                }
+            });
+
+            // Atualizar o gráfico
+            chart.update();
+
+            setTimeout(() => atualizarDados(chart), 2000);
+        } catch (erro) {
+            console.log("Erro ao atualizar os dados:", erro);
+        }
+    }
+
+    async function iniciarGrafico() {
+        const chart = await plotarGrafico();
+        atualizarDados(chart); // Inicia atualização automática
+    }
+
+</script>

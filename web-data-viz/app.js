@@ -29,6 +29,7 @@ var capturaRouter = require("./src/routes/capturas")
 var metricaRouter = require("./src/routes/metricas")
 var capturaRouter = require("./src/routes/capturas")
 var individualRouter = require("./src/routes/individual")
+var redeRouter = require("./src/routes/rede")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -49,6 +50,8 @@ app.use("/servidor", servidorRouter)
 app.use("/capturas",capturaRouter)
 app.use("/metricas", metricaRouter)
 app.use("/individual", individualRouter)
+app.use("/metricas",metricaRouter)
+app.use("/rede", redeRouter)
 
 
 
