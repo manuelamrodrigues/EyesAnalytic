@@ -273,9 +273,7 @@ margin-bottom: -40px;
 }
 
 .serv:hover {
-    /* display: ; Permite que os itens sejam colocados em linha */
-    /* justify-content: space-around; */
-    /* align-items: center;
+    align-items: center;
     background-color: #19ceaa53;
     border-radius: 5px;
     display: flex;
@@ -285,11 +283,21 @@ margin-bottom: -40px;
     height: 25px;
     padding: 15px 10px 15px 10px;
     margin-top: 14px;
-    gap: 7px; */
+    gap: 7px;
     -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    transform: 1.5rem;
     
+    /* background-color: #19ceaa; Aumenta a opacidade da cor */
+    transform: scale(1.05); /* Aumenta um pouco o tamanho */
+    box-shadow: 0px 0px 15px 6px rgba(5, 76, 62, 0.8); /* Aumenta o sombreamento */
+}
+
+/* Efeito de clique (ativo) */
+.serv:active {
+    transform: scale(1.02); /* Reduz um pouco o efeito de aumento ao clicar */
+    box-shadow: 0px 0px 8px 3px rgba(5, 76, 62, 0.6); /* Sombras mais suaves ao clicar */
 }
 
 .serv h4{

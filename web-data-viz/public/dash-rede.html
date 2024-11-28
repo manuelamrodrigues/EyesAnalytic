@@ -86,7 +86,7 @@
                         <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
                         <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
                         <div class="info-box">
-                            <span class="msg">Informação tirada da comparação da média da parda de pacotes e latência da
+                            <span class="msg">Informação tirada da comparação entre perda de pacotes e latência da
                                 rede.</span>
                         </div>
                     </div>
@@ -111,8 +111,7 @@
                             <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
                             <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
                             <div class="info-box">
-                                <span class="msg">Informação tirada a partir da média de dos últimos cinco
-                                    registros.</span>
+                                <span class="msg">Informação atualizadas em períodos de 20 segundos.</span>
                             </div>
                         </div>
                     </div>
@@ -127,23 +126,23 @@
                     </div>
 
                     <div class="pacotes">
-                        <h4>Perda de Pacotes</h4>
+                        <h4>Latência</h4>
                         <div id="op2">
                             <h5>0.00%</h5>
                         </div>
                     </div>
 
                     <div class="pacotes">
-                        <h4>Perda de Pacotes</h4>
+                        <h4>Upload</h4>
                         <div id="op3">
-                            <h5>0.00%</h5>
+                            <h5>0.00</h5>
                         </div>
                     </div>
 
                     <div class="pacotes">
-                        <h4>Perda de Pacotes</h4>
+                        <h4>Download</h4>
                         <div id="op4">
-                            <h5>0.00%</h5>
+                            <h5>0.00</h5>
                         </div>
                     </div>
 
@@ -163,7 +162,7 @@
             </div>
 
             <div class="baixo-direita">
-                <h3>Comparação de megaBytes por segundo(MBps) de Upload e Download</h3>
+                <h3>Comparação de MegaBytes de Upload e Download</h3>
                 <div class="grafico">
                     <div class="ip" id="ip">
 
@@ -186,20 +185,24 @@
     var idMaquina
 
     function iniciar() {
-        iniciarGrafico()
-        qualidadeDaRede()
-        atualizarPacotesPerdidos()
-        atualizarIndicadoresRede()
-        listarIp()
-        // atualizarDadosServidor()
+        // qualidadeDaRede()
+        // atualizarPacotesPerdidos()
+        // atualizarIndicadoresRede()
+        // iniciarGrafico()
+        // listarIp()
+            atualizarDadosServidor();
     }
 
     function atualizarDadosServidor() {
-        listarIp();             // Atualizar IP do servidor
-        qualidadeDaRede();      // Atualizar qualidade
-        atualizarPacotesPerdidos(); // Atualizar pacotes perdidos
-        atualizarIndicadoresRede(); // Atualizar indicadores
+        listarIp();             
+        qualidadeDaRede();   
+        atualizarPacotesPerdidos(); 
+        atualizarIndicadoresRede(); 
         iniciarGrafico();
+
+        setTimeout(() => {
+            atualizarDadosServidor();
+        }, 20000); //20seg
     }
 
     // Grafico gauge
@@ -245,7 +248,7 @@
                 valor1.innerHTML = "";
                 let valor = document.createElement("div");
                 valor.className = "valor";
-                valor.innerHTML = `${element.qualidadeRede || "N/A"}`;
+                // valor.innerHTML = `${element.qualidadeRede || "N/A"}`;
                 valor1.appendChild(valor);
 
                 let ponteiro = document.getElementById("ponteiro");
@@ -307,6 +310,12 @@
                     ponteiro.style.transition = "transform 0.5s ease";
                     ponteiro.style.transformOrigin = "bottom"; // Mantém a base fixa               
                 }
+
+                // Exibir o nome da qualidade antes do push
+                valor.innerHTML = novaQualidade;
+                valor.style.fontWeight = 600;
+                valor.style.fontSize = '18px';
+
                 // Aplicar rotação no ponteiro
                 ponteiro.style.transform = `rotate(${anguloRotacao}deg)`;
 
@@ -326,14 +335,12 @@
                     });
                 }
             });
-            // setTimeout(() => qualidadeDaRede(), 20000); //20seg
         }).catch(function (erro) {
             console.error("Erro na requisição fetch: ", erro);
         });
     }
 
     //FUNÇÃO PARA LISTAR TODOS OS INDICADORES DE UMA DETERMINADA EMPRESA
-
     function atualizarPacotesPerdidos() {
         let op1 = document.getElementById("op1");
         op1.innerHTML = "";
@@ -348,11 +355,10 @@
                 resposta.forEach(pacote => {
 
                     let opcoesPP = document.createElement("h5");
-                    opcoesPP.innerHTML = `${pacote.perdaPacotes.toFixed(2)}%`;
+                    opcoesPP.innerHTML = `${pacote.perdaPacotes.toFixed(0)}%`;
                     op1.appendChild(opcoesPP);
                 });
             });
-            // setTimeout(() => atualizarPacotesPerdidos(), 20000); //20seg
         }).catch(function (erro) {
             console.error("Erro ao buscar pacotes perdidos:", erro);
         });
@@ -382,16 +388,14 @@
                     op2.appendChild(opcoesLa);
 
                     let opcoesUp = document.createElement("h5");
-                    opcoesUp.innerHTML = `${element.ultimoUpload.toFixed(2)}`;
+                    opcoesUp.innerHTML = `${element.ultimoUpload.toFixed(2)}MB`;
                     op3.appendChild(opcoesUp);
 
                     let opcoesDw = document.createElement("h5");
-                    opcoesDw.innerHTML = `${element.ultimoDownload.toFixed(2)}`;
+                    opcoesDw.innerHTML = `${element.ultimoDownload.toFixed(2)}MB`;
                     op4.appendChild(opcoesDw);
                 });
             });
-            // setTimeout(() => atualizarIndicadoresRede(), 20000); //20seg
-
         }).catch(function (erro) {
             console.error("Erro ao buscar indicadores de rede:", erro);
         });
@@ -455,7 +459,6 @@
 
     function mudarServidor(novoIdMaquina) {
         idMaquina = novoIdMaquina; // Atualiza o ID da máquina
-        atualizarDadosServidor(); // Atualiza os dados da tela
     }
 
     function listarIp() {
@@ -499,10 +502,10 @@
             let labels = [];
 
             json.forEach((element) => {
-                if (element.idRecurso == 6) {
-                    dataEnviados.push(element.registro);
-                } else if (element.idRecurso == 7) {
-                    dataRecebidos.push(element.registro);
+                if (element.idRecurso == 4) {
+                    dataEnviados.push(element.registro.toFixed(2));
+                } else if (element.idRecurso == 5) {
+                    dataRecebidos.push(element.registro.toFixed(2));
                 }
                 if (!labels.includes(element.dtHora)) {
                     labels.push(element.dtHora); // Adicionar apenas horários únicos
@@ -597,6 +600,7 @@
     async function iniciarGrafico() {
         const chart = await plotarGrafico();
         atualizarDados(chart); // Inicia atualização automática
+
     }
 
 </script>
