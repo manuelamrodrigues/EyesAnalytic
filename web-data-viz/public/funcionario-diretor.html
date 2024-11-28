@@ -31,6 +31,13 @@
                 </li>
             </a>
 
+            <a href="./dashboard/dash-conexoes-ativas.html" class="outros">
+                <li>
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Chamados">
+                    <span>Conexões Ativas</span>
+                </li>
+            </a>
+
             <a href="./espec-servidores.html" class="outros">
                 <li>
                     <img src="./assets/svg/servidor.svg" alt="Rede">
@@ -94,10 +101,10 @@
                 <h2>Funcionários</h2>
 
                 <a href="./cadastrar-funcionario.html"><button class="cadastroTecnico ">Cadastrar
-                    Técnico</button></a>
-    
+                        Técnico</button></a>
+
             </div>
-          
+
             <section class="funcionarios">
                 <article class="lista" id="lista">
 
@@ -337,7 +344,7 @@
 
 
                     let status = document.createElement("p");
-                    status.innerHTML = "Status: " ;
+                    status.innerHTML = "Status: ";
                     let respostaStatus = document.createElement("span");
                     respostaStatus.innerHTML = element.situacao;
                     status.appendChild(respostaStatus);
@@ -477,17 +484,26 @@
                 Swal.fire({
                     title: "Alterar Funcionário",
                     html: `
-                    <div style="text-align: left;">
-                        <input placeholder = "Nome: ${resposta[0].nome}" id="nomeInput" class="swal2-input" style="width: 90%">
-                        <input placeholder = "Email: ${resposta[0].email}"  id="emailInput" class="swal2-input" style="width: 90%;">
-                        <input placeholder = "Senha: ${senhaOculta}" type="password" id="senhaInput" class="swal2-input" style="width: 90%">
-                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+    <label style="color: #000; font-size: 20px; text-align: start;">
+        Nome:
+        <input type="text" style="color: #000; font-size: 20px; height: 30px; width: 100%;" id="nomeInput" value="${nome}">
+    </label>
+    <label style="color: #000; font-size: 20px; text-align: start;">
+        Email:
+        <input type="email" style="color: #000; font-size: 20px; height: 30px; width: 100%;" id="emailInput" value="${email}">
+    </label>
+    <label style="color: #000; font-size: 20px; text-align: start;">
+        Senha:
+        <input type="password" style="color: #000; font-size: 20px; height: 30px; width: 100%;" id="senhaInput" value="${senha}">
+    </label>
+</div>
                         `,
-                    width: 900,
                     showCancelButton: true,
                     confirmButtonText: "Alterar",
                     confirmButtonColor: "#E9C60C",
                     cancelButtonColor: "#d33",
+                    cancelButtonText:"Cancelar",
                     reverseButtons: true
                 }).then(function (resposta) {
                     if (resposta.isConfirmed) {
