@@ -210,11 +210,7 @@ h2 {
     width: auto;
     height: calc(22vh + 20px);
     margin: 0px 0 25px;
-    overflow-y: auto;
-    /* scrollbar-width: none; */
-    /* padding: auto; */
-    overflow: scroll;
-    overflow-x: hidden;
+    
     border-radius: 10px;
 }
 

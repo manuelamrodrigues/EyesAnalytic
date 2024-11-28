@@ -28,6 +28,7 @@ var servidorRouter = require("./src/routes/servidor")
 var capturaRouter = require("./src/routes/capturas")
 var metricaRouter = require("./src/routes/metricas")
 var capturaRouter = require("./src/routes/capturas")
+var individualRouter = require("./src/routes/individual")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -46,7 +47,8 @@ app.use("/tipo", tipoRouter);
 app.use("/urgencias", urgenciaRouter)
 app.use("/servidor", servidorRouter)
 app.use("/capturas",capturaRouter)
-app.use("/metricas",metricaRouter)
+app.use("/metricas", metricaRouter)
+app.use("/individual", individualRouter)
 
 
 
