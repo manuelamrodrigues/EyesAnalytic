@@ -580,7 +580,13 @@ canvas {
     height: 89%;
 }
 
-.textoVermelho{
+.textoVermelho {
     color: red;
     font-weight: 650;
+}
+
+.tituloHoras {
+    display: flex;
+    justify-content: space-between;
+    width: 74%;
 }
