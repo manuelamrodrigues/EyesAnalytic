@@ -124,7 +124,7 @@
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message"></span>
+                                    <span class="tooltip-message">Cada barra do gráfico representa a quantidade total de alertas emitidos por cada componente no servidor.</span>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Olá Mundo</span>
+                                    <span class="tooltip-message">Cada barra do gráfico representa a quantidade total de alertas emitidos por cada servidor.</span>
                                 </div>
                             </div>
                         </div>
@@ -262,9 +262,11 @@
 
         // Função para listar capturas e renderizar o gráfico
         function ListarCapturasmaq() {
+            let idEmpresa = sessionStorage.FK_EMPRESA
+    
             barChartContainer.innerHTML = ""; // Limpa o contêiner do gráfico
 
-            fetch(`/avisos/maqdia`, {
+            fetch(`/avisos/maqdia/${idEmpresa}`, {
                 method: "GET",
             })
                 .then((resposta) => {
@@ -327,7 +329,8 @@
 
     // Função para buscar e exibir o total de alertas no cardAlertas
     function carregarTotalAlertas() {
-        fetch(`/avisos/geral`, { // Atualize a rota para corresponder à sua API
+        let idEmpresa = sessionStorage.FK_EMPRESA
+        fetch(`/avisos/geral/${idEmpresa}`, { // Atualize a rota para corresponder à sua API
             method: "GET",
         })
             .then((resposta) => {

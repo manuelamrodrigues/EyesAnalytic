@@ -53,12 +53,15 @@ ORDER BY
     return database.executar(instrucaoSql);
 }
 
-function contarAlertas() {
+function contarAlertas(idEmpresa) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
 
     const instrucaoSql = `
-    SELECT COUNT(*) AS total_alertas 
-    FROM alerta;
+     SELECT COUNT(*) AS total_alertas 
+    FROM alerta a
+    JOIN dado_capturado dc on a.fkDadoCapturado = dc.idDadoCapturado
+    JOIN maquina m on dc.fkMaquina = m.idMaquina
+    WHERE m.fkEmpresa = ${idEmpresa}
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -78,16 +81,26 @@ function contarAlertadia() {
     return database.executar(instrucaoSql);
 }
 
-function contarAlertamaq() {
+function contarAlertamaq(idEmpresa) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscar()");
 
     const instrucaoSql = `
-    SELECT m.nomeMaquina, COUNT(a.idAlerta) AS total_alertas
-    FROM alerta a
-    JOIN dado_capturado dc ON a.fkDadoCapturado = dc.idDadoCapturado
-    JOIN maquina_recurso mr ON dc.fkMaquina = mr.fkMaquina
-    JOIN maquina m ON mr.fkMaquina = m.idMaquina
-    GROUP BY m.nomeMaquina;
+  SELECT 
+    COUNT(a.idAlerta) AS total_alertas, 
+    m.nomeMaquina, 
+    m.fkEmpresa AS idEmpresa
+FROM 
+    alerta AS a
+JOIN 
+    dado_capturado AS dc 
+    ON a.fkDadoCapturado = dc.idDadoCapturado
+JOIN 
+    maquina AS m 
+    ON dc.fkMaquina = m.idMaquina
+WHERE fkEmpresa = ${idEmpresa}
+GROUP BY 
+    m.nomeMaquina, 
+    m.fkEmpresa;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

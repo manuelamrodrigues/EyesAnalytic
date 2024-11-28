@@ -11,7 +11,7 @@ router.get("/ultimas", function (req, res) {
     avisoController.buscarAlertas(req, res);
 });
 
-router.get("/geral", function (req, res) {
+router.get("/geral/:idEmpresa", function (req, res) {
     avisoController.contarAlertas(req, res);
 });
 
@@ -19,7 +19,7 @@ router.get("/dia", function (req, res) {
     avisoController.contarAlertadia(req, res);
 });
 
-router.get("/maqdia", function (req, res) {
+router.get("/maqdia/:idEmpresa", function (req, res) {
     avisoController.contarAlertamaq(req, res);
 });
 

@@ -31,7 +31,8 @@ function buscarAlertas(req, res) {
 }
 
 function contarAlertas(req, res) {
-    avisoModel.contarAlertas()
+    let idEmpresa = req.params.idEmpresa
+    avisoModel.contarAlertas(idEmpresa)
     .then((resultado) => {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -61,7 +62,9 @@ function contarAlertadia(req, res) {
 }
 
 function contarAlertamaq(req, res) {
-    avisoModel.contarAlertamaq()
+    var idEmpresa = req.params.idEmpresa
+
+    avisoModel.contarAlertamaq(idEmpresa)
     .then((resultado) => {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
