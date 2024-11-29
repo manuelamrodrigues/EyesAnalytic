@@ -64,8 +64,8 @@ body {
 .cardAlertas,.cardAlertas2 {
     display: flex;
     background-color: #08836A;
-    height: 140px;
-    width: 180px;
+    height: 120px;
+    width: 340px;
     margin-top: 10px;
     border-radius: 15px;
     font-size: larger;

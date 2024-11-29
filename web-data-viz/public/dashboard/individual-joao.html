@@ -175,7 +175,7 @@
             menuHamburguer.classList.toggle('open');
         });
     });
-
+    
     document.addEventListener("DOMContentLoaded", () => {
         const infoIcon = document.getElementById("infoIcon");
         const msgBox = document.getElementById("msgBox");
@@ -190,15 +190,16 @@
             msgBox.style.display = "none";
         });
     });
-
+    
     document.addEventListener("DOMContentLoaded", () => {
         const barChartContainer = document.querySelector("#barChart");
 
         // Função para listar capturas e renderizar o gráfico
         function ListarCapturas() {
+            let idEmpresa = sessionStorage.FK_EMPRESA
             barChartContainer.innerHTML = ""; // Limpa o contêiner do gráfico
 
-            fetch(`/avisos/ultimas`, {
+            fetch(`/avisos/ultimas/${idEmpresa}`, {
                 method: "GET",
             })
                 .then((resposta) => {
@@ -379,7 +380,8 @@
 
 
     function carregarAlertasdia() {
-    fetch(`/avisos/dia`, { // Certifique-se de que a rota está correta
+        let idEmpresa = sessionStorage.FK_EMPRESA
+    fetch(`/avisos/dia/${idEmpresa}`, { // Certifique-se de que a rota está correta
         method: "GET",
     })
     .then((resposta) => {

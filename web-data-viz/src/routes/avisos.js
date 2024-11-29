@@ -7,7 +7,7 @@ router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
 });
 
-router.get("/ultimas", function (req, res) {
+router.get("/ultimas/:idEmpresa", function (req, res) {
     avisoController.buscarAlertas(req, res);
 });
 
@@ -15,7 +15,7 @@ router.get("/geral/:idEmpresa", function (req, res) {
     avisoController.contarAlertas(req, res);
 });
 
-router.get("/dia", function (req, res) {
+router.get("/dia/:idEmpresa", function (req, res) {
     avisoController.contarAlertadia(req, res);
 });
 
