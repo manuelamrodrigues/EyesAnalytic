@@ -21,36 +21,40 @@
 <body onabort=" iniciarAtualizacao()" onload="validarSessao()">
 
     <aside id="aside-menu">
-        <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
 
-            <a href="./lista-alertas-especialista.html" class="outros">
+            <a href="../lista-alertas-especialista.html" class="outros">
                 <li>
-                    <img src="./assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
                     <span>Alertas</span>
                 </li>
             </a>
 
-            <a href="./dash-diretor.html" class="outros">
+            <a href="./dashboard/dash-especialista.html" class="outros">
                 <li>
-                    <img src="./assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
                     <span>Dashboard</span>
                 </li>
             </a>
-
-            <a href="./espec-servidores.html" class="outros">
+            <a href="../dash-rede.html" class="outros">
                 <li>
-                    <img src="./assets/svg/icon-luiz.svg" alt="Rede">
+                    <img src="../assets/svg/gauge.svg" alt="Dashboard">
+                    <span>Rede</span>
+                </li>
+            </a>
+
+            <a href="../dash-individual-luiz-especialista.html" class="outros">
+                <li>
+                    <img src="../assets/svg/icon-luiz.svg" alt="Rede">
                     <span>Componentes</span>
                 </li>
             </a>
 
-
-
             <a onclick="limparSessao()" class="outros">
                 <li>
-                    <img src="./assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
                     <span>Sair</span>
                 </li>
             </a>
@@ -60,7 +64,7 @@
             <div class="menu" id="menu-hamburguer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
                     class="hamburger-line">
-                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect>
                 </svg>
 
                 <!-- Linha 2 -->
