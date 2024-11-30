@@ -45,7 +45,7 @@
                     <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Rede">
                     <span>Componentes</span>
                 </li>
-            </a> 
+            </a>
 
             <!-- <a href="../abrir-chamado.html" class="outros">
                 <li>
@@ -68,7 +68,7 @@
                 </li>
             </a>
 
-        </ul> 
+        </ul>
         <div class="menu" id="menu-hamburguer">
             <div class="menu" id="menu-hamburguer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
@@ -96,25 +96,59 @@
     <div id="fade" class="hide"></div>
 
     <main class="main-dash">
-        <header class="header-dash">
-            
-        </header>
+        <!-- <header class="header-dash"> -->
+
+        <!-- </header> -->
         <div class="content-main">
+
+            <div class="topo">
+
+                <section class="kpi">
+                    <h3>Indicadores</h3>
+                    <div class="quadro">
+                        <div class="indica">
+                            <h4>Titulo</h4>
+                            <h5>valor</h5>
+                        </div>
+                        <div class="indica">
+                            <h4>Titulo</h4>
+                            <h5>valor</h5>
+                        </div>
+                        <div class="indica">
+                            <h4>Titulo</h4>
+                            <h5>valor</h5>
+                        </div>
+                        <div class="indica">
+                            <h4>Titulo</h4>
+                            <h5>valor</h5>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dados-section">
+                    <h2>Servidores</h2>
+                    <article class="card-section" id="lista">
+                    </article>
+                    <div id="modal" class="modal">
+                    </div>
+
+                </section>
+
+            </div>
+
+
             <section class="grafico-section">
                 <h2>Gráficos de uso em porcentagem (%)</h2>
-                <h3>CPU</h3>
-                <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
-                <h3>RAM</h3>
-                <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
-            </section>
-            <section class="dados-section">
-                <h2>Servidores</h2>
-                <article class="card-section" id="lista">
-
-                </article>
-                <div id="modal" class="modal">
+                <div class="graf">
+                    <div class="graf-titu">
+                        <h3>CPU</h3>
+                        <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                    </div>
+                    <div class="graf-titu">
+                        <h3>RAM</h3>
+                        <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                    </div>
                 </div>
-                
             </section>
 
     </main>
@@ -293,14 +327,14 @@
                     opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
 
                     // Disco
-                    let opcaoDisco = document.createElement("div");
-                    opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
+                    //let opcaoDisco = document.createElement("div");
+                    //  opcaoDisco.className = "opcao";
+                    //  opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
                     opcoes.appendChild(opcaoMemoria);
-                    opcoes.appendChild(opcaoDisco);
+                    //  opcoes.appendChild(opcaoDisco);
 
                     // Montando o conteúdo do modal
                     abrir.appendChild(titulo);

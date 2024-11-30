@@ -6,145 +6,92 @@ body {
     padding: 0;
     scroll-behavior: smooth;
     overflow-x: hidden;
-    /* display: flex; */
-}
-
-h1 {
-    margin: 0;
-    padding: 9px 0px 0px 10px;
-}
-
-.header-dash {
-    width: 100%;
-    height: 60px;
     background-color: #131313;
     color: #FFFF;
     font-family: "Montserrat", sans-serif;
-    padding-left: 8%;
 }
 
-.header-dash h1 {
-    font-weight: normal;
-}
-
-.main-dash {
-    overflow: hidden;
-    height: 100%;
+.topo {
     width: 100%;
-    z-index: -5;
-}
-
-.content-main {
-    width: 100%;
+    height: auto;
+    margin: 20px 0px 0px 100px;
     display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 100px;
 }
 
-.grafico-section {
-    height: 91vh;
-    padding-left: 8%;
-    background-color: #131313;
+.kpi {
+    width: 40%;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    flex-direction: column;
 }
 
+.kpi h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px 0px 10px 10px;
+}
+
+.quadro {
+    background-color: #19ceaa18;
+    width: 670px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 10px;
+    
+}
+
+.indica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.indica h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.indica h5 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+/* SERVIDORES */
 .dados-section {
-    height: 91vh;
-    width: 50%;
+    width: 40%;
     background-color: #131313;
     display: block;
     padding-left: 18px;
 }
 
-.dados-section h3 {
+.dados-section h2 {
     font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: normal;
-    color: black;
-}
-
-.titulo1{
-    font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: normal;
-    color: white;
-    margin-top: 67px;
-}
-
-.titulo2 {
-    font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: normal;
-    color: white;
-    margin-top: 20px;
-}
-
-.opcoes {
-    width: 20%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 100px;
-}
-
-.opcao {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    font-size: 12px;
-}
-
-.opcao h4{
-    font-size: 14px
-}
-
-.opcao p {
-font-size: 14px;
-}
-
-.abrir{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    /* background-color: #0BA385; */
-}
-
-/* .dados-section h3{
-        color: black;
-        font-family: "Kanit", sans-serif;
-        font-weight: normal;
-        padding-left:19%;
-    } */
-
-canvas {
-    background-color: white;
+    font-weight: 600;
+    margin: 0px 0px 0px 0px;
 }
 
 .openModal {
-    font-family: "Montserrat", sans-serif;
     height: 42px;
-    width: 80%;
+    width: 100%;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 20px;
     background-color: #FFFF;
-    margin: 5px 0 5px 25px;
-    flex-shrink: 0;
+    margin: 5px 0 5px 0px;
     transition: 0.3s linear;
-}
-
-.openModal svg {
-    height: 30px;
-    width: 30px;
-}
-
-.openModal:hover svg path {
-    stroke: #FFFF;
-    stroke-width: 1;
-
 }
 
 .openModal:hover {
@@ -157,25 +104,70 @@ canvas {
     box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
 }
 
-.openModal:hover h3,
-.openModal:hover span {
+.frameAlertas:hover h3,
+.frameAlertas:hover h4,
+.frameAlertas:hover p,
+.frameAlertas:hover span {
     color: white;
 }
 
-.openModal h3,
-.openModal span {
+.frameAlertas h3,
+.frameAlertas h4,
+.frameAlertas p,
+.frameAlertas span {
     font-size: 17px;
 }
 
-.openModal h3 {
+.frameAlertas h3 {
     padding: 0;
     font-size: 16px;
     font-weight: normal;
 }
 
-h2 {
-    font-family: "Montserrat", sans-serif;
-    color: white;
+.frameAlertas {
+    color: #000;
+    width: 100%;
+}
+
+.frameAlertas h3 {
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+    width: 300px;
+}
+
+.abrir {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.opcoes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.opcao {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.opcao h4 {
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.opcao p {
+    font-size: 18px;
 }
 
 .error-content {
@@ -190,51 +182,46 @@ h2 {
     margin: 0 0 0 20px;
 }
 
-
-
-.frameAlertas {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-
-}
-
-
-.card-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    width: auto;
-    height: calc(22vh + 20px);
-    margin: 0px 0 25px;
-    
-    border-radius: 10px;
-}
-
+/* GRAFICOS */
 canvas {
-    height: 45vh !important;
-    width: 85vh !important;
+    height: 50vh !important;
+    width: 95vh !important;
     border-radius: 10px;
+    background-color: white;
 }
 
 .grafico-section {
-    width: 45%;
-    display: block;
-    /* scrollbar-width: none; */
-    overflow-y: auto;
-    overflow-y: auto;
-    padding: auto;
-    overflow: scroll;
-    overflow-x: hidden;
-    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.grafico-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin:20px 0px 10px 80px;
 }
 
 .grafico-section h3 {
-    color: white;
     font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: normal;
+    font-weight:400;
+    /* margin-left: 10px; */
+    margin: 0px 0px 0px 10px;
+}
+
+.graf-titu {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: column;
+}
+
+.graf {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
 }
