@@ -94,7 +94,18 @@
             <!-- Gráfico de Barras -->
             <div class="chartSup">
                 <div class="table-container">
-                    <h3>Servidores com Alertas</h3>
+                    <div class="supsDashs">
+                        <div class="informacao">
+                            <div class="title">Ranking de servidores com alertas</div>
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                                <div class="tooltip-box" id="msgBox">
+                                    <span class="tooltip-message">Este ranking exibe os 5 servidores com maior número de alertas, ordenados com base no uso máximo dos componentes (CPU e RAM).
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table>
                         <thead>
 
@@ -117,7 +128,8 @@
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Gráfico mostrando a média mensal de uso dos componentes do servidor. Eixo Y: Frequência de uso; Eixo X: Meses.
+                                    <span class="tooltip-message">Gráfico mostrando a média mensal de uso dos
+                                        componentes do servidor. Eixo Y: Frequência de uso; Eixo X: Meses.
                                     </span>
                                 </div>
                             </div>
@@ -129,7 +141,9 @@
 
 
                     </div>
-                    <div id="lineChart" class="lineChart"></div>
+                    <div class="tela">
+                        <div id="lineChart" class="lineChart"></div>
+                    </div>
                 </div>
 
                 <!-- Heatmap -->
@@ -145,20 +159,28 @@
                                         <br><br>
                                         <strong>Legenda:</strong>
                                         <ul class="chart-legend">
-                                            <li><span class="legend-color" style="background-color:#099478;"></span> Uso entre 100% - 90%</li>
-                                            <li><span class="legend-color" style="background-color: #0BA385;"></span> Uso entre 80% - 70%</li>
-                                            <li><span class="legend-color" style="background-color: #3db19a;"></span> Uso entre 60% - 50%</li>
-                                            <li><span class="legend-color" style="background-color: #53d4bb;"></span> Uso entre 40% - 30%</li>
-                                            <li><span class="legend-color" style="background-color: #7de6d1;"></span> Uso entre 20% - 10%</li>
-                                            <li><span class="legend-color" style="background-color: #d8e9e9;"></span> Uso entre 10% - 0%</li>
+                                            <li><span class="legend-color" style="background-color:#099478;"></span> Uso
+                                                entre 100% - 90%</li>
+                                            <li><span class="legend-color" style="background-color: #0BA385;"></span>
+                                                Uso entre 80% - 70%</li>
+                                            <li><span class="legend-color" style="background-color: #3db19a;"></span>
+                                                Uso entre 60% - 50%</li>
+                                            <li><span class="legend-color" style="background-color: #53d4bb;"></span>
+                                                Uso entre 40% - 30%</li>
+                                            <li><span class="legend-color" style="background-color: #7de6d1;"></span>
+                                                Uso entre 20% - 10%</li>
+                                            <li><span class="legend-color" style="background-color: #d8e9e9;"></span>
+                                                Uso entre 10% - 0%</li>
                                         </ul>
                                     </span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
-                    <div id="heatmapChart" class="heatmapChart"></div>
+                    <div class="tela">
+                        <div id="heatmapChart" class="heatmapChart"></div>
+                    </div>
                 </div>
             </div>
 
@@ -170,7 +192,8 @@
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Gráfico mostrando Ranking de uso dos componentes por servidor. Eixo Y: Frequência de uso; Eixo X: Servidor.</span>
+                                    <span class="tooltip-message">Gráfico mostrando Ranking de uso dos componentes por
+                                        servidor. Eixo Y: Frequência de uso; Eixo X: Servidor.</span>
                                 </div>
                             </div>
                         </div>
@@ -181,8 +204,9 @@
 
 
                     </div>
-                    <div id="barChart" class="barChart" style="overflow-x: auto; max-width: 100%;"></div>
-
+                    <div class="tela">
+                        <div id="barChart" class="barChart" style="overflow-x: auto; max-width: 100%;"></div>
+                    </div>
                 </div>
             </div>
 
@@ -269,7 +293,7 @@
                                 data: valores
                             }
                         ],
-                        colors: ["#0BA385"], // Define a cor das barras
+                        colors: ["#14352E"], // Define a cor das barras
                         xaxis: {
                             categories: servidores
                         }
@@ -331,7 +355,7 @@
                                     <div class="info-container">
                                         <i class="fas fa-info-circle"></i>
                                         <div class="info-box">
-                                            <span class="msg">Uso máximo do processador registrado em megabytes(MB).</span>
+                                            <span class="msg">Uso máximo do processador registrado por percentual (%).</span>
                                         </div>
                                     </div>
                                 </th>
@@ -339,7 +363,7 @@
                                     <div class="info-container">
                                         <i class="fas fa-info-circle"></i>
                                         <div class="info-box">
-                                            <span class="msg">Uso máximo da memória RAM registrado em megabytes(MB).</span>
+                                            <span class="msg">Uso máximo da memória RAM registrado por percentual (%).</span>
                                         </div>
                                     </div>
                                 </th>
@@ -444,7 +468,7 @@
                         dataLabels: {
                             enabled: false
                         },
-                        colors: ['#0BA385'],  // Adicionando a cor desejada
+                        colors: ['#14352E'],  // Adicionando a cor desejada
                     };
 
                     // Renderiza o gráfico
