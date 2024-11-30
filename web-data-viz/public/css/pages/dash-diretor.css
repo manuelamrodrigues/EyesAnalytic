@@ -1,60 +1,20 @@
 /* Importação de fontes */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Reset básico */
 html, body {
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
     background-color: #131313;
-    font-family: 'Kanit', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #fff;
-    overflow-y: hidden;
-}
-
-/* Menu Lateral */
-#aside-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 70px;
-    height: 100vh;
-    background-color: #1C1C1C;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-}
-
-#aside-menu img.asideLogo {
-    width: 50px;
-    margin-bottom: 20px;
-}
-
-#navLinks {
-    list-style: none;
-    padding: 0;
-}
-
-#navLinks a {
-    text-decoration: none;
-    color: #fff;
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    transition: color 0.3s ease;
-}
-
-#navLinks a:hover {
-    color: #0BA385;
 }
 
 /* Barra Superior */
 
 /*==================================================================================================================*/
 .barraSuperior {
-    background-color: #054C3E;
+    background-color: #14352E;
     position: fixed;
     display: flex;
     width: 96%;
@@ -110,34 +70,40 @@ html, body {
 
 .periodo select, .componentes select {
     background-color: #0BA385;
+    width: 150px;
+    height: 40px;
     color: #fff;
     border: none;
     padding: 8px 16px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 18px;
     cursor: pointer;
 }
+
+option{background-color: #131313;}
 
 .grafico {
     background-color: #fff;
     border-radius: 10px;
     padding: 10px;
-    width: 97%;
+    width: 90%;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     margin-top: -26px;
+    margin-left: 50px;
+
 }
 
 .grafico canvas {
     width: 99% !important;
     height: 515px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
    
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    #aside-menu {
-        width: 50px;
-    }
 
     .barraSuperior {
         left: 50px;
