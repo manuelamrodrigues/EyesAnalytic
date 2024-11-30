@@ -25,7 +25,7 @@ function listarCapturas(idEmpresa) {
 
 function coletarRegrecaoConexao(idEmpresa){
     const instrucao = `
-        SELECT minuto, conexoes_ativas, uso_cpu, uso_ram FROM view_regressao WHERE idEmpresa = ${idEmpresa};
+        SELECT minuto, conexoes_ativas, uso_cpu, uso_ram FROM view_regressao WHERE idEmpresa = ${idEmpresa} limit 500;
     `
     console.log(instrucao)
     return database.executar(instrucao)

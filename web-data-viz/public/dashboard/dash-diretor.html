@@ -111,14 +111,12 @@
                             <select id="periodo" class="opcao" onchange="atualizarGrafico()">
                                 <option value="semanal" selected>Semanal</option>
                                 <option value="mensal">Mensal</option>
-                                <option value="bimestral">Bimestral</option>
-                                <option value="semestral">Semestral</option>
+                                <option value="bimestral">Anual</option>
                             </select>
                         </div>
                         <div class="componentes">
                             <select id="componentes" class="opcao" onchange="atualizarGrafico()">
                                 <option value="cpu" selected>CPU</option>
-                                <option value="disco">Disco</option>
                                 <option value="ram">Memória</option>
                             </select>
                         </div>
@@ -135,7 +133,8 @@
 
             window.atualizarIndicadores = async function () {
                 try {
-                    const response = await fetch(`../medidas/captura/indicadores`, { method: "GET" });
+                    const idEmpresa = sessionStorage.FK_EMPRESA
+                    const response = await fetch(`/medidas/captura/indicadores/${idEmpresa}`, { method: "GET" });
                     if (response.ok) {
                         const indicadores = await response.json();
                         document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
@@ -153,7 +152,8 @@
             
             window.obterDadosGrafico = async function (componente, periodo) {
                 try {
-                    const response = await fetch(`../medidas/medias-historico/${componente}/${periodo}`, { method: "GET" });
+                    const idEmpresa = sessionStorage.FK_EMPRESA
+                    const response = await fetch(`/medidas/medias-historico/${componente}/${periodo}/${idEmpresa}`, { method: "GET" });
                     if (response.ok) {
                         return await response.json();
                     } else if (response.status === 204) {

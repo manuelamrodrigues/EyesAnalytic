@@ -1,8 +1,9 @@
 var database = require("../database/config");
-function buscarQuantidadeMaquinas() {
+function buscarQuantidadeMaquinas(idEmpresa) {
     const instrucaoSql = `
         SELECT COUNT(*) AS quantidade 
-        FROM maquina;
+        FROM maquina
+        WHERE fkEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -18,23 +19,27 @@ function buscarMaquinasConectadas() {
     return database.executar(instrucaoSql);
 }
 
-function buscarAlertasRecentes() {
+function buscarAlertasRecentes(idEmpresa) {
     const instrucaoSql = `
         SELECT COUNT(*) AS alertas 
         FROM alerta AS a
         JOIN dado_capturado AS dc ON a.fkDadoCapturado = dc.idDadoCapturado
-        WHERE dc.dtHora >= NOW() - INTERVAL 1 HOUR;
+        JOIN maquina m ON dc.fkMaquina = m.idMaquina
+        WHERE dc.dtHora >= NOW() - INTERVAL 1 HOUR
+        AND m.fkEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMbpsUpload() {
+function buscarMbpsUpload(idEmpresa) {
     const instrucaoSql = `
         SELECT registro AS upload 
         FROM dado_capturado AS dc
         JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+        JOIN maquina m ON dc.fkMaquina = m.idMaquina
         WHERE r.nomeRecurso = 'Bytes Enviados'
+        AND m.fkEmpresa = ${idEmpresa}
         ORDER BY dc.dtHora DESC
         LIMIT 1;
     `;
@@ -42,12 +47,14 @@ function buscarMbpsUpload() {
     return database.executar(instrucaoSql);
 }
 
-function buscarMbpsDownload() {
+function buscarMbpsDownload(idEmpresa) {
     const instrucaoSql = `
         SELECT registro AS download 
         FROM dado_capturado AS dc
         JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+        JOIN maquina m ON dc.fkMaquina = m.idMaquina
         WHERE r.nomeRecurso = 'Bytes Recebidos'
+        AND m.fkEmpresa = ${idEmpresa}
         ORDER BY dc.dtHora DESC
         LIMIT 1;
     `;
@@ -55,7 +62,7 @@ function buscarMbpsDownload() {
     return database.executar(instrucaoSql);
 }
 
-function buscarMediasHistoricoComponentes(intervaloSQL) {
+function buscarMediasHistoricoComponentes(intervaloSQL, idEmpresa) {
     let instrucaoSql;
 
     if (intervaloSQL === 'WEEK') {
@@ -71,15 +78,17 @@ function buscarMediasHistoricoComponentes(intervaloSQL) {
                     WHEN DAYOFWEEK(dc.dtHora) = 7 THEN 'Sábado'
                     WHEN DAYOFWEEK(dc.dtHora) = 1 THEN 'Domingo'
                 END AS diaSemana,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 4) AS mediaCPU,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 4) AS mediaRAM,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 4) AS mediaDisco
+                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 0) AS mediaCPU,
+                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 0) AS mediaRAM,
+                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 0) AS mediaDisco
             FROM 
                 dado_capturado AS dc
             JOIN 
                 recurso AS r ON dc.fkRecurso = r.idRecurso
+            JOIN maquina m ON dc.fkMaquina = m.idMaquina    
             WHERE 
                 dc.dtHora >= NOW() - INTERVAL 1 WEEK
+                AND m.fkEmpresa = ${idEmpresa}
             GROUP BY 
                 diaSemana
             ORDER BY 
@@ -89,58 +98,84 @@ function buscarMediasHistoricoComponentes(intervaloSQL) {
         // Lógica para agrupamento mensal
         instrucaoSql = `
             SELECT 
-                DATE_FORMAT(dc.dtHora, '%Y-%m-%d') AS intervalo,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 4) AS mediaCPU,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 4) AS mediaRAM,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 4) AS mediaDisco
-            FROM 
-                dado_capturado AS dc
-            JOIN 
-                recurso AS r ON dc.fkRecurso = r.idRecurso
-            WHERE 
-                dc.dtHora >= NOW() - INTERVAL 1 MONTH
-            GROUP BY 
-                intervalo
-            ORDER BY 
-                intervalo;
+    CONCAT('Semana ', semana_do_mes, ' - ', ano) AS intervalo,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 0) AS mediaCPU,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 0) AS mediaRAM,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 0) AS mediaDisco
+FROM 
+    (
+        SELECT 
+            YEAR(dc.dtHora) AS ano,
+            FLOOR((DAY(dc.dtHora) - 1) / 7) + 1 AS semana_do_mes,  -- Cálculo da semana do mês
+            dc.registro,
+            dc.fkRecurso,
+            dc.dtHora,
+            dc.fkMaquina
+        FROM dado_capturado AS dc
+        JOIN maquina m ON dc.fkMaquina = m.idMaquina
+        WHERE dc.dtHora >= NOW() - INTERVAL 1 MONTH
+        AND m.fkEmpresa = ${idEmpresa}
+    ) AS dc
+JOIN 
+    recurso AS r ON dc.fkRecurso = r.idRecurso
+GROUP BY 
+    ano, semana_do_mes
+ORDER BY 
+    ano DESC, semana_do_mes;
+
         `;
     } else if (intervaloSQL === 'SEMIANNUAL') {
         // Lógica para agrupamento semestral
         instrucaoSql = `
             SELECT 
-                CONCAT('Mês ', MONTH(dc.dtHora)) AS intervalo,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 4) AS mediaCPU,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 4) AS mediaRAM,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 4) AS mediaDisco
-            FROM 
-                dado_capturado AS dc
-            JOIN 
-                recurso AS r ON dc.fkRecurso = r.idRecurso
-            WHERE 
-                dc.dtHora >= NOW() - INTERVAL 6 MONTH
-            GROUP BY 
-                intervalo
-            ORDER BY 
-                intervalo;
+    CONCAT('Semestre ', semestre, ' - ', ano) AS intervalo,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN registro END), 0) AS mediaCPU,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN registro END), 0) AS mediaRAM,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN registro END), 0) AS mediaDisco
+FROM 
+    (
+        SELECT 
+            CEIL(MONTH(dc.dtHora) / 6) AS semestre,
+            YEAR(dc.dtHora) AS ano,
+            dc.registro,
+            dc.fkRecurso,
+            m.fkEmpresa
+        FROM 
+            dado_capturado AS dc
+        JOIN 
+            maquina AS m ON dc.fkMaquina = m.idMaquina
+        WHERE 
+            dc.dtHora >= NOW() - INTERVAL 1 YEAR
+            AND m.fkEmpresa = ${idEmpresa}
+    ) AS subquery
+JOIN 
+    recurso AS r ON subquery.fkRecurso = r.idRecurso
+GROUP BY 
+    subquery.semestre, subquery.ano
+ORDER BY 
+    subquery.ano DESC, subquery.semestre DESC;
         `;
     } else if (intervaloSQL === 'BIMONTHLY') {
         // Lógica para agrupamento bimestral
         instrucaoSql = `
             SELECT 
-                CONCAT('Bimestre ', CEIL(MONTH(dc.dtHora) / 2)) AS intervalo,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 4) AS mediaCPU,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 4) AS mediaRAM,
-                COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 4) AS mediaDisco
-            FROM 
-                dado_capturado AS dc
-            JOIN 
-                recurso AS r ON dc.fkRecurso = r.idRecurso
-            WHERE 
-                dc.dtHora >= NOW() - INTERVAL 2 MONTH
-            GROUP BY 
-                intervalo
-            ORDER BY 
-                intervalo;
+    DATE_FORMAT(dc.dtHora, '%Y-%m') AS intervalo, -- Ano e mês para agrupamento
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro END), 0) AS mediaCPU,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro END), 0) AS mediaRAM,
+    COALESCE(AVG(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN dc.registro END), 0) AS mediaDisco
+FROM 
+    dado_capturado AS dc
+JOIN 
+    recurso AS r ON dc.fkRecurso = r.idRecurso
+JOIN 
+    maquina m ON dc.fkMaquina = m.idMaquina
+WHERE 
+    YEAR(dc.dtHora) = YEAR(NOW())
+    AND m.fkEmpresa = ${idEmpresa}
+GROUP BY 
+    DATE_FORMAT(dc.dtHora, '%Y-%m') 
+ORDER BY 
+    DATE_FORMAT(dc.dtHora, '%Y-%m'); 
         `;
     } else {
         console.warn(`Intervalo não reconhecido: ${intervaloSQL}`);

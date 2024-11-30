@@ -1,24 +1,25 @@
 var medidaModel = require("../models/medidaModel");
 
 function buscarIndicadores(req, res) {
+    idEmpresa = req.params.idEmpresa
     let dados = {};
 
-    medidaModel.buscarQuantidadeMaquinas()
+    medidaModel.buscarQuantidadeMaquinas(idEmpresa)
         .then((result) => {
             dados.quantidadeMaquinas = result[0]?.quantidade || 0;
-            return medidaModel.buscarMaquinasConectadas();
+            return medidaModel.buscarMaquinasConectadas(idEmpresa);
         })
         .then((result) => {
             dados.maquinasConectadas = result[0]?.conectadas || 0;
-            return medidaModel.buscarAlertasRecentes();
+            return medidaModel.buscarAlertasRecentes(idEmpresa);
         })
         .then((result) => {
             dados.alertasRecentes = result[0]?.alertas || 0;
-            return medidaModel.buscarMbpsUpload();
+            return medidaModel.buscarMbpsUpload(idEmpresa);
         })
         .then((result) => {
             dados.upload = result[0]?.upload || 0;
-            return medidaModel.buscarMbpsDownload();
+            return medidaModel.buscarMbpsDownload(idEmpresa);
         })
         .then((result) => {
             dados.download = result[0]?.download || 0;
@@ -31,6 +32,7 @@ function buscarIndicadores(req, res) {
 }
 
 function buscarMediasHistoricoComponentes(req, res) {
+    const idEmpresa = req.params.idEmpresa
     const intervaloTempo = req.params.intervalo || "semanal";
     const componente = req.params.componente?.toLowerCase() || "cpu"; // Recebe o componente (cpu, ram, disco) em minúsculo por segurança
 
@@ -49,7 +51,7 @@ function buscarMediasHistoricoComponentes(req, res) {
 
     console.log(`Buscando médias históricas para ${componente} com intervalo: ${intervaloTempo} (${intervaloSQL})`);
 
-    medidaModel.buscarMediasHistoricoComponentes(intervaloSQL)
+    medidaModel.buscarMediasHistoricoComponentes(intervaloSQL, idEmpresa)
         .then((resultado) => {
             if (resultado.length > 0) {
                 // Processar os dados para o formato do gráfico

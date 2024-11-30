@@ -540,7 +540,7 @@
         conexoesAtuais = document.getElementById("conexoes_atuais")
         cpuAtual = document.getElementById("atual_cpu")
         ramAtual = document.getElementById("atual_ram")
-        conexoesAtuais.innerHTML = conexao
+        conexoesAtuais.innerHTML = Math.round(conexao)
         cpuAtual.innerHTML = `${cpu}%`
         ramAtual.innerHTML = `${ram}%`
     }
