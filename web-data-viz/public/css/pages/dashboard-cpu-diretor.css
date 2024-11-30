@@ -453,7 +453,7 @@ body {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: white;
     text-decoration: none;
     cursor: pointer;
 }
@@ -470,7 +470,7 @@ body {
 
 .closeE:hover,
 .closeE:focus {
-    color: black;
+    color: white;
     text-decoration: none;
     cursor: pointer;
 }
@@ -487,9 +487,13 @@ body {
 
 .closeT:hover,
 .closeT:focus {
-    color: black;
+    color: white;
     text-decoration: none;
     cursor: pointer;
+}
+
+.opcao:hover h4{
+    color: white;
 }
 
 
@@ -508,8 +512,9 @@ body {
 
 canvas {
     width: 482px !important;
-    height: 210px !important;
+    height: 234px !important;
     background-color: #ffffff;
+    border-radius: 5px;
 }
 
 .conteudoServidores {
@@ -588,5 +593,5 @@ canvas {
 .tituloHoras {
     display: flex;
     justify-content: space-between;
-    width: 74%;
+    width: 58%;
 }

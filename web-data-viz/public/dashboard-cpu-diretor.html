@@ -139,7 +139,7 @@
             </div>
             <div class="grafico4">
                 <div class="tituloHoras">
-                    <h3>Horas acima de no mês</h3>
+                    <h3>Horas acima de </h3>
                     <h3 id="valorMetrica">12</h3>
                     <h3>no mês</h3>
                 </div>
@@ -180,13 +180,11 @@
                     abrir.className = "abrir";
                     abrir.id = "openModal";
                     abrir.onclick = function () {
-                        listarEspecifico(element.idMaquina);
+                        atualizarGrafico2(element.idMaquina);
+                        console.log("Pegando o Id: ", element.idMaquina);
                     };
 
                     let titulo = document.createElement("h3");
-                    // titulo.onclick = function () {
-                    //     listarEspecifico(element.idMaquina);
-                    // };
                     titulo.innerText = element.nomeMaquina;
 
                     // Adicionando opções de CPU, Memória e Disco
@@ -203,19 +201,17 @@
                         (element.CPU !== undefined ? Math.floor(element.CPU) : "N/A") +
                         "%</span></p>";
 
+
                     // Memória
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>RAM:</h4>" +
-                        (element.RAM !== undefined ? Math.floor(element.RAM) : "N/A") +
-                        "%</span></p>";
+                    opcaoMemoria.innerHTML = "<h4>RAM:</h4><p>" + (element.RAM || "N/A") + "%</p>";
+
 
                     // Disco
                     let opcaoDisco = document.createElement("div");
                     opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4>" +
-                        (element.Disco_Rigido !== undefined ? Math.floor(element.Disco_Rigido) : "N/A") +
-                        "%</span></p>";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco_Rigido || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
@@ -302,25 +298,32 @@
             console.error('Erro ao obter o contexto do canvas');
             return;
         }
-
-        // Criar o gráfico com os dados fornecidos
         new Chart(ctx2, {
-            type: 'bar', // Tipo de gráfico (barras horizontais)
+            type: 'bar',
             data: {
-                labels: nomeMaquina, // Rótulos das barras (nomes das máquinas)
+                labels: nomeMaquina,
                 datasets: [{
-                    label: 'Horas', // Legenda do gráfico
-                    data: diferenca_horas, // Dados da diferença de horas
-                    borderWidth: 1, // Largura da borda das barras
-                    backgroundColor: '#08836A' // Cor de fundo das barras
+                    // label: 'Horas', // Legenda do gráfico
+                    data: diferenca_horas,
+                    borderWidth: 1,
+                    backgroundColor: '#08836A'
                 }]
             },
             options: {
-                responsive: true, // Gráfico responsivo
-                indexAxis: 'y', // Gráfico de barras horizontais
+                responsive: true,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     x: {
-                        stacked: true // Empilhamento das barras no eixo X
+                        stacked: true, // Empilhamento das barras no eixo X
+                        title: {
+                            display: true,
+                            text: 'Horas',
+                        },
                     },
                     y: {
                         stacked: true // Empilhamento das barras no eixo Y
@@ -332,8 +335,8 @@
 
     // Gráfico Média e Máximo
     const ctx = document.getElementById('myChart2');
-    var color1 = '#0BA385';
-    var color2 = '#CE1919';
+    var color1 = '#08836A';
+    var color2 = '#3FADC7';
 
     var labels = [];
     var data = [];
@@ -659,24 +662,35 @@
                             datasets: [
                                 {
                                     label: 'Dados (Uso da CPU)',
-                                    data: groupedData, // Dados individuais para cada ponto
+                                    data: groupedData,
                                     backgroundColor: '#000000',
                                     borderColor: '#000000',
-                                    borderWidth: 1
+                                    borderWidth: 1,
+                                    pointStyle: 'circle',
                                 },
                                 {
                                     label: 'Linha de Regressão',
                                     data: dadosLinhaRegressao, // Apenas dois pontos extremos para a linha
-                                    type: 'line', // Linha contínua
+                                    type: 'line',
                                     fill: false,
-                                    borderColor: '#CE1919', // Cor da linha
-                                    borderWidth: 1, // Espessura da linha
+                                    borderColor: '#CE1919',
+                                    borderWidth: 1,
                                     tension: 0, // Linha reta
-                                    pointRadius: 0 // Remove os pontos visíveis na linha
+                                    pointRadius: 0, // Remove os pontos visíveis na linha
+                                    pointStyle: 'line',
                                 }
                             ]
                         },
                         options: {
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        usePointStyle: true, // Habilita estilos personalizados
+                                        boxWidth: 7,
+                                        boxHeight: 7,
+                                    }
+                                }
+                            },
                             scales: {
                                 x: {
                                     type: 'linear',
@@ -688,7 +702,7 @@
                                     ticks: {
                                         callback: function (value) {
                                             const date = new Date(value);
-                                            return date.toLocaleDateString(); // Formata a data no eixo
+                                            return date.toLocaleDateString();
                                         }
                                     }
                                 },
@@ -702,6 +716,8 @@
                             },
                             responsive: true
                         }
+
+
                     });
                 })
                 .catch(error => {
