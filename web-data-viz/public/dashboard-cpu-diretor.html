@@ -70,7 +70,7 @@
 
             <a href="./dashboard-cpu-diretor.html" class="outros">
                 <li>
-                    <img src="./assets/svg/chamados.svg" alt="Chamados">
+                    <img src="./assets/svg/cpu.svg" alt="CPU">
                     <span>Uso CPU</span>
                 </li>
             </a>
@@ -608,14 +608,7 @@
                         type: 'scatter',
                         data: {
                             datasets: [
-                                {
-                                    label: 'Dados (Uso da CPU)',
-                                    data: groupedData,
-                                    backgroundColor: '#000000',
-                                    borderColor: '#000000',
-                                    borderWidth: 1,
-                                    pointStyle: 'circle',
-                                },
+                               
                                 {
                                     label: 'Linha de Regressão',
                                     data: dadosLinhaRegressao, // Apenas dois pontos extremos para a linha
@@ -626,6 +619,13 @@
                                     tension: 0, // Linha reta
                                     pointRadius: 0, // Remove os pontos visíveis na linha
                                     pointStyle: 'line',
+                                }, {
+                                    label: 'Dados (Uso da CPU)',
+                                    data: groupedData,
+                                    backgroundColor: '#000000',
+                                    borderColor: '#000000',
+                                    borderWidth: 1,
+                                    pointStyle: 'circle',
                                 }
                             ]
                         },
