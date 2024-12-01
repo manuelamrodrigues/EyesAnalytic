@@ -107,6 +107,7 @@
                     </div>
                     <p>Servidor</p>
                 </div>
+                
                 <div class="indicator">
                     <div class="circle-chart">
                         <div class="circle-inner">
@@ -124,10 +125,9 @@
                     <p>Dados Perdidos</p>
                 </div>
             </section>
-            
             <section id="seletores">
                 <select id="servidores">
-                    <option disabled selected>Selecione um Servidor</option>
+                    <option value="" disabled selected>Selecione um Servidor</option>
                 </select>
                 <select id="indicadores">
                     <option value="" disabled selected>Selecione um Indicador</option>
@@ -141,122 +141,138 @@
                 <canvas id="chartLinha" width="400" height="200"></canvas>
             </section>
             
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const servidoresDropdown = document.getElementById("servidores");
-                    const indicadoresDropdown = document.getElementById("indicadores");
-                    const ctxLinha = document.getElementById("chartLinha").getContext("2d");
-                    let chartLinha;
-            
-                    async function carregarServidores() {
-                        try {
-                            const fkEmpresa = sessionStorage.FK_EMPRESA; // Obtém o valor do sessionStorage
-                    
-                            if (!fkEmpresa) throw new Error("Empresa não encontrada na sessão. Faça login novamente.");
-                    
-                            const response = await fetch("../seguranca/listarServidores", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ fkEmpresa }), // Envia o fkEmpresa
-                            });
-                    
-                            if (!response.ok) throw new Error("Erro ao carregar servidores");
-                    
-                            const servidores = await response.json();
-                            servidoresDropdown.innerHTML = '<option disabled selected>Selecione um Servidor</option>';
-                            servidores.forEach((servidor) => {
-                                const option = document.createElement("option");
-                                option.value = servidor.idServidor;
-                                option.textContent = servidor.nomeServidor;
-                                servidoresDropdown.appendChild(option);
-                            });
-                        } catch (error) {
-                            console.error("Erro ao carregar servidores:", error);
-                        }
-                    }
-                    
-            
-                    // Função para criar gráfico vazio
-                    function criarGraficoLinhaVazio(ctx) {
-                        return new Chart(ctx, {
-                            type: "line",
-                            data: {
-                                labels: [],
-                                datasets: [
-                                    {
-                                        label: "Valores em Tempo Real",
-                                        data: [],
-                                        backgroundColor: "rgba(22, 167, 153, 0.2)",
-                                        borderColor: "#16A799",
-                                        borderWidth: 2,
-                                        fill: true,
-                                        tension: 0.3,
-                                    },
-                                ],
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: { display: true },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: context => `${context.raw}%`,
-                                        },
-                                    },
-                                },
-                                scales: {
-                                    x: { title: { display: true, text: "Período" } },
-                                    y: { title: { display: true, text: "Valor (%)" }, min: 0, max: 100 },
-                                },
-                            },
-                        });
-                    }
-            
-                    // Atualização do gráfico e indicadores
-                    async function atualizarDados() {
-                        const idServidor = servidoresDropdown.value;
-                        const indicador = indicadoresDropdown.value;
-            
-                        if (!idServidor || !indicador) return;
-            
-                        try {
-                            const response = await fetch(`../seguranca/buscarDadosTempoReal/${idServidor}/${indicador}`);
-                            if (!response.ok) throw new Error("Erro ao buscar dados em tempo real");
-            
-                            const dado = await response.json();
-            
-                            // Atualizar indicadores
-                            document.getElementById("servidor-status").textContent = dado.servidor || "N/A";
-                            document.getElementById("vulnerabilidade-status").textContent = `${dado.vulnerabilidade || 0}%`;
-                            document.getElementById("dados-perdidos-status").textContent = `${dado.dadosPerdidos || 0}%`;
-            
-                            // Atualizar gráfico
-                            chartLinha.data.labels.push(dado.periodo || "N/A");
-                            chartLinha.data.datasets[0].data.push(dado.valor || 0);
-            
-                            if (chartLinha.data.labels.length > 10) {
-                                chartLinha.data.labels.shift();
-                                chartLinha.data.datasets[0].data.shift();
-                            }
-            
-                            chartLinha.update();
-                        } catch (error) {
-                            console.error("Erro ao atualizar dados:", error);
-                        }
-                    }
-            
-                    // Inicialização
-                    carregarServidores();
-                    chartLinha = criarGraficoLinhaVazio(ctxLinha);
-            
-                    servidoresDropdown.addEventListener("change", atualizarDados);
-                    indicadoresDropdown.addEventListener("change", atualizarDados);
-            
-                    setInterval(atualizarDados, 5000);
+          <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const servidoresDropdown = document.getElementById("servidores");
+        const indicadoresDropdown = document.getElementById("indicadores");
+        const ctxLinha = document.getElementById("chartLinha").getContext("2d");
+        let chartLinha;
+
+        // Função para carregar servidores no dropdown
+        async function carregarServidores() {
+            try {
+                const fkEmpresa = sessionStorage.getItem("FK_EMPRESA"); // Obtém o valor do sessionStorage
+
+                if (!fkEmpresa) {
+                    throw new Error("Empresa não encontrada na sessão. Faça login novamente.");
+                }
+                const response = await fetch("../seguranca/listarServidores", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ fkEmpresa }), // Envia o fkEmpresa
                 });
-            </script>
-              
+
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar servidores.");
+                }
+
+                const servidores = await response.json();
+
+                // Preenchendo o dropdown de servidores
+                servidoresDropdown.innerHTML = '<option disabled selected>Selecione um Servidor</option>';
+                servidores.forEach((servidor) => {
+                    const option = document.createElement("option");
+                    option.value = servidor.idServidor;
+                    option.textContent = servidor.nomeServidor;
+                    servidoresDropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar servidores:", error);
+                alert("Não foi possível carregar os servidores. Tente novamente mais tarde.");
+            }
+        }
+
+        // Função para criar um gráfico vazio
+        function criarGraficoLinhaVazio(ctx) {
+            return new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Valores em Tempo Real",
+                            data: [],
+                            backgroundColor: "rgba(22, 167, 153, 0.2)",
+                            borderColor: "#16A799",
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw}%`,
+                            },
+                        },
+                    },
+                    scales: {
+                        x: { title: { display: true, text: "Período" } },
+                        y: { title: { display: true, text: "Valor (%)" }, min: 0, max: 100 },
+                    },
+                },
+            });
+        }
+
+        // Função para atualizar os dados do gráfico e indicadores
+        async function atualizarDados() {
+            const idServidor = servidoresDropdown.value;
+            const indicador = indicadoresDropdown.value;
+
+            if (!idServidor || idServidor === "Selecione um Servidor" || !indicador) {
+                console.warn("Servidor ou indicador não selecionado.");
+                return;
+            }
+        
+            try {
+                const response = await fetch(`../seguranca/buscarDadosTempoReal?idServidor=${idServidor}&indicador=${indicador}`);
+
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar dados em tempo real.");
+                }
+        
+
+                const dado = await response.json();
+
+                // Atualizando os indicadores
+                document.getElementById("servidor-status").textContent = dado.servidor || "N/A";
+                document.getElementById("vulnerabilidade-status").textContent = `${dado.vulnerabilidade || 0}%`;
+                document.getElementById("dados-perdidos-status").textContent = `${dado.dados_perdidos || 0}%`;
+
+                // Atualizando os dados do gráfico
+                chartLinha.data.labels.push(dado.periodo || "N/A");
+                chartLinha.data.datasets[0].data.push(dado.valor || 0);
+
+                // Limita o número de pontos no gráfico a 10
+                if (chartLinha.data.labels.length > 10) {
+                    chartLinha.data.labels.shift();
+                    chartLinha.data.datasets[0].data.shift();
+                }
+
+                chartLinha.update();
+            } catch (error) {
+                console.error("Erro ao atualizar dados:", error);
+            }
+        }
+
+        // Inicialização da página
+        carregarServidores();
+        chartLinha = criarGraficoLinhaVazio(ctxLinha);
+
+        // Eventos de seleção e atualização
+        servidoresDropdown.addEventListener("change", atualizarDados);
+        indicadoresDropdown.addEventListener("change", atualizarDados);
+
+        // Atualização periódica dos dados
+        setInterval(atualizarDados, 5000);
+    });
+</script>
+
             
     

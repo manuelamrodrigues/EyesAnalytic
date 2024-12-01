@@ -3,14 +3,13 @@ var router = express.Router();
 
 var segurancaController = require("../controllers/segurancaController");
 
-// Rota para listar servidores de uma empresa
-router.get("/listarServidores", (req, res) => {
+router.post("/listarServidores", (req, res) => {
     segurancaController.listarServidores(req, res);
 });
 
 // Rota para buscar desempenho de um servidor
 router.get("/buscarDesempenho/:idServidor", (req, res) => {
-    segurancaController.buscarDesempenho(req, res);
+    segurancaController.buscarIndicadores(req, res);
 });
 
 // Rota para buscar vulnerabilidades de um servidor
@@ -23,9 +22,14 @@ router.get("/buscarIndicadoresGrafico", (req, res) => {
     segurancaController.buscarIndicadoresGrafico(req, res);
 });
 
-// Rota para buscar dados em tempo real de um indicador específico
-router.get("/buscarDadosTempoReal", (req, res) => {
-    segurancaController.buscarDadosTempoReal(req, res);
+router.get("/seguranca/buscarDadosTempoReal", (req, res) => {
+    const { idServidor, indicador } = req.query;
+
+    if (!idServidor || !indicador) {
+        return res.status(400).json({ erro: "ID do servidor ou indicador não foram fornecidos." });
+    }
+
+    segurancaController.buscarDadosTempoReal(req, res, idServidor, indicador);
 });
 
 module.exports = router;

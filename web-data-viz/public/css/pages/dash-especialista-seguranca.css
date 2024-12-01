@@ -22,11 +22,12 @@ html, body {
 /* Cabeçalho */
 header h1 {
     font-family: 'Kanit', sans-serif;
-    font-size: 24px;
+    font-size: 32px; /* Tamanho ajustado para maior destaque */
     font-weight: 600;
     color: #ffffff;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px; /* Adicionando espaçamento inferior */
 }
 
 /* Conteúdo principal */
@@ -43,8 +44,8 @@ main {
 /* Indicadores */
 .indicators {
     display: flex;
-    justify-content: center;
-    gap: 30px;
+    justify-content: space-around; /* Alterado para espaçar igualmente */
+    gap: 20px;
     width: 100%;
 }
 
@@ -57,8 +58,8 @@ main {
 }
 
 .circle-chart {
-    width: 120px;
-    height: 120px;
+    width: 150px; /* Aumentando o tamanho */
+    height: 150px; /* Aumentando o tamanho */
     background: conic-gradient(#00b894 0% 0%, #ffffff 0% 100%);
     border-radius: 50%;
     display: flex;
@@ -80,8 +81,8 @@ main {
 }
 
 .circle-inner {
-    width: 90px;
-    height: 90px;
+    width: 100px; /* Aumentando o tamanho */
+    height: 100px; /* Aumentando o tamanho */
     background-color: #131313;
     border-radius: 50%;
     display: flex;
@@ -93,7 +94,7 @@ main {
 
 .circle-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
+    font-size: 30px; /* Aumentando o tamanho */
     font-weight: bold;
     color: #00b894;
 }
@@ -101,10 +102,10 @@ main {
 /* Gráficos */
 #chart_section {
     padding: 20px;
-    background-color: #1c1c1c;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
+    margin-top: 30px; /* Aumentando o espaçamento superior */
     width: 100%;
     max-width: 900px;
     border: 2px solid #00d4aa;
@@ -115,7 +116,7 @@ main {
 
 #chart_div {
     width: 100%;
-    height: 400px;
+    height: 450px; /* Aumentando a altura do gráfico */
     border-top: 1px dashed #444444;
     border-bottom: 1px dashed #444444;
 }
@@ -130,14 +131,14 @@ main {
 }
 
 .opcao {
-    width: 170px;
-    height: 40px;
-    font-size: 14px;
+    width: 200px; /* Aumentando o tamanho */
+    height: 45px; /* Aumentando a altura */
+    font-size: 16px; /* Aumentando o tamanho da fonte */
     color: #ffffff;
     background-color: #0BA385;
     border: none;
     border-radius: 5px;
-    padding-left: 10px;
+    padding-left: 15px; /* Ajustando o padding */
     font-family: 'Montserrat', sans-serif;
     outline: none;
     cursor: pointer;
@@ -173,5 +174,15 @@ option {
 
     #chart_section {
         width: 100%;
+    }
+
+    /* Ajustes para botões e gráficos em telas menores */
+    .opcao {
+        width: 150px;
+        font-size: 14px;
+    }
+
+    #chart_div {
+        height: 300px;
     }
 }
