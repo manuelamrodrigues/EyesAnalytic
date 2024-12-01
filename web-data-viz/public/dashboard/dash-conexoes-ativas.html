@@ -460,28 +460,6 @@
 
             const comparadorRam = document.getElementById("comparador_ram")
             const comparadorCpu = document.getElementById("comparador_cpu")
-
-            if (cpu[0] > estimativaCpu) {
-                comparadorCpu.innerHTML = "<h1>></h1>"
-            }
-            if (cpu[0] < estimativaCpu) {
-                comparadorCpu.innerHTML = "<h1><</h1>"
-            }
-            if (cpu[0] == estimativaCpu) {
-                comparadorCpu.innerHTML = '<h1>=</h1>'
-            }
-
-            if (ram[0] > estimativaRam) {
-                comparadorRam.innerHTML = '<h1>></h1>'
-            }
-            if (ram[0] < estimativaRam) {
-                comparadorRam.innerHTML = '<h1><</h1>'
-
-            }
-            if (ram[0] == estimativaRam) {
-                comparadorRam.innerHTML = '<h1>=</h1>'
-
-            }
             console.log(regressaoCpu, regressaoRam)
             const ctx1 = document.getElementById("cpu_graph")
             ctx1.height = 250
