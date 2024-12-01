@@ -23,7 +23,7 @@ function listarPorUsoCPU(fkEmpresa) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
-fkMaquina = 1
+
 function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};

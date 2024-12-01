@@ -63,7 +63,7 @@ body {
 
 .tituloServidores {
     color: white;
-    margin-top: 2%;
+    /* margin-top: 2%; */
 }
 
 
@@ -211,9 +211,9 @@ canvas {
 .tituloRegresssao {
     display: flex;
     color: white;
-    width: 101%;
+    width: 100%;
     justify-content: space-between;
-    height: 11%;
+    height: 12%;
     /* margin-left: 32%; */
 }
 
@@ -232,7 +232,7 @@ canvas {
     border-radius: 5px;
     font-family: "Montserrat", sans-serif;
     margin-bottom: 1%;
-    height: 89%;
+    height: 94%;
 }
 
 .textoVermelho {
@@ -243,7 +243,7 @@ canvas {
 .tituloHoras {
     display: flex;
     justify-content: space-between;
-    width: 58%;
+    width: 84%;
 }
 
 .button.button-custom:hover,
@@ -263,72 +263,6 @@ canvas {
     margin-top: 2px;
 } */
 
-/* icone 1 */
-.alinhar {
-    display: flex;
-    gap: 10px;
-    /* justify-content: center; */
-    align-items: center;
-}
-
-.info-container {
-    position: relative;
-    display: inline-flex;
-    /* Garante que o ícone e a mensagem fiquem lado a lado */
-    align-items: center;
-    padding: 2px;
-    margin-top: 40px;
-    /* Alinha o conteúdo verticalmente no centro */
-}
-
-/* Estilo da caixa de informação que aparece no hover */
-.alinhar .info-box {
-    display: flex;
-    width: 150px;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #b0c4de;
-    position: absolute;
-    top: 100%;
-    /* Posiciona a caixa abaixo do texto */
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    /* Inicialmente invisível */
-    pointer-events: none;
-    /* Impede que o mouse interaja com a caixa até aparecer */
-    visibility: hidden;
-    /* Esconde a caixa */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    /* Suaviza a transição */
-}
-
-/* Estilo da mensagem */
-.info-box .msg {
-    font-size: medium;
-    color: #333;
-}
-
-/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
-.info-container:hover .info-box {
-    opacity: 1;
-    /* Torna visível */
-    visibility: visible;
-    /* Torna visível */
-    pointer-events: auto;
-    /* Permite interação com a caixa */
-}
-
-.info-container i {
-    color: #ffffff;
-    /* Cor do ícone */
-    font-size: 20px;
-    /* Tamanho do ícone, ajustado conforme sua necessidade */
-    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
-}
-
 .openModalCor {
     background-color: #08836A;
     border-radius: 7px;
@@ -340,8 +274,20 @@ canvas {
     color: white;
 }
 
+.info-container {
+    position: relative;
+    display: inline-flex;
+    height: fit-content;
+    /* Garante que o ícone e a mensagem fiquem lado a lado */
+    align-items: start;
+    margin-top: 0px;
+    padding: 2px;
+    margin-left:  2%;
+    /* Alinha o conteúdo verticalmente no centro */
+}
+
 /* Estilo da caixa de informação que aparece no hover */
-.alinhar .info-box {
+.info-box {
     display: flex;
     width: 150px;
     align-items: center;
@@ -365,14 +311,17 @@ canvas {
 }
 
 /* Estilo da mensagem */
-.info-box .msg {
+.info-box span {
     font-size: medium;
     color: #333;
 }
 
+
+
 /* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
 .info-container:hover .info-box {
     opacity: 1;
+    z-index: 100;
     /* Torna visível */
     visibility: visible;
     /* Torna visível */
@@ -386,66 +335,17 @@ canvas {
     /* margin-right: 10px; Espaçamento entre o ícone e o texto */
 }
 
-/* icone 2 */
-.alinhar2 {
+.tituloIcone{
     display: flex;
-    gap: 10px;
-    /* justify-content: center; */
-    align-items: center;
 }
 
-.alinhar2 .info-container {
-    position: relative;
-    display: inline-flex;
-    /* Garante que o ícone e a mensagem fiquem lado a lado */
-    align-items: center;
-    /* padding: 2px; */
-    margin-top: 0px;
-    /* Alinha o conteúdo verticalmente no centro */
-}
-
-/* Estilo da caixa de informação que aparece no hover */
-.alinhar2 .info-box {
+.tituloIcone2{
     display: flex;
-    width: 300px;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #b0c4de;
-    position: absolute;
-    top: 100%;
-    /* Posiciona a caixa abaixo do texto */
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    /* Inicialmente invisível */
-    pointer-events: none;
-    /* Impede que o mouse interaja com a caixa até aparecer */
-    visibility: hidden;
-    /* Esconde a caixa */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    /* Suaviza a transição */
+    width: 80%;
 }
 
-/* Estilo da mensagem */
-.info-box .msg {
-    font-size: medium;
-    color: #333;
+.tituloIcone3{
+    display: flex;
+    margin-top: 2%;
 }
 
-/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
-.info-container:hover .info-box {
-    opacity: 1;
-    /* Torna visível */
-    visibility: visible;
-    /* Torna visível */
-    pointer-events: auto;
-    /* Permite interação com a caixa */
-}
-
-.info-container i {
-    color: #ffffff; /* Cor do ícone */
-    font-size: 20px; /* Tamanho do ícone, ajustado conforme sua necessidade */
-    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
-}

@@ -12,13 +12,7 @@
     <!-- <link rel="stylesheet" href="./css/pages/espec-servidores.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Bootstrap CSS  --><!-- Bootstrap CSS  -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    < Bootstrap JavaScript Bundle -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 
@@ -108,7 +102,19 @@
             </article>
 
             <div id="conteudoServidores" class="conteudoServidores">
-                <h3 class="tituloServidores">Firewalls em Sobrecarga</h3>
+                <div class="tituloIcone3">
+                    <h3 class="tituloServidores">Firewalls em Sobrecarga</h3>
+
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Lista dos 3 servidores que mais estão utilizando CPU.
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="listagemServidores" id="listagemServidores">
 
@@ -120,7 +126,20 @@
 
 
             <div class=" graficoMedia">
-                <h3>Média de Uso x Máximo de Uso</h3>
+                <div class="tituloIcone">
+                    <h3>Média de Uso x Máximo de Uso</h3>
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Comparação entre a média de uso da CPU com o máximo de uso registrado nos últimos 30
+                                dias.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 <canvas class="grafico_media_max" id="myChart2"></canvas>
 
             </div>
@@ -131,25 +150,54 @@
         <section class="graficosInferiores">
             <div class="graficoRegressao">
                 <div class="tituloRegresssao">
-                    <h3>Tendência de Uso</h3>
+
+                    <div class="tituloIcone2">
+                        <h3>Tendência de Uso</h3>
+                        <div class="info-container">
+                            <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                            <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                            <div class="info-box">
+                                <span class="msg">
+                                    Tendências de crescimento ou diminuição do uso de CPU para determinado servidor.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <select id="servidores">
 
                     </select>
-<!-- 
+                    <!-- 
                     <p id="servidor"></p> -->
                 </div>
                 <canvas id="myChart3"></canvas>
             </div>
             <div class="grafico4">
-                <div class="tituloHoras">
-                    <h3>Horas acima de </h3>
-                    <h3 id="valorMetrica"></h3>
-                    <h3>no mês</h3>
+
+                <div class="tituloIcone">
+                    <div class="tituloHoras">
+                        <h3>Horas acima de </h3>
+                        <h3 id="valorMetrica"></h3>
+                        <h3>nos últimos 30 dias</h3>
+                    </div>
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Horas que a CPU passou acima da métrica definida nos últimos 30 dias.
+                            </span>
+                        </div>
+                    </div>
                 </div>
+
+
 
                 <canvas id="graficoHoras" class="grafico_media_max" id="myChart"></canvas>
 
-                <!-- <canvas class="grafico_media_max" id="myChart" width="100" height="20" style="box-sizing: border-box;height: 607px;width: 20px;"></canvas> -->
+
+
             </div>
 
         </section>
@@ -175,25 +223,46 @@
             }
         }).then(function (resposta) {
             resposta.json().then(function (resposta) {
-                resposta.forEach(element => {
+                resposta.forEach((element, index) => {
                     let conteudo = document.getElementById("listagemServidores");
                     let openModal = document.createElement("button");
                     openModal.className = "openModal";
-                    openModal.id = "modal"
+                    openModal.id = "modal";
 
-                   
+                    if (index === 0) {
+                        openModal.classList.add("openModalCor");
+                    }
 
                     openModal.onclick = function () {
                         let botoes = document.querySelectorAll(".openModalCor");
                         botoes.forEach(botao => {
-                            botao.className = "openModal"
+                            botao.classList.remove("openModalCor");
+                            botao.classList.add("openModal");
                         });
 
-                        idSelecionado = element.idMaquina; // alerta 'seuid'
-                        // alert(idSelecionado);
+                        // const nomeMaquinaSelecionada = element.nomeMaquina; // Assume que 'element' tem o nome
+                        // console.log("Máquina selecionada:", nomeMaquinaSelecionada);
+
+                        idSelecionado = element.idMaquina;
                         carregarDadosPorServidor(idSelecionado);
-                        openModal.className = "openModalCor";
-                    }
+                        openModal.classList.add("openModalCor");
+
+                        // Adiciona a classe 'openModalCor' ao botão atual
+                        openModal.classList.add("openModalCor");
+
+                        const selectElement = document.getElementById("servidores");
+
+                        if (selectElement) {
+                            // Percorre todas as opções para selecionar a correspondente
+                            Array.from(selectElement.options).forEach(option => {
+                                if (parseInt(option.value) === idSelecionado) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            });
+                        }
+                    };
 
                     let frameAlertas = document.createElement("div");
                     frameAlertas.className = "frameAlertas";
@@ -202,8 +271,9 @@
                     abrir.className = "abrir";
                     abrir.id = "openModal";
                     abrir.onclick = function () {
-                        atualizarGrafico2(element.idMaquina);
-                        console.log("Pegando o Id: ", element.idMaquina);
+                        // atualizarGrafico2(element.idMaquina);
+                        // console.log("Pegando o Id: ", element.idMaquina);
+
                     };
 
                     let titulo = document.createElement("h3");
@@ -251,31 +321,25 @@
 
     // Gráfico Horas --------------------------------------------------------------------------------------------------------
     const ctx2 = document.getElementById('myChart');
-    // var idMaquina = sessionStorage.ID_MAQUINA;
     function listarHoras() {
-        // Verifique o endpoint da API no console
         fetch(`servidor/listarDiferencaHoras`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro na requisição: ' + response.statusText);
                 }
-                return response.json(); // Converter a resposta para JSON
+                return response.json();
             })
             .then(data => {
-                // Verifique o formato da resposta da API no console
                 console.log('Dados recebidos:', data);
 
-                // Mapear os dados para arrays de diferenças de horas e nomes de máquina
                 const diferenca_horas = data.map(item => item.total_diferenca_horas);
                 const nomeMaquina = data.map(item => item.nomeMaquina);
                 const metrica = data.map(item => item.valorMetrica);
 
-                // Verifique os valores dos arrays no console
                 console.log('Diferença de horas:', diferenca_horas);
                 console.log('Nome dos Servidores:', nomeMaquina);
-                console.log('Valor da metrica', metrica)
+                console.log('Valor da metrica', metrica);
 
-                // Chama a função para atualizar o gráfico com os dados obtidos
                 atualizarGrafico2(diferenca_horas, nomeMaquina, metrica);
 
                 const valorMetrica = document.getElementById('valorMetrica');
@@ -288,31 +352,25 @@
                     return;
                 }
 
-
             })
             .catch(error => {
-                console.error('Erro: ', error); // Exibe erros se houver problemas com a requisição
+                console.error('Erro: ', error);
             });
     }
 
     function atualizarGrafico2(diferenca_horas, nomeMaquina) {
-        // Garantir que o elemento do canvas existe
         const canvas = document.getElementById('graficoHoras');
         if (!canvas) {
             console.error('Elemento canvas não encontrado');
             return;
         }
-
-        // const valorMetrica = document.getElementById('valorMetrica');
-        // valorMetrica.innerHTML = metrica;
-
         const ctx2 = canvas.getContext('2d');
 
-        // Verificar se o contexto foi obtido corretamente
         if (!ctx2) {
             console.error('Erro ao obter o contexto do canvas');
             return;
         }
+
         new Chart(ctx2, {
             type: 'bar',
             data: {
@@ -348,7 +406,7 @@
         });
     }
 
-    // Gráfico Média e Máximo
+    // Gráfico Média e Máximo -------------------------------------------------------------------------------
     const ctx = document.getElementById('myChart2');
     var color1 = '#08836A';
     var color2 = '#3FADC7';
@@ -424,7 +482,7 @@
 
     let myChart = null;
 
-    // Função para carregar os dados ao selecionar um servidor
+    // Carregar os dados ao selecionar um servidor --------------------------------------------------------
     function carregarDadosPorServidor(idSelecionado) {
         if (idSelecionado) {
             fetch(`servidor/listarDadoEspecifico/${idSelecionado}`, {
@@ -440,25 +498,61 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Transformando os dados
-                    const registro = data.map(item => item.registro); // Uso da CPU
-                    const dtHora = data.map(item => new Date(item.dtHora)); // Datas formatadas
+                    const registro = data.map(item => item.registro);
+                    const dtHora = data.map(item => new Date(item.dtHora));
 
                     console.log('Uso da CPU (registro):', registro);
                     console.log('Data (dtHora):', dtHora);
 
                     // Função para calcular a regressão linear
                     function regressaoLinear(x, y) {
+                        // y é a variável dependente (neste caso, o "uso da CPU").
+                        // x é a variável independente (neste caso, o "tempo", representado pelos timestamps).
+                        // a é o intercepto da linha (valor de y quando x = 0).
+                        // b é a inclinação da linha (quanto y muda à medida que x aumenta).
                         const n = x.length;
                         const sumX = x.reduce((acc, val) => acc + val, 0);
+                        // Calcula a soma de todos os valores de x (os timestamps normalizados).
+
                         const sumY = y.reduce((acc, val) => acc + val, 0);
+                        // Calcula a soma de todos os valores de y (os valores de registro de uso de CPU).
+
                         const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+                        // Calcula a soma dos produtos de x[i] * y[i] para cada ponto de dados. 
+                        // Ou seja, a soma dos produtos das variáveis independentes e dependentes.
+
                         const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
+                        // Calcula a soma dos quadrados dos valores de x (ou seja, x[i]² para cada ponto de dados).
+
+                        // Com essas somas, podemos calcular o coeficiente b (inclinação) da regressão linear.
 
                         const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
                         const a = (sumY - b * sumX) / n;
 
-                        return { a, b };
+                        // Cálculo do erro padrão
+                        const residuals = y.map((yi, idx) => yi - (a + b * x[idx])); // Resíduos
+                        const residualSumOfSquares = residuals.reduce((acc, val) => acc + val * val, 0);
+                        const errorVariance = residualSumOfSquares / (n - 2); // Variância do erro
+                        const stdErrorB = Math.sqrt(errorVariance / (n * sumX2 - sumX * sumX)); // Erro padrão do coeficiente b
+                        const stdErrorA = Math.sqrt(errorVariance * sumX2 / (n * (n * sumX2 - sumX * sumX))); // Erro padrão do coeficiente a
+
+                        // Calcular os valores t (test t-statistic)
+                        const tStatB = b / stdErrorB;
+                        const tStatA = a / stdErrorA;
+
+                        // Calcular o p-value (usando a distribuição t)
+                        const pValueB = 2 * (1 - tDist(tStatB, n - 2)); // Usando a distribuição t para calcular p-value
+                        const pValueA = 2 * (1 - tDist(tStatA, n - 2));
+
+                        return { a, b, pValueA, pValueB };
+                    }
+
+                    // Função para calcular a distribuição t (aproximada para simplicidade)
+                    function tDist(t, df) {
+                        // Esta função pode ser substituída por uma biblioteca mais precisa
+                        const x = Math.pow(t, 2) / df;
+                        const q = 1 / (1 + x);
+                        return q;
                     }
 
                     // Normaliza os timestamps
@@ -474,8 +568,8 @@
 
                     // Agrupar os pontos por data, mas sem fazer a média, apenas mantendo os valores originais
                     const groupedData = dtHora.map((date, index) => ({
-                        x: date.getTime(), // Manter o timestamp exato para cada ponto
-                        y: registro[index]  // Valor de uso da CPU
+                        x: date.getTime(),
+                        y: registro[index]
                     }));
 
                     console.log('Dados para o gráfico:', groupedData);
@@ -488,12 +582,10 @@
 
                     console.log('Dados da linha de regressão:', dadosLinhaRegressao);
 
-                    // Destruir o gráfico anterior se existir
                     if (myChart) {
                         myChart.destroy();
                     }
 
-                    // Criar o gráfico
                     const ctx3 = document.getElementById('myChart3').getContext('2d');
                     myChart = new Chart(ctx3, {
                         type: 'scatter',
@@ -565,7 +657,7 @@
         }
     }
 
-    // Requisição para listar os servidores
+    // Requisição para listar os servidores -------------------------------------------------------------------
     fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
         method: "GET",
         headers: {
@@ -587,33 +679,15 @@
             var id = parseInt(idSelecionado);
 
             // Adicionar as opções dinamicamente
-            // data.forEach((item, index) => {
-            //     const option = document.createElement("option");
-            //     option.value = item.idMaquina;
-            //     option.textContent = item.nomeMaquina;
-            //     if (index === 0) {
-            //         option.selected = true;
-            //     }
-            //     selectElement.appendChild(option);
-            // });
-            data.forEach(item => {
+            data.forEach((item, index) => {
                 const option = document.createElement("option");
                 option.value = item.idMaquina;
                 option.textContent = item.nomeMaquina;
-
-                // Depuração: verificar o tipo e o valor
-                console.log(`Comparando ${item.idMaquina} com ${idSelecionado}`);
-                console.log(`Tipo de item.idMaquina: ${typeof item.idMaquina}, Tipo de id: ${typeof id}`);
-
-                // Verifica se o valor de `id` corresponde ao `item.idMaquina`
-                if (parseInt(item.idMaquina) === parseInt(id)) {
-                    console.log(`Selecionando a opção: ${item.nomeMaquina} (ID: ${item.idMaquina})`);
-                    option.selected = true; // Marca a opção como selecionada
+                if (index === 0) {
+                    option.selected = true;
                 }
-
-                selectElement.appendChild(option); // Adiciona a opção ao select
+                selectElement.appendChild(option);
             });
-
 
             //  dados para o primeiro item da lista
             const idMaquinaEspecifico = idMaquina[0];
