@@ -23,5 +23,10 @@ router.get("/listarPrioridade/:idPrioridade", function (req, res) {
     servidorController.listarPrioridade(req, res)
 })
 
+router.get("/indicadores/:idMaquina", function (req, res) {
+    servidorController.indicadores(req, res)
+})
+
+
 
 module.exports = router;

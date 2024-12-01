@@ -39,10 +39,37 @@ function desativarServidor(idMaquina) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function indicadores(idMaquina){
+    var instrucaoSql = `
+    SELECT 
+    m.nomeMaquina AS Maquina,
+    MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro ELSE NULL END) AS CPU,
+    MAX(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro ELSE NULL END) AS RAM,
+    MAX(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE NULL END) AS Download,
+    MAX(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE NULL END) AS Upload
+FROM 
+    maquina m
+JOIN 
+    maquina_recurso mr ON m.idMaquina = mr.fkMaquina
+JOIN 
+    recurso r ON mr.fkRecurso = r.idRecurso
+JOIN 
+    dado_capturado dc ON mr.fkMaquina = dc.fkMaquina AND mr.fkRecurso = dc.fkRecurso
+WHERE 
+    m.idMaquina = ${idMaquina}
+GROUP BY 
+    m.nomeMaquina;
+
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 module.exports = {
     listar,
     desativarServidor,
     listarEspecifico,
     alterarServidor,
-    listarPrioridade
+    listarPrioridade,
+    indicadores
 };
