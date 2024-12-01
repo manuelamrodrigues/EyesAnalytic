@@ -16,6 +16,14 @@ function listarEspecifico(idMaquina) {
     return database.executar(instrucaoSql)
 }
 
+function listarPorUsoCPU(fkEmpresa) {
+    var instrucaoSql = `
+        SELECT * FROM view_quantidade_cpu WHERE fkEmpresa = ${fkEmpresa};
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     var instrucaoSql = `
     UPDATE maquina SET nomeMaquina = "${nomeMaquina}", fkPrioridade = ${idPrioridade}  WHERE idMaquina = ${idMaquina};
@@ -24,6 +32,15 @@ function alterarServidor(nomeMaquina, idPrioridade, idMaquina) {
     return database.executar(instrucaoSql)
 }
 
+function listarMediaMaximo(fkEmpresa) {
+    var instrucaoSql = `
+   SELECT *  FROM view_media_max_cpu ORDER BY max_cpu DESC LIMIT 3;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+
 function listarPrioridade() {
     var instrucaoSql = `
     SELECT * FROM prioridade;
@@ -31,6 +48,24 @@ function listarPrioridade() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+
+function listarDiferencaHoras() {
+    var instrucaoSql = `
+    SELECT * FROM diferenca_horas;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function listarDadoEspecifico(fkMaquina) {
+    var instrucaoSql = `
+    SELECT * FROM dados_regressao where fkMaquina = "${fkMaquina}";
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 
 function desativarServidor(idMaquina) {
     var instrucaoSql = `
@@ -43,6 +78,10 @@ module.exports = {
     listar,
     desativarServidor,
     listarEspecifico,
+    listarPorUsoCPU,
     alterarServidor,
-    listarPrioridade
+    listarPrioridade,
+    listarMediaMaximo,
+    listarDiferencaHoras,
+    listarDadoEspecifico
 };

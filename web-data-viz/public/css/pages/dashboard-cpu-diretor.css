@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #131313;
+    /* Fundo branco para toda a página */
+    height: 100%;
+    /* Ocupa 100% da altura da janela */
+    width: 100%;
+    /* Ocupa 100% da largura da janela */
+    display: flex;
+    flex-direction: column;
+    /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
+    font-family: "Montserrat", sans-serif;
+    /* Fonte geral da página */
+}
+
+main {
+    margin-left: 10%;
+}
+
+h2 {
+    color: white;
+    margin-top: 3%;
+}
+
+
+html,
+body {
+    overflow-x: hidden !important;
+    font-family: "Montserrat", sans-serif;
+    background-color: #131313;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+.alertas {
+    width: 10px;
+}
+
+.servidores {
+    width: 95%;
+    height: auto;
+    display: flex;
+    /* margin-left: 110px; */
+    justify-content: space-around;
+}
+
+.servidores h2 {
+    font-size: 24px;
+    /* padding: 30px 0px 10px 20px; */
+    color: #fff;
+    /* font-weight: 300; */
+}
+
+.tituloServidores {
+    color: white;
+    /* margin-top: 2%; */
+}
+
+
+.frameAlertas {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-around; */
+    flex-direction: row;
+    /* margin-left: 5%; */
+}
+
+.abrir {
+    width: 83%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    /* background-color: #0BA385; */
+}
+
+.opcoes {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 2%;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    gap: 7px;
+    font-size: medium;
+}
+
+.frameAlertas h3 {
+    font-weight: 700;
+    font-size: larger;
+}
+
+.opcao h4 {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.openModal {
+    background-color: #fff;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 13px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+}
+
+/* .openModal:hover {
+    background-color: #08836A;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 10px;
+    margin-top: 2px;
+    /* margin-left: 5%; */
+
+/* -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    margin-bottom: 10px;
+
+} */
+*/
+/* 
+.openModal:hover h3,
+.openModal:hover h4,
+.openModal:hover p {
+    color: white;
+    fill: white;
+    cursor: pointer;
+
+} */
+
+.grafico_media_max {
+    width: 525px
+}
+
+canvas {
+    width: 482px !important;
+    height: 234px !important;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.conteudoServidores {
+    width: 41.5%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: center; */
+    justify-content: flex-start;
+}
+
+.listagemServidores {
+    width: 100%;
+}
+
+.graficoMedia {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 42%;
+}
+
+.graficoMedia h3 {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+.grafico4 {
+    color: white;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.graficosInferiores {
+    width: 89%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2%;
+    margin-left: 3%;
+}
+
+.tituloRegresssao {
+    display: flex;
+    color: white;
+    width: 100%;
+    justify-content: space-between;
+    height: 12%;
+    /* margin-left: 32%; */
+}
+
+
+.graficoRegressao {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.graficoRegressao select {
+    background-color: #08836A;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 1%;
+    height: 94%;
+}
+
+.textoVermelho {
+    color: red;
+    font-weight: 650;
+}
+
+.tituloHoras {
+    display: flex;
+    justify-content: space-between;
+    width: 84%;
+}
+
+.button.button-custom:hover,
+.button.button-custom:active {
+
+    color: #fff;
+    background-color: #123456;
+
+}
+
+/* .openModal :active {
+    background-color: #08836A;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 10px;
+    margin-top: 2px;
+} */
+
+.openModalCor {
+    background-color: #08836A;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 13px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+    color: white;
+}
+
+.info-container {
+    position: relative;
+    display: inline-flex;
+    height: fit-content;
+    /* Garante que o ícone e a mensagem fiquem lado a lado */
+    align-items: start;
+    margin-top: 0px;
+    padding: 2px;
+    margin-left:  2%;
+    /* Alinha o conteúdo verticalmente no centro */
+}
+
+/* Estilo da caixa de informação que aparece no hover */
+.info-box {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b0c4de;
+    position: absolute;
+    top: 100%;
+    /* Posiciona a caixa abaixo do texto */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    /* Inicialmente invisível */
+    pointer-events: none;
+    /* Impede que o mouse interaja com a caixa até aparecer */
+    visibility: hidden;
+    /* Esconde a caixa */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Suaviza a transição */
+}
+
+/* Estilo da mensagem */
+.info-box span {
+    font-size: medium;
+    color: #333;
+}
+
+
+
+/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
+.info-container:hover .info-box {
+    opacity: 1;
+    z-index: 100;
+    /* Torna visível */
+    visibility: visible;
+    /* Torna visível */
+    pointer-events: auto;
+    /* Permite interação com a caixa */
+}
+
+.info-container i {
+    color: #ffffff; /* Cor do ícone */
+    font-size: 20px; /* Tamanho do ícone, ajustado conforme sua necessidade */
+    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
+}
+
+.tituloIcone{
+    display: flex;
+}
+
+.tituloIcone2{
+    display: flex;
+    width: 80%;
+}
+
+.tituloIcone3{
+    display: flex;
+    margin-top: 2%;
+}
+

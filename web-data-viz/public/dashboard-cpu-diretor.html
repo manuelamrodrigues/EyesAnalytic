@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard CPU | EyesAnalytic</title>
+    <script src="../js/aside-menu.js"></script>
+    <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/pages/dashboard-cpu-diretor.css">
+    <link rel="stylesheet" href="./css/pages/aside-menu.css">
+    <!-- <link rel="stylesheet" href="./css/pages/espec-servidores.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+
+</head>
+
+
+</head>
+
+<body onload="listarServidores(), listarHoras()">
+    <aside id="aside-menu">
+        <img src="./assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+            <a href="./dashboard/individual-joao.html" class="outros">
+                <li>
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <span>Alertas</span>
+                </li>
+            </a>
+
+            <a href="./dashboard/dash-diretor.html" class="outros">
+                <li>
+                    <img src="./assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+
+            <a href="./dashboard/dash-conexoes-ativas.html" class="outros">
+                <li>
+                    <img src="../assets/svg/icons-marcelo.svg" alt="Chamados">
+                    <span>Conexões Ativas</span>
+                </li>
+            </a>
+
+            <a href="./espec-servidores.html" class="outros">
+                <li>
+                    <img src="./assets/svg/servidor.svg" alt="Rede">
+                    <span>Servidores</span>
+                </li>
+            </a>
+
+            <a href="./funcionario-diretor.html" class="outros">
+                <li>
+                    <img src="./assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                    <span>Funcionários</span>
+                </li>
+            </a>
+
+            <a href="./metricas.html" class="outros">
+                <li>
+                    <img src="./assets/svg/icon - metricas.svg" alt="Chamados">
+                    <span>Métricas</span>
+                </li>
+            </a>
+
+            <a href="./dashboard-cpu-diretor.html" class="outros">
+                <li>
+                    <img src="./assets/svg/chamados.svg" alt="Chamados">
+                    <span>Uso CPU</span>
+                </li>
+            </a>
+
+            <a onclick="limparSessao()" class="outros">
+                <li>
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <span>Sair</span>
+                </li>
+            </a>
+
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+    </aside>
+    <div id="fade" class="hide"></div>
+
+    <main>
+        <h2>Uso da CPU</h2>
+        <section class="servidores" id="conteudo">
+            <!-- <article class="alertas" id="lista"> -->
+            </article>
+
+            <div id="conteudoServidores" class="conteudoServidores">
+                <div class="tituloIcone3">
+                    <h3 class="tituloServidores">Firewalls em Sobrecarga</h3>
+
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Lista dos 3 servidores que mais estão utilizando CPU.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listagemServidores" id="listagemServidores">
+
+                </div>
+            </div>
+
+            <div id="modal" class="modal">
+            </div>
+
+
+            <div class=" graficoMedia">
+                <div class="tituloIcone">
+                    <h3>Média de Uso x Máximo de Uso</h3>
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Comparação entre a média de uso da CPU com o máximo de uso registrado nos últimos 30
+                                dias.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas class="grafico_media_max" id="myChart2"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <section class="graficosInferiores">
+            <div class="graficoRegressao">
+                <div class="tituloRegresssao">
+
+                    <div class="tituloIcone2">
+                        <h3>Tendência de Uso</h3>
+                        <div class="info-container">
+                            <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                            <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                            <div class="info-box">
+                                <span class="msg">
+                                    Tendências de crescimento ou diminuição do uso de CPU para determinado servidor.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <select id="servidores">
+
+                    </select>
+                    <!-- 
+                    <p id="servidor"></p> -->
+                </div>
+                <canvas id="myChart3"></canvas>
+            </div>
+            <div class="grafico4">
+
+                <div class="tituloIcone">
+                    <div class="tituloHoras">
+                        <h3>Horas acima de </h3>
+                        <h3 id="valorMetrica"></h3>
+                        <h3>nos últimos 30 dias</h3>
+                    </div>
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                        <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                        <div class="info-box">
+                            <span class="msg">
+                                Horas que a CPU passou acima da métrica definida nos últimos 30 dias.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <canvas id="graficoHoras" class="grafico_media_max" id="myChart"></canvas>
+
+
+
+            </div>
+
+        </section>
+    </main>
+</body>
+
+</html>
+<script>
+
+    var idSelecionado = 0;
+    var lista;
+    var nome = document.getElementById("servidor")
+
+    //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
+    function listarServidores() {
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        lista = document.getElementById("lista");
+
+        fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            resposta.json().then(function (resposta) {
+                resposta.forEach((element, index) => {
+                    let conteudo = document.getElementById("listagemServidores");
+                    let openModal = document.createElement("button");
+                    openModal.className = "openModal";
+                    openModal.id = "modal";
+
+                    if (index === 0) {
+                        openModal.classList.add("openModalCor");
+                    }
+
+                    openModal.onclick = function () {
+                        let botoes = document.querySelectorAll(".openModalCor");
+                        botoes.forEach(botao => {
+                            botao.classList.remove("openModalCor");
+                            botao.classList.add("openModal");
+                        });
+
+                        // const nomeMaquinaSelecionada = element.nomeMaquina; // Assume que 'element' tem o nome
+                        // console.log("Máquina selecionada:", nomeMaquinaSelecionada);
+
+                        idSelecionado = element.idMaquina;
+                        carregarDadosPorServidor(idSelecionado);
+                        openModal.classList.add("openModalCor");
+
+                        // Adiciona a classe 'openModalCor' ao botão atual
+                        openModal.classList.add("openModalCor");
+
+                        const selectElement = document.getElementById("servidores");
+
+                        if (selectElement) {
+                            // Percorre todas as opções para selecionar a correspondente
+                            Array.from(selectElement.options).forEach(option => {
+                                if (parseInt(option.value) === idSelecionado) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            });
+                        }
+                    };
+
+                    let frameAlertas = document.createElement("div");
+                    frameAlertas.className = "frameAlertas";
+
+                    let abrir = document.createElement("div");
+                    abrir.className = "abrir";
+                    abrir.id = "openModal";
+                    abrir.onclick = function () {
+                        // atualizarGrafico2(element.idMaquina);
+                        // console.log("Pegando o Id: ", element.idMaquina);
+
+                    };
+
+                    let titulo = document.createElement("h3");
+                    titulo.innerText = element.nomeMaquina;
+
+                    // Adicionando opções de CPU, Memória e Disco
+                    let opcoes = document.createElement("div");
+                    opcoes.className = "opcoes";
+
+                    let opcaoCPU = document.createElement("div");
+                    opcaoCPU.className = "opcao";
+                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p><span class='textoVermelho'>" +
+                        (element.CPU !== undefined ? Math.floor(element.CPU) : "N/A") +
+                        "%</span></p>";
+
+                    let opcaoMemoria = document.createElement("div");
+                    opcaoMemoria.className = "opcao";
+                    opcaoMemoria.innerHTML = "<h4>RAM:</h4><p>" + (element.RAM || "N/A") + "%</p>";
+
+                    // Disco
+                    let opcaoDisco = document.createElement("div");
+                    opcaoDisco.className = "opcao";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco_Rigido || "N/A") + "%</p>";
+
+                    // Adicionando opções à div 'opcoes'
+                    opcoes.appendChild(opcaoCPU);
+                    opcoes.appendChild(opcaoMemoria);
+                    opcoes.appendChild(opcaoDisco);
+
+                    // Montando o conteúdo do modal
+                    abrir.appendChild(titulo);
+                    abrir.appendChild(opcoes);
+                    frameAlertas.appendChild(abrir);
+                    openModal.appendChild(frameAlertas);
+
+
+                    // Adicionando o modal completo ao DOM
+                    document.body.appendChild(openModal);
+
+                    conteudo.appendChild(openModal);
+                });
+            });
+        })
+    }
+
+    // Gráfico Horas --------------------------------------------------------------------------------------------------------
+    const ctx2 = document.getElementById('myChart');
+    function listarHoras() {
+        fetch(`servidor/listarDiferencaHoras`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos:', data);
+
+                const diferenca_horas = data.map(item => item.total_diferenca_horas);
+                const nomeMaquina = data.map(item => item.nomeMaquina);
+                const metrica = data.map(item => item.valorMetrica);
+
+                console.log('Diferença de horas:', diferenca_horas);
+                console.log('Nome dos Servidores:', nomeMaquina);
+                console.log('Valor da metrica', metrica);
+
+                atualizarGrafico2(diferenca_horas, nomeMaquina, metrica);
+
+                const valorMetrica = document.getElementById('valorMetrica');
+                if (data.length > 0) {
+                    const metricaUnica = data[0].valorMetrica;
+                    valorMetrica.innerHTML = metricaUnica + "%</span></p>";
+                    console.log('Valor da metrica listado', metricaUnica)
+                } else {
+                    console.warn('Nenhum dado encontrado para atualizar a métrica');
+                    return;
+                }
+
+            })
+            .catch(error => {
+                console.error('Erro: ', error);
+            });
+    }
+
+    function atualizarGrafico2(diferenca_horas, nomeMaquina) {
+        const canvas = document.getElementById('graficoHoras');
+        if (!canvas) {
+            console.error('Elemento canvas não encontrado');
+            return;
+        }
+        const ctx2 = canvas.getContext('2d');
+
+        if (!ctx2) {
+            console.error('Erro ao obter o contexto do canvas');
+            return;
+        }
+
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: nomeMaquina,
+                datasets: [{
+                    // label: 'Horas', // Legenda do gráfico
+                    data: diferenca_horas,
+                    borderWidth: 1,
+                    backgroundColor: '#08836A'
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true, // Empilhamento das barras no eixo X
+                        title: {
+                            display: true,
+                            text: 'Horas',
+                        },
+                    },
+                    y: {
+                        stacked: true // Empilhamento das barras no eixo Y
+                    }
+                }
+            }
+        });
+    }
+
+    // Gráfico Média e Máximo -------------------------------------------------------------------------------
+    const ctx = document.getElementById('myChart2');
+    var color1 = '#08836A';
+    var color2 = '#3FADC7';
+
+    var labels = [];
+    var data = [];
+
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
+    fetch(`servidor/listarMediaMaximo/${fkEmpresa}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const mediaCPU = data.map(item => item.media_cpu);
+            const maxCPU = data.map(item => item.max_cpu);
+
+            const nomeServdior = data.map(item => item.nomeMaquina);
+
+            console.log('Média de CPU:', mediaCPU);
+            console.log('Máxima de CPU:', maxCPU);
+
+
+            atualizarGrafico(mediaCPU, maxCPU, nomeServdior);
+        })
+        .catch(error => {
+            console.error('Erro: ', error);
+        });
+
+
+    var backgroundColors = [];
+    data.forEach((value, index) => {
+        if (index % 2 === 0) {
+            backgroundColors.push(color1);
+        } else {
+            backgroundColors.push(color2);
+        }
+    });
+
+    var borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
+    function atualizarGrafico(mediaCPU, maxCPU, nomeServdior) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nomeServdior,
+                datasets: [{
+                    label: 'Média uso de CPU',
+                    data: mediaCPU,
+                    // borderWidth: 1,
+                    backgroundColor: color1
+                },
+                {
+                    label: 'Máximo de uso de CPU',
+                    data: maxCPU,
+                    // borderWidth: 1,
+                    backgroundColor: color2
+                }],
+
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+
+    let myChart = null;
+
+    // Carregar os dados ao selecionar um servidor --------------------------------------------------------
+    function carregarDadosPorServidor(idSelecionado) {
+        if (idSelecionado) {
+            fetch(`servidor/listarDadoEspecifico/${idSelecionado}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição do dado específico: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const registro = data.map(item => item.registro);
+                    const dtHora = data.map(item => new Date(item.dtHora));
+
+                    console.log('Uso da CPU (registro):', registro);
+                    console.log('Data (dtHora):', dtHora);
+
+                    // Função para calcular a regressão linear
+                    function regressaoLinear(x, y) {
+                        // y é a variável dependente (neste caso, o "uso da CPU").
+                        // x é a variável independente (neste caso, o "tempo", representado pelos timestamps).
+                        // a é o intercepto da linha (valor de y quando x = 0).
+                        // b é a inclinação da linha (quanto y muda à medida que x aumenta).
+                        const n = x.length;
+                        const sumX = x.reduce((acc, val) => acc + val, 0);
+                        // Calcula a soma de todos os valores de x (os timestamps normalizados).
+
+                        const sumY = y.reduce((acc, val) => acc + val, 0);
+                        // Calcula a soma de todos os valores de y (os valores de registro de uso de CPU).
+
+                        const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+                        // Calcula a soma dos produtos de x[i] * y[i] para cada ponto de dados. 
+                        // Ou seja, a soma dos produtos das variáveis independentes e dependentes.
+
+                        const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
+                        // Calcula a soma dos quadrados dos valores de x (ou seja, x[i]² para cada ponto de dados).
+
+                        // Com essas somas, podemos calcular o coeficiente b (inclinação) da regressão linear.
+
+                        const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                        const a = (sumY - b * sumX) / n;
+
+                        // Cálculo do erro padrão
+                        const residuals = y.map((yi, idx) => yi - (a + b * x[idx])); // Resíduos
+                        const residualSumOfSquares = residuals.reduce((acc, val) => acc + val * val, 0);
+                        const errorVariance = residualSumOfSquares / (n - 2); // Variância do erro
+                        const stdErrorB = Math.sqrt(errorVariance / (n * sumX2 - sumX * sumX)); // Erro padrão do coeficiente b
+                        const stdErrorA = Math.sqrt(errorVariance * sumX2 / (n * (n * sumX2 - sumX * sumX))); // Erro padrão do coeficiente a
+
+                        // Calcular os valores t (test t-statistic)
+                        const tStatB = b / stdErrorB;
+                        const tStatA = a / stdErrorA;
+
+                        // Calcular o p-value (usando a distribuição t)
+                        const pValueB = 2 * (1 - tDist(tStatB, n - 2)); // Usando a distribuição t para calcular p-value
+                        const pValueA = 2 * (1 - tDist(tStatA, n - 2));
+
+                        return { a, b, pValueA, pValueB };
+                    }
+
+                    // Função para calcular a distribuição t (aproximada para simplicidade)
+                    function tDist(t, df) {
+                        // Esta função pode ser substituída por uma biblioteca mais precisa
+                        const x = Math.pow(t, 2) / df;
+                        const q = 1 / (1 + x);
+                        return q;
+                    }
+
+                    // Normaliza os timestamps
+                    const timestamps = dtHora.map(d => d.getTime());
+                    const minTimestamp = Math.min(...timestamps);
+                    const maxTimestamp = Math.max(...timestamps);
+                    const normalizedTimestamps = timestamps.map(t => t - minTimestamp);
+
+                    // Calcula a regressão linear
+                    const { a, b } = regressaoLinear(normalizedTimestamps, registro);
+
+                    console.log('Coeficientes da regressão linear:', { a, b });
+
+                    // Agrupar os pontos por data, mas sem fazer a média, apenas mantendo os valores originais
+                    const groupedData = dtHora.map((date, index) => ({
+                        x: date.getTime(),
+                        y: registro[index]
+                    }));
+
+                    console.log('Dados para o gráfico:', groupedData);
+
+                    // Define os pontos extremos para a linha de regressão
+                    const dadosLinhaRegressao = [
+                        { x: minTimestamp, y: a }, // Início
+                        { x: maxTimestamp, y: a + b * (maxTimestamp - minTimestamp) } // Fim
+                    ];
+
+                    console.log('Dados da linha de regressão:', dadosLinhaRegressao);
+
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    const ctx3 = document.getElementById('myChart3').getContext('2d');
+                    myChart = new Chart(ctx3, {
+                        type: 'scatter',
+                        data: {
+                            datasets: [
+                                {
+                                    label: 'Dados (Uso da CPU)',
+                                    data: groupedData,
+                                    backgroundColor: '#000000',
+                                    borderColor: '#000000',
+                                    borderWidth: 1,
+                                    pointStyle: 'circle',
+                                },
+                                {
+                                    label: 'Linha de Regressão',
+                                    data: dadosLinhaRegressao, // Apenas dois pontos extremos para a linha
+                                    type: 'line',
+                                    fill: false,
+                                    borderColor: '#CE1919',
+                                    borderWidth: 1,
+                                    tension: 0, // Linha reta
+                                    pointRadius: 0, // Remove os pontos visíveis na linha
+                                    pointStyle: 'line',
+                                }
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        usePointStyle: true, // Habilita estilos personalizados
+                                        boxWidth: 7,
+                                        boxHeight: 7,
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    type: 'linear',
+                                    position: 'bottom',
+                                    title: {
+                                        display: true,
+                                        text: 'Data'
+                                    },
+                                    ticks: {
+                                        callback: function (value) {
+                                            const date = new Date(value);
+                                            return date.toLocaleDateString();
+                                        }
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: false,
+                                    title: {
+                                        display: true,
+                                        text: 'Uso da CPU (%)'
+                                    }
+                                }
+                            },
+                            responsive: true
+                        }
+
+
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    }
+
+    // Requisição para listar os servidores -------------------------------------------------------------------
+    fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const nomeMaquina = data.map(item => item.nomeMaquina);
+            const idMaquina = data.map(item => item.idMaquina);
+
+            const selectElement = document.getElementById("servidores");
+
+            var id = parseInt(idSelecionado);
+
+            // Adicionar as opções dinamicamente
+            data.forEach((item, index) => {
+                const option = document.createElement("option");
+                option.value = item.idMaquina;
+                option.textContent = item.nomeMaquina;
+                if (index === 0) {
+                    option.selected = true;
+                }
+                selectElement.appendChild(option);
+            });
+
+            //  dados para o primeiro item da lista
+            const idMaquinaEspecifico = idMaquina[0];
+            carregarDadosPorServidor(idMaquinaEspecifico);
+
+            // Evento para atualizar os dados ao mudar o servidor
+            selectElement.addEventListener("change", (event) => {
+                carregarDadosPorServidor(event.target.value);
+            });
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+
+
+
+
+</script>
