@@ -304,12 +304,12 @@
 
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>RAM:</h4><p>" + (element.RAM || "N/A") + "%</p>";
+                    opcaoMemoria.innerHTML = "<h4>RAM:</h4><p>" + (Math.floor(element.RAM) || "N/A") + "%</p>";
 
                     // Disco
                     let opcaoDisco = document.createElement("div");
                     opcaoDisco.className = "opcao";
-                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco_Rigido || "N/A") + "%</p>";
+                    opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (Math.floor(element.Disco_Rigido) || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
                     opcoes.appendChild(opcaoCPU);
@@ -588,10 +588,14 @@
                     console.log('Dados para o gráfico:', groupedData);
 
                     // Define os pontos extremos para a linha de regressão
-                    const dadosLinhaRegressao = [
-                        { x: minTimestamp, y: a }, // Início
-                        { x: maxTimestamp, y: a + b * (maxTimestamp - minTimestamp) } // Fim
-                    ];
+                    const dadosLinhaRegressao = [];
+                    for (let t = minTimestamp; t <= maxTimestamp; t += (maxTimestamp - minTimestamp) / 100) {  // Cria 100 pontos para a linha
+                        dadosLinhaRegressao.push({
+                            x: t,
+                            y: a + b * (t - minTimestamp)  // Calcula o valor y para cada timestamp
+                        });
+                    }
+
 
                     console.log('Dados da linha de regressão:', dadosLinhaRegressao);
 
