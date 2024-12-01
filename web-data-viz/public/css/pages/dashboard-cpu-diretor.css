@@ -128,25 +128,25 @@ body {
     padding: 13px;
     margin-bottom: 15px;
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
-/* .openModal:hover {
+.openModal:hover {
     background-color: #08836A;
+    color: white;
     border-radius: 7px;
     border: none;
     width: 97%;
-    padding: 10px;
+    padding: 13px;
     margin-top: 2px;
-    /* margin-left: 5%; */
 
-/* -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     margin-bottom: 10px;
 
-} */
-*/
-/* 
+}
+
 .openModal:hover h3,
 .openModal:hover h4,
 .openModal:hover p {
@@ -154,9 +154,9 @@ body {
     fill: white;
     cursor: pointer;
 
-} */
+}
 
-.grafico_media_max {
+*/ .grafico_media_max {
     width: 525px
 }
 
@@ -282,7 +282,7 @@ canvas {
     align-items: start;
     margin-top: 0px;
     padding: 2px;
-    margin-left:  2%;
+    margin-left: 2%;
     /* Alinha o conteúdo verticalmente no centro */
 }
 
@@ -330,22 +330,23 @@ canvas {
 }
 
 .info-container i {
-    color: #ffffff; /* Cor do ícone */
-    font-size: 20px; /* Tamanho do ícone, ajustado conforme sua necessidade */
+    color: #ffffff;
+    /* Cor do ícone */
+    font-size: 20px;
+    /* Tamanho do ícone, ajustado conforme sua necessidade */
     /* margin-right: 10px; Espaçamento entre o ícone e o texto */
 }
 
-.tituloIcone{
+.tituloIcone {
     display: flex;
 }
 
-.tituloIcone2{
+.tituloIcone2 {
     display: flex;
     width: 80%;
 }
 
-.tituloIcone3{
+.tituloIcone3 {
     display: flex;
     margin-top: 2%;
 }
-
