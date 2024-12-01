@@ -20,14 +20,32 @@ html, body {
 }
 
 /* Cabeçalho */
+
+header {
+    display: flex;
+    flex-direction: column; /* Organiza os elementos (imagem e título) em coluna */
+    align-items: center; /* Alinha ao centro */
+    justify-content: center; /* Centraliza verticalmente */
+    gap: 10px; /* Espaçamento entre a imagem e o título */
+    margin-top: 20px; /* Espaçamento superior do header */
+    margin-bottom: 20px; /* Espaçamento inferior do header */
+}
+
+/* Estilo do título */
 header h1 {
     font-family: 'Kanit', sans-serif;
     font-size: 32px; /* Tamanho ajustado para maior destaque */
     font-weight: 600;
     color: #ffffff;
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px; /* Adicionando espaçamento inferior */
+    margin: 0; /* Remove margens extras */
+}
+
+/* Estilo da imagem */
+.img_seguranca {
+    width: 50px; /* Ajusta o tamanho da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 4px; /* Bordas arredondadas */
 }
 
 /* Conteúdo principal */
