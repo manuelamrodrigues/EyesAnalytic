@@ -124,6 +124,7 @@
                 <canvas class="grafico_media_max" id="myChart2"></canvas>
 
             </div>
+
         </section>
 
 
@@ -134,13 +135,15 @@
                     <select id="servidores">
 
                     </select>
+<!-- 
+                    <p id="servidor"></p> -->
                 </div>
                 <canvas id="myChart3"></canvas>
             </div>
             <div class="grafico4">
                 <div class="tituloHoras">
                     <h3>Horas acima de </h3>
-                    <h3 id="valorMetrica">12</h3>
+                    <h3 id="valorMetrica"></h3>
                     <h3>no mês</h3>
                 </div>
 
@@ -156,10 +159,14 @@
 </html>
 <script>
 
+    var idSelecionado = 0;
+    var lista;
+    var nome = document.getElementById("servidor")
+
     //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
     function listarServidores() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
-        var lista = document.getElementById("lista");
+        lista = document.getElementById("lista");
 
         fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
             method: "GET",
@@ -170,8 +177,23 @@
             resposta.json().then(function (resposta) {
                 resposta.forEach(element => {
                     let conteudo = document.getElementById("listagemServidores");
-                    let openModal = document.createElement("div");
+                    let openModal = document.createElement("button");
                     openModal.className = "openModal";
+                    openModal.id = "modal"
+
+                   
+
+                    openModal.onclick = function () {
+                        let botoes = document.querySelectorAll(".openModalCor");
+                        botoes.forEach(botao => {
+                            botao.className = "openModal"
+                        });
+
+                        idSelecionado = element.idMaquina; // alerta 'seuid'
+                        // alert(idSelecionado);
+                        carregarDadosPorServidor(idSelecionado);
+                        openModal.className = "openModalCor";
+                    }
 
                     let frameAlertas = document.createElement("div");
                     frameAlertas.className = "frameAlertas";
@@ -190,23 +212,16 @@
                     // Adicionando opções de CPU, Memória e Disco
                     let opcoes = document.createElement("div");
                     opcoes.className = "opcoes";
-                    // opcoes.onclick = function () {
-                    //     listarEspecifico(element.idMaquina);
-                    // };
 
-                    // CPU
                     let opcaoCPU = document.createElement("div");
                     opcaoCPU.className = "opcao";
                     opcaoCPU.innerHTML = "<h4>CPU:</h4><p><span class='textoVermelho'>" +
                         (element.CPU !== undefined ? Math.floor(element.CPU) : "N/A") +
                         "%</span></p>";
 
-
-                    // Memória
                     let opcaoMemoria = document.createElement("div");
                     opcaoMemoria.className = "opcao";
                     opcaoMemoria.innerHTML = "<h4>RAM:</h4><p>" + (element.RAM || "N/A") + "%</p>";
-
 
                     // Disco
                     let opcaoDisco = document.createElement("div");
@@ -406,189 +421,13 @@
         });
     }
 
-    // Regressão linear-----------------------------------------------------------------------------------------------
-    // Variável global para armazenar o gráfico
 
-    // Linha correta
-    //     let myChart = null;
-
-    // // Função para carregar os dados ao selecionar um servidor
-    // function carregarDadosPorServidor(idMaquinaSelecionado) {
-    //     if (idMaquinaSelecionado) {
-    //         fetch(`servidor/listarDadoEspecifico/${idMaquinaSelecionado}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             }
-    //         })
-    //             .then(response => {
-    //                 if (!response.ok) {
-    //                     throw new Error('Erro na requisição do dado específico: ' + response.statusText);
-    //                 }
-    //                 return response.json();
-    //             })
-    //             .then(data => {
-    //                 // Transformando os dados
-    //                 const registro = data.map(item => item.registro); // Uso da CPU
-    //                 const dtHora = data.map(item => new Date(item.dtHora)); // Datas formatadas
-
-    //                 console.log('Uso da CPU (registro):', registro);
-    //                 console.log('Data (dtHora):', dtHora);
-
-    //                 // Função para calcular a regressão linear
-    //                 function regressaoLinear(x, y) {
-    //                     const n = x.length;
-    //                     const sumX = x.reduce((acc, val) => acc + val, 0);
-    //                     const sumY = y.reduce((acc, val) => acc + val, 0);
-    //                     const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
-    //                     const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
-
-    //                     const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-    //                     const a = (sumY - b * sumX) / n;
-
-    //                     return { a, b };
-    //                 }
-
-    //                 // Normaliza os timestamps
-    //                 const timestamps = dtHora.map(d => d.getTime());
-    //                 const minTimestamp = Math.min(...timestamps);
-    //                 const maxTimestamp = Math.max(...timestamps);
-    //                 const normalizedTimestamps = timestamps.map(t => t - minTimestamp);
-
-    //                 // Calcula a regressão linear
-    //                 const { a, b } = regressaoLinear(normalizedTimestamps, registro);
-
-    //                 console.log('Coeficientes da regressão linear:', { a, b });
-
-    //                 // Define dois pontos: início e fim da linha de regressão
-    //                 const dadosLinhaRegressao = [
-    //                     { x: minTimestamp, y: a }, // Início
-    //                     { x: maxTimestamp, y: a + b * (maxTimestamp - minTimestamp) } // Fim
-    //                 ];
-
-    //                 console.log('Dados da linha de regressão:', dadosLinhaRegressao);
-
-    //                 // Destruir o gráfico anterior se existir
-    //                 if (myChart) {
-    //                     myChart.destroy();
-    //                 }
-
-    //                 // Criar o gráfico
-    //                 const ctx3 = document.getElementById('myChart3').getContext('2d');
-    //                 myChart = new Chart(ctx3, {
-    //                     type: 'scatter',
-    //                     data: {
-    //                         datasets: [
-    //                             {
-    //                                 label: 'Dados (Uso da CPU)',
-    //                                 data: dtHora.map((date, idx) => ({
-    //                                     x: date.getTime(),
-    //                                     y: registro[idx]
-    //                                 })),
-    //                                 backgroundColor: '#000000',
-    //                                 borderColor: '#000000',
-    //                                 borderWidth: 1
-    //                             },
-    //                             {
-    //                                 label: 'Linha de Regressão',
-    //                                 data: dadosLinhaRegressao, // Apenas dois pontos extremos
-    //                                 type: 'line', // Linha contínua
-    //                                 fill: false,
-    //                                 borderColor: '#CE1919', // Cor da linha
-    //                                 borderWidth: 1, // Espessura da linha
-    //                                 tension: 0, // Linha reta
-    //                                 pointRadius: 0 // Remove os pontos visíveis
-    //                             }
-    //                         ]
-    //                     },
-    //                     options: {
-    //                         scales: {
-    //                             x: {
-    //                                 type: 'linear',
-    //                                 position: 'bottom',
-    //                                 title: {
-    //                                     display: true,
-    //                                     text: 'Data'
-    //                                 },
-    //                                 ticks: {
-    //                                     callback: function (value) {
-    //                                         const date = new Date(value);
-    //                                         return date.toLocaleDateString(); // Formata a data no eixo
-    //                                     }
-    //                                 }
-    //                             },
-    //                             y: {
-    //                                 beginAtZero: false,
-    //                                 title: {
-    //                                     display: true,
-    //                                     text: 'Uso da CPU (%)'
-    //                                 }
-    //                             }
-    //                         },
-    //                         responsive: true
-    //                     }
-    //                 });
-    //             })
-    //             .catch(error => {
-    //                 console.error('Erro:', error);
-    //             });
-    //     }
-    // }
-
-    // // Requisição para listar os servidores
-    // fetch(`servidor/listarPorUsoCPU/${fkEmpresa}`, {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     }
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Erro na requisição: ' + response.statusText);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         const nomeMaquina = data.map(item => item.nomeMaquina);
-    //         const idMaquina = data.map(item => item.idMaquina);
-
-    //         const selectElement = document.getElementById("servidores");
-
-    //         // Limpar opções existentes
-    //         // selectElement.innerHTML = '<option value="">Selecione...</option>';
-
-    //         // Adicionar as opções dinamicamente
-    //         data.forEach((item, index) => {
-    //             const option = document.createElement("option");
-    //             option.value = item.idMaquina;
-    //             option.textContent = item.nomeMaquina;
-    //             if (index === 0) {
-    //                 option.selected = true;
-    //             }
-    //             selectElement.appendChild(option);
-    //         });
-
-    //         // Carregar dados para o primeiro item da lista
-    //         const idMaquinaEspecifico = idMaquina[0];
-    //         carregarDadosPorServidor(idMaquinaEspecifico);
-
-    //         // Evento para atualizar os dados ao mudar o servidor
-    //         selectElement.addEventListener("change", (event) => {
-    //             carregarDadosPorServidor(event.target.value);
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.error('Erro:', error);
-    //     });
-
-
-    // 2 ------------------------------------------------------------------------------------------------------
     let myChart = null;
 
     // Função para carregar os dados ao selecionar um servidor
-    function carregarDadosPorServidor(idMaquinaSelecionado) {
-        if (idMaquinaSelecionado) {
-            fetch(`servidor/listarDadoEspecifico/${idMaquinaSelecionado}`, {
+    function carregarDadosPorServidor(idSelecionado) {
+        if (idSelecionado) {
+            fetch(`servidor/listarDadoEspecifico/${idSelecionado}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -745,21 +584,38 @@
 
             const selectElement = document.getElementById("servidores");
 
-            // Limpar opções existentes
-            // selectElement.innerHTML = '<option value="">Selecione...</option>';
+            var id = parseInt(idSelecionado);
 
             // Adicionar as opções dinamicamente
-            data.forEach((item, index) => {
+            // data.forEach((item, index) => {
+            //     const option = document.createElement("option");
+            //     option.value = item.idMaquina;
+            //     option.textContent = item.nomeMaquina;
+            //     if (index === 0) {
+            //         option.selected = true;
+            //     }
+            //     selectElement.appendChild(option);
+            // });
+            data.forEach(item => {
                 const option = document.createElement("option");
                 option.value = item.idMaquina;
                 option.textContent = item.nomeMaquina;
-                if (index === 0) {
-                    option.selected = true;
+
+                // Depuração: verificar o tipo e o valor
+                console.log(`Comparando ${item.idMaquina} com ${idSelecionado}`);
+                console.log(`Tipo de item.idMaquina: ${typeof item.idMaquina}, Tipo de id: ${typeof id}`);
+
+                // Verifica se o valor de `id` corresponde ao `item.idMaquina`
+                if (parseInt(item.idMaquina) === parseInt(id)) {
+                    console.log(`Selecionando a opção: ${item.nomeMaquina} (ID: ${item.idMaquina})`);
+                    option.selected = true; // Marca a opção como selecionada
                 }
-                selectElement.appendChild(option);
+
+                selectElement.appendChild(option); // Adiciona a opção ao select
             });
 
-            // Carregar dados para o primeiro item da lista
+
+            //  dados para o primeiro item da lista
             const idMaquinaEspecifico = idMaquina[0];
             carregarDadosPorServidor(idMaquinaEspecifico);
 

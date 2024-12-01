@@ -125,12 +125,12 @@ body {
     border-radius: 7px;
     border: none;
     width: 97%;
-    padding: 10px;
+    padding: 13px;
     margin-bottom: 15px;
-    /* margin-left: 10%; */
+    transition: background-color 0.3s;
 }
 
-.openModal:hover {
+/* .openModal:hover {
     background-color: #08836A;
     border-radius: 7px;
     border: none;
@@ -139,371 +139,21 @@ body {
     margin-top: 2px;
     /* margin-left: 5%; */
 
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
+/* -webkit-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     -moz-box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     box-shadow: 0px 0px 10px 4px rgba(5, 76, 62, 1);
     margin-bottom: 10px;
 
-}
-
+} */
+*/
+/* 
 .openModal:hover h3,
 .openModal:hover h4,
-.openModal:hover p,
-.iconEdit:hover svg,
-.iconTrash:hover svg {
+.openModal:hover p {
     color: white;
     fill: white;
     cursor: pointer;
 
-}
-
-.openModal:hover .iconEdit svg path,
-.openModal:hover .iconTrash svg path {
-    fill: white;
-}
-
-
-/* MODAL READ  */
-.modal {
-    display: none;
-    /* Oculta o modal por padrão */
-    position: fixed;
-    /* Fixa no viewport */
-    z-index: 1;
-    /* Fica na frente */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Largura total */
-    height: 100%;
-    /* Altura total */
-    overflow: auto;
-    /* Adiciona rolagem se necessário */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Fundo semi-transparente */
-}
-
-.modal-content {
-    background-color: #ffffff;
-    /* margin: 100px 50px 50px 170px; */
-    margin: 5% 10% 5% 20%;
-    /* padding: 20px; */
-    /* border: 1px solid #888; */
-    width: 60%;
-    /* Largura do conteúdo */
-    height: 70%;
-    border-radius: 7px;
-    border: none;
-}
-
-.modal-content h2 {
-    font-size: x-large;
-    font-weight: 400;
-    color: #000;
-    padding: 15px 0px 10px 50px;
-}
-
-.modal-content .linha {
-    display: flex;
-    flex-direction: row;
-    padding: 10px 0px 10px 50px;
-    gap: 50px;
-}
-
-
-.linha h3 {
-    font-weight: 400;
-}
-
-.recurso {
-    display: flex;
-    justify-content: left;
-    flex-direction: column;
-    padding: 10px 0px 10px 50px;
-
-}
-
-.recurso .rec {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-
-.recurso h4 {
-    font-size: large;
-    font-weight: 500;
-
-}
-
-.recurso h5 {
-    font-size: medium;
-    font-weight: 400;
-}
-
-.recurso p {
-    font-size: medium;
-    font-weight: 300;
-}
-
-.superior {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.inferior {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-
-/* MODAL EDIT */
-.modal-edit {
-    display: none;
-    /* Oculta o modal por padrão */
-    position: fixed;
-    /* Fixa no viewport */
-    z-index: 1;
-    /* Fica na frente */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Largura total */
-    height: 100%;
-    /* Altura total */
-    overflow: auto;
-    /* Adiciona rolagem se necessário */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Fundo semi-transparente */
-}
-
-.modal-content-edit {
-    background-color: #ffffff;
-    margin: 10% 10% 5% 35%;
-    /* padding: 20px; */
-    width: 30%;
-    height: 44%;
-    border-radius: 7px;
-    border: none;
-}
-
-.modal-content-edit h2 {
-    font-size: x-large;
-    font-weight: 400;
-    padding: 15px 0px 10px 50px;
-}
-
-.modal-content-edit .linha {
-    display: flex;
-    flex-direction: row;
-    padding: 10px 0px 10px 50px;
-    gap: 50px;
-}
-
-.modal-content-edit .informacao {
-    width: 100%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.modal-content-edit .info {
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-    padding-top: 10px;
-
-}
-
-.info h3 {
-    font-size: larger;
-    font-weight: 400;
-}
-
-.info p {
-    font-size: large;
-    font-weight: 300;
-}
-
-.info select {
-    border-color: #0BA385;
-    border-radius: 5px;
-    display: flex;
-    padding: 10px;
-    width: 100%;
-
-    /* Customiza a seta do select */
-    background-image: url("data:image/svg+xml,%3Csvg%20width='32'%20height='20'%20viewBox='0%200%2032%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655584%200.755122%20-0.750017%200.661418%200%2002)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3Cline%20y1='-1'%20x2='23.8372'%20y2='-1'%20transform='matrix(0.655638%20-0.755076%200.74997%200.661472%2016.3713%2020)'%20stroke='black'%20stroke-opacity='0.5'%20stroke-width='2'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px top 50%;
-    background-size: 15px;
-
-    /* Remove estilo padrão */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.edit-salvar {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    width: 25%;
-    height: 15%;
-    padding: 28px 0px 50px 35%;
-}
-
-.edit-salvar button {
-    width: 100%;
-    height: 85%;
-    color: #fff;
-    font-weight: 600;
-    font-size: medium;
-    background-color: #0BA385;
-    border: none;
-    border-radius: 5px;
-}
-
-/* MODAL DE EXCLUIR */
-.modal-trash {
-    display: none;
-    /* Oculta o modal por padrão */
-    position: fixed;
-    /* Fixa no viewport */
-    z-index: 1;
-    /* Fica na frente */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Largura total */
-    height: 100%;
-    /* Altura total */
-    overflow: auto;
-    /* Adiciona rolagem se necessário */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Fundo semi-transparente */
-}
-
-.modal-content-trash {
-    background-color: #EDEEF9;
-    margin: 10% 10% 5% 30%;
-    /* padding: 20px; */
-    width: 40%;
-    height: 35%;
-    border-radius: 7px;
-    border: none;
-}
-
-.conteudo-trash {
-    height: 100%;
-    width: 100%;
-    padding: 70px 0px 0px 0px;
-}
-
-.conteudo-trash p {
-    font-size: 19px;
-    font-weight: 400;
-    padding: 0px 0px 50px 40px;
-}
-
-.botoes-trash {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    height: 15%;
-    font-weight: bold;
-    font-family: "Montserrat", sans-serif;
-}
-
-.botoes-trash button {
-    width: 20%;
-    height: 100%;
-
-    border-radius: 5px;
-    border: none;
-
-    color: #fff;
-    font-weight: 600;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-
-}
-
-
-/* BOTAO DE FECHAR  MODAL READ*/
-.close {
-    color: #aaa;
-    float: right;
-    margin: -17px 10px 10px 10px;
-    font-size: 70px;
-    /* font-weight: bold; */
-}
-
-
-.close:hover,
-.close:focus {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* BOTAO DE FECHAR  MODAL EDIT*/
-.closeE {
-    color: #aaa;
-    float: right;
-    margin: -17px 10px 10px 10px;
-    font-size: 70px;
-    /* font-weight: bold; */
-}
-
-
-.closeE:hover,
-.closeE:focus {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* BOTAO DE FECHAR  MODAL TRASH*/
-.closeT {
-    color: #aaa;
-    float: right;
-    margin: -17px 10px 10px 10px;
-    font-size: 70px;
-    /* font-weight: bold; */
-}
-
-
-.closeT:hover,
-.closeT:focus {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.opcao:hover h4{
-    color: white;
-}
-
-
-
-/* TESTE */
-/* Estilos básicos para o modal */
-
-
-/* .hide {
-    display: none;
 } */
 
 .grafico_media_max {
@@ -550,12 +200,12 @@ canvas {
 }
 
 .graficosInferiores {
-    width: 95%;
+    width: 89%;
     height: auto;
     display: flex;
-    /* margin-left: 110px; */
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 2%;
+    margin-left: 3%;
 }
 
 .tituloRegresssao {
@@ -594,4 +244,208 @@ canvas {
     display: flex;
     justify-content: space-between;
     width: 58%;
+}
+
+.button.button-custom:hover,
+.button.button-custom:active {
+
+    color: #fff;
+    background-color: #123456;
+
+}
+
+/* .openModal :active {
+    background-color: #08836A;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 10px;
+    margin-top: 2px;
+} */
+
+/* icone 1 */
+.alinhar {
+    display: flex;
+    gap: 10px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.info-container {
+    position: relative;
+    display: inline-flex;
+    /* Garante que o ícone e a mensagem fiquem lado a lado */
+    align-items: center;
+    padding: 2px;
+    margin-top: 40px;
+    /* Alinha o conteúdo verticalmente no centro */
+}
+
+/* Estilo da caixa de informação que aparece no hover */
+.alinhar .info-box {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b0c4de;
+    position: absolute;
+    top: 100%;
+    /* Posiciona a caixa abaixo do texto */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    /* Inicialmente invisível */
+    pointer-events: none;
+    /* Impede que o mouse interaja com a caixa até aparecer */
+    visibility: hidden;
+    /* Esconde a caixa */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Suaviza a transição */
+}
+
+/* Estilo da mensagem */
+.info-box .msg {
+    font-size: medium;
+    color: #333;
+}
+
+/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
+.info-container:hover .info-box {
+    opacity: 1;
+    /* Torna visível */
+    visibility: visible;
+    /* Torna visível */
+    pointer-events: auto;
+    /* Permite interação com a caixa */
+}
+
+.info-container i {
+    color: #ffffff;
+    /* Cor do ícone */
+    font-size: 20px;
+    /* Tamanho do ícone, ajustado conforme sua necessidade */
+    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
+}
+
+.openModalCor {
+    background-color: #08836A;
+    border-radius: 7px;
+    border: none;
+    width: 97%;
+    padding: 13px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+    color: white;
+}
+
+/* Estilo da caixa de informação que aparece no hover */
+.alinhar .info-box {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b0c4de;
+    position: absolute;
+    top: 100%;
+    /* Posiciona a caixa abaixo do texto */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    /* Inicialmente invisível */
+    pointer-events: none;
+    /* Impede que o mouse interaja com a caixa até aparecer */
+    visibility: hidden;
+    /* Esconde a caixa */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Suaviza a transição */
+}
+
+/* Estilo da mensagem */
+.info-box .msg {
+    font-size: medium;
+    color: #333;
+}
+
+/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
+.info-container:hover .info-box {
+    opacity: 1;
+    /* Torna visível */
+    visibility: visible;
+    /* Torna visível */
+    pointer-events: auto;
+    /* Permite interação com a caixa */
+}
+
+.info-container i {
+    color: #ffffff; /* Cor do ícone */
+    font-size: 20px; /* Tamanho do ícone, ajustado conforme sua necessidade */
+    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
+}
+
+/* icone 2 */
+.alinhar2 {
+    display: flex;
+    gap: 10px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.alinhar2 .info-container {
+    position: relative;
+    display: inline-flex;
+    /* Garante que o ícone e a mensagem fiquem lado a lado */
+    align-items: center;
+    /* padding: 2px; */
+    margin-top: 0px;
+    /* Alinha o conteúdo verticalmente no centro */
+}
+
+/* Estilo da caixa de informação que aparece no hover */
+.alinhar2 .info-box {
+    display: flex;
+    width: 300px;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b0c4de;
+    position: absolute;
+    top: 100%;
+    /* Posiciona a caixa abaixo do texto */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    /* Inicialmente invisível */
+    pointer-events: none;
+    /* Impede que o mouse interaja com a caixa até aparecer */
+    visibility: hidden;
+    /* Esconde a caixa */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Suaviza a transição */
+}
+
+/* Estilo da mensagem */
+.info-box .msg {
+    font-size: medium;
+    color: #333;
+}
+
+/* Exibe a caixa de informação quando o mouse passar sobre o contêiner */
+.info-container:hover .info-box {
+    opacity: 1;
+    /* Torna visível */
+    visibility: visible;
+    /* Torna visível */
+    pointer-events: auto;
+    /* Permite interação com a caixa */
+}
+
+.info-container i {
+    color: #ffffff; /* Cor do ícone */
+    font-size: 20px; /* Tamanho do ícone, ajustado conforme sua necessidade */
+    /* margin-right: 10px; Espaçamento entre o ícone e o texto */
 }
