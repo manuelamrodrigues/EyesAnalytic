@@ -20,7 +20,7 @@
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
-            <a href="../lista-alertas.html" class="outros">
+            <a href="./individual-joao.html" class="outros">
                 <li>
                     <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
                     <span>Alertas</span>
@@ -118,12 +118,12 @@
                 <p class="nmrPcrt" id="mbps-download"></p>
             </div>
         </header>
-        <main>
-            <section class="dash">
-                <article class="topoGrafico">
-                    <h3>Uso dos Componentes</h3>
-                    <div class="botoesGrafico">
-                        
+        
+        <section class="dash">
+            <article class="topoGrafico">
+                
+                <h3>Uso médio dos Componentes</h3>
+                <div class="botoesGrafico">
                         <div class="periodo">
                             <select id="periodo" class="opcao" onchange="atualizarGrafico()">
                                 <option value="semanal" selected>Semanal</option>
@@ -138,9 +138,74 @@
                             </select>
                         </div>
                     </div>
-                </article>
-                <div class="grafico">
-                    <canvas id="myChartCanvas"></canvas>
+                    <!-- <ul id="dropdown" class="dropdown hide">
+                        <li class="option">Mensal</li>
+                        <li class="option">Bimestral</li>
+                        <li class="option">Semestral</li>
+                    </ul> -->
+                      
+                        <!-- CPU <i class="fas fa-chevron-down" id="seta"></i> 
+                    </div>
+                    <ul id="componentesDropdown" class="dropdown hide">
+                        <li class="option">Disco</li>
+                        <li class="option">Memória RAM</li>
+                        <li class="option">Rede</li> -->
+                        <!-- <li class="option">Rede</li> -->
+                    </ul>
+                    
+                        
+                    
+                </div>
+            </article>
+            <div class="grafico">
+                <canvas id="myChartCanvas" class="canvas"></canvas>
+                
+                
+            </div>
+            
+        </section>
+
+        <section class="chamados"></section>
+             <article class="alertas">
+                <h2>Alertas Recentes</h2>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
+                </div>
+                <div class="frameAlertas">
+                    <div class="userImg">
+                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
+                    </div>
+                    <p><span class="status-alerta">Alerta CPU</span></p>
+                    <p>Status: <span class="status-ativo">Ativo</span></p>
+                    <p>Responsável: Fernando Silva</p>
+                    <div class="hrDt">
+                        <p>12:13</p>
+                        <p>20/09/2024</p>
+                    </div>
+
                 </div>
     
                

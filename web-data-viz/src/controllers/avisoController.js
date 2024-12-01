@@ -14,6 +14,72 @@ function listar(req, res) {
     });
 }
 
+function buscarAlertas(req, res) {
+    let idEmpresa = req.params.idEmpresa
+    avisoModel.buscarAlertas(idEmpresa)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error("Houve um erro ao buscar os alertas:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function contarAlertas(req, res) {
+    let idEmpresa = req.params.idEmpresa
+    avisoModel.contarAlertas(idEmpresa)
+    .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error("Houve um erro ao buscar os alertas:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function contarAlertadia(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    avisoModel.contarAlertadia(idEmpresa)
+    .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error("Houve um erro ao buscar os alertas:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function contarAlertamaq(req, res) {
+    var idEmpresa = req.params.idEmpresa
+
+    avisoModel.contarAlertamaq(idEmpresa)
+    .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch((erro) => {
+            console.error("Houve um erro ao buscar os alertas:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -130,6 +196,10 @@ module.exports = {
     listar,
     listarPorUsuario,
     pesquisarDescricao,
+    buscarAlertas,
+    contarAlertas,
+    contarAlertadia,
+    contarAlertamaq,
     publicar,
     editar,
     deletar
