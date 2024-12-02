@@ -27,27 +27,24 @@ async function listarServidores(req, res) {
         res.status(500).json({ erro: "Erro ao listar servidores. Por favor, tente novamente mais tarde." });
     }
 }
+
 /**
  * Buscar desempenho de um servidor.
  */
 function buscarDesempenho(req, res) {
     const idServidor = getParametro(req, "idServidor");
 
-    if (!idServidor) {
-        return res.status(400).json({ erro: "O ID do servidor é obrigatório!" });
-    }
-
-    segurancaModel.buscarDesempenhoServidor(idServidor)
+    segurancaModel.buscarDesempenho(idServidor)
         .then((resultado) => {
             if (resultado && resultado.length > 0) {
-                return res.status(200).json(resultado[0]);
+                res.status(200).json(resultado[0]);
             } else {
-                return res.status(404).json({ mensagem: "Nenhum desempenho encontrado para o servidor." });
+                res.status(404).json({ mensagem: "Nenhum desempenho encontrado para o servidor." });
             }
         })
         .catch((erro) => {
             console.error("Erro ao buscar desempenho do servidor:", erro);
-            return res.status(500).json({ erro: "Erro interno ao buscar desempenho do servidor. Por favor, tente novamente mais tarde." });
+            res.status(500).json({ erro: "Erro interno ao buscar desempenho do servidor. Tente novamente mais tarde." });
         });
 }
 
@@ -57,21 +54,17 @@ function buscarDesempenho(req, res) {
 function buscarDadosPerdidos(req, res) {
     const idServidor = getParametro(req, "idServidor");
 
-    if (!idServidor) {
-        return res.status(400).json({ erro: "O ID do servidor é obrigatório!" });
-    }
-
     segurancaModel.buscarDadosPerdidos(idServidor)
         .then((resultado) => {
             if (resultado && resultado.length > 0) {
-                return res.status(200).json(resultado[0]);
+                res.status(200).json(resultado[0]);
             } else {
-                return res.status(404).json({ mensagem: "Nenhum dado de perda encontrado para o servidor." });
+                res.status(404).json({ mensagem: "Nenhum dado de perda encontrado para o servidor." });
             }
         })
         .catch((erro) => {
             console.error("Erro ao buscar dados perdidos do servidor:", erro);
-            return res.status(500).json({ erro: "Erro interno ao buscar dados perdidos do servidor. Por favor, tente novamente mais tarde." });
+            res.status(500).json({ erro: "Erro interno ao buscar dados perdidos do servidor. Tente novamente mais tarde." });
         });
 }
 
@@ -81,48 +74,41 @@ function buscarDadosPerdidos(req, res) {
 function buscarVulnerabilidades(req, res) {
     const idServidor = getParametro(req, "idServidor");
 
-    if (!idServidor) {
-        return res.status(400).json({ erro: "O ID do servidor é obrigatório!" });
-    }
-
     segurancaModel.buscarVulnerabilidadeServidor(idServidor)
         .then((resultado) => {
             if (resultado && resultado.length > 0) {
-                return res.status(200).json(resultado[0]);
+                res.status(200).json(resultado[0]);
             } else {
-                return res.status(404).json({ mensagem: "Nenhuma vulnerabilidade encontrada para o servidor." });
+                res.status(404).json({ mensagem: "Nenhuma vulnerabilidade encontrada para o servidor." });
             }
         })
         .catch((erro) => {
             console.error("Erro ao buscar vulnerabilidades do servidor:", erro);
-            return res.status(500).json({ erro: "Erro interno ao buscar vulnerabilidades do servidor. Por favor, tente novamente mais tarde." });
+            res.status(500).json({ erro: "Erro interno ao buscar vulnerabilidades do servidor. Tente novamente mais tarde." });
         });
 }
-
 
 /**
  * Buscar dados em tempo real para gráficos.
  */
 async function buscarDadosTempoReal(req, res) {
-    const idServidor = getParametro(req, "idServidor");
-    const indicador = getParametro(req, "indicador");
-
-    if (!idServidor || !indicador) {
-        return res.status(400).json({ erro: "ID do servidor e indicador são obrigatórios." });
-    }
+    const idServidor = req.params.idServidor;
+    const indicador = req.params.indicador;
 
     try {
         const resultado = await segurancaModel.buscarDadosTempoReal(idServidor, indicador);
+
         if (resultado && resultado.length > 0) {
-            return res.status(200).json(resultado);
+            res.status(200).json(resultado); // Retorna todos os dados como array
         } else {
-            return res.status(404).json({ mensagem: "Nenhum dado encontrado para o indicador especificado." });
+            res.status(404).json({ mensagem: "Nenhum dado encontrado para o indicador especificado." });
         }
     } catch (erro) {
         console.error("Erro ao buscar dados em tempo real:", erro);
-        return res.status(500).json({ erro: "Erro interno ao buscar dados em tempo real. Por favor, tente novamente mais tarde." });
+        res.status(500).json({ erro: "Erro interno ao buscar dados em tempo real. Tente novamente mais tarde." });
     }
 }
+
 module.exports = {
     listarServidores,
     buscarDesempenho,

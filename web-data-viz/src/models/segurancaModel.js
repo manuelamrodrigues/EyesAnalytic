@@ -17,7 +17,7 @@ function listarServidoresPorEmpresa(fkEmpresa) {
 /**
  * Buscar desempenho do servidor.
  */
-function buscarDesempenhoServidor(idServidor) {
+function buscarDesempenho(idServidor) {
     const query = `
         SELECT 
             ROUND(
@@ -101,7 +101,7 @@ async function buscarDadosTempoReal(idServidor, indicador) {
             break;
 
         case "desempenho":
-            resultado = await buscarDesempenhoServidor(idServidor);
+            resultado = await buscarDesempenho(idServidor);
             break;
 
         default:
@@ -113,7 +113,7 @@ async function buscarDadosTempoReal(idServidor, indicador) {
 
 module.exports = {
     listarServidoresPorEmpresa,
-    buscarDesempenhoServidor,
+    buscarDesempenho,
     buscarDadosPerdidos,
     buscarVulnerabilidadeServidor,
     buscarDadosTempoReal,

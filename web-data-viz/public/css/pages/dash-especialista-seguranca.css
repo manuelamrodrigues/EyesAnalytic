@@ -32,40 +32,78 @@ header img.img_seguranca {
     height: 50px;
     margin-right: 55%;
 }
+/* Contêiner principal para alinhar os indicadores horizontalmente */
+.indicators {
+    display: flex;
+    justify-content: center; /* Centraliza os indicadores horizontalmente */
+    align-items: center;    /* Alinha verticalmente */
+    gap: 50px;              /* Espaçamento entre os indicadores */
+    margin: 20px 0;         /* Margem superior e inferior */
+    margin-right: 30%;
+}
+
+/* Estilização de cada indicador */
+.indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilização do círculo */
 .circle-chart {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: conic-gradient(
-        #16A799 0% 0%, /* Cor inicial */
-        #e0e0e0 0% 100% /* Cor de fundo */
-    );
+    background: conic-gradient(#16A799 0% 0%, #e0e0e0 0% 100%);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     margin: 10px;
 }
 
+/* Parte interna do círculo */
 .circle-inner {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: white;
+    background-color: black;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 
+/* Texto central do círculo */
 .circle-text {
     font-size: 18px;
     font-weight: bold;
+    color: #16A799;
 }
+
+/* Estilo decorativo com segmentos */
+.circle-chart::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+        black 0% 1%, /* Largura do segmento preto */
+        transparent 1% 5% /* Largura do espaço entre segmentos */
+    );
+    z-index: 1;
+}
+
+
 /* Seletores */
 #seletores {
     display: flex;
     justify-content: flex-end;
     margin: 20px 40px;
+    flex-direction: row;
+    
 }
 
 .botoesGrafico {
@@ -78,30 +116,47 @@ header img.img_seguranca {
     cursor: pointer;
     transition: all 0.3s;
     outline: none;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .botoesGrafico:hover {
     background-color: #08836A;
 }
 
-/* Gráfico */
+/* Contêiner do gráfico */
 #graficoLinha {
     margin: 20px auto;
     padding: 10px;
     background-color: #fff;
     border-radius: 25px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 1226px; /* Reduzindo o tamanho do gráfico */
-    margin-left: 12%;
- 
+    width: 100%;  /* Garantir que ocupe 100% do contêiner pai */
+    max-width: 1226px; /* Limitar o tamanho máximo */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centralizar o canvas */
+    flex-wrap: wrap;
 }
 
+/* Canvas responsivo */
 #graficoLinha canvas {
-    max-width: 100%;
-    height: auto;
+    width: 100% !important; /* Garantir que o canvas seja responsivo */
+    max-height: 400px; /* Limitar altura máxima */
+    height: auto; /* Permitir que a altura se ajuste proporcionalmente */
+    border-radius: 15px; /* Bordas arredondadas para suavizar o visual */
 }
 
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    #graficoLinha {
+        max-width: 100%; /* Permitir que o gráfico ocupe 100% da tela */
+        margin: 10px 5px; /* Ajustar margens */
+    }
+
+    #graficoLinha canvas {
+        max-height: 300px; /* Ajustar a altura do gráfico em telas pequenas */
+    }
+}
 /* Media Queries */
 @media (max-width: 768px) {
     header {

@@ -7,24 +7,32 @@ router.post("/listarServidores", (req, res) => {
     segurancaController.listarServidores(req, res);
 });
 
+// Middleware para validar parâmetros
+function validarParametros(req, res, next) {
+    const { idServidor, indicador } = req.params;
+
+    if (!idServidor) {
+        return res.status(400).json({ erro: "O ID do servidor é obrigatório!" });
+    }
+
+    if (req.path.includes("buscarDadosTempoReal") && !indicador) {
+        return res.status(400).json({ erro: "O indicador é obrigatório!" });
+    }
+
+    next();
+}
 
 // Rota para buscar desempenho de um servidor
-router.get("/buscarDesempenho/:idServidor", (req, res) => {
-    segurancaController.buscarDesempenho(req, res);
-});
-// Buscar dados perdidos de um servidor
-router.get("/buscarDadosPerdidos/:idServidor", (req, res) => {
-    segurancaController.buscarDadosPerdidos(req, res);
-});
+router.get("/buscarDesempenho/:idServidor", validarParametros, segurancaController.buscarDesempenho);
 
-// Buscar vulnerabilidades de um servidor
-router.get("/buscarVulnerabilidades/:idServidor", (req, res) => {
-    segurancaController.buscarVulnerabilidades(req, res);
-});
+// Rota para buscar dados perdidos de um servidor
+router.get("/buscarDadosPerdidos/:idServidor", validarParametros, segurancaController.buscarDadosPerdidos);
 
-// Buscar dados em tempo real
-router.get("/seguranca/buscarDadosTempoReal/:idServidor/:indicador", (req, res) => {
-    segurancaController.buscarDadosTempoReal(req, res);
-});
+// Rota para buscar vulnerabilidades de um servidor
+router.get("/buscarVulnerabilidades/:idServidor", validarParametros, segurancaController.buscarVulnerabilidades);
+
+// Rota para buscar dados em tempo real para gráficos
+router.get("/buscarDadosTempoReal/:idServidor/:indicador", validarParametros, segurancaController.buscarDadosTempoReal);
+
 
 module.exports = router;
