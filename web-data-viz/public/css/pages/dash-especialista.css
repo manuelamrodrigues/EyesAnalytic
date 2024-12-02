@@ -14,7 +14,7 @@ body {
 .topo {
     width: 100%;
     height: auto;
-    margin: 20px 0px 0px 100px;
+    margin: 40px 0px 0px 100px;
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -32,7 +32,8 @@ body {
 .kpi h3 {
     font-size: 20px;
     font-weight: 600;
-    margin: 0px 0px 10px 10px;
+    margin: 5px 0px 0px 10px;
+    text-align: start;
 }
 
 .quadro {
@@ -44,7 +45,7 @@ body {
     align-items: center;
     justify-content: space-around;
     margin-left: 10px;
-    
+
 }
 
 .indica {
@@ -52,38 +53,48 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .indica h4 {
     margin: 0;
     font-size: 18px;
     font-weight: 700;
+    text-align: center;
 }
 
 .indica h5 {
     margin: 0;
     font-size: 17px;
     font-weight: 400;
+    text-align: center;
 }
 
 /* SERVIDORES */
+
+.serv{
+width: 100%;
+}
+
 .dados-section {
-    width: 40%;
+    width: 80%;
     background-color: #131313;
     display: block;
     padding-left: 18px;
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.dados-section h2 {
+.serv h2 {
     font-size: 20px;
     font-weight: 600;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 20px;
 }
 
 .openModal {
     height: 42px;
-    width: 100%;
+    width: 90%;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -132,8 +143,8 @@ body {
 .frameAlertas h3 {
     font-weight: 700;
     display: flex;
-    justify-content: flex-start;
-    width: 300px;
+    justify-content: center;
+    width: 100%;
 }
 
 .abrir {
@@ -144,14 +155,14 @@ body {
     flex-direction: row;
 }
 
-.opcoes {
+/* .opcoes {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
+} */
 
-.opcao {
+/* .opcao {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -168,7 +179,7 @@ body {
 
 .opcao p {
     font-size: 18px;
-}
+} */
 
 .error-content {
     display: flex;
@@ -202,12 +213,12 @@ canvas {
 .grafico-section h2 {
     font-size: 20px;
     font-weight: 600;
-    margin:20px 0px 10px 80px;
+    margin: 20px 0px 10px 80px;
 }
 
 .grafico-section h3 {
     font-size: 20px;
-    font-weight:400;
+    font-weight: 400;
     /* margin-left: 10px; */
     margin: 0px 0px 0px 10px;
 }

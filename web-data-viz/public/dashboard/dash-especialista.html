@@ -98,11 +98,13 @@
 
 
 
-                <section class="dados-section">
+                <section class="serv">
                     <h2>Servidores</h2>
-                    <article class="card-section" id="lista">
-                    </article>
-                    <div id="modal" class="modal">
+                    <div class="dados-section">
+                        <article class="card-section" id="lista">
+                        </article>
+                        <div id="modal" class="modal">
+                        </div>
                     </div>
 
                 </section>
@@ -294,18 +296,18 @@
                     titulo.innerText = element.nomeMaquina;
 
                     // Adicionando opções de CPU, Memória e Disco
-                    let opcoes = document.createElement("div");
-                    opcoes.className = "opcoes";
+                    // let opcoes = document.createElement("div");
+                    // opcoes.className = "opcoes";
 
-                    // CPU
-                    let opcaoCPU = document.createElement("div");
-                    opcaoCPU.className = "opcao";
-                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
+                    // // CPU
+                    // let opcaoCPU = document.createElement("div");
+                    // opcaoCPU.className = "opcao";
+                    // opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
 
                     // Memória
-                    let opcaoMemoria = document.createElement("div");
-                    opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
+                    // let opcaoMemoria = document.createElement("div");
+                    // opcaoMemoria.className = "opcao";
+                    // opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
 
                     // Disco (Comentado para simplificação)
                     //let opcaoDisco = document.createElement("div");
@@ -313,13 +315,13 @@
                     //opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
-                    opcoes.appendChild(opcaoCPU);
-                    opcoes.appendChild(opcaoMemoria);
+                    // opcoes.appendChild(opcaoCPU);
+                    // opcoes.appendChild(opcaoMemoria);
                     // opcoes.appendChild(opcaoDisco);
 
                     // Montando o conteúdo do modal
                     abrir.appendChild(titulo);
-                    abrir.appendChild(opcoes);
+                    // abrir.appendChild(opcoes);
                     frameAlertas.appendChild(abrir);
 
                     openModal.appendChild(frameAlertas);
@@ -477,8 +479,8 @@
                     let indicadores = [
                         { nome: "CPU", valor: dados[0].CPU, sufixo: "%" },
                         { nome: "RAM", valor: dados[0].RAM, sufixo: "%" },
-                        { nome: "Download", valor: dados[0].Download, sufixo: "mb" },
-                        { nome: "Upload", valor: dados[0].Upload, sufixo: "mb" }
+                        { nome: "Recebidos", valor: dados[0].Download.toFixed(1), sufixo: "KB" },
+                        { nome: "Enviados", valor: dados[0].Upload.toFixed(1), sufixo: "KB" }
                     ];
 
                     indicadores.forEach(indicador => {
