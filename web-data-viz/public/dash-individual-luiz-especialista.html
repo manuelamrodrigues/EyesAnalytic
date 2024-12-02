@@ -92,11 +92,12 @@
                 <div class="table-container">
                     <div class="supsDashs">
                         <div class="informacao">
-                            <div class="title">Ranking de servidores com alertas</div>
+                            <div class="title">Ranking de servidores com sobrecarga</div>
                             <div class="tooltip-container">
                                 <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
                                 <div class="tooltip-box" id="msgBox">
-                                    <span class="tooltip-message">Este ranking exibe os 5 servidores com maior número de alertas, ordenados com base no uso máximo dos componentes (CPU e RAM).
+                                    <span class="tooltip-message">Este ranking exibe os 5 servidores com maior número de
+                                        alertas, ordenados com base no uso máximo dos componentes (CPU e RAM).
                                     </span>
                                 </div>
                             </div>
@@ -216,8 +217,6 @@
 
 <script>
 
-    // serverMax -- Gráfico de Barras
-    // serverMax -- Gráfico de Barras
     document.addEventListener("DOMContentLoaded", () => {
         const recursoMap = {
             cpu: 1,
@@ -228,14 +227,26 @@
         const selectRecurso = document.getElementById("recursoSelecionado2");
         const barChartContainer = document.querySelector("#barChart");
 
-        // Inicializa o gráfico ao carregar a página
-        ListarCapturas("cpu");
+        // Obtém o ID da empresa do sessionStorage
+        const idEmpresa = sessionStorage.FK_EMPRESA;
+        if (!idEmpresa) {
+            console.error("ID da empresa não encontrado no sessionStorage.");
+            return;
+        }
+
+        let recursoAtual = "cpu"; // Recurso padrão inicial
+        ListarCapturas(recursoAtual);
 
         // Atualiza o gráfico ao mudar a seleção
         selectRecurso.addEventListener("change", (event) => {
-            const recursoSelecionado = event.target.value;
-            ListarCapturas(recursoSelecionado);
+            recursoAtual = event.target.value;
+            ListarCapturas(recursoAtual);
         });
+
+        // Atualiza o gráfico automaticamente a cada 10 segundos
+        setInterval(() => {
+            ListarCapturas(recursoAtual);
+        }, 10800000); // 3 horas
 
         function ListarCapturas(recursoSelecionado) {
             const fkRecurso = recursoMap[recursoSelecionado];
@@ -246,7 +257,7 @@
 
             barChartContainer.innerHTML = "";
 
-            fetch(`/individual/serverMax/${fkRecurso}`, {
+            fetch(`/individual/serverMax/${fkRecurso}?idEmpresa=${idEmpresa}`, {
                 method: "GET"
             })
                 .then((resposta) => {
@@ -254,7 +265,6 @@
                         console.log("Não há capturas disponíveis.");
                         return;
                     }
-
                     return resposta.json();
                 })
                 .then((alertas) => {
@@ -275,26 +285,13 @@
                         chart: {
                             type: "bar",
                             height: 300,
-                            width: servidores.length * 50, // Largura ajustada dinamicamente
-                            toolbar: {
-                                show: false // Opcional: Remove a barra de ferramentas do gráfico
-                            }
+                            width: servidores.length * 50,
+                            toolbar: { show: false }
                         },
-                        title: {
-                            text: `${recursoSelecionado.toUpperCase()}`
-                        },
-                        series: [
-                            {
-                                name: "Uso do Componente",
-                                data: valores
-                            }
-                        ],
-                        colors: ["#14352E"], // Define a cor das barras
-                        xaxis: {
-                            categories: servidores
-                        }
-
-
+                        title: { text: `${recursoSelecionado.toUpperCase()}` },
+                        series: [{ name: "Uso do Componente", data: valores }],
+                        colors: ["#14352E"],
+                        xaxis: { categories: servidores }
                     };
 
                     const chart = new ApexCharts(barChartContainer, barOptions);
@@ -302,11 +299,14 @@
                 })
                 .catch((erro) => {
                     console.error(`#ERRO: ${erro}`);
+                    alert("Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.");
                 });
         }
     });
 
-    // ranking -- Tabelas Dinânicas
+
+
+    // ranking -- Tabelas Dinâmicas
     document.addEventListener("DOMContentLoaded", () => {
         const serverTable = document.getElementById("serverTable");
 
@@ -314,11 +314,17 @@
         ListarCapturas();
 
         function ListarCapturas() {
+            const idEmpresa = sessionStorage.FK_EMPRESA;
+            if (!idEmpresa) {
+                console.error("ID da empresa não encontrado no sessionStorage.");
+                return;
+            }
+
             // Limpa a tabela antes de adicionar novos dados
             serverTable.innerHTML = "";
 
             // Requisição para buscar os dados de ranking
-            fetch("/individual/ranking", {
+            fetch(`/individual/ranking/${idEmpresa}`, {
                 method: "GET"
             })
                 .then((resposta) => {
@@ -337,47 +343,54 @@
                     // Cabeçalho da tabela
                     const headerRow = document.createElement("tr");
 
-                    // Adicione os ícones com tooltip ao lado do texto do cabeçalho
                     headerRow.innerHTML = `
-                                                        <th>Servidor
-                                    <div class="info-container">
-                                        <i class="fas fa-info-circle"></i>
-                                        <div class="info-box">
-                                            <span class="msg">Nome do servidor monitorado.</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th>CPU
-                                    <div class="info-container">
-                                        <i class="fas fa-info-circle"></i>
-                                        <div class="info-box">
-                                            <span class="msg">Uso máximo do processador registrado por percentual (%).</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th>RAM
-                                    <div class="info-container">
-                                        <i class="fas fa-info-circle"></i>
-                                        <div class="info-box">
-                                            <span class="msg">Uso máximo da memória RAM registrado por percentual (%).</span>
-                                        </div>
-                                    </div>
-                                </th>
-                            `;
+                <th>Servidor
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="info-box">
+                            <span class="msg">Nome do servidor monitorado.</span>
+                        </div>
+                    </div>
+                </th>
+                <th>CPU
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="info-box">
+                            <span class="msg">Uso máximo do processador registrado por percentual (%).</span>
+                        </div>
+                    </div>
+                </th>
+                <th>RAM
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="info-box">
+                            <span class="msg">Uso máximo da memória RAM registrado por percentual (%).</span>
+                        </div>
+                    </div>
+                </th>
 
-                    // Anexe a linha do cabeçalho à tabela
+                <th>Alertas
+                    <div class="info-container">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="info-box">
+                            <span class="msg">Contagem de alertas registrados.</span>
+                        </div>
+                    </div>
+                </th>
+            `;
+
+                    // Adiciona o cabeçalho à tabela
                     serverTable.appendChild(headerRow);
-
-
 
                     // Preenche a tabela com os dados dos servidores
                     alertas.forEach((registro) => {
                         const row = document.createElement("tr");
                         row.innerHTML = `
-                        <td>${registro.Servidor}</td>
-                        <td>${registro.CPU ? parseFloat(registro.CPU).toFixed(2) : "N/A"}%</td>
-                        <td>${registro.RAM ? parseFloat(registro.RAM).toFixed(2) : "N/A"}%</td>
-                    `;
+                                <td>${registro.Servidor}</td>
+                                <td>${registro.CPU ? parseFloat(registro.CPU).toFixed(2) : "N/A"}%</td>
+                                <td>${registro.RAM ? parseFloat(registro.RAM).toFixed(2) : "N/A"}%</td>
+                                <td>${registro.totalAlertas}</td>
+                            `;
                         serverTable.appendChild(row);
                     });
                 })
@@ -387,7 +400,7 @@
         }
     });
 
-    // picosMensal -- Gráfico de Linhas
+
     document.addEventListener("DOMContentLoaded", () => {
         const recursoMap = {
             cpu: 1,
@@ -397,14 +410,26 @@
         const selectRecurso = document.getElementById("recursoSelecionado3");
         const lineChartContainer = document.querySelector("#lineChart");
 
+        const idEmpresa = sessionStorage.FK_EMPRESA;
+        if (!idEmpresa) {
+            console.error("ID da empresa não encontrado no sessionStorage.");
+            return;
+        }
+
         // Inicializa o gráfico ao carregar a página
-        ListarCapturas("cpu");
+        let recursoAtual = "cpu"; // Variável para acompanhar o recurso selecionado
+        ListarCapturas(recursoAtual);
 
         // Atualiza o gráfico ao mudar a seleção
         selectRecurso.addEventListener("change", (event) => {
-            const recursoSelecionado = event.target.value;
-            ListarCapturas(recursoSelecionado);
+            recursoAtual = event.target.value; // Atualiza o recurso atual
+            ListarCapturas(recursoAtual);
         });
+
+        // Atualiza o gráfico automaticamente a cada 10 segundos
+        setInterval(() => {
+            ListarCapturas(recursoAtual);
+        }, 10800000); // 3 horas
 
         function ListarCapturas(recursoSelecionado) {
             const fkRecurso = recursoMap[recursoSelecionado];
@@ -413,9 +438,9 @@
                 return;
             }
 
-            lineChartContainer.innerHTML = "";  // Limpa o gráfico anterior
+            lineChartContainer.innerHTML = ""; // Limpa o gráfico anterior
 
-            fetch(`/individual/picosMensal/${fkRecurso}`, {  // Chama o endpoint correto
+            fetch(`/individual/picosMensal/${fkRecurso}?idEmpresa=${idEmpresa}`, { // Chama o endpoint correto
                 method: "GET"
             })
                 .then((resposta) => {
@@ -434,7 +459,7 @@
 
                     // Mapeia os dados retornados para os valores e meses
                     const meses = dadosMensais.map((registro) => registro.mes);
-                    const valores = dadosMensais.map((registro) => registro.valorRegistrado);
+                    const valores = dadosMensais.map((registro) => parseFloat(registro.valorMedio.toFixed(2))); // Limita para 2 casas decimais
 
                     if (meses.length === 0 || valores.length === 0) {
                         console.log("Os dados retornados estão incompletos ou inválidos.");
@@ -460,11 +485,10 @@
                         title: {
                             text: `${recursoSelecionado.toUpperCase()}`
                         },
-
                         dataLabels: {
                             enabled: false
                         },
-                        colors: ['#14352E'],  // Adicionando a cor desejada
+                        colors: ['#14352E'] // Adicionando a cor desejada
                     };
 
                     // Renderiza o gráfico
@@ -477,7 +501,7 @@
         }
     });
 
-    // UsoPorHora -- Mapa de calor
+
     document.addEventListener("DOMContentLoaded", () => {
         const recursoMap = {
             cpu: 1,
@@ -487,14 +511,28 @@
         const selectRecurso = document.getElementById("recursoSelecionado3");
         const heatmapContainer = document.querySelector("#heatmapChart");
 
-        // Inicializa o gráfico de mapa de calor ao carregar a página
-        ListarCapturas("cpu");
+        const idEmpresa = sessionStorage.FK_EMPRESA;
+        if (!idEmpresa) {
+            console.error("ID da empresa não encontrado no sessionStorage.");
+            return;
+        }
 
-        // Atualiza o gráfico de mapa de calor ao mudar a seleção
+        // Variável para acompanhar o recurso selecionado
+        let recursoAtual = "cpu";
+
+        // Inicializa o gráfico ao carregar a página
+        ListarCapturas(recursoAtual);
+
+        // Atualiza o gráfico ao mudar a seleção
         selectRecurso.addEventListener("change", (event) => {
-            const recursoSelecionado = event.target.value;
-            ListarCapturas(recursoSelecionado);
+            recursoAtual = event.target.value; // Atualiza o recurso atual
+            ListarCapturas(recursoAtual);
         });
+
+        // Atualiza o gráfico automaticamente a cada 10 segundos
+        setInterval(() => {
+            ListarCapturas(recursoAtual);
+        }, 10800000); // 3 horas
 
         function ListarCapturas(recursoSelecionado) {
             const fkRecurso = recursoMap[recursoSelecionado];
@@ -505,7 +543,7 @@
 
             heatmapContainer.innerHTML = "";
 
-            fetch(`/individual/UsoPorHora/${fkRecurso}`, {
+            fetch(`/individual/UsoPorHora/${fkRecurso}?idEmpresa=${idEmpresa}`, {
                 method: "GET"
             })
                 .then((resposta) => {
@@ -523,11 +561,7 @@
                     }
 
                     const valores = alertas.map((registro) => registro.valorRegistrado); // Y
-                    const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
-                    // x
-
-
-                    // dado
+                    const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Dia da semana do banco
                     const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
 
                     if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
@@ -535,7 +569,6 @@
                         return;
                     }
 
-                    // Inicializando as séries com dados aleatórios para cada dia da semana (segunda a domingo)
                     const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
                     const seriesData = diasSemana.map((dia, diaIndex) => {
                         return {
@@ -555,7 +588,7 @@
                             type: 'heatmap',
                             height: 350
                         },
-                        series: seriesData, // Definindo as séries dinamicamente
+                        series: seriesData,
                         xaxis: {
                             type: 'category',
                             title: {
@@ -570,7 +603,6 @@
                         title: {
                             text: `${recursoSelecionado.toUpperCase()}`
                         },
-
                         dataLabels: {
                             enabled: false
                         },
@@ -585,6 +617,7 @@
                 });
         }
     });
+
 
 
 
