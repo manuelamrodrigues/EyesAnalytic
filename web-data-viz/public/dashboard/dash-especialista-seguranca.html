@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/pages/dash-especialista-seguranca.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="../css/pages/aside-menu.css">
+    <script src="../js/aside-menu.js"></script>
+    <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard-Segurança</title>
+</head>
+<body onabort=" iniciarAtualizacao()" onload="validarSessao()">
+   
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+
+            <a href="../lista-alertas-especialista.html" class="outros">
+                <li>
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <span>Alertas</span>
+                </li>
+            </a>
+
+            <a href="./dash-especialista.html" class="outros">
+                <li>
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+
+            <a href="../abrir-chamado.html" class="outros">
+                <li>
+                    <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                    <span>Tempo De Vida</span>
+                </li>
+            </a>
+
+            <a href="../abrir-chamado.html" class="outros">
+                <li>
+                    <img src="../assets/svg/speed-svgrepo-com.svg" alt="Rede">
+                    <span>Rede</span>
+                </li>
+            </a>
+
+          
+            <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
+                <li>
+                    <img src="../assets/svg/chamados.svg" alt="Chamados">
+                    <span>Segurança</span>
+                </li>
+            </a>
+
+            <a onclick="limparSessao()" class="outros">
+                <li >
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <span>Sair</span>
+                </li>
+            </a>
+
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+        </div>
+ 
+      </aside>
+
+      <main>
+        <header>
+            <h1>Segurança dos Servidores</h1>
+        </header>
+        <main>
+            <section class="indicators">
+                <div class="indicator">
+                    <div class="circle-chart">
+                        <div class="circle-inner">
+                            <span class="circle-text" id="servidor-status">N/A</span>
+                        </div>
+                    </div>
+                    <p>Servidor</p>
+                </div>
+                <div class="indicator">
+                    <div class="circle-chart">
+                        <div class="circle-inner">
+                            <span class="circle-text" id="vulnerabilidade-status">N/A</span>
+                        </div>
+                    </div>
+                    <p>Vulnerabilidade de invasão</p>
+                </div>
+                <div class="indicator">
+                    <div class="circle-chart">
+                        <div class="circle-inner">
+                            <span class="circle-text" id="dados-perdidos-status">N/A</span>
+                        </div>
+                    </div>
+                    <p>Dados Perdidos</p>
+                </div>
+            </section>
+            
+            <section id="seletores">
+                <select id="servidores">
+                    <option disabled selected>Selecione um Servidor</option>
+                </select>
+                <select id="indicadores">
+                    <option value="" disabled selected>Selecione um Indicador</option>
+                    <option value="dados_perdidos">Dados Perdidos</option>
+                    <option value="desempenho">Desempenho</option>
+                    <option value="vulnerabilidade">Vulnerabilidade</option>
+                </select>
+            </section>
+            
+            <section id="graficoLinha">
+                <canvas id="chartLinha" width="400" height="200"></canvas>
+            </section>
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const servidoresDropdown = document.getElementById("servidores");
+                    const indicadoresDropdown = document.getElementById("indicadores");
+                    const ctxLinha = document.getElementById("chartLinha").getContext("2d");
+                    let chartLinha;
+            
+                    async function carregarServidores() {
+                        try {
+                            const fkEmpresa = sessionStorage.FK_EMPRESA; // Obtém o valor do sessionStorage
+                    
+                            if (!fkEmpresa) throw new Error("Empresa não encontrada na sessão. Faça login novamente.");
+                    
+                            const response = await fetch("/seguranca/listarServidores", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: fkEmpresa, // Envia o fkEmpresa
+                            });
+                    
+                            if (!response.ok) throw new Error("Erro ao carregar servidores");
+                    
+                            const servidores = await response.json();
+                            servidoresDropdown.innerHTML = '<option disabled selected>Selecione um Servidor</option>';
+                            servidores.forEach((servidor) => {
+                                const option = document.createElement("option");
+                                option.value = servidor.idServidor;
+                                option.textContent = servidor.nomeServidor;
+                                servidoresDropdown.appendChild(option);
+                            });
+                        } catch (error) {
+                            console.error("Erro ao carregar servidores:", error);
+                        }
+                    }
+                    
+            
+                    // Função para criar gráfico vazio
+                    function criarGraficoLinhaVazio(ctx) {
+                        return new Chart(ctx, {
+                            type: "line",
+                            data: {
+                                labels: [],
+                                datasets: [
+                                    {
+                                        label: "Valores em Tempo Real",
+                                        data: [],
+                                        backgroundColor: "rgba(22, 167, 153, 0.2)",
+                                        borderColor: "#16A799",
+                                        borderWidth: 2,
+                                        fill: true,
+                                        tension: 0.3,
+                                    },
+                                ],
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: { display: true },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: context => `${context.raw}%`,
+                                        },
+                                    },
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: "Período" } },
+                                    y: { title: { display: true, text: "Valor (%)" }, min: 0, max: 100 },
+                                },
+                            },
+                        });
+                    }
+            
+                    // Atualização do gráfico e indicadores
+                    async function atualizarDados() {
+                        const idServidor = servidoresDropdown.value;
+                        const indicador = indicadoresDropdown.value;
+            
+                        if (!idServidor || !indicador) return;
+            
+                        try {
+                            const response = await fetch(`../seguranca/buscarDadosTempoReal/${idServidor}/${indicador}`);
+                            if (!response.ok) throw new Error("Erro ao buscar dados em tempo real");
+            
+                            const dado = await response.json();
+            
+                            // Atualizar indicadores
+                            document.getElementById("servidor-status").textContent = dado.servidor || "N/A";
+                            document.getElementById("vulnerabilidade-status").textContent = `${dado.vulnerabilidade || 0}%`;
+                            document.getElementById("dados-perdidos-status").textContent = `${dado.dadosPerdidos || 0}%`;
+            
+                            // Atualizar gráfico
+                            chartLinha.data.labels.push(dado.periodo || "N/A");
+                            chartLinha.data.datasets[0].data.push(dado.valor || 0);
+            
+                            if (chartLinha.data.labels.length > 10) {
+                                chartLinha.data.labels.shift();
+                                chartLinha.data.datasets[0].data.shift();
+                            }
+            
+                            chartLinha.update();
+                        } catch (error) {
+                            console.error("Erro ao atualizar dados:", error);
+                        }
+                    }
+            
+                    // Inicialização
+                    carregarServidores();
+                    chartLinha = criarGraficoLinhaVazio(ctxLinha);
+            
+                    servidoresDropdown.addEventListener("change", atualizarDados);
+                    indicadoresDropdown.addEventListener("change", atualizarDados);
+            
+                    setInterval(atualizarDados, 5000);
+                });
+            </script>
+              
+            
+    

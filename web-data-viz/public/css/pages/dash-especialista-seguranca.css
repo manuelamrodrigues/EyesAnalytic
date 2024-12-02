@@ -1,0 +1,177 @@
+/* Importa as fontes */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Montserrat:wght@300;400;700&display=swap');
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #131313;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Cabeçalho */
+header h1 {
+    font-family: 'Kanit', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Conteúdo principal */
+main {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Indicadores */
+.indicators {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.circle-chart {
+    width: 120px;
+    height: 120px;
+    background: conic-gradient(#00b894 0% 0%, #ffffff 0% 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    animation: rotateChart 1s linear forwards;
+}
+
+.circle-chart::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-conic-gradient(transparent 0deg 5deg, #131313 5deg 6deg);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.circle-inner {
+    width: 90px;
+    height: 90px;
+    background-color: #131313;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+}
+
+.circle-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00b894;
+}
+
+/* Gráficos */
+#chart_section {
+    padding: 20px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 900px;
+    border: 2px solid #00d4aa;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#chart_div {
+    width: 100%;
+    height: 400px;
+    border-top: 1px dashed #444444;
+    border-bottom: 1px dashed #444444;
+}
+
+/* Botões e seletores */
+.botoesGrafico {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.opcao {
+    width: 170px;
+    height: 40px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #0BA385;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcao:hover {
+    background-color: #00d4aa;
+}
+
+option {
+    color: #ffffff;
+    background-color: #000000;
+}
+
+/* Animação */
+@keyframes rotateChart {
+    0% {
+        background: conic-gradient(#00b894 0% 0%, #ffffff 0% 100%);
+    }
+    100% {
+        background: conic-gradient(#00b894 0% var(--progress), #ffffff var(--progress) 100%);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .indicators {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #chart_section {
+        width: 100%;
+    }
+}
