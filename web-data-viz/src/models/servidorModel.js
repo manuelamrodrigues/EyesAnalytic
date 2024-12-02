@@ -50,9 +50,9 @@ function listarPrioridade() {
 }
 
 
-function listarDiferencaHoras() {
+function listarDiferencaHoras(fkEmpresa) {
     var instrucaoSql = `
-    SELECT * FROM diferenca_horas;
+    SELECT * FROM diferenca_horas where fkEmpresa = ${fkEmpresa} ;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

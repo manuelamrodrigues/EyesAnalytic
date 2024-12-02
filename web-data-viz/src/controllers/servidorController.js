@@ -81,9 +81,9 @@ function listarPrioridade(req, res) {
 }
 
 function listarDiferencaHoras(req, res) {
-    // var idMaquina = req.params.idMaquina
+    var idEmpresa = req.params.idEmpresa
 
-    servidorModel.listarDiferencaHoras()
+    servidorModel.listarDiferencaHoras(idEmpresa)
         .then(function (resultado) {
             res.status(200).json(resultado)
         }).catch(function (erro) {
