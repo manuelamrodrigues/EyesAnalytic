@@ -186,3 +186,21 @@ body {
     }
 }
 
+/* Estilizando botão */
+
+.btnAtualizar {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #08836A;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold; /* Adicionado para negrito */
+}
+
+.btnAtualizar:hover {
+    background-color: #08836A;
+}
+
+
