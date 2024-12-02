@@ -7,7 +7,7 @@ router.get("/serverMax/:fkRecurso", function (req, res) {
     individualController.serverMax(req, res);
 });
 
-router.get("/ranking", function (req, res) {
+router.get("/ranking/:idEmpresa", function (req, res) {
     individualController.ranking(req, res);
 });
 
