@@ -1132,3 +1132,27 @@ p {
         font-size: 10px;
     }
 }
+
+/* botao de voltar */
+
+.alertas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnAtualizar {
+    margin-top: 0;  /* Remover a margem superior para alinhamento perfeito */
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #08836A;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btnAtualizar:hover {
+    background-color: #08836A;
+}
+
