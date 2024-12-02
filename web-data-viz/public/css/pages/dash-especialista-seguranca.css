@@ -1,6 +1,3 @@
-/* Importa as fontes */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Montserrat:wght@300;400;700&display=swap');
-
 /* Reset básico */
 * {
     margin: 0;
@@ -8,168 +5,125 @@
     box-sizing: border-box;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    background-color: #131313;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: "Montserrat", sans-serif;
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #212121;
+    color: #fff;
+    overflow-x: hidden;
 }
 
-/* Cabeçalho */
-
+/* Estilos do header */
 header {
     display: flex;
-    flex-direction: column; /* Organiza os elementos (imagem e título) em coluna */
-    align-items: center; /* Alinha ao centro */
-    justify-content: center; /* Centraliza verticalmente */
-    gap: 10px; /* Espaçamento entre a imagem e o título */
-    margin-top: 20px; /* Espaçamento superior do header */
-    margin-bottom: 20px; /* Espaçamento inferior do header */
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #212121;
 }
 
-/* Estilo do título */
 header h1 {
-    font-family: 'Kanit', sans-serif;
-    font-size: 32px; /* Tamanho ajustado para maior destaque */
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #ffffff;
-    text-align: center;
-    margin: 0; /* Remove margens extras */
+    margin-left: 7%;
 }
 
-/* Estilo da imagem */
-.img_seguranca {
-    width: 50px; /* Ajusta o tamanho da imagem */
-    height: auto; /* Mantém a proporção da imagem */
-    border-radius: 4px; /* Bordas arredondadas */
+header img.img_seguranca {
+    width: 50px;
+    height: 50px;
+    margin-right: 55%;
 }
-
-/* Conteúdo principal */
-main {
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-/* Indicadores */
-.indicators {
-    display: flex;
-    justify-content: space-around; /* Alterado para espaçar igualmente */
-    gap: 20px;
-    width: 100%;
-}
-
-.indicator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: #ffffff;
-}
-
 .circle-chart {
-    width: 150px; /* Aumentando o tamanho */
-    height: 150px; /* Aumentando o tamanho */
-    background: conic-gradient(#00b894 0% 0%, #ffffff 0% 100%);
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
+    background: conic-gradient(
+        #16A799 0% 0%, /* Cor inicial */
+        #e0e0e0 0% 100% /* Cor de fundo */
+    );
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
-    animation: rotateChart 1s linear forwards;
-}
-
-.circle-chart::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: repeating-conic-gradient(transparent 0deg 5deg, #131313 5deg 6deg);
-    border-radius: 50%;
-    z-index: 2;
+    margin: 10px;
 }
 
 .circle-inner {
-    width: 100px; /* Aumentando o tamanho */
-    height: 100px; /* Aumentando o tamanho */
-    background-color: #131313;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    z-index: 3;
 }
 
 .circle-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 30px; /* Aumentando o tamanho */
+    font-size: 18px;
     font-weight: bold;
-    color: #00b894;
 }
-
-/* Gráficos */
-#chart_section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    margin-top: 30px; /* Aumentando o espaçamento superior */
-    width: 100%;
-    max-width: 900px;
-    border: 2px solid #00d4aa;
+/* Seletores */
+#seletores {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    justify-content: flex-end;
+    margin: 20px 40px;
 }
 
-#chart_div {
-    width: 100%;
-    height: 450px; /* Aumentando a altura do gráfico */
-    border-top: 1px dashed #444444;
-    border-bottom: 1px dashed #444444;
-}
-
-/* Botões e seletores */
 .botoesGrafico {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.opcao {
-    width: 200px; /* Aumentando o tamanho */
-    height: 45px; /* Aumentando a altura */
-    font-size: 16px; /* Aumentando o tamanho da fonte */
-    color: #ffffff;
-    background-color: #0BA385;
+    background-color: #08836A;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    padding-left: 15px; /* Ajustando o padding */
-    font-family: 'Montserrat', sans-serif;
-    outline: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
+    outline: none;
+    margin-left: 10px;
 }
 
-.opcao:hover {
-    background-color: #00d4aa;
+.botoesGrafico:hover {
+    background-color: #08836A;
 }
 
-option {
-    color: #ffffff;
-    background-color: #000000;
+/* Gráfico */
+#graficoLinha {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 1226px; /* Reduzindo o tamanho do gráfico */
+    margin-left: 12%;
+ 
+}
+
+#graficoLinha canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .indicators {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #seletores {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #graficoLinha {
+        max-width: 95%; /* Ajusta o gráfico para telas menores */
+    }
 }
 
 /* Animação */
@@ -179,28 +133,5 @@ option {
     }
     100% {
         background: conic-gradient(#00b894 0% var(--progress), #ffffff var(--progress) 100%);
-    }
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .indicators {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    #chart_section {
-        width: 100%;
-    }
-
-    /* Ajustes para botões e gráficos em telas menores */
-    .opcao {
-        width: 150px;
-        font-size: 14px;
-    }
-
-    #chart_div {
-        height: 300px;
     }
 }
