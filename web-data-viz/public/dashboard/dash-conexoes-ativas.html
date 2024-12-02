@@ -264,11 +264,11 @@
 
             json.forEach(resposta => {
                 hora.push(`${resposta.hora}:00`)
-                mediaAtual.push(resposta.media_atual)
-                mediaAnterior.push(resposta.media_anterior)
-                diaSemana = resposta.dia_semana
+                mediaAtual.push(resposta.conexoes_ativas_hoje)
+                mediaAnterior.push(resposta.conexoes_ativas_semana_passada)
+                diaSemana = resposta.dia_da_semana
                 dataAtual = resposta.data_atual
-                dataAnterior = resposta.data_anterior
+                dataAnterior = resposta.data_semana_passada
             })
 
 
@@ -298,7 +298,7 @@
 
 
             const dadosAtual = resposta.mediaAtual
-            const dadosAnterior = resposta.mediaAnterior
+            const dadosAnterior = resposta.mediaAnterior            
             const labels = resposta.hora
 
             divComparacao.innerHTML = `Comparação dia: ${resposta.dataAtual} X ${resposta.dataAnterior}`
@@ -349,8 +349,10 @@
                             data: media,
                             backgroundColor: 'rgba(24,52,44,0.2)',
                             borderColor: 'rgb(24,52,44)',
-                            pointRadius: 1,
-                            fill: false
+                            pointRadius: 0.5,
+                            lineTension:0.4,
+                            borderWidth: 2,
+                            fill: true
                         },
                     ],
                 },
@@ -360,6 +362,9 @@
                             ticks: {
                                 display: false // Oculta labels do eixo X
                             }
+                        },
+                        y: {
+                            beginAtZero:true
                         }
                     }
                 },

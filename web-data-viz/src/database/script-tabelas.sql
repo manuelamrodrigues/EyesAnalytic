@@ -420,200 +420,170 @@ ORDER BY minuto DESC;
 
 CREATE OR REPLACE VIEW view_historico_conexao_ativa AS
 WITH RECURSIVE dias AS (
-    -- Gera todos os dias dos últimos 365 dias
-    SELECT DATE(NOW() - INTERVAL 1 YEAR) AS data
+    -- Gera todos os dias de cada ano completo (exemplo: de 2010 até o ano atual)
+    SELECT DATE(CONCAT(YEAR(CURDATE()) - 1, '-01-01')) AS data
     UNION ALL
     SELECT data + INTERVAL 1 DAY
     FROM dias
-    WHERE data + INTERVAL 1 DAY < DATE(NOW())
+    WHERE data < CURDATE()
+),
+maquinas_com_recurso AS (
+    -- Seleciona todas as máquinas com o recurso 8 e uma empresa associada
+    SELECT DISTINCT m.idMaquina, m.fkEmpresa
+    FROM maquina m
+    LEFT JOIN maquina_recurso mr ON mr.fkMaquina = m.idMaquina AND mr.fkRecurso = 8
+    WHERE m.fkEmpresa IS NOT NULL
+),
+dados_filtrados AS (
+    -- Filtra e prepara os dados para evitar duplicação
+    SELECT dc.fkRecurso, dc.registro, DATE(dc.dtHora) AS dtHora, dc.fkMaquina,
+           ROW_NUMBER() OVER (PARTITION BY dc.fkMaquina, dc.fkRecurso, DATE(dc.dtHora) ORDER BY dc.dtHora DESC) AS rn
+    FROM dado_capturado dc
+    WHERE dc.fkRecurso = 8
 )
-SELECT DATE_FORMAT(d.data, "%Y/%m/%d") AS dia,
+SELECT 
+    DATE_FORMAT(d.data, "%Y/%m/%d") AS dia,
     m.fkEmpresa,
-    COALESCE(AVG(dc.registro), 0) AS media_conexoes
+    IFNULL(AVG(df.registro), 0) AS media_conexoes
 FROM dias d
-CROSS JOIN maquina m
-LEFT JOIN maquina_recurso mr ON mr.fkMaquina = m.idMaquina AND mr.fkRecurso = 8
-LEFT JOIN dado_capturado dc ON dc.fkRecurso = mr.fkRecurso AND DATE(dc.dtHora) = d.data
-WHERE m.fkEmpresa IS NOT NULL
+JOIN maquinas_com_recurso m 
+    ON m.fkEmpresa IS NOT NULL
+LEFT JOIN dados_filtrados df 
+    ON df.fkMaquina = m.idMaquina
+    AND df.fkRecurso = 8
+    AND df.dtHora = d.data
+    AND df.rn = 1 -- Pega apenas o registro mais recente por dia
 GROUP BY d.data, m.fkEmpresa
 ORDER BY d.data, m.fkEmpresa;
 
 CREATE OR REPLACE VIEW view_comparar_semana AS
-WITH horarios AS (
-    SELECT 0 AS hora UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL
-    SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL
-    SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL
-    SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL
-    SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL
-    SELECT 20 UNION ALL SELECT 21 UNION ALL SELECT 22 UNION ALL SELECT 23
-),
-dados AS (
-    SELECT 
-        m.fkEmpresa,
-        HOUR(dc.dtHora) AS hora,  -- Hora extraída
-        DATE(dc.dtHora) AS data,
-        dc.registro
-    FROM 
-        dado_capturado dc
-    JOIN 
-        maquina_recurso mr ON dc.fkRecurso = mr.fkRecurso
-    JOIN 
-        maquina m ON mr.fkMaquina = m.idMaquina
-    WHERE 
-        dc.fkRecurso = 8 -- Filtra apenas os dados de conexões ativas
-),
-combinacoes AS (
-    SELECT DISTINCT
-        d.fkEmpresa,
-        h.hora,
-        CURDATE() AS data_atual,  -- Data do dia atual
-        CURDATE() - INTERVAL 7 DAY AS data_anterior  -- Data do mesmo dia na semana passada
-    FROM 
-        dados d
-    CROSS JOIN 
-        horarios h
-),
-atual AS (
-    SELECT 
-        fkEmpresa,
-        HOUR(dc.dtHora) AS hora,
-        ROUND(AVG(dc.registro),2) AS media_atual,
-        DATE(dc.dtHora) AS data_atual
-    FROM 
-        dado_capturado dc
-    JOIN 
-        maquina_recurso mr ON dc.fkRecurso = mr.fkRecurso
-    JOIN 
-        maquina m ON mr.fkMaquina = m.idMaquina
-    WHERE 
-        dc.fkRecurso = 8
-        AND DATE(dc.dtHora) = CURDATE()  -- Dia atual
-    GROUP BY 
-        fkEmpresa, hora, data_atual
-),
-anterior AS (
-    SELECT 
-        fkEmpresa,
-        HOUR(dc.dtHora) AS hora,
-        ROUND(AVG(dc.registro),2) AS media_anterior,
-        DATE(dc.dtHora) AS data_anterior
-    FROM 
-        dado_capturado dc
-    JOIN 
-        maquina_recurso mr ON dc.fkRecurso = mr.fkRecurso
-    JOIN 
-        maquina m ON mr.fkMaquina = m.idMaquina
-    WHERE 
-        dc.fkRecurso = 8
-        AND DATE(dc.dtHora) = CURDATE() - INTERVAL 7 DAY  -- Mesmo dia da semana passada
-    GROUP BY 
-        fkEmpresa, hora, data_anterior
+WITH horas AS (
+    -- Gerar todas as horas de 0 a 23
+    SELECT 0 AS hora
+    UNION ALL SELECT 1
+    UNION ALL SELECT 2
+    UNION ALL SELECT 3
+    UNION ALL SELECT 4
+    UNION ALL SELECT 5
+    UNION ALL SELECT 6
+    UNION ALL SELECT 7
+    UNION ALL SELECT 8
+    UNION ALL SELECT 9
+    UNION ALL SELECT 10
+    UNION ALL SELECT 11
+    UNION ALL SELECT 12
+    UNION ALL SELECT 13
+    UNION ALL SELECT 14
+    UNION ALL SELECT 15
+    UNION ALL SELECT 16
+    UNION ALL SELECT 17
+    UNION ALL SELECT 18
+    UNION ALL SELECT 19
+    UNION ALL SELECT 20
+    UNION ALL SELECT 21
+    UNION ALL SELECT 22
+    UNION ALL SELECT 23
 )
 SELECT 
-    c.fkEmpresa,
-    CASE(dayofweek(c.data_atual))
-		WHEN 1 THEN 'Domingo'
-        WHEN 2 THEN 'Segunda'
-        WHEN 3 THEN 'Terça'
-        WHEN 4 THEN 'Quarta'
-        WHEN 5 THEN 'Quinta'
-        WHEN 6 THEN 'Sexta'
-        WHEN 7 THEN 'Sabado'
-        END as dia_semana,
-    DATE_FORMAT(c.data_atual, '%d/%m/%Y ') as data_atual,
-    DATE_FORMAT(c.data_anterior, '%d/%m/%Y') as data_anterior,
-    c.hora,
-    COALESCE(a.media_atual, 0) AS media_atual,
-    COALESCE(b.media_anterior, 0) AS media_anterior
+    m.fkEmpresa,
+    h.hora,
+    DAYOFWEEK(CURRENT_DATE()) AS dia_da_semana, -- Sempre o dia da semana atual
+    
+    -- Conexões ativas da semana atual (considerando a média)
+    COALESCE(AVG(CASE 
+        WHEN dc.dtHora BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY
+             AND HOUR(dc.dtHora) = h.hora
+        THEN dc.registro
+        ELSE NULL 
+        END), 0) AS conexoes_ativas_hoje,
+
+    -- Conexões ativas da mesma hora na semana passada (considerando a média)
+    COALESCE(AVG(CASE 
+        WHEN dc.dtHora BETWEEN CURDATE() - INTERVAL 1 WEEK AND CURDATE() - INTERVAL 1 WEEK + INTERVAL 1 DAY
+             AND HOUR(dc.dtHora) = h.hora
+        THEN dc.registro
+        ELSE NULL 
+        END), 0) AS conexoes_ativas_semana_passada
+
 FROM 
-    combinacoes c
-LEFT JOIN 
-    atual a ON c.fkEmpresa = a.fkEmpresa AND c.hora = a.hora
-LEFT JOIN 
-    anterior b ON c.fkEmpresa = b.fkEmpresa AND c.hora = b.hora
+    horas h
+LEFT JOIN dado_capturado dc
+    ON HOUR(dc.dtHora) = h.hora
+LEFT JOIN maquina AS m 
+    ON dc.fkMaquina = m.idMaquina
+WHERE 
+    dc.fkRecurso = 8
+    AND (m.fkEmpresa OR m.fkEmpresa IS NULL) -- Garantir que a empresa 2 seja filtrada, mas as horas com 0 também apareçam
+    AND dc.dtHora >= CURDATE() - INTERVAL 1 WEEK
+GROUP BY 
+    m.fkEmpresa, h.hora
 ORDER BY 
-    c.fkEmpresa, c.hora;
+    h.hora;
     
 CREATE OR REPLACE VIEW view_quantidade_cpu AS
-SELECT
-m.idMaquina,
-m.nomeMaquina,
-m.fkEmpresa,
-m.situacao,
-p.nivel AS prioridade,
--- Valores dos recursos agregados para cada servidor
-MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS CPU,
-MAX(CASE WHEN r.nomeRecurso = 'RAM' THEN d.registro END) AS RAM,
-MAX(CASE WHEN r.nomeRecurso = 'Disco Rígido' THEN d.registro END) AS Disco_Rigido,
--- Soma do total de CPU
-SUM(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS total_cpu
+SELECT 
+    m.idMaquina, 
+    m.nomeMaquina, 
+    m.fkEmpresa, 
+    m.situacao, 
+    p.nivel AS prioridade,
+    -- Valores dos recursos agregados para cada servidor
+    MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS CPU,
+    SUM(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS total_cpu
 FROM dado_capturado AS d
 JOIN maquina AS m ON d.fkMaquina = m.idMaquina
 JOIN recurso AS r ON d.fkRecurso = r.idRecurso
 JOIN prioridade AS p ON m.fkPrioridade = p.idPrioridade
 GROUP BY m.idMaquina, m.nomeMaquina, m.fkEmpresa, m.situacao, p.nivel
-ORDER BY CPU DESC
-LIMIT 3; 
+ORDER BY CPU DESC;
 
 CREATE OR REPLACE VIEW diferenca_horas AS
-SELECT *
-FROM (
-SELECT
-dc.fkMaquina,
-dc.fkRecurso,
-m.nomeMaquina,
-SUM(TIMESTAMPDIFF(HOUR,
-(SELECT MAX(dc2.dtHora)
-FROM dado_capturado AS dc2
-WHERE dc2.fkRecurso = dc.fkRecurso
-AND dc2.dtHora < dc.dtHora),
-dc.dtHora)) AS diferenca_horas  -- Somando as diferenças de horas
-FROM
-dado_capturado AS dc
-JOIN
-maquina AS m ON dc.fkMaquina = m.idMaquina
-WHERE
-dc.fkRecurso = 1
-AND dc.dtHora >= CURDATE() - INTERVAL 7 DAY  -- Filtra para os últimos 7 dias
-AND TIMESTAMPDIFF(HOUR,
-(SELECT MAX(dc2.dtHora)
-FROM dado_capturado AS dc2
-WHERE dc2.fkRecurso = dc.fkRecurso
-AND dc2.dtHora < dc.dtHora),
-dc.dtHora) IS NOT NULL
-GROUP BY
-dc.fkMaquina, dc.fkRecurso, m.nomeMaquina  -- Agrupa pelas máquinas e recursos
-ORDER BY
-diferenca_horas DESC
-LIMIT 3
-) AS top_3_diferencas;
+SELECT 
+    COUNT(d.registro) * 5 / 60 AS total_diferenca_horas, 
+    q.idMaquina, 
+    q.nomeMaquina,
+    m.valorMetrica,
+    m.fkEmpresa
+FROM 
+    dado_capturado AS d
+JOIN 
+    view_quantidade_cpu AS q ON d.fkMaquina = q.idMaquina
+JOIN 
+    metrica AS m ON d.fkRecurso = m.fkRecurso
+JOIN empresa ON m.fkEmpresa = empresa.idEmpresa
+WHERE 
+    d.registro > m.valorMetrica
+    AND d.dtHora > DATE_SUB(NOW(), INTERVAL 30 DAY)
+GROUP BY 
+    fkMaquina, q.idMaquina, q.nomeMaquina, m.valorMetrica, m.fkEmpresa;
 
  
 
 CREATE OR REPLACE VIEW view_media_max_cpu AS
-SELECT
-m.idMaquina,
-m.nomeMaquina,
-m.fkEmpresa,
-m.situacao,
-p.nivel AS prioridade,
--- Média do uso de CPU
-AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS media_cpu,
--- Valor máximo do uso de CPU
-MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS max_cpu
+SELECT 
+    m.idMaquina, 
+    m.nomeMaquina, 
+    m.fkEmpresa, 
+    m.situacao, 
+    p.nivel AS prioridade,
+    -- Média do uso de CPU
+    AVG(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS media_cpu,
+    -- Valor máximo do uso de CPU
+    MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN d.registro END) AS max_cpu
 FROM dado_capturado AS d
 JOIN maquina AS m ON d.fkMaquina = m.idMaquina
 JOIN recurso AS r ON d.fkRecurso = r.idRecurso
 JOIN prioridade AS p ON m.fkPrioridade = p.idPrioridade
-GROUP BY m.idMaquina, m.nomeMaquina, m.fkEmpresa, m.situacao, p.nivel;
+JOIN empresa ON m.fkEmpresa = empresa.idEmpresa
+WHERE d.dtHora >= CURRENT_DATE - INTERVAL 30 DAY
+  AND d.dtHora < CURRENT_DATE
+GROUP BY 
+    m.idMaquina, 
+    m.nomeMaquina, 
+    m.fkEmpresa, 
+    m.situacao, 
+    p.nivel;
 
- 
-
-SELECT registro, dtHora, fkMaquina
-FROM dado_capturado
-WHERE fkRecurso = 1
-AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
-ORDER BY dtHora ASC;
 
 -- =============================================================DELIMITER==============================================================================
 DELIMITER //
