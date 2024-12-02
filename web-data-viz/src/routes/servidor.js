@@ -23,7 +23,7 @@ router.get("/listarDadoEspecifico/:idMaquina", function (req, res) {
     servidorController.listarDadoEspecifico(req, res)
 })
 
-router.get("/listarDiferencaHoras", function (req, res) {
+router.get("/listarDiferencaHoras/:idEmpresa", function (req, res) {
     servidorController.listarDiferencaHoras(req, res)
 })
 

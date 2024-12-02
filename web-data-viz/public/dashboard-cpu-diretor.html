@@ -335,7 +335,8 @@
     // Gráfico Horas --------------------------------------------------------------------------------------------------------
     const ctx2 = document.getElementById('myChart');
     function listarHoras() {
-        fetch(`servidor/listarDiferencaHoras`)
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        fetch(`servidor/listarDiferencaHoras/${fkEmpresa}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro na requisição: ' + response.statusText);
