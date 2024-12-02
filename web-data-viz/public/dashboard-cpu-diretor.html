@@ -336,6 +336,7 @@
     const ctx2 = document.getElementById('myChart');
     function listarHoras() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
+        console.log("A fk da empresa aqui é", fkEmpresa)
         fetch(`servidor/listarDiferencaHoras/${fkEmpresa}`)
             .then(response => {
                 if (!response.ok) {
