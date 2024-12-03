@@ -18,7 +18,7 @@ function listarEspecifico(idMaquina) {
 
 function listarPorUsoCPU(fkEmpresa) {
     var instrucaoSql = `
-        SELECT * FROM view_quantidade_cpu WHERE fkEmpresa = ${fkEmpresa};
+        SELECT * FROM view_quantidade_cpu WHERE fkEmpresa = ${fkEmpresa} LIMIT 3;
 `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -52,7 +52,7 @@ function listarPrioridade() {
 
 function listarDiferencaHoras(fkEmpresa) {
     var instrucaoSql = `
-    SELECT * FROM diferenca_horas where fkEmpresa = ${fkEmpresa} ;
+    SELECT * FROM diferenca_horas where fkEmpresa = ${fkEmpresa} LIMIT 3;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
