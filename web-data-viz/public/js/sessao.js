@@ -20,9 +20,6 @@ function validarSessao() {
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../index.html";
-    sessionStorage.clear();
-    
-    window.location = "./dashboard/dash-especialista-seguranca.html";
 }
 
 

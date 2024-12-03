@@ -41,19 +41,20 @@ function buscarDesempenho(idServidor) {
  */
 function buscarDadosPerdidos(idServidor) {
     const query = `
-        SELECT 
-            ROUND(
+            SELECT 
+        ROUND(
+            GREATEST(
                 (SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 0 END) - 
-                 SUM(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE 0 END)) /
-                NULLIF(SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro END), 1) * 100, 2
+                SUM(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE 0 END)), 
+                0
+            ) / NULLIF(SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 0 END), 1) * 100, 
+        2) AS dados_perdidos
+    FROM dado_capturado AS dc
+    JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+    WHERE r.nomeRecurso IN ('Bytes Enviados', 'Bytes Recebidos')
+        AND dc.fkMaquina = ${idServidor}
+    GROUP BY dc.fkMaquina;
 
-            ) AS dados_perdidos
-        FROM dado_capturado AS dc
-        JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
-        WHERE r.nomeRecurso IN ('Bytes Enviados', 'Bytes Recebidos')
-
-                    AND dc.fkMaquina = ${idServidor}
-        GROUP BY dc.fkMaquina;
     `;
     return database.executar(query, [idServidor]);
 }
@@ -103,17 +104,19 @@ async function buscarDadosTempoReal(idServidor, indicador) {
     switch (indicador) {
         case "dados_perdidos":
             query = `
-                SELECT 
-                    ROUND(
-                        (SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 0 END) - 
-                        SUM(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE 0 END)) /
-                        NULLIF(SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 1 END), 1) * 100, 2
-                    ) AS valor
-                FROM dado_capturado AS dc
-                JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
-                WHERE r.nomeRecurso IN ('Bytes Enviados', 'Bytes Recebidos')
-                  AND dc.fkMaquina = ${idServidor};
-
+                    SELECT 
+        ROUND(
+            GREATEST(
+                (SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 0 END) - 
+                SUM(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE 0 END)), 
+                0
+            ) / NULLIF(SUM(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE 0 END), 1) * 100, 
+        2) AS dados_perdidos
+    FROM dado_capturado AS dc
+    JOIN recurso AS r ON dc.fkRecurso = r.idRecurso
+    WHERE r.nomeRecurso IN ('Bytes Enviados', 'Bytes Recebidos')
+        AND dc.fkMaquina = ${idServidor}
+    GROUP BY dc.fkMaquina;
             `;
             break;
 
