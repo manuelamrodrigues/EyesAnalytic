@@ -196,7 +196,7 @@ width: 100%;
 /* GRAFICOS */
 canvas {
     height: 50vh !important;
-    width: 95vh !important;
+    width: 90vh !important;
     border-radius: 10px;
     background-color: white;
 }
