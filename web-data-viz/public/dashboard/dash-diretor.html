@@ -118,11 +118,11 @@
                 <p class="nmrPcrt" id="alertas-recentes"></p>
             </div>
             <div class="numPerct">
-                <p class="titlePcrt">Mbps de Upload</p>
+                <p class="titlePcrt">Kbytes Enviados</p>
                 <p class="nmrPcrt" id="mbps-upload"></p>
             </div>
             <div class="numPerct">
-                <p class="titlePcrt">Mbps de Download</p>
+                <p class="titlePcrt">Kbytes recebidos</p>
                 <p class="nmrPcrt" id="mbps-download"></p>
             </div>
         </header>
@@ -173,50 +173,6 @@
             
         </section>
 
-        <section class="chamados"></section>
-             <article class="alertas">
-                <h2>Alertas Recentes</h2>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-                <div class="frameAlertas">
-                    <div class="userImg">
-                        <img src="../assets/svg/alerta.svg" alt="" class="iconAlerta">
-                    </div>
-                    <p><span class="status-alerta">Alerta CPU</span></p>
-                    <p>Status: <span class="status-ativo">Ativo</span></p>
-                    <p>Responsável: Fernando Silva</p>
-                    <div class="hrDt">
-                        <p>12:13</p>
-                        <p>20/09/2024</p>
-                    </div>
-
-                </div>
-    
-               
         </main>
     
         <script>
@@ -227,11 +183,11 @@
                     const response = await fetch(`/medidas/captura/indicadores/${idEmpresa}`, { method: "GET" });
                     if (response.ok) {
                         const indicadores = await response.json();
-                        document.getElementById("quantidade-maquina").textContent = indicadores.quantidadeMaquinas || 0;
-                        document.getElementById("maquinas-conectadas").textContent = indicadores.maquinasConectadas || 0;
+                        document.getElementById("quantidade-maquina").textContent = indicadores.maquinasConectadas || 0;
+                        document.getElementById("maquinas-conectadas").textContent = indicadores.quantidadeMaquinas || 0;
                         document.getElementById("alertas-recentes").textContent = indicadores.alertasRecentes || 0;
-                        document.getElementById("mbps-upload").textContent = indicadores.upload || 0;
-                        document.getElementById("mbps-download").textContent = indicadores.download || 0;
+                        document.getElementById("mbps-upload").textContent = indicadores.upload.toFixed(2) || 0;
+                        document.getElementById("mbps-download").textContent = indicadores.download.toFixed(2) || 0;
                     } else {
                         console.error("Erro ao obter indicadores:", await response.text());
                     }
