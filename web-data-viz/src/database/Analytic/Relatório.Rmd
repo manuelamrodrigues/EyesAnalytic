@@ -1,0 +1,458 @@
+---
+title: "Relatório"
+author: "Eyes Analytic"
+date: "2024-11-24"
+output: html_document
+---
+<style>
+/* Estilos gerais */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-family: 'Helvetica', sans-serif;
+  color: #333;
+  margin: 0;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+h2 {
+  font-size: 28px;
+  color: #0073e6;
+  border-bottom: 3px solid #0073e6;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  color: #333;
+  margin-top: 40px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+
+
+/* Conteúdo principal */
+.container {
+ 
+  width: 100%;
+  heigth: 100%;
+  background-color: #ffffff;
+  
+  
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h3 {
+  font-size: 26px;
+  margin-top: 20px;
+  color: #333;
+}
+
+section p {
+  margin-top: 10px;
+  color: #666;
+}
+
+
+
+
+</style>
+
+
+<div class="container">
+  <!-- Seção Introdução -->
+  <section id="introducao">
+    <h1>Introdução</h1>
+    <p>Este relatório apresenta uma análise dos dados coletados sobre o uso de recursos de servidores, tráfego de rede, alertas de segurança e outros parâmetros do sistema. A seguir, são apresentadas as consultas realizadas e as visualizações geradas a partir dos dados.</p>
+  </section>
+
+---
+
+  <!-- Seção Uso de Recursos -->
+  <section id="uso-recursos">
+    <h2>Uso de Recursos</h2>
+    <h3>1.1 Consulta de Uso de CPU e RAM</h3>
+    <p><strong>Objetivo:</strong> Verificar o uso médio e o pico de CPU e RAM ao longo do tempo.</p>
+    <p><strong>Visualização:</strong> O gráfico de dispersão exibe o uso médio de CPU e RAM ao longo do tempo.</p>
+    <pre>
+```{r , echo=FALSE}
+library(DBI)
+library(RMySQL)
+library(ggplot2)
+
+# Conectando ao banco de dados
+conexao <- dbConnect(RMySQL::MySQL(),
+                     dbname = "eyesAnalytic",
+                     host = "localhost",
+                     port = 3306,
+                     user = "Gustavo",
+                     password = "sptech")
+
+# Listando as tabelas
+tabelas <- dbListTables(conexao)
+# Consulta de uso de CPU e RAM
+query_dados <- "
+SELECT 
+    fkRecurso,
+    DATE(dtHora) AS data,
+    AVG(registro) AS media_uso,
+    MAX(registro) AS pico_uso
+FROM 
+    dado_capturado
+WHERE 
+    fkRecurso IN (1, 2)  -- Substituir 1 e 2 pelos IDs correspondentes a CPU e RAM
+GROUP BY 
+    fkRecurso, DATE(dtHora)
+ORDER BY 
+    data ASC;
+"
+
+dados_uso <- dbGetQuery(conexao, query_dados)
+# Gráfico de dispersão para uso de CPU e RAM ao longo do tempo
+ggplot(dados_uso, aes(x = data, y = media_uso, color = as.factor(fkRecurso))) +
+  geom_point(size = 3, alpha = 0.7) +  # Pontos para dispersão
+  labs(
+    title = "Dispersão do Uso de CPU e RAM ao longo do tempo",
+    x = "Data",
+    y = "Uso Médio",
+    color = "Recurso"
+  ) +
+  scale_color_manual(values = c("#055a3a", "#0bcea7")) +  # Define as cores manualmente
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Inclina as datas para melhor visualização
+  )
+
+```
+ </pre>
+
+ <h3>1.2 Comparativo de Uso por Máquina</h3>
+    <p><strong>Objetivo:</strong> Comparar o uso de CPU e RAM entre diferentes máquinas.</p>
+    <p><strong>Visualização:</strong> Um gráfico de barras compara o uso médio de CPU e RAM em cada máquina.</p>
+    <pre>
+```{r , echo=FALSE}
+# Consulta para comparativo de uso de CPU e RAM por máquina
+query_comparativo <- "
+SELECT 
+    fkMaquina,
+    fkRecurso,
+    AVG(registro) AS media_uso
+FROM 
+    dado_capturado
+WHERE 
+    fkRecurso IN (1, 2)  -- Substituir 1 e 2 pelos IDs correspondentes a CPU e RAM
+GROUP BY 
+    fkMaquina, fkRecurso
+ORDER BY 
+    media_uso DESC;
+"
+
+dados_comparativo <- dbGetQuery(conexao, query_comparativo)
+
+# Gráfico de barras comparativo de uso por máquina
+ggplot(dados_comparativo, aes(x = reorder(as.factor(fkMaquina), -media_uso), y = media_uso, fill = as.factor(fkRecurso))) +
+  geom_bar(stat = "identity", position = "dodge") +  # Barras lado a lado
+  labs(
+    title = "Comparativo de Uso de CPU e RAM por Máquina",
+    x = "Máquina",
+    y = "Média de Uso",
+    fill = "Recurso"
+  ) +
+  scale_fill_manual(values = c("#087b97", "#0bcea7")) +  # Define cores personalizadas para CPU e RAM
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Inclina os rótulos das máquinas no eixo X
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Centraliza e estiliza o título
+    axis.title = element_text(size = 14),  # Ajusta tamanho dos títulos dos eixos
+    legend.position = "top"  # Move a legenda para o topo
+  )
+
+```
+    </pre>
+  </section>
+
+---
+
+<!-- Seção Análise de Rede -->
+  <section id="rede">
+    <h2>Análise de Rede</h2>
+    <h3>2.1 Desempenho de Tráfego de Rede</h3>
+    <p><strong>Objetivo:</strong> Analisar o tráfego de dados (recebidos e enviados) por bimestre.</p>
+    <p><strong>Visualização:</strong> O gráfico de linha exibe como o tráfego de rede varia em cada bimestre.</p>
+    <pre>
+```{r , echo=FALSE}
+query_rede <- "
+SELECT
+    r.nomeRecurso,  -- Nome do recurso
+    dc.dtHora,      -- Data e hora do registro
+    dc.registro     -- Valor do registro para o recurso
+FROM
+    dado_capturado dc
+JOIN
+    maquina_recurso mr ON dc.fkMaquina = mr.fkMaquina
+JOIN
+    recurso r ON dc.fkRecurso = r.idRecurso
+WHERE
+    r.nomeRecurso IN ('Bytes Recebidos', 'Bytes Enviados', 'Pacotes Enviados', 'Pacotes Recebidos')
+ORDER BY
+    dc.dtHora;
+"
+
+# Executar a query e carregar os dados
+dado_rede <- dbGetQuery(conexao, query_rede)
+
+# Garantir que a variável 'dtHora' esteja no formato de data e hora
+dado_rede$dtHora <- as.POSIXct(dado_rede$dtHora, format = "%Y-%m-%d %H:%M:%S")
+
+# Agrupar os dados por ano e mês
+dado_rede$mes <- format(dado_rede$dtHora, "%Y-%m")  # Ano-Mês
+
+# Agregar os dados por mês e nome do recurso
+dado_rede_agg_mes <- aggregate(registro ~ mes + nomeRecurso, data = dado_rede, FUN = mean)
+
+# Dividir os dados entre Download (Bytes Recebidos) e Upload (Bytes Enviados)
+dado_rede_download <- dado_rede_agg_mes[dado_rede_agg_mes$nomeRecurso == "Bytes Recebidos", ]
+dado_rede_upload <- dado_rede_agg_mes[dado_rede_agg_mes$nomeRecurso == "Bytes Enviados", ]
+dado_rede_pacotes_recebidos <- dado_rede_agg_mes[dado_rede_agg_mes$nomeRecurso == "Pacotes Recebidos", ]
+dado_rede_pacotes_enviados <- dado_rede_agg_mes[dado_rede_agg_mes$nomeRecurso == "Pacotes Enviados", ]
+
+# Calcular Tamanho Médio de Pacotes
+tamanho_pacote_recebido <- dado_rede_download$registro / dado_rede_pacotes_recebidos$registro
+tamanho_pacote_enviado <- dado_rede_upload$registro / dado_rede_pacotes_enviados$registro
+
+# Combinar todos os dados em um dataframe
+dados_final <- data.frame(
+  mes = dado_rede_download$mes,
+  download_medio = dado_rede_download$registro,
+  upload_medio = dado_rede_upload$registro,
+  tamanho_pacote_recebido = tamanho_pacote_recebido,
+  tamanho_pacote_enviado = tamanho_pacote_enviado
+)
+
+
+
+# Carregar a biblioteca necessária
+library(ggplot2)
+
+
+# Gráfico de linha para visualização
+ggplot(dados_final, aes(x = mes)) +
+  geom_line(aes(y = download_medio, color = "Download Médio", group = 1), size = 1) +
+  geom_line(aes(y = upload_medio, color = "Upload Médio", group = 1), size = 1) +
+  geom_line(aes(y = tamanho_pacote_recebido, color = "Tamanho Médio Pacote Recebido", group = 1), size = 1) +
+  geom_line(aes(y = tamanho_pacote_enviado, color = "Tamanho Médio Pacote Enviado", group = 1), size = 1) +
+  labs(
+    title = "Monitoramento de Recursos de Rede - Média de Download, Upload e Tamanho de Pacotes",
+    x = "Mês",
+    y = "Valor Médio",
+    color = "Métricas"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Inclinação dos meses no eixo X
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Centraliza e estiliza o título
+    axis.title = element_text(size = 14)  # Ajusta tamanho dos títulos dos eixos
+  ) +
+  scale_color_manual(
+    values = c(
+      "Download Médio" = "#087b97",
+      "Upload Médio" = "#078b71",
+      "Tamanho Médio Pacote Recebido" = "#52ccb8",
+      "Tamanho Médio Pacote Enviado" = "#79d3e9"
+    )
+  )
+
+# Calcular a média de download e upload em Mb
+media_download_mb <- mean(dados_final$download_medio, na.rm = TRUE) / 1024 / 1024  # Convertendo para MB
+media_upload_mb <- mean(dados_final$upload_medio, na.rm = TRUE) / 1024 / 1024  # Convertendo para MB
+
+# Calcular o tamanho médio dos pacotes em Kb
+media_tamanho_pacote_kb <- mean(c(dados_final$tamanho_pacote_recebido, dados_final$tamanho_pacote_enviado), na.rm = TRUE) / 1024  # Convertendo para Kb
+
+# Exibir os resultados no formato solicitado
+cat(sprintf("Média de Download: %.2f Mb\n", media_download_mb))
+cat(sprintf("Média de Upload: %.2f Mb\n", media_upload_mb))
+cat(sprintf("Tamanho médio de pacotes: %.10f Kb\n", media_tamanho_pacote_kb))
+
+```
+ </pre>
+  </section>
+---
+
+<!-- Seção Análise de Segurança -->
+  <section id="seguranca">
+    <h2>Análise de Segurança</h2>
+    <h3>3.1 Uso Excessivo de CPU e RAM</h3>
+    <p><strong>Objetivo:</strong> Identificar períodos com uso excessivo de CPU e RAM.</p>
+    <p><strong>Visualização:</strong> O gráfico de barras exibe quando o uso de CPU e RAM ultrapassou o limite, destacando os períodos críticos.</p>
+    <pre>
+```{r , echo=FALSE}
+# Consulta de uso excessivo de CPU e RAM
+query_exce <- "
+SELECT 
+    CONCAT(YEAR(dc.dtHora), '-B', FLOOR((MONTH(dc.dtHora) - 1) / 2) + 1) AS bimestre,
+    r.nomeRecurso,
+    AVG(dc.registro) AS media_uso,
+    MAX(dc.registro) AS pico_uso
+FROM 
+    dado_capturado dc
+JOIN 
+    recurso r ON dc.fkRecurso = r.idRecurso
+WHERE 
+    r.nomeRecurso IN ('CPU', 'RAM')
+GROUP BY 
+    bimestre, r.nomeRecurso
+HAVING 
+    pico_uso >  40
+ORDER BY 
+    bimestre;
+"
+
+dados_excessivos <- dbGetQuery(conexao, query_exce)
+
+# Gráfico de barras para uso excessivo
+ggplot(dados_excessivos, aes(x = bimestre, y = pico_uso, fill = nomeRecurso)) +
+  geom_bar(stat = "identity", position = "dodge") + 
+  labs(
+    title = "Uso Excessivo de CPU e RAM por Bimestre",
+    x = "Bimestre",
+    y = "Pico de Uso",
+    fill = "Recurso"
+  ) +
+  scale_fill_manual(values = c("CPU" = "#087b97", "RAM" = "#0bcea7")) +  # Define as cores personalizadas para os recursos
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Centraliza e estiliza o título
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Inclinação dos rótulos do eixo X
+    axis.title = element_text(size = 14),  # Ajusta tamanho dos títulos dos eixos
+    legend.position = "top"  # Move a legenda para o topo
+  )
+
+```
+  </pre>
+ 
+
+<h2>Análise de Segurança</h2>
+    <h3>3.2 Priorização dos Alertas</h3>
+    <p><strong>Objetivo:</strong>Classificar os alertas de acordo com sua gravidade (alto, médio, baixo).</p>
+    <p><strong>Gravidade dos alertas:</strong>Classifica os alertas com base no impacto do recurso monitorado, ajudando a priorizar as ações.</p>
+    <p><strong>Visualização:</strong>O gráfico de barras mostra a quantidade de alertas em cada nível de gravidade, permitindo que os problemas mais urgentes sejam resolvidos primeiro.</p>
+    <pre>
+```{r , echo=FALSE}
+# Consulta para priorização dos alertas
+query_prioridade_alertas <- "
+SELECT 
+    d.dtHora,
+    m.nomeMaquina,
+    r.nomeRecurso,
+    d.registro AS valorRegistrado,
+    CASE
+        WHEN d.registro > 90 THEN 'Alto'
+        WHEN d.registro BETWEEN 70 AND 90 THEN 'Médio'
+        ELSE 'Baixo'
+    END AS gravidade,
+    COUNT(a.idAlerta) AS totalAlertas
+FROM 
+    dado_capturado d
+LEFT JOIN 
+    alerta a ON d.idDadoCapturado = a.fkDadoCapturado
+JOIN 
+    maquina m ON d.fkMaquina = m.idMaquina
+JOIN 
+    recurso r ON d.fkRecurso = r.idRecurso
+WHERE 
+    r.nomeRecurso IN ('CPU', 'RAM', 'Bytes Recebidos', 'Bytes Enviados', 
+                      'Pacotes Recebidos', 'Pacotes Enviados', 'Latência', 
+                      'Conexões Ativas')
+    AND d.registro > 40
+GROUP BY 
+    d.dtHora, m.nomeMaquina, r.nomeRecurso, d.registro, gravidade
+ORDER BY 
+    gravidade DESC, d.dtHora DESC;
+"
+
+dados_priorizados <- dbGetQuery(conexao, query_prioridade_alertas)
+
+# Gráfico de barras com a priorização de alertas
+ggplot(dados_priorizados, aes(x = gravidade, fill = nomeRecurso)) +
+  geom_bar(stat = "count", position = "dodge") +
+  labs(
+    title = "Priorização de Alertas por Gravidade",
+    x = "Gravidade do Alerta",
+    y = "Quantidade de Alertas",
+    fill = "Recurso"
+  ) +
+  theme_minimal()
+
+```
+     </pre>
+ </section>
+---
+
+<!-- Seção Conclusões -->
+  <section id="conclusoes">
+    <h2>Conclusões</h2>
+    <p>Com base nas análises realizadas, foi possível identificar padrões de uso de recursos, possíveis gargalos e momentos críticos de tráfego de rede. Essas informações são essenciais para otimizar o desempenho dos servidores e garantir a segurança do ambiente de TI.</p>
+    
+  <h3>Ranking de Componentes com Mais Alertas</h3>
+  <p><strong>Objetivo:</strong> Identificar os componentes do sistema (como CPU, RAM, disco, etc.) que geraram mais alertas.</p>
+  <p><strong>Análise:</strong>  A consulta SQL conta o total de alertas para cada tipo de componente, classificando-os do mais crítico para o menos crítico.</p>
+  <p><strong>Visualização:</strong>O gráfico de barras mostra o número total de alertas para cada componente. As barras são ordenadas em ordem decrescente, com os componentes com mais alertas à esquerda.</p>
+  <pre>
+```{r , echo=FALSE}
+
+# Obter os dados do ranking
+query_ranking <- paste("
+SELECT 
+    r.nomeRecurso AS componente,
+    COUNT(a.idAlerta) AS totalAlertas
+FROM 
+    alerta a
+JOIN 
+    dado_capturado d ON a.fkDadoCapturado = d.idDadoCapturado
+JOIN 
+    recurso r ON d.fkRecurso = r.idRecurso
+GROUP BY 
+    r.nomeRecurso
+ORDER BY 
+    totalAlertas DESC;
+")
+
+ranking_alertas <- dbGetQuery(conexao, query_ranking)
+
+# Criar um gráfico de barras para o ranking
+library(ggplot2)
+
+ggplot(ranking_alertas, aes(x = reorder(componente, -totalAlertas), y = totalAlertas, fill = componente)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Ranking de Componentes com Mais Alertas",
+    x = "Componente",
+    y = "Total de Alertas",
+    fill = "Componente"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+  </pre>
+  </section>

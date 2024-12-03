@@ -234,5 +234,5 @@ canvas {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 50px;
+    gap: 30px;
 }
