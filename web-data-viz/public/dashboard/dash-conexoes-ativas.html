@@ -73,13 +73,6 @@
                 </li>
             </a>
 
-            <a href="../dashboard-cpu-diretor.html" class="outros">
-                <li>
-                    <img src="../assets/svg/chamados.svg" alt="Chamados">
-                    <span>Uso CPU</span>
-                </li>
-            </a>
-
             <a onclick="limparSessao()" class="outros">
                 <li>
                     <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
@@ -112,6 +105,7 @@
 
     </aside>
     <div id="fade" class="hide"></div>
+
 
     <main>
         <div class="content-main">
@@ -175,7 +169,7 @@
                             <span id="atual_ram"></span>
                         </div>
                         <div class="comparador" id="comparador_ram">
-                            
+
                         </div>
                         <div class="indicador">
                             <span>Estimativa</span>
@@ -252,83 +246,83 @@
 
 </html>
 <script>
-    
+
     async function obterDadoComparacao() {
         let idEmpresa = sessionStorage.getItem("FK_EMPRESA");
-        try{
+        try {
             const resposta = await fetch(`/capturas/coletarComparacaoSemana/${idEmpresa}`)
-            
+
             const json = await resposta.json()
-            
+
             console.log(json)
             const hora = []
             const mediaAtual = []
             const mediaAnterior = []
             let diaSemana
-            let dataAtual 
-            let dataAnterior 
-            
-            json.forEach(resposta =>{
+            let dataAtual
+            let dataAnterior
+
+            json.forEach(resposta => {
                 hora.push(`${resposta.hora}:00`)
-                mediaAtual.push(resposta.media_atual)
-                mediaAnterior.push(resposta.media_anterior)
-                diaSemana = resposta.dia_semana
+                mediaAtual.push(resposta.conexoes_ativas_hoje)
+                mediaAnterior.push(resposta.conexoes_ativas_semana_passada)
+                diaSemana = resposta.dia_da_semana
                 dataAtual = resposta.data_atual
-                dataAnterior = resposta.data_anterior
+                dataAnterior = resposta.data_semana_passada
             })
 
 
-            console.log(diaSemana,dataAtual)
+            console.log(diaSemana, dataAtual)
 
-            return{
-                diaSemana:diaSemana,
-                dataAtual:dataAtual,
-                dataAnterior:dataAnterior,
-                hora:hora,
-                mediaAtual:mediaAtual,
-                mediaAnterior:mediaAnterior
+            return {
+                diaSemana: diaSemana,
+                dataAtual: dataAtual,
+                dataAnterior: dataAnterior,
+                hora: hora,
+                mediaAtual: mediaAtual,
+                mediaAnterior: mediaAnterior
             }
         }
-        catch(erro){
+        catch (erro) {
             console.log(erro)
             return []
         }
     }
 
-    async function plotarGraficoComparacao(){
-        try{
+    async function plotarGraficoComparacao() {
+        try {
 
             const divComparacao = document.getElementById("comparacao")
-            
+
             const resposta = await obterDadoComparacao()
 
 
             const dadosAtual = resposta.mediaAtual
-            const dadosAnterior = resposta.mediaAnterior
+            const dadosAnterior = resposta.mediaAnterior            
             const labels = resposta.hora
-            
+
             divComparacao.innerHTML = `Comparação dia: ${resposta.dataAtual} X ${resposta.dataAnterior}`
-            
+
             const ctx = document.getElementById('graph_comp')
             ctx.height = 250
             var chartComp = new Chart(ctx, {
-                type:'bar',
+                type: 'bar',
                 data: {
-                    labels:labels,
-                    datasets:[{
-                        label:resposta.dataAtual,
-                        data:dadosAtual
+                    labels: labels,
+                    datasets: [{
+                        label: resposta.dataAtual,
+                        data: dadosAtual
                     },
-                {
-                    label:resposta.dataAnterior,
-                    data:dadosAnterior
-                }]
+                    {
+                        label: resposta.dataAnterior,
+                        data: dadosAnterior
+                    }]
                 }
             }
 
             )
         }
-        catch(erro){
+        catch (erro) {
             console.log(erro)
         }
     }
@@ -354,22 +348,27 @@
                             label: "Conexões ativas", // Adicione aspas ao rótulo
                             data: media,
                             backgroundColor: 'rgba(24,52,44,0.2)',
-                            borderColor: 'rgb(24,52,44)' ,
-                            pointRadius: 1,
-                            fill:false
+                            borderColor: 'rgb(24,52,44)',
+                            pointRadius: 0.5,
+                            lineTension:0.4,
+                            borderWidth: 2,
+                            fill: true
                         },
                     ],
                 },
                 options: {
                     scales: {
-                    x: {
-                        ticks: {
-                            display: false // Oculta labels do eixo X
+                        x: {
+                            ticks: {
+                                display: false // Oculta labels do eixo X
+                            }
+                        },
+                        y: {
+                            beginAtZero:true
                         }
                     }
-                }
                 },
-                
+
             });
         } catch (erro) {
             console.log(erro);
@@ -460,28 +459,6 @@
 
             const comparadorRam = document.getElementById("comparador_ram")
             const comparadorCpu = document.getElementById("comparador_cpu")
-
-            if (cpu[0] > estimativaCpu) {
-                comparadorCpu.innerHTML= "<h1>></h1>"   
-            }
-            if (cpu[0] < estimativaCpu) {
-                comparadorCpu.innerHTML= "<h1><</h1>"   
-            }
-            if (cpu[0] == estimativaCpu) {
-                comparadorCpu.innerHTML = '<h1>=</h1>'
-            }
-
-            if (ram[0] > estimativaRam) {
-                comparadorRam.innerHTML = '<h1>></h1>'
-            }
-            if (ram[0] < estimativaRam) {
-                comparadorRam.innerHTML = '<h1><</h1>'
-                
-            }
-            if (ram[0] == estimativaRam) {
-                comparadorRam.innerHTML = '<h1>=</h1>'
-
-            }
             console.log(regressaoCpu, regressaoRam)
             const ctx1 = document.getElementById("cpu_graph")
             ctx1.height = 250
@@ -584,15 +561,26 @@
                     fill: false,
                     lineTension: 0, // Não curvar a linha
                     pointRadius: 0,
+                    pointStyle: 'line'
                 }, {
                     type: 'scatter',
                     label: text,
                     data: recurso.map((y, index) => ({ x: conexoes[index], y: y })),
                     backgroundColor: '#14352E',
+                    pointStyle: 'circle'
                 }],
             },
             options: {
                 responsive: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true, // Habilita estilos personalizados
+                            boxWidth: 7,
+                            boxHeight: 7,
+                        }
+                    }
+                },
                 scales: {
                     x: {
                         type: 'linear',

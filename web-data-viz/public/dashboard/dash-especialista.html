@@ -5,13 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | EyesAnalytic</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../css/pages/dash-especialista.css">
     <!-- <link rel="stylesheet" href="../css/pages/espec-servidores.css"> -->
     <link rel="stylesheet" href="../css/pages/aside-menu.css">
+
     <link rel="stylesheet" href="./css/pages/lista-alertas.css">
+
     <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
     <script src="../js/aside-menu.js"></script>
     <script src="../js/sessao.js"></script>
+    <script type="text/javascript"> </script>
 </head>
 
 <body onload="validarSessao(), listarServidores()">
@@ -19,6 +27,7 @@
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
         <ul id="navLinks">
+
 
             <a href="../lista-alertas-especialista.html" class="outros">
                 <li>
@@ -46,6 +55,14 @@
                     <span>Componentes</span>
                 </li>
             </a>
+          
+          <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
+                        <li>
+                            <img src="../assets/svg/chamados.svg" alt="Chamados">
+                            <span>Segurança</span>
+                        </li>
+                    </a>
+        
 
             <a onclick="limparSessao()" class="outros">
                 <li>
@@ -53,6 +70,7 @@
                     <span>Sair</span>
                 </li>
             </a>
+
 
         </ul>
         <div class="menu" id="menu-hamburguer">
@@ -91,31 +109,20 @@
 
                 <section class="kpi">
                     <h3>Indicadores</h3>
-                    <div class="quadro">
-                        <div class="indica">
-                            <h4>Titulo</h4>
-                            <h5>valor</h5>
-                        </div>
-                        <div class="indica">
-                            <h4>Titulo</h4>
-                            <h5>valor</h5>
-                        </div>
-                        <div class="indica">
-                            <h4>Titulo</h4>
-                            <h5>valor</h5>
-                        </div>
-                        <div class="indica">
-                            <h4>Titulo</h4>
-                            <h5>valor</h5>
-                        </div>
+                    <div class="quadro" id="indicadoresQuadro">
+                        <!-- Indicadores serão inseridos aqui dinamicamente -->
                     </div>
                 </section>
 
-                <section class="dados-section">
+
+
+                <section class="serv">
                     <h2>Servidores</h2>
-                    <article class="card-section" id="lista">
-                    </article>
-                    <div id="modal" class="modal">
+                    <div class="dados-section">
+                        <article class="card-section" id="lista">
+                        </article>
+                        <div id="modal" class="modal">
+                        </div>
                     </div>
 
                 </section>
@@ -269,11 +276,15 @@
         plotarGrafico(2)
     }
 
-    //FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
+
+    // Variável global para armazenar o id da máquina selecionada
+    let idMaquinaSelecionada = null;
+
+    // FUNÇÃO PARA LISTAR TODOS OS SERVIDORES DE UMA DETERMINADA EMPRESA
     function listarServidores() {
         var fkEmpresa = sessionStorage.FK_EMPRESA;
-
         var lista = document.getElementById("lista");
+
         fetch(`/servidor/listar/${fkEmpresa}`, {
             method: "GET",
             headers: {
@@ -291,56 +302,63 @@
                     let abrir = document.createElement("div");
                     abrir.className = "abrir";
                     abrir.id = "openModal";
+
+                    // Passa o idMaquina e o IP para a função atualizarIndicadores ao clicar
                     abrir.onclick = function () {
-                        atualizarDash(element.idMaquina)
+                        atualizarDash(element.idMaquina);
+                        idMaquinaSelecionada = element.idMaquina;  // Atualiza a variável global com o id da máquina selecionada
+                        atualizarIndicadores(idMaquinaSelecionada, element.IP); // Chama a função passando o id e o IP
                     };
 
                     let titulo = document.createElement("h3");
                     titulo.innerText = element.nomeMaquina;
 
                     // Adicionando opções de CPU, Memória e Disco
-                    let opcoes = document.createElement("div");
-                    opcoes.className = "opcoes";
+                    // let opcoes = document.createElement("div");
+                    // opcoes.className = "opcoes";
 
-                    // CPU
-                    let opcaoCPU = document.createElement("div");
-                    opcaoCPU.className = "opcao";
-                    opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
+                    // // CPU
+                    // let opcaoCPU = document.createElement("div");
+                    // opcaoCPU.className = "opcao";
+                    // opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
 
                     // Memória
-                    let opcaoMemoria = document.createElement("div");
-                    opcaoMemoria.className = "opcao";
-                    opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
+                    // let opcaoMemoria = document.createElement("div");
+                    // opcaoMemoria.className = "opcao";
+                    // opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
 
-                    // Disco
+                    // Disco (Comentado para simplificação)
                     //let opcaoDisco = document.createElement("div");
-                    //  opcaoDisco.className = "opcao";
-                    //  opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
+                    //opcaoDisco.className = "opcao";
+                    //opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
 
                     // Adicionando opções à div 'opcoes'
-                    opcoes.appendChild(opcaoCPU);
-                    opcoes.appendChild(opcaoMemoria);
-                    //  opcoes.appendChild(opcaoDisco);
+                    // opcoes.appendChild(opcaoCPU);
+                    // opcoes.appendChild(opcaoMemoria);
+                    // opcoes.appendChild(opcaoDisco);
 
                     // Montando o conteúdo do modal
                     abrir.appendChild(titulo);
-                    abrir.appendChild(opcoes);
+                    // abrir.appendChild(opcoes);
                     frameAlertas.appendChild(abrir);
 
                     openModal.appendChild(frameAlertas);
 
                     // Adicionando o modal completo ao DOM
                     lista.appendChild(openModal);
-
                 });
-                idMaquina = resposta[0].idMaquina
-                iniciarGrafico()
+
+                // Chama a função iniciarGrafico se necessário
+                idMaquinaSelecionada = resposta[0].idMaquina;
+                iniciarGrafico();
+                iniciarAtualizacaoIndicadores();
             });
-        })
+        });
     }
 
+
     //FUNÇÃO PARA LISTAR INFORMAÇÕES DE UM SERVIDOR ESPECIFICO
-    function listarEspecifico(idMaquina) {
+    function listarEspecifico() {
         fetch(`servidor/listarEspecifico/${idMaquina}`, {
             method: "GET",
             headers: {
@@ -374,6 +392,9 @@
                         cancelButtonText: "Ok"
                     });
                 });
+
+                // Após mostrar o alerta, chama a função para atualizar os indicadores
+                atualizarIndicadores();
             })
         }).catch(function () {
             Swal.fire({
@@ -384,5 +405,139 @@
             });
         })
     }
+
+    // Função para atualizar os indicadores periodicamente
+    function iniciarAtualizacaoIndicadores() {
+        // Atualiza os indicadores imediatamente na primeira execução
+        atualizarIndicadores();
+
+        // Define um intervalo para atualizar os indicadores a cada 30 segundos (30000 ms)
+        setInterval(() => {
+            atualizarIndicadores();
+        }, 30000);
+    }
+
+
+    function listarEspecifico(idMaquina) {
+        fetch(`servidor/listarEspecifico/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then((resposta) => {
+                if (!resposta.ok) {
+                    throw new Error("Erro ao listar servidor específico");
+                }
+                return resposta.json();
+            })
+            .then((resposta) => {
+                let atributosTexto = ""; // Para armazenar os atributos formatados
+
+                resposta.forEach((element) => {
+                    atributosTexto += `<b>${element.nomeAtributo}</b>: ${element.valorAtributo} (<b>${element.nomeRecurso}</b>) <br>`;
+                });
+
+                // Exibe os dados detalhados em um alerta
+                Swal.fire({
+                    title: resposta[0].nomeMaquina,  // Mostra o nome da máquina
+                    html: `<div style="text-align: justify; justify-content: center; padding-left:100px">
+                            ${atributosTexto}
+                        </div> 
+                        <div>
+                        <br><b>Prioridade:</b> 
+                            ${resposta[0].nivelPrioridade} 
+                        <br>
+                        <b>Situação:</b> <span style="color:#08836A; font-weight: 600" >
+                            ${resposta[0].situacao}</span>
+                         </div>`,  // Exibe a prioridade
+                    showCancelButton: true,
+                    cancelButtonColor: "#05a65d",
+                    showConfirmButton: false,
+                    cancelButtonText: "Ok"
+                });
+
+                // Após mostrar o alerta, chama a função para atualizar os indicadores
+                atualizarIndicadores();
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Houve um erro ao listar as informações do servidor.",
+                    icon: "error",
+                    confirmButtonColor: "#05a65d"
+                });
+            });
+    }
+
+    // Função para atualizar os indicadores, agora com o parâmetro IP
+    function atualizarIndicadores() {
+        let quadroIndicadores = document.getElementById("indicadoresQuadro");
+        quadroIndicadores.innerHTML = ""; // Limpa o quadro antes de adicionar os novos indicadores
+
+        // Substitua a URL com a rota correta para obter os indicadores do servidor
+        fetch(`/servidor/indicadores/${idMaquina}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (resposta) {
+                if (!resposta.ok) {
+                    throw new Error("Erro na resposta do servidor");
+                }
+                return resposta.json();
+            })
+            .then(function (dados) {
+                if (dados.length > 0) {
+
+
+                    // Cria e insere os elementos para cada indicador (CPU, RAM, Download, Upload)
+                    // Cria e insere os elementos para cada indicador (CPU, RAM, Download, Upload)
+                    let indicadores = [
+                        { nome: "CPU", valor: dados[0].CPU, sufixo: "%" },
+                        { nome: "RAM", valor: dados[0].RAM, sufixo: "%" },
+                        { nome: "Recebidos", valor: dados[0].Download.toFixed(1), sufixo: "KB" },
+                        { nome: "Enviados", valor: dados[0].Upload.toFixed(1), sufixo: "KB" }
+                    ];
+
+                    indicadores.forEach(indicador => {
+                        // Criar o elemento do indicador
+                        let divIndicador = document.createElement("div");
+                        divIndicador.classList.add("indica"); // Nome da classe no HTML corrigida para "indica"
+
+                        // Criar o título do indicador
+                        let nomeIndicador = document.createElement("h3");
+                        nomeIndicador.textContent = indicador.nome; // Evita problemas de segurança com innerHTML
+
+                        // Criar o valor do indicador com sufixo
+                        let valorIndicador = document.createElement("p");
+                        // Verifica se o valor é válido, e adiciona o sufixo
+                        valorIndicador.textContent = indicador.valor ? `${indicador.valor} ${indicador.sufixo}` : "N/A"; // Valor padrão com sufixo
+
+                        // Adicionar o título e o valor ao contêiner do indicador
+                        divIndicador.appendChild(nomeIndicador);
+                        divIndicador.appendChild(valorIndicador);
+
+                        // Adicionar o indicador ao quadro
+                        quadroIndicadores.appendChild(divIndicador);
+                    });
+
+                } else {
+                    quadroIndicadores.innerHTML = "<p>Nenhum dado selecionado / encontrado</p>";
+                }
+            })
+            .catch(function (erro) {
+                console.error("Erro ao buscar indicadores:", erro);
+                quadroIndicadores.innerHTML = "<p>Erro ao carregar os dados / Nenhum dado selecionado</p>";
+            });
+    }
+
+
+
+
+
+
+
 
 </script>
