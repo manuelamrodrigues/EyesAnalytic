@@ -153,7 +153,7 @@
         const indicadoresDropdown = document.getElementById("indicadores");
         const ctxLinha = document.getElementById("chartLinha").getContext("2d");
         let chartLinha;
-    
+        let intervaloAtualizacao; // Variável global para gerenciar o intervalo
         // Função para carregar servidores no dropdown
         async function carregarServidores() {
             try {
@@ -322,36 +322,56 @@
                     return;
                 }
     
-                chartLinha.data.labels.push(periodo);
-                chartLinha.data.datasets[0].data.push(valor);
-    
-                if (chartLinha.data.labels.length > 10) {
-                    chartLinha.data.labels.shift();
-                    chartLinha.data.datasets[0].data.shift();
-                }
-    
-                chartLinha.update();
-            } catch (error) {
-                console.error("Erro ao atualizar gráfico:", error);
-                alert("Erro ao atualizar o gráfico. Tente novamente mais tarde.");
-            }
-        }
-    
-        // Inicialização dos gráficos e círculos
-        chartLinha = criarGraficoLinhaVazio(ctxLinha);
-        carregarServidores();
-    
-        // Eventos de interação
-        servidoresDropdown.addEventListener("change", () => {
-            const idServidor = servidoresDropdown.value;
-            if (idServidor) {
-                buscarIndicadores(idServidor);
-                atualizarGrafico();
-            }
-        });
+         // Adiciona os novos dados ao gráfico
+         chartLinha.data.labels.push(periodo);
+         chartLinha.data.datasets[0].data.push(valor);
+
+         // Remove os dados mais antigos se exceder o limite de 10 pontos
+         const maxPontos = 10; // Limite de pontos no gráfico
+         if (chartLinha.data.labels.length > maxPontos) {
+             chartLinha.data.labels.shift(); // Remove o rótulo mais antigo
+             chartLinha.data.datasets[0].data.shift(); // Remove o dado mais antigo
+         }
+
+         // Atualiza o gráfico com os novos dados
+         chartLinha.update();
+     } catch (error) {
+         console.error("Erro ao atualizar gráfico:", error);
+         alert("Erro ao atualizar o gráfico. Tente novamente mais tarde.");
+     }
+ }
+
+ // Inicialização dos gráficos e círculos
+ chartLinha = criarGraficoLinhaVazio(ctxLinha);
+ carregarServidores();
+
+ // Eventos de interação
+ servidoresDropdown.addEventListener("change", () => {
+     const idServidor = servidoresDropdown.value;
+     if (idServidor) {
+         buscarIndicadores(idServidor);
+
+         // Reiniciar o gráfico e intervalo
+         clearInterval(intervaloAtualizacao);
+         chartLinha.data.labels = [];
+         chartLinha.data.datasets[0].data = [];
+         chartLinha.update();
+         intervaloAtualizacao = setInterval(atualizarGrafico, 1000);
+     }
+ });
+
+ indicadoresDropdown.addEventListener("change", () => {
+     // Reiniciar o gráfico e intervalo ao trocar indicador
+     clearInterval(intervaloAtualizacao);
+     chartLinha.data.labels = [];
+     chartLinha.data.datasets[0].data = [];
+     chartLinha.update();
+     intervaloAtualizacao = setInterval(atualizarGrafico, 1000);
+    });
+});
     
         indicadoresDropdown.addEventListener("change", atualizarGrafico);
-    });
+    
     
 </script>
 

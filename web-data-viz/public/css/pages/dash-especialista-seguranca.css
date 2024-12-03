@@ -13,7 +13,7 @@
 
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #212121;
+    background-color: #000000;
     color: #fff;
     overflow-x: hidden;
     height: 100vh; /* Ocupa toda a altura da janela */
@@ -26,7 +26,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 20px 40px;
-    background-color: #212121;
+    background-color: #000000;
 }
 
 header h1 {
@@ -118,7 +118,7 @@ header img.img_seguranca {
 }
 
 .botoesGrafico {
-    background-color: #08836A;
+    background-color: #14352E;
     color: #fff;
     font-size: 1rem;
     padding: 5px 10px;
@@ -131,7 +131,7 @@ header img.img_seguranca {
 }
 
 .botoesGrafico:hover {
-    background-color: #08836A;
+    background-color: #14352E;
 }
 
 /* Contêiner do gráfico */
@@ -198,10 +198,10 @@ header img.img_seguranca {
 /* Animação */
 @keyframes rotateChart {
     0% {
-        background: conic-gradient(#00b894 0% 0%, #ffffff 0% 100%);
+        background: conic-gradient(#14352E 0% 0%, #ffffff 0% 100%);
     }
     100% {
-        background: conic-gradient(#00b894 0% var(--progress), #ffffff var(--progress) 100%);
+        background: conic-gradient(#14352E 0% var(--progress), #ffffff var(--progress) 100%);
 
     }
 }
