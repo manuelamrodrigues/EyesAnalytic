@@ -23,6 +23,30 @@ function listarEspecifico(req, res) {
         })
 }
 
+function listarMediaMaximo(req, res) {
+    var idEmpresa = req.params.idEmpresa
+
+    servidorModel.listarMediaMaximo(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+
+function listarPorUsoCPU(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    servidorModel.listarPorUsoCPU(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
 function alterarServidor(req, res) {
     var nomeMaquina = req.body.nomeMaquina
     var idPrioridade = req.body.idPrioridade
@@ -56,6 +80,31 @@ function listarPrioridade(req, res) {
         })
 }
 
+function listarDiferencaHoras(req, res) {
+    var idEmpresa = req.params.idEmpresa
+
+    servidorModel.listarDiferencaHoras(idEmpresa)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+function listarDadoEspecifico(req, res) {
+    var idMaquina = req.params.idMaquina
+    
+    servidorModel.listarDadoEspecifico(idMaquina)
+        .then(function (resultado) {
+            res.status(200).json(resultado)
+        }).catch(function (erro) {
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+}
+
+
 function desativarServidor(req, res) {
     var idMaquina = req.params.idMaquina
 
@@ -74,10 +123,33 @@ function desativarServidor(req, res) {
         )
 }
 
+function indicadores(req, res) {
+    const idMaquina = req.params.idMaquina;
+
+    servidorModel.indicadores(idMaquina)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado); // Retorna os indicadores para o frontend
+            } else {
+                res.status(204).send("Nenhum dado encontrado");
+            }
+        })
+        .catch((erro) => {
+            console.log("Erro ao buscar indicadores:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
 module.exports = {
     listar,
     listarEspecifico,
+    listarPorUsoCPU,
     alterarServidor,
     desativarServidor,
-    listarPrioridade
+    listarPrioridade,
+    listarMediaMaximo,
+    listarDiferencaHoras,
+    listarDadoEspecifico,
+    indicadores
 }

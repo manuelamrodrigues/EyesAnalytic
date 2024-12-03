@@ -54,7 +54,9 @@
           
             <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
                 <li>
+
                     <img src="../assets/svg/icon-gabriel.svg" alt="Segurança">
+
                     <span>Segurança</span>
                 </li>
             </a>
@@ -101,24 +103,25 @@
             <section class="indicators">
                 <div class="indicator">
                     <div class="circle-chart" id="circle-servidor">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="servidor-status">N/A</span>
                         </div>
                     </div>
                     <p>Servidor</p>
                 </div>
-            
                 <div class="indicator">
                     <div class="circle-chart" id="circle-vulnerabilidade">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="vulnerabilidade-status">N/A</span>
                         </div>
                     </div>
                     <p>Vulnerabilidade de invasão</p>
                 </div>
-            
                 <div class="indicator">
                     <div class="circle-chart" id="circle-dados-perdidos">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="dados-perdidos-status">N/A</span>
                         </div>
@@ -126,7 +129,6 @@
                     <p>Dados Perdidos</p>
                 </div>
             </section>
-            
             
             <section id="seletores">
                 <select id="servidores" class="botoesGrafico">
@@ -136,11 +138,13 @@
                     <option value="" disabled selected>Selecione um Indicador</option>
                     <option value="dados_perdidos">Dados Perdidos</option>
                     <option value="desempenho">Servidor</option>
+
                     <option value="vulnerabilidade">Vulnerabilidade</option>
                 </select>
             </section>
             
             <section id="graficoLinha">
+
                 <canvas id="chartLinha" width="1000" height="400"></canvas>
             </section>
 <script>           
@@ -349,4 +353,5 @@
         indicadoresDropdown.addEventListener("change", atualizarGrafico);
     });
     
-</script> 
+</script>
+

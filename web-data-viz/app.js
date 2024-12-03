@@ -29,11 +29,15 @@ var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 var chamadosRouter = require("./src/routes/chamados");
 var tipoRouter = require("./src/routes/tipo");
-var urgenciaRouter = require("./src/routes/urgencias");
-var servidorRouter = require("./src/routes/servidor");
-var capturaRouter = require("./src/routes/capturas");
-var metricaRouter = require("./src/routes/metricas");
+var urgenciaRouter = require("./src/routes/urgencias")
+var servidorRouter = require("./src/routes/servidor")
+var capturaRouter = require("./src/routes/capturas")
+var metricaRouter = require("./src/routes/metricas")
+var capturaRouter = require("./src/routes/capturas")
+var individualRouter = require("./src/routes/individual")
+var redeRouter = require("./src/routes/rede")
 var segurancaRouter = require("./src/routes/seguranca");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -51,8 +55,11 @@ app.use("/chamados", chamadosRouter);
 app.use("/tipo", tipoRouter);
 app.use("/urgencias", urgenciaRouter);
 app.use("/servidor", servidorRouter);
-app.use("/capturas", capturaRouter);
+app.use("/capturas",capturaRouter);
 app.use("/metricas", metricaRouter);
+app.use("/individual", individualRouter);
+app.use("/metricas",metricaRouter);
+app.use("/rede", redeRouter);
 app.use("/seguranca", segurancaRouter);
 
 

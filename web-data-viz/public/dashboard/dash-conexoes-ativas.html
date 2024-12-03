@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexões Ativas | EyesAnalytic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/pages/aside-menu.css">
+    <link rel="stylesheet" href="../css/pages/dash-conexoes.css">
+    <script src="../js/aside-menu.js"></script>
+    <link rel="shortcut icon" href="../assets/svg/Logo.svg" type="image/x-icon">
+    <script src="../js/sessao.js"></script>
+
+</head>
+
+<body onload="realizarRegressoes(), plotarGraficoHistorico(), plotarGraficoComparacao(),validarSessao()">
+    <!--onabort=" iniciarAtualizacao()" onload="validarSessao()"-->
+
+    <aside id="aside-menu">
+        <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
+
+        <ul id="navLinks">
+            <a href="./individual-joao.html" class="outros">
+                <li>
+                    <img src="../assets/svg/alert-svgrepo-com.svg" alt="Alerta">
+                    <span>Alertas</span>
+                </li>
+            </a>
+
+            <a href="./dash-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/dashboard-svgrepo-com.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+
+            <a href="./dash-conexoes-ativas.html" class="outros">
+                <li>
+                    <img src="../assets/svg/icons-marcelo.svg" alt="Chamados">
+                    <span>Conexões Ativas</span>
+                </li>
+            </a>
+
+            <a href="../espec-servidores.html" class="outros">
+                <li>
+                    <img src="../assets/svg/servidor.svg" alt="Rede">
+                    <span>Servidores</span>
+                </li>
+            </a>
+
+            <a href="../funcionario-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
+                    <span>Funcionários</span>
+                </li>
+            </a>
+
+            <a href="../metricas.html" class="outros">
+                <li>
+                    <img src="../assets/svg/icon - metricas.svg" alt="Chamados">
+                    <span>Métricas</span>
+                </li>
+            </a>
+
+            <a href="../dashboard-cpu-diretor.html" class="outros">
+                <li>
+                    <img src="../assets/svg/cpu.svg" alt="CPU">
+                    <span>Uso CPU</span>
+                </li>
+            </a>
+
+            <a onclick="limparSessao()" class="outros">
+                <li>
+                    <img src="../assets/svg/exit-svgrepo-com.svg" alt="Saída">
+                    <span>Sair</span>
+                </li>
+            </a>
+
+        </ul>
+        <div class="menu" id="menu-hamburguer">
+            <div class="menu" id="menu-hamburguer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="8" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 2 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="24" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+
+                <!-- Linha 3 -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="80px" height="10px"
+                    class="hamburger-line">
+                    <rect x="0" y="40" width="600" height="10" fill="white"></rect> <!-- Aumentar a altura aqui -->
+                </svg>
+            </div>
+
+        </div>
+
+    </aside>
+    <div id="fade" class="hide"></div>
+
+
+    <main>
+        <div class="content-main">
+            <h1>Conexões Ativas</h1>
+
+            <section class="kpi-section">
+                <div class="kpi">
+                    <div class="header-kpi">
+                        <h2>Conexões Ativas Atuais</h2>
+                    </div>
+                    <span id="conexoes_atuais"></span>
+                </div>
+                <img src="../assets/svg/Rectangle 139.svg" alt="">
+                <div class="kpi">
+                    <div class="header-kpi">
+                        <h2>Média Uso CPU Atual</h2>
+
+                        <div class="info-container">
+                            <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                            <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                            <div class="info-box">
+                                <span class="msg">
+                                    Previsão do uso da CPU baseada no volume atual de conexões.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-kpi">
+                        <div class="indicador">
+                            <span>Atual</span>
+                            <span id="atual_cpu"></span>
+                        </div>
+                        <div class="comparador" id="comparador_cpu">
+
+                        </div>
+                        <div class="indicador">
+                            <span>Estimativa</span>
+                            <span id="estimativa_cpu"></span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <img src="../assets/svg/Rectangle 139.svg" alt="">
+                <div class="kpi">
+                    <div class="header-kpi">
+                        <h2>Media Uso RAM Atual</h2>
+                        <div class="info-container">
+                            <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                            <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                            <div class="info-box">
+                                <span class="msg">
+                                    Previsão do consumo de memória baseada no volume atual de conexões.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-kpi">
+                        <div class="indicador">
+                            <span>Atual</span>
+                            <span id="atual_ram"></span>
+                        </div>
+                        <div class="comparador" id="comparador_ram">
+
+                        </div>
+                        <div class="indicador">
+                            <span>Estimativa</span>
+                            <span id="estimativa_ram"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="graph-section">
+                <div class="graph-row">
+                    <div class="graph">
+                        <div class="graph-title">
+                            <h2>CPU</h2>
+                            <div class="info-container">
+                                <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                                <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                                <div class="info-box">
+                                    <span class="msg">
+                                        Eixo Y = Uso médio da CPU
+                                        Eixo X = Número de Conexões Ativas
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="cpu_graph" class="graph_regress"></canvas>
+
+                    </div>
+                    <div class="graph">
+                        <div class="graph-title">
+                            <h2>RAM</h2>
+                            <div class="info-container">
+                                <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                                <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                                <div class="info-box">
+                                    <span class="msg">
+                                        Eixo Y = Uso médio da RAM
+                                        Eixo X = Número de Conexões Ativas
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="ram_graph" class="graph_regress"></canvas>
+                    </div>
+                </div>
+                <div class="graph-row">
+                    <div class="graph">
+                        <div class="graph-title">
+                            <h2>Tendência Conexões Ativas</h2>
+                        </div>
+                        <canvas class="graph_regress" id="tend_graph"></canvas>
+
+                    </div>
+                    <div class="graph">
+                        <div class="graph-title">
+                            <h2 id="comparacao"> Comparação</h2>
+                            <div class="info-container">
+                                <i class="fas fa-info-circle"></i> <!-- Ícone de informação -->
+                                <!-- <p>Passe o mouse aqui para ver mais informações.</p> -->
+                                <div class="info-box">
+                                    <span class="msg">
+                                        Comparação dos dados atuais com a semana anterior
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="graph_comp" class="graph_regress"></canvas>
+                    </div>
+
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
+<script>
+
+    async function obterDadoComparacao() {
+        let idEmpresa = sessionStorage.getItem("FK_EMPRESA");
+        try {
+            const resposta = await fetch(`/capturas/coletarComparacaoSemana/${idEmpresa}`)
+
+            const json = await resposta.json()
+
+            console.log(json)
+            const hora = []
+            const mediaAtual = []
+            const mediaAnterior = []
+            let diaSemana
+            let dataAtual
+            let dataAnterior
+
+            json.forEach(resposta => {
+                hora.push(`${resposta.hora}:00`)
+                mediaAtual.push(resposta.conexoes_ativas_hoje)
+                mediaAnterior.push(resposta.conexoes_ativas_semana_passada)
+                diaSemana = resposta.dia_da_semana
+                dataAtual = resposta.data_atual
+                dataAnterior = resposta.data_semana_passada
+            })
+
+
+            console.log(diaSemana, dataAtual)
+
+            return {
+                diaSemana: diaSemana,
+                dataAtual: dataAtual,
+                dataAnterior: dataAnterior,
+                hora: hora,
+                mediaAtual: mediaAtual,
+                mediaAnterior: mediaAnterior
+            }
+        }
+        catch (erro) {
+            console.log(erro)
+            return []
+        }
+    }
+
+    async function plotarGraficoComparacao() {
+        try {
+
+            const divComparacao = document.getElementById("comparacao")
+
+            const resposta = await obterDadoComparacao()
+
+
+            const dadosAtual = resposta.mediaAtual
+            const dadosAnterior = resposta.mediaAnterior            
+            const labels = resposta.hora
+
+            divComparacao.innerHTML = `Comparação dia: ${resposta.dataAtual} X ${resposta.dataAnterior}`
+
+            const ctx = document.getElementById('graph_comp')
+            ctx.height = 250
+            var chartComp = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: resposta.dataAtual,
+                        data: dadosAtual
+                    },
+                    {
+                        label: resposta.dataAnterior,
+                        data: dadosAnterior
+                    }]
+                }
+            }
+
+            )
+        }
+        catch (erro) {
+            console.log(erro)
+        }
+    }
+
+    async function plotarGraficoHistorico() {
+        try {
+            const resposta = await obterDadosHistorico();
+
+            const dia = resposta.dia;
+            const media = resposta.media;
+
+            console.log("teste", media, dia);
+
+            const ctx = document.getElementById("tend_graph");
+            ctx.height = 250
+
+            var ChartTend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dia,
+                    datasets: [
+                        {
+                            label: "Conexões ativas", // Adicione aspas ao rótulo
+                            data: media,
+                            backgroundColor: 'rgba(24,52,44,0.2)',
+                            borderColor: 'rgb(24,52,44)',
+                            pointRadius: 0.5,
+                            lineTension:0.4,
+                            borderWidth: 2,
+                            fill: true
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false // Oculta labels do eixo X
+                            }
+                        },
+                        y: {
+                            beginAtZero:true
+                        }
+                    }
+                },
+
+            });
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+
+    async function obterDadosHistorico() {
+        try {
+            let idEmpresa = sessionStorage.getItem("FK_EMPRESA");
+            const resposta = await fetch(`/capturas/coletarHistoricoConexoes/${idEmpresa}`);
+
+            // Corrigido: Chamando a função .json()
+            const json = await resposta.json();
+
+            let media = [];
+            let dia = [];
+
+            json.forEach((element) => {
+                media.push(element.media_conexoes);
+                dia.push(element.dia);
+            });
+
+            console.log(media, dia);
+
+            return {
+                media: media,
+                dia: dia,
+            };
+        } catch (erro) {
+            console.log(erro);
+            return []
+        }
+    }
+
+
+
+    async function obterDadosRegressao() {
+        try {
+            let idEmpresa = sessionStorage.getItem("FK_EMPRESA")
+            const resposta = await fetch(`/capturas/coletarRegrecaoConexao/${idEmpresa}`)
+
+            const json = await resposta.json()
+
+            const cpu = []
+            const ram = []
+            const conexoes = []
+
+            json.forEach(element => {
+                conexoes.push(element.conexoes_ativas)
+                cpu.push(element.uso_cpu)
+                ram.push(element.uso_ram)
+            })
+
+            console.log(cpu, ram, conexoes)
+
+            return {
+                cpu: cpu,
+                ram: ram,
+                conexoes: conexoes
+            }
+        }
+        catch (erro) {
+            console.log(erro)
+            return { cpu: [], ram: [], conexoes: [] }
+        }
+    }
+
+    async function realizarRegressoes() {
+        try {
+            const estimativaCpuDiv = document.getElementById("estimativa_cpu")
+            const estimativaRamDiv = document.getElementById("estimativa_ram")
+            const resposta = await obterDadosRegressao()
+
+            const cpu = resposta.cpu
+            const ram = resposta.ram
+            const conexoes = resposta.conexoes
+
+            atualizarAtual(conexoes[0], cpu[0], ram[0])
+
+            const regressaoCpu = regressao(conexoes, cpu)
+            const regressaoRam = regressao(conexoes, ram)
+
+            const estimativaCpu = criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)
+            const estimativaRam = criarEstimativa(conexoes[0], regressaoRam).toFixed(2)
+
+            estimativaCpuDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoCpu).toFixed(2)}%`
+            estimativaRamDiv.innerHTML = `${criarEstimativa(conexoes[0], regressaoRam).toFixed(2)}%`
+
+            const comparadorRam = document.getElementById("comparador_ram")
+            const comparadorCpu = document.getElementById("comparador_cpu")
+            console.log(regressaoCpu, regressaoRam)
+            const ctx1 = document.getElementById("cpu_graph")
+            ctx1.height = 250
+            const ctx2 = document.getElementById("ram_graph")
+            ctx2.height = 250
+
+            plotarGraficoRegressao(conexoes, cpu, regressaoCpu.recurso_hat, ctx1, 1)
+            plotarGraficoRegressao(conexoes, ram, regressaoRam.recurso_hat, ctx2, 2)
+
+
+        }
+        catch (erro) {
+            console.log(erro)
+        }
+    }
+
+    function regressao(conexoes, recurso) {
+        // Calcula as médias
+        const conexoes_mean = conexoes.reduce((a, b) => a + b, 0) / conexoes.length;
+        const recurso_mean = recurso.reduce((a, b) => a + b, 0) / recurso.length;
+
+        var slope = 0,
+            slope_numerator = 0,
+            slope_denominator = 0;
+
+        // Calcula o numerador e o denominador da inclinação (slope)
+        for (let i = 0; i < conexoes.length; i++) {
+            slope_numerator += (conexoes[i] - conexoes_mean) * (recurso[i] - recurso_mean);
+            slope_denominator += Math.pow((conexoes[i] - conexoes_mean), 2);
+        }
+
+        // Verifica divisor zero
+        if (slope_denominator !== 0) {
+            slope = slope_numerator / slope_denominator;
+        } else {
+            slope = 0; // Ou outra lógica de fallback
+        }
+
+        // Calcula o intercepto
+        const intercept = recurso_mean - conexoes_mean * slope;
+
+        // Inicializa o regressor
+
+
+        const regressor = {
+            slope: slope,
+            intercept: intercept,
+        };
+        // Calcula os valores estimados
+        const recurso_hat = [];
+        for (let i = 0; i < conexoes.length; i++) {
+            recurso_hat.push(conexoes[i] * regressor.slope + regressor.intercept);
+        }
+        // Exibe os resultados
+        console.log("Slope:", regressor.slope);
+        console.log("Intercept:", regressor.intercept);
+        console.log("Valores previstos:", recurso_hat);
+
+        return {
+            slope: slope,
+            intercept: intercept,
+            recurso_hat
+        }
+
+    }
+
+    function atualizarAtual(conexao, cpu, ram) {
+        conexoesAtuais = document.getElementById("conexoes_atuais")
+        cpuAtual = document.getElementById("atual_cpu")
+        ramAtual = document.getElementById("atual_ram")
+        conexoesAtuais.innerHTML = Math.round(conexao)
+        cpuAtual.innerHTML = `${cpu}%`
+        ramAtual.innerHTML = `${ram}%`
+    }
+
+    function criarEstimativa(conexoes, regressao) {
+        const estimativa = conexoes * regressao.slope + regressao.intercept
+        return estimativa
+    }
+
+    function plotarGraficoRegressao(conexoes, recurso, recurso_hat, ctx, fkRecurso) {
+
+        var text = ""
+        if (fkRecurso == 1) {
+            text = "Média Uso de CPU"
+        }
+        if (fkRecurso == 2) {
+            text = "Média Uso de RAM"
+        }
+
+        var mixedChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    type: 'line',
+                    label: 'Estimativa',
+                    data: recurso_hat.map((y, index) => ({ x: conexoes[index], y: y })),
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.01)',
+                    fill: false,
+                    lineTension: 0, // Não curvar a linha
+                    pointRadius: 0,
+                    pointStyle: 'line'
+                }, {
+                    type: 'scatter',
+                    label: text,
+                    data: recurso.map((y, index) => ({ x: conexoes[index], y: y })),
+                    backgroundColor: '#14352E',
+                    pointStyle: 'circle'
+                }],
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true, // Habilita estilos personalizados
+                            boxWidth: 7,
+                            boxHeight: 7,
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+</script>

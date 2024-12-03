@@ -109,7 +109,7 @@
         var tipoVar = tipoSelecionado.value;
 
         var empresaVar = sessionStorage.FK_EMPRESA;
-
+        
         if (
             nomeVar == "" ||
             emailVar == "" ||
@@ -236,5 +236,12 @@
 
         return false;
     }
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            cadastrar();
+        }
+    });
 
 </script>

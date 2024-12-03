@@ -1,9 +1,15 @@
+/* Importa as fontes */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Montserrat:wght@300;400;700&display=swap');
+
+
 /* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+
 
 body {
     font-family: 'Kanit', sans-serif;
@@ -45,6 +51,7 @@ header img.img_seguranca {
 }
 
 /* Estilização de cada indicador */
+
 .indicator {
     display: flex;
     flex-direction: column;
@@ -195,5 +202,6 @@ header img.img_seguranca {
     }
     100% {
         background: conic-gradient(#00b894 0% var(--progress), #ffffff var(--progress) 100%);
+
     }
 }

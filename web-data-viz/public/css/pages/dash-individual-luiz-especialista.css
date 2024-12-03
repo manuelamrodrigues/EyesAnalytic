@@ -1,0 +1,560 @@
+/* Importa a fonte Kanit usando @import */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Reset básico para remover margens e preenchimentos padrão */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #131313;
+    /* Fundo branco para toda a página */
+    height: 100%;
+    /* Ocupa 100% da altura da janela */
+    width: 90%;
+    /* Ocupa 100% da largura da janela */
+    display: flex;
+    flex-direction: column;
+    /* Flexível, coluna para garantir que o conteúdo ocupe o espaço certo */
+    font-family: "Montserrat", sans-serif;
+    /* Fonte geral da página */
+}
+
+
+
+/* Estilos gerais para a área principal da página */
+/* ============================================================================================================== */
+/* Configurações principais */
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #00000000;
+}
+
+/* Estilo geral da seção */
+.dash {
+    background-color: #131313;
+    /* padding: 20px; */
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /* border: 3px solid #0BA385; */
+    border-radius: 8px;
+    margin: 0 0 0 16.5%;
+}
+
+.Titulo{
+    
+    font-size: 20px;
+    color: #ffffff;
+    width: 100%;
+    text-align: start;
+}
+
+.chartSup{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+
+    /* border: 3px solid #43a30b; */
+
+}
+.chartInf {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4%;
+    align-items: center;
+    /* border: 3px solid #730ba3; */
+    padding: 0 0 40px 0;
+}
+
+/* Estilo para os containers de gráficos e tabelas */
+.chart-container {
+    background-color: #24292e00;
+    border-radius: 8px;
+    /* padding: 15px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    flex-direction: column;
+    /* border: red 2px solid; */
+}
+
+.supsDashs{
+    display: flex;
+    /* border: #EDEEF9 2px solid; */
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
+}
+.informacao{
+    
+    display: flex;
+    /* border: #2b2d44 2px solid; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    /* border: red 2px solid; */
+}
+.title{
+    font-size: 20px;
+    color: #FFF;
+}
+
+.sla{
+    display: flex;
+    /* border: #EDEEF9 2px solid; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+}
+
+
+/* Contêiner da tooltip */
+.tooltip-container {
+    position: relative;
+    display: flex;
+    align-items: end;
+    padding: 10px;
+}
+
+/* Caixa de tooltip que aparece no hover */
+.tooltip-box {
+    display: none;
+    position: absolute;
+    top: 100%; /* Exibe abaixo do ícone */
+    left: 0;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 250px; /* Ajuste o tamanho da caixa conforme necessário */
+}
+
+/* Estilo do ícone de informação */
+.tooltip-container i {
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer; /* Indica que é interativo */
+}
+
+/* Estilo da mensagem na tooltip */
+.tooltip-box .tooltip-message {
+    font-size: medium;
+}
+
+/* Efeito de fade-in para hover com CSS */
+.tooltip-container:hover .tooltip-box {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.chart-legend {
+    list-style-type: none;
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+.chart-legend li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.info-container {
+    
+    position: relative;
+    display: inline-flex; /* Alinha o ícone ao lado do texto */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 5px; /* Espaço entre o texto e o ícone */
+    cursor: pointer; /* Indica interatividade */
+}
+
+.info-box {
+    display: none;
+    position: absolute;
+    top: 100%; /* Exibe abaixo do ícone */
+    left: 0;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 250px; /* Ajuste o tamanho da caixa conforme necessário */
+}
+
+.info-container i {
+    color: #ffffff;
+    font-size: 10px;
+    cursor: pointer; /* Indica que é interativo */
+}
+
+.info-box .msg {
+    font-size: medium;
+}
+
+/* Efeito de fade-in para hover com CSS */
+.info-container:hover .info-box {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Títulos */
+.chart-container h3{
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.opcao {
+    width: 170px;
+    height: 37px;
+    font-size: large;
+    color: #fff;
+    background-color: #14352E;
+}
+
+select {
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    padding-left: 10px;
+
+    /* Customiza a seta do select */
+    background-image: url("../../assets/svg/seta-abrir-chamado.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 20px;
+
+    /* Remove estilo padrão */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+.barChart {
+    border-radius: 10px;
+    background: #ffffff;
+    min-width: 500px;  /* Largura inicial padrão */
+    width: auto;       /* Ajusta dinamicamente conforme o conteúdo */
+    max-width: 100%;   /* Garante que não ultrapasse o tamanho da tela */
+    overflow-x: auto;  /* Ativa rolagem horizontal se necessário */
+    padding: 10px;     /* Espaçamento interno */
+}
+
+.table-container {
+    background-color: #24292e00;
+    border-radius: 8px;
+    padding: 15px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    /* border: blue 2px solid; */
+}
+
+.table-container h3 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Estilo da tabela */
+.table-container table {
+    width: 700px;
+    height: auto;
+    border-collapse: collapse;
+}
+
+.table-container th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #555;
+    background-color: #14352E;
+    color: #FFF;
+
+
+}
+
+.table-container td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #555;
+    background-color: #FFF;
+
+}
+
+.tela{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #14352E;
+    /* border: #FFF 2px solid; */
+    padding: 15px;
+}
+
+
+.lineChart {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 580px; /* Largura padronizada */
+    height: 365px; /* Altura padronizada */
+}
+
+.heatmapChart {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 580px; /* Largura padronizada */
+    height: 320px; /* Altura padronizada */
+    /* margin-top: 35px; */
+    
+}
+
+
+
+/* Responsividade para Tablets (largura entre 768px e 1024px) */
+/* ============================================================================== */
+@media (min-width: 745px) and (max-width: 1024px) {
+    #aside-menu {
+        width: 60px;
+    }
+
+    #aside-menu:hover {
+        width: 40%;
+    }
+
+
+    .frameAlertas {
+        margin-left: 1%;
+        flex-direction: column;
+        padding: 10px;
+        width: 95%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .hrDt {
+
+        flex-direction: column;
+    }
+
+
+}
+
+
+/* Responsividade para iPhone XR e iPhone 14 (largura de 828px e 1170px) */
+/* ============================================================================== */
+@media (min-width: 310px) and (max-width: 915px) {
+
+    html,
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #menu-hamburguer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #aside-menu {
+        position: fixed;
+        width: 100%;
+        height: 75px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        overflow: visible;
+        z-index: 5;
+    }
+
+    #aside-menu:hover {
+        width: 100%;
+        height: 75px;
+        transition: 200ms linear;
+    }
+
+    .asideLogo {
+        width: 50px;
+        margin: 0;
+        margin-left: 30px;
+        margin-bottom: 5%;
+    }
+
+    #navLinks {
+        opacity: 0;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        background-color: #131313;
+        z-index: -5;
+        transition: 0.3s linear;
+    }
+
+    #navLinks.active {
+        transition: 0.3s ease;
+        opacity: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 100%;
+        background-color: rgba(19, 19, 19, 0.7);
+        z-index: -5;
+    }
+
+    #navLinks li {
+        align-items: start;
+        height: 100%;
+        padding: 40px;
+        border-top: 2px solid rgba(0, 0, 0, 0.4);
+        margin: 0;
+    }
+
+    /* Estilos para o container do menu */
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 15px;
+    }
+
+
+    .hamburger-line rect {
+        fill: white;
+
+    }
+
+    .menu svg {
+        width: 100%;
+        height: 10%;
+        transition: transform 300ms ease;
+    }
+
+
+    .menu.open svg:nth-child(1) {
+        transform: rotate(45deg) translate(-1px, 0px);
+    }
+
+    .menu.open svg:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu.open svg:nth-child(3) {
+        transform: rotate(-45deg) translate(0px, -1px);
+    }
+
+    .top {
+        margin-top: 45%;
+        gap: 5%;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cadastroTecnico1 {
+        margin-top: 2%;
+        padding: 7px;
+        width: 88%;
+    }
+
+    .frameFuncionarios1 {
+        align-items: start;
+        flex-direction: column;
+        /* Disposição horizontal */
+        justify-content: space-between;
+        /*Espaçamento entre elementos */
+        padding: 15px;
+        width: 95%;
+    }
+
+    .frameFuncionarios1:hover {
+        background-color: #131313;
+        /* Fundo branco */
+        border-radius: 8px;
+        padding: 10.5px;
+        margin-bottom: 10px;
+        flex-direction: column;
+        /* Disposição horizontal */
+
+        box-shadow: 0 0 10px #0d5e4e8f;
+        transition-delay: 2ms;
+        color: #EDEEF9;
+        /* Texto preto no hover */
+    }
+
+    .frameAlertas {
+        margin-left: 1%;
+        flex-direction: column;
+        padding: 10px;
+        width: 95%;
+        align-items: start;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .hrDt {
+
+        flex-direction: column;
+    }
+
+    .iconAlerta {
+        display: none;
+    }
+
+}

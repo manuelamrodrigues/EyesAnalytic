@@ -11,6 +11,27 @@ router.get("/listarEspecifico/:idMaquina", function (req, res) {
     servidorController.listarEspecifico(req, res)
 })
 
+router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
+    servidorController.listarPorUsoCPU(req, res)
+})
+
+router.get("/listarMediaMaximo/:idEmpresa", function (req, res) {
+    servidorController.listarMediaMaximo(req, res)
+})
+
+router.get("/listarDadoEspecifico/:idMaquina", function (req, res) {
+    servidorController.listarDadoEspecifico(req, res)
+})
+
+router.get("/listarDiferencaHoras/:idEmpresa", function (req, res) {
+    servidorController.listarDiferencaHoras(req, res)
+})
+
+
+// router.get("/listarPorUsoCPU/:idEmpresa", function (req, res) {
+//     servidorController.listarPorUsoCPU(req, res)
+// })
+
 router.delete("/desativarServidor/:idMaquina", function(req,res){
     servidorController.desativarServidor(req,res)
 })
@@ -22,6 +43,11 @@ router.put("/alterarServidor", function(req,res){
 router.get("/listarPrioridade/:idPrioridade", function (req, res) {
     servidorController.listarPrioridade(req, res)
 })
+
+router.get("/indicadores/:idMaquina", function (req, res) {
+    servidorController.indicadores(req, res)
+})
+
 
 
 module.exports = router;

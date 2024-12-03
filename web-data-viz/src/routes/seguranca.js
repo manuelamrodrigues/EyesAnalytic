@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var segurancaController = require("../controllers/segurancaController");
+
 // Listar servidores ativos
 router.post("/listarServidores", (req, res) => {
     segurancaController.listarServidores(req, res);
@@ -33,6 +34,5 @@ router.get("/buscarVulnerabilidades/:idServidor", validarParametros, segurancaCo
 
 // Rota para buscar dados em tempo real para gráficos
 router.get("/buscarDadosTempoReal/:idServidor/:indicador", validarParametros, segurancaController.buscarDadosTempoReal);
-
 
 module.exports = router;
