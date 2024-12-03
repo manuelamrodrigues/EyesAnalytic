@@ -207,7 +207,7 @@
                 const dadosPerdidos = await dadosPerdidosRes.json();
                 const vulnerabilidade = await vulnerabilidadeRes.json();
     
-                atualizarCirculoSegmentado("circle-servidor", "servidor-status", desempenho.servidor || 0);
+                atualizarCirculoSegmentado("circle-servidor", "servidor-status", desempenho.desempenho || 0);
                 atualizarCirculoSegmentado("circle-dados-perdidos", "dados-perdidos-status", dadosPerdidos.dados_perdidos || 0);
                 atualizarCirculoSegmentado("circle-vulnerabilidade", "vulnerabilidade-status", vulnerabilidade.vulnerabilidade || 0);
             } catch (error) {
@@ -308,7 +308,7 @@
             if (!idServidor || !indicador) return;
     
             try {
-                const response = await fetch(`../buscarDadosTempoReal/${idServidor}/${indicador}`);
+                const response = await fetch(`../seguranca/buscarDadosTempoReal/${idServidor}/${indicador}`);
                 if (!response.ok) throw new Error("Erro ao buscar dados para o gráfico.");
     
                 const { periodo, valor } = await response.json();

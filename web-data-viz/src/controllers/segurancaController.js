@@ -88,26 +88,30 @@ function buscarVulnerabilidades(req, res) {
         });
 }
 
-/**
- * Buscar dados em tempo real para gráficos.
- */
 async function buscarDadosTempoReal(req, res) {
-    const idServidor = req.params.idServidor;
-    const indicador = req.params.indicador;
+    const { idServidor, indicador } = req.params;
+
+    if (!idServidor || !indicador) {
+        return res.status(400).json({ erro: "Parâmetros inválidos." });
+    }
 
     try {
         const resultado = await segurancaModel.buscarDadosTempoReal(idServidor, indicador);
 
-        if (resultado && resultado.length > 0) {
-            res.status(200).json(resultado); // Retorna todos os dados como array
-        } else {
-            res.status(404).json({ mensagem: "Nenhum dado encontrado para o indicador especificado." });
+        if (!resultado || resultado.length === 0) {
+            return res.status(404).json({ erro: "Dados não encontrados." });
         }
-    } catch (erro) {
-        console.error("Erro ao buscar dados em tempo real:", erro);
-        res.status(500).json({ erro: "Erro interno ao buscar dados em tempo real. Tente novamente mais tarde." });
+
+        res.json({
+            periodo: new Date().toLocaleTimeString("pt-BR"),
+            valor: resultado[0].valor || 0,
+        });
+    } catch (error) {
+        console.error("Erro ao buscar dados em tempo real:", error);
+        res.status(500).json({ erro: "Erro interno no servidor." });
     }
 }
+
 
 module.exports = {
     listarServidores,
