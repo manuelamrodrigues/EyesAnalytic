@@ -283,14 +283,15 @@ select {
 
 
 .barChart {
-    border-radius: 10px;
-    background: #ffffff;
-    min-width: 500px;  /* Largura inicial padrão */
-    width: auto;       /* Ajusta dinamicamente conforme o conteúdo */
-    max-width: 100%;   /* Garante que não ultrapasse o tamanho da tela */
-    overflow-x: auto;  /* Ativa rolagem horizontal se necessário */
-    padding: 10px;     /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas para um visual moderno */
+    background: #ffffff; /* Fundo branco */
+    min-width: 500px;    /* Garante que o gráfico tenha uma largura mínima */
+             /* Ajusta a largura automaticamente conforme o conteúdo */
+    max-width: 100%;     /* Impede que o gráfico ultrapasse o tamanho da tela */
+    overflow-x: auto;    /* Adiciona uma barra de rolagem horizontal, se necessário */
+    padding: 10px;       /* Adiciona espaçamento interno para evitar que o conteúdo fique "colado" */
 }
+
 
 .table-container {
     background-color: #24292e00;

@@ -30,7 +30,7 @@ ORDER BY
 function ranking(idEmpresa) {
     console.log("ACESSEI O INDIVIDUAL MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ranking():", idEmpresa);
     const instrucao = `
-       SELECT
+    SELECT
     e.razaoSocial AS Empresa,
     m.nomeMaquina AS Servidor,
     MAX(CASE WHEN dc.fkRecurso = 1 THEN dc.registro ELSE NULL END) AS CPU,
@@ -45,13 +45,12 @@ JOIN
 LEFT JOIN
     alerta a ON a.fkDadoCapturado = dc.idDadoCapturado
 WHERE
-    e.idEmpresa = ${idEmpresa} 
+    e.idEmpresa = ${idEmpresa} -- Substitua pelo ID da empresa desejada
 GROUP BY
     e.razaoSocial,
     m.nomeMaquina
 ORDER BY
-    e.razaoSocial,
-    m.nomeMaquina
+    totalAlertas DESC -- Ordenação decrescente pelo total de alertas
 LIMIT 5;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
