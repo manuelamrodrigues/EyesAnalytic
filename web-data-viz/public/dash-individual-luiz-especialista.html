@@ -38,17 +38,18 @@
                     <span>Dashboard</span>
                 </li>
             </a>
-            <a href="./dash-rede.html" class="outros">
-                <li>
-                    <img src="../assets/svg/gauge.svg" alt="Dashboard">
-                    <span>Rede</span>
-                </li>
-            </a>
 
             <a href="./dash-individual-luiz-especialista.html" class="outros">
                 <li>
                     <img src="../assets/svg/icon-luiz.svg" alt="Rede">
                     <span>Componentes</span>
+                </li>
+            </a>
+
+            <a href="./dash-rede.html" class="outros">
+                <li>
+                    <img src="../assets/svg/gauge.svg" alt="Dashboard">
+                    <span>Rede</span>
                 </li>
             </a>
 
@@ -60,6 +61,7 @@
                     <span>Segurança</span>
                 </li>
             </a>
+
 
             <a onclick="limparSessao()" class="outros">
                 <li>
@@ -298,7 +300,7 @@
                         chart: {
                             type: "bar",
                             height: 300,
-                            width: servidores.length * 50,
+                            width: 800,
                             toolbar: { show: false }
                         },
                         title: { text: `${recursoSelecionado.toUpperCase()}` },
