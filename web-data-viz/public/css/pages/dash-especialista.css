@@ -45,6 +45,7 @@ body {
     align-items: center;
     justify-content: space-around;
     margin-left: 10px;
+    box-shadow: 0 0 10px #000000;
 
 }
 
@@ -155,31 +156,6 @@ width: 100%;
     flex-direction: row;
 }
 
-/* .opcoes {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-} */
-
-/* .opcao {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    gap: 5px;
-}
-
-.opcao h4 {
-    font-size: 18px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.opcao p {
-    font-size: 18px;
-} */
 
 .error-content {
     display: flex;
