@@ -56,12 +56,14 @@
                 </li>
             </a>
           
-          <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
-                        <li>
-                            <img src="../assets/svg/chamados.svg" alt="Chamados">
-                            <span>Segurança</span>
-                        </li>
-                    </a>
+         <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
+                <li>
+
+                    <img src="../assets/svg/icon-gabriel.svg" alt="Segurança">
+
+                    <span>Segurança</span>
+                </li>
+            </a>
         
 
             <a onclick="limparSessao()" class="outros">
@@ -313,29 +315,6 @@
                     let titulo = document.createElement("h3");
                     titulo.innerText = element.nomeMaquina;
 
-                    // Adicionando opções de CPU, Memória e Disco
-                    // let opcoes = document.createElement("div");
-                    // opcoes.className = "opcoes";
-
-                    // // CPU
-                    // let opcaoCPU = document.createElement("div");
-                    // opcaoCPU.className = "opcao";
-                    // opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
-
-                    // Memória
-                    // let opcaoMemoria = document.createElement("div");
-                    // opcaoMemoria.className = "opcao";
-                    // opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
-
-                    // Disco (Comentado para simplificação)
-                    //let opcaoDisco = document.createElement("div");
-                    //opcaoDisco.className = "opcao";
-                    //opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
-
-                    // Adicionando opções à div 'opcoes'
-                    // opcoes.appendChild(opcaoCPU);
-                    // opcoes.appendChild(opcaoMemoria);
-                    // opcoes.appendChild(opcaoDisco);
 
                     // Montando o conteúdo do modal
                     abrir.appendChild(titulo);
@@ -492,7 +471,7 @@
                 if (dados.length > 0) {
 
 
-                    // Cria e insere os elementos para cada indicador (CPU, RAM, Download, Upload)
+
                     // Cria e insere os elementos para cada indicador (CPU, RAM, Download, Upload)
                     let indicadores = [
                         { nome: "CPU", valor: dados[0].CPU, sufixo: "%" },
