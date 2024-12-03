@@ -161,8 +161,8 @@ body {
 }
 
 canvas {
-    width: 482px !important;
-    height: 234px !important;
+    width: 533px !important;
+    height: 283px !important;
     background-color: #ffffff;
     border-radius: 5px;
 }
@@ -213,8 +213,13 @@ canvas {
     color: white;
     width: 100%;
     justify-content: space-between;
-    height: 12%;
+    height: 8%;
     /* margin-left: 32%; */
+}
+
+.graficoRegressao select {
+    /* -webkit-appearance: none; Remove o estilo padrão no WebKit */
+    background: white
 }
 
 
@@ -243,7 +248,7 @@ canvas {
 .tituloHoras {
     display: flex;
     justify-content: space-between;
-    width: 84%;
+    width: 75%;
 }
 
 .button.button-custom:hover,
@@ -349,4 +354,24 @@ canvas {
 .tituloIcone3 {
     display: flex;
     margin-top: 2%;
+}
+
+select {
+    /* width: 200px; */
+    /* padding: 10px; */
+    border: 1px solid #ccc;
+    /* Borda personalizada */
+    border-radius: 4px;
+    /* Bordas arredondadas */
+    /* appearance: none; */
+    /* Remove estilo padrão */
+    /* -webkit-appearance: none; */
+    /* Remove estilo padrão no WebKit */
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z" fill="white"/></svg>') no-repeat right 10px center;
+    background-size: 10px;
+    /* Tamanho da seta */
+    color: white;
+    /* Cor do texto */
+    cursor: pointer;
+    /* Mostra o cursor de ponteiro */
 }
