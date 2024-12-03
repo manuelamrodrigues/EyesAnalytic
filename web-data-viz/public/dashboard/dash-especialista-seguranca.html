@@ -54,7 +54,9 @@
           
             <a href="../dashboard/dash-especialista-seguranca.html" class="outros">
                 <li>
-                    <img src="../assets/svg/chamados.svg" alt="Chamados">
+
+                    <img src="../assets/svg/icon-gabriel.svg" alt="Segurança">
+
                     <span>Segurança</span>
                 </li>
             </a>
@@ -95,12 +97,13 @@
 
       <main>
         <header>
-            <h1>Segurança dos Servidores</h1>
+            <h1>Segurança dos Servidores De Firewall</h1> <img src="../assets/imgs/seguranca.png"  class="img_seguranca" alt="">
         </header>
         <main>
             <section class="indicators">
                 <div class="indicator">
-                    <div class="circle-chart">
+                    <div class="circle-chart" id="circle-servidor">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="servidor-status">N/A</span>
                         </div>
@@ -108,7 +111,8 @@
                     <p>Servidor</p>
                 </div>
                 <div class="indicator">
-                    <div class="circle-chart">
+                    <div class="circle-chart" id="circle-vulnerabilidade">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="vulnerabilidade-status">N/A</span>
                         </div>
@@ -116,7 +120,8 @@
                     <p>Vulnerabilidade de invasão</p>
                 </div>
                 <div class="indicator">
-                    <div class="circle-chart">
+                    <div class="circle-chart" id="circle-dados-perdidos">
+
                         <div class="circle-inner">
                             <span class="circle-text" id="dados-perdidos-status">N/A</span>
                         </div>
@@ -126,137 +131,227 @@
             </section>
             
             <section id="seletores">
-                <select id="servidores">
-                    <option disabled selected>Selecione um Servidor</option>
+                <select id="servidores" class="botoesGrafico">
+                    <option value="" disabled selected>Selecione um Servidor</option>
                 </select>
-                <select id="indicadores">
+                <select id="indicadores" class="botoesGrafico">
                     <option value="" disabled selected>Selecione um Indicador</option>
                     <option value="dados_perdidos">Dados Perdidos</option>
-                    <option value="desempenho">Desempenho</option>
+                    <option value="desempenho">Servidor</option>
+
                     <option value="vulnerabilidade">Vulnerabilidade</option>
                 </select>
             </section>
             
             <section id="graficoLinha">
-                <canvas id="chartLinha" width="400" height="200"></canvas>
+
+                <canvas id="chartLinha" width="1000" height="400"></canvas>
             </section>
-            
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const servidoresDropdown = document.getElementById("servidores");
-                    const indicadoresDropdown = document.getElementById("indicadores");
-                    const ctxLinha = document.getElementById("chartLinha").getContext("2d");
-                    let chartLinha;
-            
-                    async function carregarServidores() {
-                        try {
-                            const fkEmpresa = sessionStorage.FK_EMPRESA; // Obtém o valor do sessionStorage
-                    
-                            if (!fkEmpresa) throw new Error("Empresa não encontrada na sessão. Faça login novamente.");
-                    
-                            const response = await fetch("/seguranca/listarServidores", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: fkEmpresa, // Envia o fkEmpresa
-                            });
-                    
-                            if (!response.ok) throw new Error("Erro ao carregar servidores");
-                    
-                            const servidores = await response.json();
-                            servidoresDropdown.innerHTML = '<option disabled selected>Selecione um Servidor</option>';
-                            servidores.forEach((servidor) => {
-                                const option = document.createElement("option");
-                                option.value = servidor.idServidor;
-                                option.textContent = servidor.nomeServidor;
-                                servidoresDropdown.appendChild(option);
-                            });
-                        } catch (error) {
-                            console.error("Erro ao carregar servidores:", error);
-                        }
-                    }
-                    
-            
-                    // Função para criar gráfico vazio
-                    function criarGraficoLinhaVazio(ctx) {
-                        return new Chart(ctx, {
-                            type: "line",
-                            data: {
-                                labels: [],
-                                datasets: [
-                                    {
-                                        label: "Valores em Tempo Real",
-                                        data: [],
-                                        backgroundColor: "rgba(22, 167, 153, 0.2)",
-                                        borderColor: "#16A799",
-                                        borderWidth: 2,
-                                        fill: true,
-                                        tension: 0.3,
-                                    },
-                                ],
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: { display: true },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: context => `${context.raw}%`,
-                                        },
-                                    },
-                                },
-                                scales: {
-                                    x: { title: { display: true, text: "Período" } },
-                                    y: { title: { display: true, text: "Valor (%)" }, min: 0, max: 100 },
-                                },
-                            },
-                        });
-                    }
-            
-                    // Atualização do gráfico e indicadores
-                    async function atualizarDados() {
-                        const idServidor = servidoresDropdown.value;
-                        const indicador = indicadoresDropdown.value;
-            
-                        if (!idServidor || !indicador) return;
-            
-                        try {
-                            const response = await fetch(`../seguranca/buscarDadosTempoReal/${idServidor}/${indicador}`);
-                            if (!response.ok) throw new Error("Erro ao buscar dados em tempo real");
-            
-                            const dado = await response.json();
-            
-                            // Atualizar indicadores
-                            document.getElementById("servidor-status").textContent = dado.servidor || "N/A";
-                            document.getElementById("vulnerabilidade-status").textContent = `${dado.vulnerabilidade || 0}%`;
-                            document.getElementById("dados-perdidos-status").textContent = `${dado.dadosPerdidos || 0}%`;
-            
-                            // Atualizar gráfico
-                            chartLinha.data.labels.push(dado.periodo || "N/A");
-                            chartLinha.data.datasets[0].data.push(dado.valor || 0);
-            
-                            if (chartLinha.data.labels.length > 10) {
-                                chartLinha.data.labels.shift();
-                                chartLinha.data.datasets[0].data.shift();
-                            }
-            
-                            chartLinha.update();
-                        } catch (error) {
-                            console.error("Erro ao atualizar dados:", error);
-                        }
-                    }
-            
-                    // Inicialização
-                    carregarServidores();
-                    chartLinha = criarGraficoLinhaVazio(ctxLinha);
-            
-                    servidoresDropdown.addEventListener("change", atualizarDados);
-                    indicadoresDropdown.addEventListener("change", atualizarDados);
-            
-                    setInterval(atualizarDados, 5000);
-                });
-            </script>
-              
-            
+<script>           
+    document.addEventListener("DOMContentLoaded", () => {
+        const servidoresDropdown = document.getElementById("servidores");
+        const indicadoresDropdown = document.getElementById("indicadores");
+        const ctxLinha = document.getElementById("chartLinha").getContext("2d");
+        let chartLinha;
     
+        // Função para carregar servidores no dropdown
+        async function carregarServidores() {
+            try {
+                const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");
+    
+                if (!fkEmpresa) throw new Error("Empresa não encontrada na sessão. Faça login novamente.");
+    
+                const response = await fetch("/seguranca/listarServidores", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ fkEmpresa }),
+                });
+    
+                if (!response.ok) throw new Error("Erro ao carregar servidores.");
+    
+                const servidores = await response.json();
+    
+                // Limpa e preenche o dropdown com os servidores
+                servidoresDropdown.innerHTML = '<option disabled selected>Selecione um Servidor</option>';
+                servidores.forEach((servidor) => {
+                    const option = document.createElement("option");
+                    option.value = servidor.idServidor;
+                    option.textContent = servidor.nomeServidor;
+                    servidoresDropdown.appendChild(option);
+                });
+    
+                // Selecionar automaticamente o primeiro servidor, se disponível
+                if (servidores.length > 0) {
+                    servidoresDropdown.value = servidores[0].idServidor;
+                    buscarIndicadores(servidores[0].idServidor);
+                    atualizarGrafico();
+                }
+            } catch (error) {
+                console.error("Erro ao carregar servidores:", error);
+                alert("Não foi possível carregar os servidores. Tente novamente mais tarde.");
+            }
+        }
+    
+        // Função para buscar valores dos indicadores e atualizar os círculos
+        async function buscarIndicadores(idServidor) {
+            try {
+                const [desempenhoRes, dadosPerdidosRes, vulnerabilidadeRes] = await Promise.all([
+                    fetch(`../seguranca/buscarDesempenho/${idServidor}`),
+                    fetch(`../seguranca/buscarDadosPerdidos/${idServidor}`),
+                    fetch(`../seguranca/buscarVulnerabilidades/${idServidor}`),
+                ]);
+    
+                if (!desempenhoRes.ok || !dadosPerdidosRes.ok || !vulnerabilidadeRes.ok) {
+                    throw new Error("Erro ao buscar indicadores.");
+                }
+    
+                const desempenho = await desempenhoRes.json();
+                const dadosPerdidos = await dadosPerdidosRes.json();
+                const vulnerabilidade = await vulnerabilidadeRes.json();
+    
+                atualizarCirculoSegmentado("circle-servidor", "servidor-status", desempenho.desempenho || 0);
+                atualizarCirculoSegmentado("circle-dados-perdidos", "dados-perdidos-status", dadosPerdidos.dados_perdidos || 0);
+                atualizarCirculoSegmentado("circle-vulnerabilidade", "vulnerabilidade-status", vulnerabilidade.vulnerabilidade || 0);
+            } catch (error) {
+                console.error("Erro ao buscar indicadores:", error);
+                alert("Erro ao buscar os indicadores. Tente novamente mais tarde.");
+            }
+        }
+    
+        // Função para criar um gráfico de linha vazio
+        function criarGraficoLinhaVazio(ctx) {
+            return new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Indicador em Tempo Real",
+                            data: [],
+                            backgroundColor: "rgba(22, 167, 153, 0.2)",
+                            borderColor: "#16A799",
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw}%`,
+                            },
+                        },
+                    },
+                    scales: {
+                        x: { title: { display: true, text: "Período" } },
+                        y: {
+                            title: { display: true, text: "Valor (%)" },
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 10,
+                                callback: (value) => `${value}%`,
+                            },
+                        },
+                    },
+                },
+            });
+        }
+    
+        // Função para atualizar o círculo segmentado
+        function atualizarCirculoSegmentado(idCirculo, idTexto, valorFinal) {
+            const elementoCirculo = document.getElementById(idCirculo);
+            const elementoTexto = document.getElementById(idTexto);
+    
+            if (!elementoCirculo || !elementoTexto) {
+                console.error(`Elementos não encontrados: ${idCirculo} ou ${idTexto}`);
+                return;
+            }
+    
+            const valorInicial = parseInt(elementoTexto.textContent.replace("%", "")) || 0;
+            const duracao = 1000; // Duração da animação em milissegundos
+            const intervalo = 10; // Intervalo de atualização em milissegundos
+            const incremento = (valorFinal - valorInicial) / (duracao / intervalo);
+    
+            let valorAtual = valorInicial;
+    
+            function animar() {
+                valorAtual += incremento;
+    
+                if (Math.abs(valorAtual - valorFinal) > Math.abs(incremento)) {
+                    const porcentagem = Math.min(100, Math.max(0, valorAtual));
+                    elementoTexto.textContent = `${Math.round(porcentagem)}%`;
+                    elementoCirculo.style.background = `conic-gradient(
+                        #16A799 ${porcentagem}%, 
+                        #e0e0e0 ${porcentagem}% 100%
+                    )`;
+                    requestAnimationFrame(animar);
+                } else {
+                    elementoTexto.textContent = `${valorFinal}%`;
+                    elementoCirculo.style.background = `conic-gradient(
+                        #16A799 ${valorFinal}%, 
+                        #e0e0e0 ${valorFinal}% 100%
+                    )`;
+                }
+            }
+    
+            animar();
+        }
+    
+        // Função para atualizar o gráfico em tempo real
+        async function atualizarGrafico() {
+            const idServidor = servidoresDropdown.value;
+            const indicador = indicadoresDropdown.value;
+    
+            if (!idServidor || !indicador) return;
+    
+            try {
+                const response = await fetch(`../seguranca/buscarDadosTempoReal/${idServidor}/${indicador}`);
+                if (!response.ok) throw new Error("Erro ao buscar dados para o gráfico.");
+    
+                const { periodo, valor } = await response.json();
+    
+                if (!periodo || valor === null || valor === undefined) {
+                    console.warn("Dados inválidos recebidos para o gráfico.");
+                    return;
+                }
+    
+                chartLinha.data.labels.push(periodo);
+                chartLinha.data.datasets[0].data.push(valor);
+    
+                if (chartLinha.data.labels.length > 10) {
+                    chartLinha.data.labels.shift();
+                    chartLinha.data.datasets[0].data.shift();
+                }
+    
+                chartLinha.update();
+            } catch (error) {
+                console.error("Erro ao atualizar gráfico:", error);
+                alert("Erro ao atualizar o gráfico. Tente novamente mais tarde.");
+            }
+        }
+    
+        // Inicialização dos gráficos e círculos
+        chartLinha = criarGraficoLinhaVazio(ctxLinha);
+        carregarServidores();
+    
+        // Eventos de interação
+        servidoresDropdown.addEventListener("change", () => {
+            const idServidor = servidoresDropdown.value;
+            if (idServidor) {
+                buscarIndicadores(idServidor);
+                atualizarGrafico();
+            }
+        });
+    
+        indicadoresDropdown.addEventListener("change", atualizarGrafico);
+    });
+    
+</script>
+

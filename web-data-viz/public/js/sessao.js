@@ -8,6 +8,11 @@ function validarSessao() {
     if(email == undefined || empresa == undefined){
         window.location ="../index.html"
     }
+    
+    if(empresa == undefined){
+        window.location ="./dashboard/dash-especialista-seguranca.html"
+    }
+
 
     }
 
@@ -15,6 +20,9 @@ function validarSessao() {
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../index.html";
+    sessionStorage.clear();
+    
+    window.location = "./dashboard/dash-especialista-seguranca.html";
 }
 
 
