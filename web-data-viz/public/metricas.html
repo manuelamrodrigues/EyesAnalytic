@@ -10,10 +10,11 @@
     <script src="./js/aside-menu.js"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/sessao.js"></script>
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarServidores(), validarSessao()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -116,22 +117,9 @@
             <article class="alertas" id="lista">
             </article>
 
-            <!-- <article class="alertas" id="lista">
-
-            </article> -->
-
+            
             <div id="modal" class="modal">
-                <!-- <div class="modal-content">
-                    <span id="closeModal" class="close">&times;</span>
-
-                    <h2>Servidor 1</h2>
-                    <div style="width: 100%; height: 1px; background-color: rgb(70, 70, 70);"></div>
-                    <div class="linha">
-                        <h3>ID: 0324 </h3>
-                        <h3>Status: <span style="color:green;">Conectado</span> </h3>
-                        <h3>Prioridade: <span style="color:green;">Alta</span></h3>
-                    </div>
-                </div> -->
+              
             </div>
 
         </section>
@@ -189,32 +177,11 @@
                         valorOpcao.innerHTML = "<h4>Valor:</h4><p>" + (element.valorMetrica || "N/A");
                     }
 
-                    // CPU
-                    // let opcaoCPU = document.createElement("div");
-                    // opcaoCPU.className = "opcao";
-                    // opcaoCPU.innerHTML = "<h4>CPU:</h4><p>" + (element.CPU || "N/A") + "%</p>";
-
-                    // // Memória
-                    // let opcaoMemoria = document.createElement("div");
-                    // opcaoMemoria.className = "opcao";
-                    // opcaoMemoria.innerHTML = "<h4>Memória:</h4><p>" + (element.Memoria || "N/A") + "%</p>";
-
-                    // // Disco
-                    // let opcaoDisco = document.createElement("div");
-                    // opcaoDisco.className = "opcao";
-                    // opcaoDisco.innerHTML = "<h4>Disco:</h4><p>" + (element.Disco || "N/A") + "%</p>";
-
-                    // Adicionando opções à div 'opcoes'
-                    // opcoes.appendChild(opcaoCPU);
-                    // opcoes.appendChild(opcaoMemoria);
-                    // opcoes.appendChild(opcaoDisco);
-
+            
                     opcoes.appendChild(opcaoCmoponente);
                     opcoes.appendChild(valorOpcao);
 
                     // Montando o conteúdo do modal
-                    // abrir.appendChild(titulo);
-                    // abrir.appendChild(valorTitulo);
                     abrir.appendChild(opcoes);
                     frameAlertas.appendChild(abrir);
 
@@ -347,23 +314,6 @@
     }
 
 
-    // function listar() {
-
-    //     fetch("/metricas/listarCadastrar", {
-    //         method: "GET",
-    //     })
-    //         .then(function (resposta) {
-    //             resposta.json().then((metricas) => {
-    //                 const listaComponentes = document.getElementById("listaComponentes");
-    //                 metricas.forEach((metrica) => {
-    //                     listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
-    //                 });
-    //             });
-    //         })
-    //         .catch(function (resposta) {
-    //             console.log(`#ERRO: ${resposta}`);
-    //         });
-    // }
     // FUNÇÃO PARA EDITAR UM SERVIDOR(NOME E PRIORIDADE)
     // 
     function alterarServidor(idMetrica, fkRecurso, valorMetrica) {
@@ -391,12 +341,6 @@
                     }
                 }).then(function (resposta) {
 
-                    // resposta.json().then((metricas) => {
-                    //     const listaComponentes = document.getElementById("listaComponentes");
-                    //     metricas.forEach((metrica) => {
-                    //         listaComponentes.innerHTML += `<option value='${metrica.idRecurso}'>${metrica.nomeRecurso}</option>`;
-                    //     });
-                    // });
                     resposta.json().then(function (listaRecursos) {
                         // Monta as opções do select com idPrioridade como valor e exibe o nível
                         let optionsRecursos = listaRecursos.map(recurso => {
@@ -431,15 +375,6 @@
                                 let opcaoRecurso = document.getElementById("listaComponentes").value || optionsRecursos;
                                 let valorMetrica = document.getElementById("nomeInput").value;
 
-                                // if (nomeRecurso.length < 2) {
-                                //     Swal.fire({
-                                //         // title: "Erro!",
-                                //         text: "O nome deve possuir pelo menos 2 caracteres",
-                                //         // icon: "error",
-                                //         confirmButtonColor: "#05a65d"
-                                //     });
-                                // }
-                                // else {
                                 fetch(`/metricas/alterarMetrica/${idMetrica}`, {
                                     method: "PUT",
                                     headers: {

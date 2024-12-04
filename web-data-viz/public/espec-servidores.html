@@ -10,10 +10,11 @@
     <script src="./js/aside-menu.js"></script>
     <link rel="shortcut icon" href="./assets/svg/Logo.svg" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/sessao.js"></script>
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarServidores(), validarSessao()">
     <aside id="aside-menu">
         <img src="../assets/svg/Logo.svg" alt="Logo" class="asideLogo">
 
@@ -39,28 +40,28 @@
                 </li>
             </a>
 
-            <a href="../espec-servidores.html" class="outros">
+            <a href="./espec-servidores.html" class="outros">
                 <li>
                     <img src="../assets/svg/servidor.svg" alt="Rede">
                     <span>Servidores</span>
                 </li>
             </a>
 
-            <a href="../funcionario-diretor.html" class="outros">
+            <a href="./funcionario-diretor.html" class="outros">
                 <li>
                     <img src="../assets/svg/user-svgrepo-com.svg" alt="Usuário">
                     <span>Funcionários</span>
                 </li>
             </a>
 
-            <a href="../metricas.html" class="outros">
+            <a href="./metricas.html" class="outros">
                 <li>
                     <img src="../assets/svg/icon - metricas.svg" alt="Chamados">
                     <span>Métricas</span>
                 </li>
             </a>
 
-            <a href="../dashboard-cpu-diretor.html" class="outros">
+            <a href="./dashboard-cpu-diretor.html" class="outros">
                 <li>
                     <img src="../assets/svg/cpu.svg" alt="CPU">
                     <span>Uso CPU</span>
