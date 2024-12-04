@@ -9,9 +9,7 @@ function validarSessao() {
         window.location ="../index.html"
     }
     
-    if(empresa == undefined){
-        window.location ="./dashboard/dash-especialista-seguranca.html"
-    }
+  
 
 
     }

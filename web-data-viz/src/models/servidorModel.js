@@ -81,8 +81,8 @@ function indicadores(idMaquina){
     m.nomeMaquina AS Maquina,
     MAX(CASE WHEN r.nomeRecurso = 'CPU' THEN dc.registro ELSE NULL END) AS CPU,
     MAX(CASE WHEN r.nomeRecurso = 'RAM' THEN dc.registro ELSE NULL END) AS RAM,
-    MAX(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro ELSE NULL END) AS Download,
-    MAX(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro ELSE NULL END) AS Upload
+    ROUND(MAX(CASE WHEN r.nomeRecurso = 'Bytes Recebidos' THEN dc.registro * 100 ELSE NULL END) / 100, 2) AS Download,
+    ROUND(MAX(CASE WHEN r.nomeRecurso = 'Bytes Enviados' THEN dc.registro * 100 ELSE NULL END) / 100, 2) AS Upload
 FROM 
     maquina m
 JOIN 
@@ -95,7 +95,6 @@ WHERE
     m.idMaquina = ${idMaquina}
 GROUP BY 
     m.nomeMaquina;
-
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

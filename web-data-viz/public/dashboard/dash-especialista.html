@@ -111,7 +111,16 @@
             <div class="topo">
 
                 <section class="kpi">
-                    <h3>Indicadores</h3>
+                    <div class="informacao">
+                        <div class="title"><b>Indicadores</b></div>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                            <div class="tooltip-box" id="msgBox">
+                                <span class="tooltip-message">Indicadores dos componentes do servidor selecionado. CPU e RAM em percentual (%) e Pacotes Recebidos e Pacotes Enviados em "kb" (KiloBtyes)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="quadro" id="indicadoresQuadro">
                         <!-- Indicadores serão inseridos aqui dinamicamente -->
                     </div>
@@ -120,7 +129,17 @@
 
 
                 <section class="serv">
-                    <h2>Servidores</h2>
+                    
+                    <div class="informacao">
+                        <div class="title"><b>Servidores</b></div>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                            <div class="tooltip-box" id="msgBox">
+                                <span class="tooltip-message">Servidores listados pela empresa
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="dados-section">
                         <article class="card-section" id="lista">
                         </article>
@@ -134,15 +153,29 @@
 
 
             <section class="grafico-section">
-                <h2>Gráficos de uso em porcentagem (%)</h2>
+                <div class="informacao">
+                    <div class="title1"><b>Gráficos de uso em porcentagem (%)</b></div>
+                    <div class="tooltip-container">
+                        <i class="fas fa-info-circle" id="infoIcon"></i> <!-- Ícone de informação -->
+                        <div class="tooltip-box" id="msgBox">
+                            <span class="tooltip-message">Gráficos de CPU e RAM em tempo real exibindo captura a cada 1 minuto.
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div class="graf">
                     <div class="graf-titu">
                         <h3>CPU</h3>
-                        <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                        
+                            <canvas id="CpuChart" style="position: relative; height:15vh; width:10vw"></canvas>
+
+                        
                     </div>
                     <div class="graf-titu">
                         <h3>RAM</h3>
-                        <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                        
+                            <canvas id="RamChart" style="position: relative; height:15vh; width:10vw"></canvas>
+                        
                     </div>
                 </div>
             </section>
@@ -476,16 +509,16 @@
 
                     // Cria e insere os elementos para cada indicador (CPU, RAM, Download, Upload)
                     let indicadores = [
-                        { nome: "CPU", valor: dados[0].CPU, sufixo: "%" },
-                        { nome: "RAM", valor: dados[0].RAM, sufixo: "%" },
+                        { nome: "CPU", valor: dados[0].CPU.toFixed(2), sufixo: "%" },
+                        { nome: "RAM", valor: dados[0].RAM.toFixed(2), sufixo: "%" },
                         {
                             nome: "Recebidos",
-                            valor: (dados[0].Download * 1024).toFixed(1), // Converte MB para KB e arredonda
+                            valor:dados[0].Download.toFixed(2), // Converte MB para KB e arredonda
                             sufixo: "KB"
                         },
                         {
                             nome: "Enviados",
-                            valor: (dados[0].Upload * 1024).toFixed(1), // Converte MB para KB e arredonda
+                            valor: dados[0].Upload.toFixed(2), // Converte MB para KB e arredonda
                             sufixo: "KB"
                         }
                     ];
